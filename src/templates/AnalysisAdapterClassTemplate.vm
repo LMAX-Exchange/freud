@@ -1,0 +1,30 @@
+// Freud generated code ${context.getDateString()}
+package $context.PackageName;
+
+import org.langera.freud.*;
+import org.langera.freud.dsl.*;
+import ${adapter.getType().getName()};
+import ${adapter.getNestedType().getName()};
+#foreach($import in $adapter.AdditionalImports)
+import $import;    
+#end
+
+public final class $adapter.Name implements NestedTypeAnalysisAdapter<${adapter.getType().getSimpleName()}, ${adapter.getNestedType().getSimpleName()}>
+{
+    private static final $adapter.Name SINGLETON = new ${adapter.Name}();
+
+    private ${adapter.Name}()
+    {
+        // singleton
+    }
+
+    public static $adapter.Name getInstance()
+    {
+        return SINGLETON;
+    }
+
+    public Iterable<${adapter.getNestedType().getSimpleName()}> getNestedObjectsToAnalyse(${adapter.getType().getSimpleName()} toBeAnalysed)
+    {
+        ${adapter.getAdapterCode().replace("<ToBeAnalysed>", "toBeAnalysed")}
+    }
+}

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="freud-examples" default="test:examples" basedir=".">
+
+    <import file="build.xml"/>
+
+    <target name="test:examples"
+            depends="test:examples:class,
+                     test:examples:css,
+                     test:examples:javasource,
+                     test:examples:spring,
+                     test:examples:properties,
+                     test:examples:text">
+    </target>
+
+    <target name="test:examples:css" depends="dist, test:build">
+        <test_examples type="css"/>
+    </target>
+
+    <target name="test:examples:text" depends="dist, test:build">
+        <test_examples type="text"/>
+    </target>
+
+    <target name="test:examples:class" depends="dist, test:build">
+        <test_examples type="aclass"/>
+    </target>
+
+    <target name="test:examples:javasource" depends="dist, test:build">
+        <test_examples type="javasource"/>
+    </target>
+
+    <target name="test:examples:properties" depends="dist, test:build">
+        <test_examples type="properties"/>
+    </target>
+
+    <target name="test:examples:spring" depends="dist, test:build">
+        <test_examples type="spring"/>
+    </target>
+
+    <path id="css.test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${dir.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset refid="trace-listener"/>
+        <fileset refid="antlr-parser"/>
+    </path>
+
+
+    <path id="text.test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${dir.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset refid="trace-listener"/>        
+    </path>
+
+    <path id="aclass.test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${dir.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset refid="trace-listener"/>
+    </path>
+
+    <path id="javasource.test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${dir.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset refid="trace-listener"/>
+        <fileset refid="antlr-parser"/>
+    </path>
+
+    <path id="properties.test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${dir.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset refid="trace-listener"/>
+    </path>
+
+    <path id="spring.test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset dir="${dir.test.lib}">
+            <include name="*.jar"/>
+        </fileset>
+        <fileset refid="trace-listener"/>
+        <fileset dir="${dir.optional.lib}">
+            <include name="spring-2.5.4.jar"/>
+        </fileset>
+    </path>
+
+    <fileset id="trace-listener" dir="${dir.optional.lib}">
+        <include name="commons-logging-1.1.jar"/>
+    </fileset>
+
+    <fileset id="antlr-parser" dir="${dir.optional.lib}">
+        <include name="antlr-runtime-3.2.jar"/>
+        <include name="jdom1.1.jar"/>
+        <include name="commons-jxpath-1.3.jar"/>
+    </fileset>
+
+    
+    <macrodef name="test_examples">
+        <attribute name="type"/>
+        <sequential>
+            <junit printsummary="on"
+                   fork="true"
+                   haltonfailure="true">
+                <classpath refid="@{type}.test.classpath"/>
+                <formatter type="plain"/>
+                <batchtest fork="true" todir="${dir.reports}">
+                    <fileset dir="${dir.test.src}">
+                        <include name="**/examples/@{type}/*Test.java"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+        </sequential>
+    </macrodef>
+
+</project>    

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="freud" default="all" basedir=".">
+
+    <property name="version" value="0.1"/>
+    <property name="dir.main.src" value="src/main"/>
+    <property name="dir.generated.src" value="src/generated"/>
+    <property name="dir.main.build" value="build/main/classes"/>
+    <property name="dir.main.lib" value="lib"/>
+    <property name="dir.optional.lib" value="lib/optional"/>
+    <property name="dir.test.lib" value="lib/test"/>
+
+    <property name="dir.test.resource" value="resource"/>
+    <property name="dir.test.src" value="src/test"/>
+    <property name="dir.test.build" value="build/test/classes"/>
+
+    <property name="dir.reports" value="build/reports"/>
+    <property name="dir.dist" value="build/dist"/>
+
+    <path id="main.classpath">
+        <pathelement location="${dir.main.build}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="test.classpath">
+        <pathelement location="${dir.test.build}"/>
+        <pathelement location="${dir.main.build}"/>
+        <pathelement location="${dir.test.resource}"/>
+        <fileset dir="${dir.main.lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean"
+            description="Remove the generated files">
+        <delete dir="build"/>
+    </target>
+
+    <target name="main:prepare">
+        <mkdir dir="${dir.main.build}"/>
+    </target>
+
+    <target name="test:prepare">
+        <mkdir dir="${dir.test.build}"/>
+        <mkdir dir="${dir.reports}"/>
+    </target>
+
+    <target name="build" depends="main:prepare"
+            description="Build main source code">
+        <javac destdir="${dir.main.build}"
+               debug="true"
+               debuglevel="lines,vars,source">
+            <classpath refid="main.classpath"/>
+            <src path="${dir.main.src}"/>
+            <src path="${dir.generated.src}"/>
+        </javac>
+
+    </target>
+
+    <target name="test:build"
+            depends="build,test:prepare"
+            description="Build test source code">
+        <javac destdir="${dir.test.build}"
+               debug="true"
+               nowarn="true">
+            <classpath refid="test.classpath"/>
+            <src path="${dir.test.src}"/>
+        </javac>
+    </target>
+
+    <target name="test"
+            depends="test:build"
+            description="Run the unit tests">
+        <junit printsummary="on"
+               fork="true"
+               haltonfailure="true">
+            <classpath refid="test.classpath"/>
+            <formatter type="plain"/>
+            <batchtest fork="true" todir="${dir.reports}">
+                <fileset dir="${dir.test.src}">
+                    <include name="**/*Test.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="dist"
+            depends="build"
+            description="Build a jar">
+        <mkdir dir="${dir.dist}"/>
+        <copy todir="${dir.main.build}">
+            <fileset dir="${dir.main.src}"/>
+            <fileset dir="${dir.generated.src}"/>
+        </copy>
+        <jar destfile="${dir.dist}/freud-${version}.jar"
+             basedir="${dir.main.build}">
+        </jar>
+    </target>
+
+    <target name="all">
+        <antcall target="clean"/>
+        <antcall target="build"/>
+        <antcall target="test"/>
+        <antcall target="dist"/>
+    </target>
+
+</project>

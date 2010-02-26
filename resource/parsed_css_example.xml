@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CSS>
+    <RULE>RULE
+        <CLASS id="shouldFail" lineNumber="1" colNumber="1">CLASS
+            <IDENT lineNumber="1" colNumber="1">shouldFail</IDENT>
+        </CLASS>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="3" colNumber="1">display</IDENT>
+            <IDENT lineNumber="3" colNumber="10">none</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
+        <TAG id="a" lineNumber="6" colNumber="0">TAG
+            <IDENT lineNumber="6" colNumber="0">a</IDENT>
+        </TAG>
+        <ID id="my-link-id" lineNumber="6" colNumber="3">ID
+            <IDENT lineNumber="6" colNumber="3">my-link-id</IDENT>
+        </ID>
+        <ID id="myOtherLinkId" lineNumber="6" colNumber="15">ID
+            <IDENT lineNumber="6" colNumber="15">myOtherLinkId</IDENT>
+        </ID>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="8" colNumber="1">display</IDENT>
+            <IDENT lineNumber="8" colNumber="10">none</IDENT>
+        </PROPERTY>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="8" colNumber="1">color</IDENT>
+            <IDENT lineNumber="8" colNumber="10">red</IDENT>
+        </PROPERTY>
+    </RULE>
+</CSS>
