@@ -29,13 +29,14 @@ public final class AnalysisResource
 {
     private AnalysisResource()
     {
+        // static utility
     }
 
     public static <T> AnalysedObjectIterator<T> filesByPathResourceIterator(
             ResourceParser<T> parser, FilenameFilter filenameFilter,
-            boolean recursive, String... filenames)
+            boolean recursive, String... filepaths)
     {
-        return new ResourceDirectoryIterator<T>(parser, true, filenameFilter, recursive, filenames);
+        return new ResourceDirectoryIterator<T>(parser, true, filenameFilter, recursive, filepaths);
     }
 
     public static <T> AnalysedObjectIterator<T> fileResourceIterator(ResourceParser<T> parser, String... filepaths)

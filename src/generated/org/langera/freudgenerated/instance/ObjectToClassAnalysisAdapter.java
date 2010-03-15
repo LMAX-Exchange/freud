@@ -1,4 +1,4 @@
-// Freud generated code 2010-02-14 19:03:25
+// Freud generated code 2010-03-15 22:02:26
 package org.langera.freudgenerated.instance;
 
 import org.langera.freud.*;

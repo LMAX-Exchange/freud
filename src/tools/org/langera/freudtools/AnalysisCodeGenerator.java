@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
  
 public final class AnalysisCodeGenerator
 {
-    private static final File JAVA_SRC_DIR = new File("src/java");
+    private static final File JAVA_SRC_DIR = new File("src/main");
     private static final File GENERATED_SRC_DIR = new File("src/generated");
     private static final Pattern METHOD_DECL_REGEX = Pattern.compile("\\{\\s*([^\\}]+)", Pattern.DOTALL);
     private static final Pattern IMPORT_REGEX = Pattern.compile("import\\s+([^;]+)");

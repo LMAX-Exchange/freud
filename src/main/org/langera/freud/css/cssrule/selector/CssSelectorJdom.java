@@ -50,4 +50,10 @@ public final class CssSelectorJdom implements CssSelector
     {
         return cssRule;
     }
+
+    @Override
+    public String toString()
+    {
+        return type + ":" + selectorString; 
+    }
 }

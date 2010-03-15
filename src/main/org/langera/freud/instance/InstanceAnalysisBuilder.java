@@ -1,7 +1,8 @@
 package org.langera.freud.instance;
 
 import org.langera.freud.AbstractAnalysisBuilder;
-import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.ReadableDsl;
+import org.langera.freud.instance.assertion.ToStringRegexMatchAnalysisAssertionAdapter;
 
 /**
  *   This file is part of "Freud".
@@ -30,8 +31,9 @@ public final class InstanceAnalysisBuilder extends AbstractAnalysisBuilder<Insta
         return Object.class;
     }
 
-    public BooleanOperatorDsl<InstanceAnalysisBuilder> instance()
+    public ReadableDsl<InstanceAnalysisBuilder> instance()
     {
-        return trueAssertion();
+        setRegexAssertionAdapterClass(ToStringRegexMatchAnalysisAssertionAdapter.class);
+        return (ReadableDsl<InstanceAnalysisBuilder>) trueAssertion();
     }
 }

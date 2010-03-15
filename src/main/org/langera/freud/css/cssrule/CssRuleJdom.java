@@ -95,4 +95,10 @@ public final class CssRuleJdom implements CssRule
             cssDeclarationList.add(new CssDeclarationJdom(this, element));
         }
     }
+
+    @Override
+    public String toString()
+    {
+        return "CSS Rule: " + cssSelectorList.toString();
+    }
 }

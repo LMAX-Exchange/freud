@@ -1,12 +1,12 @@
-// Freud generated code [InstanceAnalysis] [2010-02-14 19:03:25]
+// Freud generated code [InstanceAnalysis] [2010-03-15 22:02:26]
 package org.langera.freudgenerated.instance;
 
 import org.langera.freud.*;
 import org.langera.freud.dsl.*;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.instance.*;
 import org.langera.freud.aclass.*;
 import org.langera.freud.method.*;
+import org.langera.freud.instance.*;
 import java.lang.annotation.Annotation;
 import org.langera.freud.dsl.ReadableDsl;
 import java.lang.reflect.Method;
@@ -14,9 +14,9 @@ import org.langera.freud.dsl.BooleanOperatorDsl;
 
 public class InstanceAnalysis extends AbstractAnalysis<Object>
         implements
-                    InstanceDsl,
                     ClassDsl,
                     MethodDsl,
+                    InstanceDsl,
                     Analysis
 {
     public InstanceAnalysis(AnalysedObjectIterator<Object> objectAnalysedObjectIterator)
@@ -26,6 +26,14 @@ public class InstanceAnalysis extends AbstractAnalysis<Object>
 
     protected NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, Class nestedType)
     {
+                    if (type == Class.class)
+            {
+                                    if (nestedType == Method.class)
+                    {                                                
+                        return ClassToMethodAnalysisAdapter.getInstance();
+                    }
+                                return null;
+            }
                     if (type == Object.class)
             {
                                     if (nestedType == Class.class)
@@ -40,28 +48,13 @@ public class InstanceAnalysis extends AbstractAnalysis<Object>
                     }
                                 return null;
             }
-                    if (type == Class.class)
-            {
-                                    if (nestedType == Method.class)
-                    {                                                
-                        return ClassToMethodAnalysisAdapter.getInstance();
-                    }
-                                return null;
-            }
                 return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
-            public BooleanOperatorDsl<InstanceAnalysisBuilder> instance()
-        {
-
-            return new InstanceAnalysisBuilder().instance(
-                        );
-        }
-        
-                public ReadableDsl<ClassAnalysisBuilder> aClass()
+            public ReadableDsl<ClassAnalysisBuilder> aClass()
         {
 
             return new ClassAnalysisBuilder().aClass(
@@ -162,6 +155,13 @@ public class InstanceAnalysis extends AbstractAnalysis<Object>
         {
 
             return new MethodAnalysisBuilder().declaredMethod(
+                        );
+        }
+        
+                public ReadableDsl<InstanceAnalysisBuilder> instance()
+        {
+
+            return new InstanceAnalysisBuilder().instance(
                         );
         }
         

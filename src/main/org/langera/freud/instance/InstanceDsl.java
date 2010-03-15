@@ -1,6 +1,6 @@
 package org.langera.freud.instance;
 
-import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.ReadableDsl;
 
 /**
  *   This file is part of "Freud".
@@ -24,5 +24,5 @@ import org.langera.freud.dsl.BooleanOperatorDsl;
 public interface InstanceDsl
 {
 
-    BooleanOperatorDsl<InstanceAnalysisBuilder> instance();
+    ReadableDsl<InstanceAnalysisBuilder> instance();
 }
