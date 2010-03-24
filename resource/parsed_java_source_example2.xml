@@ -2,104 +2,135 @@
 <JAVA_SOURCE>
     <ANNOTATION_LIST>ANNOTATION_LIST</ANNOTATION_LIST>
     <PACKAGE lineNumber="1" colNumber="0">package
-        <DOT lineNumber="1" colNumber="19" id="examples">.
+        <DOT lineNumber="1" colNumber="19" id="test">.
             <DOT lineNumber="1" colNumber="11" id="org">.
                 <IDENT lineNumber="1" colNumber="8">org</IDENT>
                 <IDENT lineNumber="1" colNumber="12">langera</IDENT>
             </DOT>
-            <IDENT lineNumber="1" colNumber="20">examples</IDENT>
+            <IDENT lineNumber="1" colNumber="20">test</IDENT>
         </DOT>
     </PACKAGE>
-    <CLASS lineNumber="4" colNumber="7" id="SimpleClass">class
+    <DOT lineNumber="1" colNumber="120" id="print">.
+        <DOT lineNumber="1" colNumber="116" id="System">.
+            <IDENT lineNumber="1" colNumber="110">System</IDENT>
+            <IDENT lineNumber="1" colNumber="117">out</IDENT>
+        </DOT>
+        <IDENT lineNumber="1" colNumber="121">print</IDENT>
+    </DOT>
+    <IDENT lineNumber="1" colNumber="192">getClass</IDENT>
+    <DOT lineNumber="1" colNumber="207" id="o">.
+        <IDENT lineNumber="1" colNumber="206">o</IDENT>
+        <IDENT lineNumber="1" colNumber="208">getClass</IDENT>
+    </DOT>
+    <CLASS lineNumber="1" colNumber="33" id="TestShouldParseJavaSource">class
         <MODIFIER_LIST>MODIFIER_LIST
-            <AT lineNumber="3" colNumber="1" id="NoKey">@
-                <IDENT lineNumber="3" colNumber="1">NoKey</IDENT>
-            </AT>
-            <PUBLIC lineNumber="4" colNumber="0">public</PUBLIC>
+            <PUBLIC lineNumber="1" colNumber="26">public</PUBLIC>
         </MODIFIER_LIST>
-        <IDENT lineNumber="4" colNumber="13">SimpleClass</IDENT>
-        <CLASS_TOP_LEVEL_SCOPE lineNumber="5" colNumber="0">CLASS_TOP_LEVEL_SCOPE
-            <FUNCTION_METHOD_DECL id="toString">FUNCTION_METHOD_DECL
+        <IDENT lineNumber="1" colNumber="39">TestShouldParseJavaSource</IDENT>
+        <CLASS_TOP_LEVEL_SCOPE lineNumber="1" colNumber="65">CLASS_TOP_LEVEL_SCOPE
+            <FUNCTION_METHOD_DECL id="equals">FUNCTION_METHOD_DECL
                 <MODIFIER_LIST>MODIFIER_LIST
-                    <AT lineNumber="6" colNumber="3" id="WithDefaultKey">@
-                        <IDENT lineNumber="6" colNumber="3">WithDefaultKey</IDENT>
-                        <ANNOTATION_INIT_BLOCK lineNumber="6" colNumber="17">ANNOTATION_INIT_BLOCK
-                            <ANNOTATION_INIT_DEFAULT_KEY>ANNOTATION_INIT_DEFAULT_KEY
-                                <EXPR>EXPR
-                                    <STRING_LITERAL lineNumber="6" colNumber="18">"value"</STRING_LITERAL>
-                                </EXPR>
-                            </ANNOTATION_INIT_DEFAULT_KEY>
-                        </ANNOTATION_INIT_BLOCK>
-                    </AT>
-                    <AT lineNumber="7" colNumber="3" id="WithDefaultArray">@
-                        <IDENT lineNumber="7" colNumber="3">WithDefaultArray</IDENT>
-                        <ANNOTATION_INIT_BLOCK lineNumber="7" colNumber="19">ANNOTATION_INIT_BLOCK
-                            <ANNOTATION_INIT_DEFAULT_KEY>ANNOTATION_INIT_DEFAULT_KEY
-                                <ANNOTATION_INIT_ARRAY_ELEMENT lineNumber="7" colNumber="20">
-                                    ANNOTATION_ELEM_VALUE_ARRAY_INIT
-                                    <EXPR>EXPR
-                                        <STRING_LITERAL lineNumber="7" colNumber="21">"value1"</STRING_LITERAL>
-                                    </EXPR>
-                                    <EXPR>EXPR
-                                        <STRING_LITERAL lineNumber="7" colNumber="31">"value2"</STRING_LITERAL>
-                                    </EXPR>
-                                </ANNOTATION_INIT_ARRAY_ELEMENT>
-                            </ANNOTATION_INIT_DEFAULT_KEY>
-                        </ANNOTATION_INIT_BLOCK>
-                    </AT>
-                    <AT lineNumber="8" colNumber="3" id="Key">@
-                        <IDENT lineNumber="8" colNumber="3">Key</IDENT>
-                        <ANNOTATION_INIT_BLOCK lineNumber="8" colNumber="6">ANNOTATION_INIT_BLOCK
-                            <ANNOTATION_INIT_KEY_LIST>ANNOTATION_INIT_KEY_LIST
-                                <IDENT lineNumber="8" colNumber="8">key
-                                    <EXPR>EXPR
-                                        <STRING_LITERAL lineNumber="8" colNumber="14">"keyedValue"</STRING_LITERAL>
-                                    </EXPR>
-                                </IDENT>
-                            </ANNOTATION_INIT_KEY_LIST>
-                        </ANNOTATION_INIT_BLOCK>
-                    </AT>
-                    <AT lineNumber="9" colNumber="3" id="MultipleKey">@
-                        <IDENT lineNumber="9" colNumber="3">MultipleKey</IDENT>
-                        <ANNOTATION_INIT_BLOCK lineNumber="9" colNumber="14">ANNOTATION_INIT_BLOCK
-                            <ANNOTATION_INIT_KEY_LIST>ANNOTATION_INIT_KEY_LIST
-                                <IDENT lineNumber="9" colNumber="16">key1
-                                    <EXPR>EXPR
-                                        <STRING_LITERAL lineNumber="9" colNumber="23">"keyedValue"</STRING_LITERAL>
-                                    </EXPR>
-                                </IDENT>
-                                <IDENT lineNumber="9" colNumber="37">key2
-                                    <EXPR>EXPR
-                                        <DECIMAL_LITERAL lineNumber="9" colNumber="44">17</DECIMAL_LITERAL>
-                                    </EXPR>
-                                </IDENT>
-                            </ANNOTATION_INIT_KEY_LIST>
-                        </ANNOTATION_INIT_BLOCK>
-                    </AT>
-                    <PUBLIC lineNumber="10" colNumber="2">public</PUBLIC>
+                    <PUBLIC lineNumber="1" colNumber="71">public</PUBLIC>
                 </MODIFIER_LIST>
                 <TYPE>TYPE
-                    <QUALIFIED_TYPE_IDENT>QUALIFIED_TYPE_IDENT
-                        <IDENT lineNumber="10" colNumber="9">String</IDENT>
-                    </QUALIFIED_TYPE_IDENT>
+                    <BOOLEAN lineNumber="1" colNumber="78">boolean</BOOLEAN>
                 </TYPE>
-                <IDENT lineNumber="10" colNumber="16">toString</IDENT>
-                <FORMAL_PARAM_LIST lineNumber="10" colNumber="24">FORMAL_PARAM_LIST</FORMAL_PARAM_LIST>
-                <BLOCK_SCOPE lineNumber="11" colNumber="2">BLOCK_SCOPE
-                    <VAR_DECLARATION>VAR_DECLARATION
+                <IDENT lineNumber="1" colNumber="86">equals</IDENT>
+                <FORMAL_PARAM_LIST lineNumber="1" colNumber="92">FORMAL_PARAM_LIST
+                    <FORMAL_PARAM_STD_DECL>FORMAL_PARAM_STD_DECL
                         <LOCAL_MODIFIER_LIST>LOCAL_MODIFIER_LIST</LOCAL_MODIFIER_LIST>
                         <TYPE>TYPE
-                            <INT lineNumber="12" colNumber="7">int</INT>
+                            <QUALIFIED_TYPE_IDENT>QUALIFIED_TYPE_IDENT
+                                <IDENT lineNumber="1" colNumber="93">Object</IDENT>
+                            </QUALIFIED_TYPE_IDENT>
                         </TYPE>
-                        <VAR_DECLARATOR_LIST>VAR_DECLARATOR_LIST
-                            <VAR_DECLARATOR>VAR_DECLARATOR
-                                <IDENT lineNumber="12" colNumber="11">a1</IDENT>
+                        <IDENT lineNumber="1" colNumber="100">o</IDENT>
+                    </FORMAL_PARAM_STD_DECL>
+                </FORMAL_PARAM_LIST>
+                <BLOCK_SCOPE lineNumber="1" colNumber="107">BLOCK_SCOPE
+                    <EXPR>EXPR
+                        <METHOD_CALL>METHOD_CALL
+                            <DOT lineNumber="1" colNumber="120" id="print">.
+                                <DOT lineNumber="1" colNumber="116" id="System">.
+                                    <IDENT lineNumber="1" colNumber="110">System</IDENT>
+                                    <IDENT lineNumber="1" colNumber="117">out</IDENT>
+                                </DOT>
+                                <IDENT lineNumber="1" colNumber="121">print</IDENT>
+                            </DOT>
+                            <ARGUMENT_LIST lineNumber="1" colNumber="126">ARGUMENT_LIST
                                 <EXPR>EXPR
-                                    <DECIMAL_LITERAL lineNumber="12" colNumber="16">1</DECIMAL_LITERAL>
+                                    <DECIMAL_LITERAL lineNumber="1" colNumber="127">17</DECIMAL_LITERAL>
                                 </EXPR>
-                            </VAR_DECLARATOR>
-                        </VAR_DECLARATOR_LIST>
-                    </VAR_DECLARATION>
+                            </ARGUMENT_LIST>
+                        </METHOD_CALL>
+                    </EXPR>
+                    <IF lineNumber="1" colNumber="139">if
+                        <PARENTESIZED_EXPR lineNumber="1" colNumber="142">PARENTESIZED_EXPR
+                            <EXPR>EXPR
+                                <EQUAL lineNumber="1" colNumber="148">==
+                                    <THIS lineNumber="1" colNumber="143">this</THIS>
+                                    <IDENT lineNumber="1" colNumber="151">o</IDENT>
+                                </EQUAL>
+                            </EXPR>
+                        </PARENTESIZED_EXPR>
+                        <RETURN lineNumber="1" colNumber="154">return
+                            <EXPR>EXPR
+                                <TRUE lineNumber="1" colNumber="161">true</TRUE>
+                            </EXPR>
+                        </RETURN>
+                    </IF>
+                    <IF lineNumber="1" colNumber="175">if
+                        <PARENTESIZED_EXPR lineNumber="1" colNumber="178">PARENTESIZED_EXPR
+                            <EXPR>EXPR
+                                <LOGICAL_OR lineNumber="1" colNumber="189">||
+                                    <EQUAL lineNumber="1" colNumber="181">==
+                                        <IDENT lineNumber="1" colNumber="179">o</IDENT>
+                                        <NULL lineNumber="1" colNumber="184">null</NULL>
+                                    </EQUAL>
+                                    <NOT_EQUAL lineNumber="1" colNumber="203">!=
+                                        <METHOD_CALL>METHOD_CALL
+                                            <IDENT lineNumber="1" colNumber="192">getClass</IDENT>
+                                            <ARGUMENT_LIST lineNumber="1" colNumber="200">ARGUMENT_LIST</ARGUMENT_LIST>
+                                        </METHOD_CALL>
+                                        <METHOD_CALL>METHOD_CALL
+                                            <DOT lineNumber="1" colNumber="207" id="o">.
+                                                <IDENT lineNumber="1" colNumber="206">o</IDENT>
+                                                <IDENT lineNumber="1" colNumber="208">getClass</IDENT>
+                                            </DOT>
+                                            <ARGUMENT_LIST lineNumber="1" colNumber="216">ARGUMENT_LIST</ARGUMENT_LIST>
+                                        </METHOD_CALL>
+                                    </NOT_EQUAL>
+                                </LOGICAL_OR>
+                            </EXPR>
+                        </PARENTESIZED_EXPR>
+                        <RETURN lineNumber="1" colNumber="220">return
+                            <EXPR>EXPR
+                                <FALSE lineNumber="1" colNumber="227">false</FALSE>
+                            </EXPR>
+                        </RETURN>
+                    </IF>
+                    <RETURN lineNumber="1" colNumber="243">return
+                        <EXPR>EXPR
+                            <TRUE lineNumber="1" colNumber="250">true</TRUE>
+                        </EXPR>
+                    </RETURN>
+                </BLOCK_SCOPE>
+            </FUNCTION_METHOD_DECL>
+            <FUNCTION_METHOD_DECL id="hashCode">FUNCTION_METHOD_DECL
+                <MODIFIER_LIST>MODIFIER_LIST
+                    <PUBLIC lineNumber="1" colNumber="267">public</PUBLIC>
+                </MODIFIER_LIST>
+                <TYPE>TYPE
+                    <INT lineNumber="1" colNumber="274">int</INT>
+                </TYPE>
+                <IDENT lineNumber="1" colNumber="278">hashCode</IDENT>
+                <FORMAL_PARAM_LIST lineNumber="1" colNumber="286">FORMAL_PARAM_LIST</FORMAL_PARAM_LIST>
+                <BLOCK_SCOPE lineNumber="1" colNumber="293">BLOCK_SCOPE
+                    <RETURN lineNumber="1" colNumber="303">return
+                        <EXPR>EXPR
+                            <DECIMAL_LITERAL lineNumber="1" colNumber="310">17</DECIMAL_LITERAL>
+                        </EXPR>
+                    </RETURN>
                 </BLOCK_SCOPE>
             </FUNCTION_METHOD_DECL>
         </CLASS_TOP_LEVEL_SCOPE>

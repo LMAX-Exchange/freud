@@ -1,16 +1,19 @@
-// Freud generated code [PropertyAnalysis] [2010-02-14 19:03:24]
+// Freud generated code [PropertyAnalysis] [2010-03-21 00:07:44]
 package org.langera.freudgenerated.property;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.property.*;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.dsl.ReadableDsl;
+import org.langera.freud.property.Property;
+import org.langera.freud.property.PropertyAnalysisBuilder;
+import org.langera.freud.property.PropertyDsl;
+import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 public class PropertyAnalysis extends AbstractAnalysis<Property>
         implements
-                    PropertyDsl,
-                    Analysis
+        PropertyDsl,
+        Analysis
 {
     public PropertyAnalysis(AnalysedObjectIterator<Property> propertyAnalysedObjectIterator)
     {
@@ -19,32 +22,32 @@ public class PropertyAnalysis extends AbstractAnalysis<Property>
 
     protected NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, Class nestedType)
     {
-                return null;
+        return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
-            public ReadableDsl<PropertyAnalysisBuilder> property()
-        {
+    public ReadableDsl<PropertyAnalysisBuilder> property()
+    {
 
-            return new PropertyAnalysisBuilder().property(
-                        );
-        }
-        
-            public ReadableDsl<PropertyAnalysisBuilder> propertyKey()
-        {
+        return new PropertyAnalysisBuilder().property(
+        );
+    }
 
-            return new PropertyAnalysisBuilder().propertyKey(
-                        );
-        }
-        
-            public ReadableDsl<PropertyAnalysisBuilder> propertyValue()
-        {
+    public ReadableDsl<PropertyAnalysisBuilder> propertyKey()
+    {
 
-            return new PropertyAnalysisBuilder().propertyValue(
-                        );
-        }
-        
-    
+        return new PropertyAnalysisBuilder().propertyKey(
+        );
+    }
+
+    public ReadableDsl<PropertyAnalysisBuilder> propertyValue()
+    {
+
+        return new PropertyAnalysisBuilder().propertyValue(
+        );
+    }
+
+
 }

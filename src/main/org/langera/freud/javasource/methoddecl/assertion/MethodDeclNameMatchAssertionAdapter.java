@@ -1,9 +1,7 @@
-package org.langera.freud.javasource.classdecl;
+package org.langera.freud.javasource.methoddecl.assertion;
 
 import org.langera.freud.javasource.methoddecl.MethodDeclaration;
-
-import java.util.List;
-import java.util.Map;
+import org.langera.freud.util.regex.RegexMatchAnalysisAssertionAdapter;
 
 /**
  * This file is part of "Freud".
@@ -24,31 +22,15 @@ import java.util.Map;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public interface ClassDeclaration
+public final class MethodDeclNameMatchAssertionAdapter implements RegexMatchAnalysisAssertionAdapter<MethodDeclaration>
 {
-    public enum DeclarationType
+    public String getStringToMatch(MethodDeclaration toBeAnalysed)
     {
-        CLASS, INTERFACE, ENUM, ANNOTATION
+        return toBeAnalysed.getName();
     }
 
-    String[] getDeclaredClassAnnotations();
-
-    DeclarationType getDeclarationType();
-
-    String getName();
-
-    String getSuperclassName();
-
-    String[] getDeclaredImplementedInterfaceNames();
-
-    long getModifierMask();
-
-    //    Block getStaticBlock();
-
-    Map<String, List<MethodDeclaration>> getMethodDeclarationListByNameMap();
-
-    //    VarDeclaration[] getFieldDeclarations();
-
-    Map<String, ClassDeclaration> getInnerClassDeclarationByNameMap();
-//    AnnotationDeclaration[] getInnerAnnotationDeclarations();    
+    public String assertionDisplayName()
+    {
+        return "MethodDeclarationName";
+    }
 }

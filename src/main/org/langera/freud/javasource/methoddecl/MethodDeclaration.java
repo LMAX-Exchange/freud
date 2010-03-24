@@ -1,8 +1,7 @@
-package org.langera.freud.javasource.block;
+package org.langera.freud.javasource.methoddecl;
 
-import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.CountableDsl;
-import org.langera.freud.javasource.methoddecl.MethodDeclarationAnalysisBuilder;
+import org.langera.freud.javasource.annotation.Annotation;
+import org.langera.freud.javasource.block.CodeBlock;
 
 /**
  * This file is part of "Freud".
@@ -23,14 +22,15 @@ import org.langera.freud.javasource.methoddecl.MethodDeclarationAnalysisBuilder;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public interface CodeBlockDsl
+public interface MethodDeclaration
 {
-    BooleanOperatorDsl<CodeBlockAnalysisBuilder> codeBlock();
+    Annotation[] getDeclaredMethodAnnotations();
 
-    BooleanOperatorDsl<CodeBlockAnalysisBuilder> hasMethodCall(String methodCall);
+    String getName();
 
-    CountableDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines();
+    CodeBlock getImplementation();
 
-    BooleanOperatorDsl<CodeBlockAnalysisBuilder> method(
-            BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclarationDsl);
+
+//    long getModifierMask();
+//    VarDeclaration[] getParametersDeclarations();
 }

@@ -1,11 +1,10 @@
-// Freud generated code 2010-02-14 19:03:24
+// Freud generated code 2010-03-21 00:07:44
 package org.langera.freudgenerated.aclass;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import java.lang.Class;
+import org.langera.freud.NestedTypeAnalysisAdapter;
+
 import java.lang.reflect.Method;
-import java.util.Arrays;    
+import java.util.Arrays;
 
 public final class ClassToMethodAnalysisAdapter implements NestedTypeAnalysisAdapter<Class, Method>
 {

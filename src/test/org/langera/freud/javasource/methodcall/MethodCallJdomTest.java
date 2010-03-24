@@ -1,4 +1,4 @@
-package org.langera.freud.javasource.method;
+package org.langera.freud.javasource.methodcall;
 
 import org.jdom.Element;
 import org.jdom.filter.ElementFilter;
@@ -11,30 +11,30 @@ import org.langera.freudgenerated.javasource.parser.JavaSourceTokenType;
 import java.io.StringReader;
 import java.util.Iterator;
 
-public class MethodCallJdomTest 
+public class MethodCallJdomTest
 {
 
     private static final String CLASS_EXAMPLE =
             "package org.langera.examples;" +
-                    " " +
-                    "public class SimpleClass " +
-                    "{ " +
-                    "\n" +
-                    "  public String MyMethod()" +
-                    "  {" +
-                    "       Object o = toString();\n" +
-                    "       System.out.println();\n" +
-                    "       int i = o.hashCode();\n" +
-                    "  }" +
-                    "\n" +
-                    "}";
+            " " +
+            "public class SimpleClass " +
+            "{ " +
+            "\n" +
+            "  public String MyMethod()" +
+            "  {" +
+            "       Object o = toString();\n" +
+            "       System.out.println();\n" +
+            "       int i = o.hashCode();\n" +
+            "  }" +
+            "\n" +
+            "}";
     private Element localMethodCall;
     private Element staticMethodCall;
     private Element varMethodCall;
 
 
     @Test
-    public void testShouldParseLocalMethodCall() throws Exception 
+    public void testShouldParseLocalMethodCall() throws Exception
     {
         MethodCallJdom methodCall = new MethodCallJdom(localMethodCall);
 
@@ -64,17 +64,17 @@ public class MethodCallJdomTest
     }
 
 
-   @Before
+    @Before
     public void setUp() throws Exception
-   {
+    {
         JavaSourceJdom javaSourceJdom = new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name");
 
-       Iterator iterator = javaSourceJdom.getDocument().
-               getDescendants(new ElementFilter(JavaSourceTokenType.METHOD_CALL.getName()));
+        Iterator iterator = javaSourceJdom.getDocument().
+                getDescendants(new ElementFilter(JavaSourceTokenType.METHOD_CALL.getName()));
 
-       localMethodCall = (Element) iterator.next();
-       staticMethodCall = (Element) iterator.next();
-       varMethodCall = (Element) iterator.next();
+        localMethodCall = (Element) iterator.next();
+        staticMethodCall = (Element) iterator.next();
+        varMethodCall = (Element) iterator.next();
 
     }
 

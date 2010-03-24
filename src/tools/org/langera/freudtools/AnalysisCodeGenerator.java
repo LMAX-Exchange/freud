@@ -6,25 +6,12 @@ import org.apache.velocity.app.Velocity;
 import org.langera.freud.Builder;
 import org.langera.freud.util.io.IoUtil;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
- 
+
 public final class AnalysisCodeGenerator
 {
     private static final File JAVA_SRC_DIR = new File("src/main");
@@ -41,10 +28,12 @@ public final class AnalysisCodeGenerator
     private Map<Class, Class> builderClassByDslMap;
     private Map<Class, DslMethodDecl[]> methodDeclByDslMap;
     private String analysisClassName;
+    private Properties def;
 
-    public AnalysisCodeGenerator(File defFile)
+    public AnalysisCodeGenerator(File defFile, Properties def)
     {
         this.defFile = defFile;
+        this.def = def;
     }
 
     public static void main(String[] args)
@@ -55,12 +44,31 @@ public final class AnalysisCodeGenerator
             {
                 usage();
             }
-            for (int i = 0; i < args.length; i++)
+            if (checkAllFlag(args))
             {
-                AnalysisCodeGenerator generator = init(args[i]);
-                generator.parseDefinition();
-                generator.createAnalysis();
-                generator.createAdapters();
+                File pathDir = new File(args[1]);
+                List<File> propertiesFileList = new ArrayList<File>();
+                getPropertiesFiles(pathDir, propertiesFileList);
+                for (File defFile : propertiesFileList)
+                {
+                    Properties def = new Properties();
+                    def.load(new BufferedReader(new FileReader(defFile)));
+                    if (def.containsKey("package"))
+                    {
+                        generate(defFile, def);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < args.length; i++)
+                {
+                    final File defFile = new File(args[i]);
+                    verifyExist(defFile);
+                    Properties def = new Properties();
+                    def.load(new BufferedReader(new FileReader(defFile)));
+                    generate(defFile, def);
+                }
             }
             System.exit(0);
         }
@@ -71,11 +79,40 @@ public final class AnalysisCodeGenerator
         }
     }
 
+    private static void generate(File defFile, Properties def) throws Exception
+    {
+        AnalysisCodeGenerator generator = init(defFile, def);
+        generator.parseDefinition();
+        generator.createAnalysis();
+        generator.createAdapters();
+    }
+
+    private static boolean checkAllFlag(String[] args)
+    {
+        return (args.length == 2 && "-all".equals(args[0]));
+    }
+
+    private static void getPropertiesFiles(File pathDir, List<File> propertiesFileList)
+    {
+        File[] files = pathDir.listFiles();
+        for (int i = 0; i < files.length; i++)
+        {
+            File file = files[i];
+            if (file.isDirectory())
+            {
+                getPropertiesFiles(file, propertiesFileList);
+            }
+            else if (file.getName().endsWith(".properties"))
+            {
+                propertiesFileList.add(file);
+            }
+
+        }
+    }
+
     private void parseDefinition()
             throws IOException, ClassNotFoundException, IllegalAccessException, InstantiationException
     {
-        final Properties def = new Properties();
-        def.load(new BufferedReader(new FileReader(defFile)));
         packageName = def.getProperty("package");
         final String importsString = def.getProperty("imports");
         final String[] imports = (importsString == null) ? null : importsString.split("\\s*,\\s*");
@@ -124,13 +161,13 @@ public final class AnalysisCodeGenerator
             {
                 String child = children[i].trim();
                 final Properties childDef = new Properties();
-                final String childDefFilename = def.getProperty(child + ".def", child + ".properties");                
+                final String childDefFilename = def.getProperty(child + ".def", child + ".properties");
                 final File childDefFile = new File(defFileDir, childDefFilename);
                 childDef.load(new BufferedReader(new FileReader(childDefFile)));
                 final String childAdapterCode = def.getProperty(child + ".adapter");
                 final String childAdapterAdditionalImportsString = def.getProperty(child + ".adapter.imports");
                 final String[] childAdapterAdditionalImports = (childAdapterAdditionalImportsString == null) ? null :
-                        childAdapterAdditionalImportsString.split(",");
+                                                               childAdapterAdditionalImportsString.split(",");
                 parseChildrenDefinition(
                         childDef, type, childAdapterCode, childAdapterAdditionalImports, childDefFile.getParentFile());
             }
@@ -272,7 +309,7 @@ public final class AnalysisCodeGenerator
             if (adapterDef.getAdapterCode() != null)
             {
                 final File dir = new File(GENERATED_SRC_DIR.getAbsolutePath() + File.separatorChar +
-                                                adapterDef.getPackageName().replace('.', File.separatorChar));
+                                          adapterDef.getPackageName().replace('.', File.separatorChar));
                 final String classFileName = adapterDef.getName() + ".java";
                 final VelocityContext context = new VelocityContext();
                 context.put("context", this);
@@ -285,7 +322,7 @@ public final class AnalysisCodeGenerator
                     try
                     {
                         adapterTemplate.merge(context, writer);
-                        System.out.println("Generated adapter class [" + file.getAbsolutePath() + "]");                        
+                        System.out.println("Generated adapter class [" + file.getAbsolutePath() + "]");
                     }
                     finally
                     {
@@ -300,11 +337,9 @@ public final class AnalysisCodeGenerator
         }
     }
 
-    private static AnalysisCodeGenerator init(String defFilename) throws Exception
+    private static AnalysisCodeGenerator init(File defFile, Properties def) throws Exception
     {
-        final File defFile = new File(defFilename);
-        verifyExist(defFile);
-        AnalysisCodeGenerator generator = new AnalysisCodeGenerator(defFile);
+        AnalysisCodeGenerator generator = new AnalysisCodeGenerator(defFile, def);
         Velocity.init();
         return generator;
 
@@ -371,7 +406,7 @@ public final class AnalysisCodeGenerator
 
     private static void usage()
     {
-        System.err.println("Usage: java org.langera.freudtools.AnalysisCodeGenerator <def file>*");
+        System.err.println("Usage: java org.langera.freudtools.AnalysisCodeGenerator (-all <path>) (<def file>)*");
         System.exit(-1);
     }
 

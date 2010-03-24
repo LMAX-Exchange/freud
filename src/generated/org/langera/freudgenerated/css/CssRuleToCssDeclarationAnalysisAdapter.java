@@ -1,8 +1,7 @@
-// Freud generated code 2010-02-14 19:03:24
+// Freud generated code 2010-03-21 00:07:44
 package org.langera.freudgenerated.css;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.css.cssrule.CssRule;
 import org.langera.freud.css.cssrule.declaration.CssDeclaration;
 

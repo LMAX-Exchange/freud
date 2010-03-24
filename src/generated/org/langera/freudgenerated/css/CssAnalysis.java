@@ -1,24 +1,33 @@
-// Freud generated code [CssAnalysis] [2010-02-14 19:03:24]
+// Freud generated code [CssAnalysis] [2010-03-21 00:07:44]
 package org.langera.freudgenerated.css;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.css.cssrule.selector.*;
-import org.langera.freud.css.cssrule.*;
-import org.langera.freud.css.*;
-import org.langera.freud.css.cssrule.declaration.*;
-import org.langera.freud.dsl.ReadableDsl;
-import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
+import org.langera.freud.NestedTypeAnalysisAdapterChain;
+import org.langera.freud.css.Css;
+import org.langera.freud.css.CssAnalysisBuilder;
+import org.langera.freud.css.CssDsl;
+import org.langera.freud.css.cssrule.CssRule;
+import org.langera.freud.css.cssrule.CssRuleAnalysisBuilder;
+import org.langera.freud.css.cssrule.CssRuleDsl;
+import org.langera.freud.css.cssrule.declaration.CssDeclaration;
 import org.langera.freud.css.cssrule.declaration.CssDeclarationAnalysisBuilder;
+import org.langera.freud.css.cssrule.declaration.CssDeclarationDsl;
+import org.langera.freud.css.cssrule.selector.CssSelector;
+import org.langera.freud.css.cssrule.selector.CssSelectorAnalysisBuilder;
+import org.langera.freud.css.cssrule.selector.CssSelectorDsl;
+import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.ReadableDsl;
+import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 public class CssAnalysis extends AbstractAnalysis<Css>
         implements
-                    CssSelectorDsl,
-                    CssRuleDsl,
-                    CssDsl,
-                    CssDeclarationDsl,
-                    Analysis
+        CssSelectorDsl,
+        CssRuleDsl,
+        CssDeclarationDsl,
+        CssDsl,
+        Analysis
 {
     public CssAnalysis(AnalysedObjectIterator<Css> cssAnalysedObjectIterator)
     {
@@ -27,100 +36,100 @@ public class CssAnalysis extends AbstractAnalysis<Css>
 
     protected NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, Class nestedType)
     {
-                    if (type == CssRule.class)
+        if (type == Css.class)
+        {
+            if (nestedType == CssRule.class)
             {
-                                    if (nestedType == CssSelector.class)
-                    {                                                
-                        return CssRuleToCssSelectorAnalysisAdapter.getInstance();
-                    }
-                                    if (nestedType == CssDeclaration.class)
-                    {                                                
-                        return CssRuleToCssDeclarationAnalysisAdapter.getInstance();
-                    }
-                                return null;
+                return CssToCssRuleAnalysisAdapter.getInstance();
             }
-                    if (type == Css.class)
+            if (nestedType == CssSelector.class)
             {
-                                    if (nestedType == CssRule.class)
-                    {                                                
-                        return CssToCssRuleAnalysisAdapter.getInstance();
-                    }
-                                    if (nestedType == CssSelector.class)
-                    {                                                
-                        return NestedTypeAnalysisAdapterChain.createChain(
-			CssToCssRuleAnalysisAdapter.getInstance(),
-			CssRuleToCssSelectorAnalysisAdapter.getInstance());
-                    }
-                                    if (nestedType == CssDeclaration.class)
-                    {                                                
-                        return NestedTypeAnalysisAdapterChain.createChain(
-			CssToCssRuleAnalysisAdapter.getInstance(),
-			CssRuleToCssDeclarationAnalysisAdapter.getInstance());
-                    }
-                                return null;
+                return NestedTypeAnalysisAdapterChain.createChain(
+                        CssToCssRuleAnalysisAdapter.getInstance(),
+                        CssRuleToCssSelectorAnalysisAdapter.getInstance());
             }
-                return null;
+            if (nestedType == CssDeclaration.class)
+            {
+                return NestedTypeAnalysisAdapterChain.createChain(
+                        CssToCssRuleAnalysisAdapter.getInstance(),
+                        CssRuleToCssDeclarationAnalysisAdapter.getInstance());
+            }
+            return null;
+        }
+        if (type == CssRule.class)
+        {
+            if (nestedType == CssSelector.class)
+            {
+                return CssRuleToCssSelectorAnalysisAdapter.getInstance();
+            }
+            if (nestedType == CssDeclaration.class)
+            {
+                return CssRuleToCssDeclarationAnalysisAdapter.getInstance();
+            }
+            return null;
+        }
+        return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
-            public ReadableDsl<CssSelectorAnalysisBuilder> selector()
-        {
+    public ReadableDsl<CssSelectorAnalysisBuilder> selector()
+    {
 
-            return new CssSelectorAnalysisBuilder().selector(
-                        );
-        }
-        
-            public ReadableDsl<CssSelectorAnalysisBuilder> classSelector()
-        {
+        return new CssSelectorAnalysisBuilder().selector(
+        );
+    }
 
-            return new CssSelectorAnalysisBuilder().classSelector(
-                        );
-        }
-        
-            public ReadableDsl<CssSelectorAnalysisBuilder> tagSelector()
-        {
+    public ReadableDsl<CssSelectorAnalysisBuilder> classSelector()
+    {
 
-            return new CssSelectorAnalysisBuilder().tagSelector(
-                        );
-        }
-        
-            public ReadableDsl<CssSelectorAnalysisBuilder> idSelector()
-        {
+        return new CssSelectorAnalysisBuilder().classSelector(
+        );
+    }
 
-            return new CssSelectorAnalysisBuilder().idSelector(
-                        );
-        }
-        
-                public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
-        {
+    public ReadableDsl<CssSelectorAnalysisBuilder> tagSelector()
+    {
 
-            return new CssRuleAnalysisBuilder().cssRule(
-                        );
-        }
-        
-                public BooleanOperatorDsl<CssAnalysisBuilder> css()
-        {
+        return new CssSelectorAnalysisBuilder().tagSelector(
+        );
+    }
 
-            return new CssAnalysisBuilder().css(
-                        );
-        }
-        
-                public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
-        {
+    public ReadableDsl<CssSelectorAnalysisBuilder> idSelector()
+    {
 
-            return new CssDeclarationAnalysisBuilder().declaration(
-                        );
-        }
-        
-            public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(String regex)
-        {
+        return new CssSelectorAnalysisBuilder().idSelector(
+        );
+    }
 
-            return new CssDeclarationAnalysisBuilder().declarationValue(
-                            regex
-                                        );
-        }
-        
-    
+    public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
+    {
+
+        return new CssRuleAnalysisBuilder().cssRule(
+        );
+    }
+
+    public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
+    {
+
+        return new CssDeclarationAnalysisBuilder().declaration(
+        );
+    }
+
+    public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(String regex)
+    {
+
+        return new CssDeclarationAnalysisBuilder().declarationValue(
+                regex
+        );
+    }
+
+    public BooleanOperatorDsl<CssAnalysisBuilder> css()
+    {
+
+        return new CssAnalysisBuilder().css(
+        );
+    }
+
+
 }

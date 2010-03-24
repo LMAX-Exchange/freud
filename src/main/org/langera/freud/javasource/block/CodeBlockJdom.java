@@ -5,37 +5,32 @@ import org.jdom.Attribute;
 import org.jdom.DataConversionException;
 import org.jdom.Element;
 import org.langera.freud.javasource.classdecl.ClassDeclaration;
-import org.langera.freud.javasource.method.MethodCall;
-import org.langera.freud.javasource.method.MethodCallJdom;
-import org.langera.freud.javasource.method.MethodDeclaration;
+import org.langera.freud.javasource.methodcall.MethodCall;
+import org.langera.freud.javasource.methodcall.MethodCallJdom;
+import org.langera.freud.javasource.methoddecl.MethodDeclaration;
 import org.langera.freud.util.parser.JdomTreeAdaptor;
 import org.langera.freudgenerated.javasource.parser.JavaSourceTokenType;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
 public final class CodeBlockJdom implements CodeBlock
 {
@@ -109,7 +104,7 @@ public final class CodeBlockJdom implements CodeBlock
     public int getNumberOfLines()
     {
         Set<Integer> lineNumberSet = new HashSet<Integer>();
-        countLines((List<Element>)codeBlockElement.getChildren(), lineNumberSet);
+        countLines((List<Element>) codeBlockElement.getChildren(), lineNumberSet);
         return lineNumberSet.size();
     }
 
@@ -126,8 +121,8 @@ public final class CodeBlockJdom implements CodeBlock
     public String toString()
     {
         String context = (isStaticBlock()) ?
-                classDeclaration.toString() :
-                methodDeclaration.toString();
+                         classDeclaration.toString() :
+                         methodDeclaration.toString();
         return codeBlockType + ":" + context;
     }
 
@@ -143,8 +138,9 @@ public final class CodeBlockJdom implements CodeBlock
                 {
                     lineNumberSet.add(lineNumberAttribute.getIntValue());
                 }
-                countLines((List<Element>)element.getChildren(), lineNumberSet);
-            } catch (DataConversionException e)
+                countLines((List<Element>) element.getChildren(), lineNumberSet);
+            }
+            catch (DataConversionException e)
             {
                 throw new IllegalStateException("LineNumber attribute value [" + lineNumberAttribute + "] not parsed to int");
             }

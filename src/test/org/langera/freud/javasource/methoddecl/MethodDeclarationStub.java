@@ -1,4 +1,4 @@
-package org.langera.freud.javasource.method;
+package org.langera.freud.javasource.methoddecl;
 
 import org.langera.freud.javasource.annotation.Annotation;
 import org.langera.freud.javasource.block.CodeBlock;

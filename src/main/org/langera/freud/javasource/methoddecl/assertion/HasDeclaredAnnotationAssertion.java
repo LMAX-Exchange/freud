@@ -1,34 +1,34 @@
-package org.langera.freud.javasource.method.assertion;
+package org.langera.freud.javasource.methoddecl.assertion;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
 import org.langera.freud.AnalysisAssertion;
 import org.langera.freud.javasource.annotation.Annotation;
-import org.langera.freud.javasource.method.MethodDeclaration;
+import org.langera.freud.javasource.methoddecl.MethodDeclaration;
 
 import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
 public final class HasDeclaredAnnotationAssertion implements AnalysisAssertion<MethodDeclaration>
 {
@@ -78,7 +78,7 @@ public final class HasDeclaredAnnotationAssertion implements AnalysisAssertion<M
             {
                 if (defaultValueMatcher != null)
                 {
-                    return defaultValueMatcher.matches(declaredAnnotation.getDefaultParameter());                    
+                    return defaultValueMatcher.matches(declaredAnnotation.getDefaultParameter());
                 }
                 else if (keyMatcher != null || valueMatcher != null)
                 {

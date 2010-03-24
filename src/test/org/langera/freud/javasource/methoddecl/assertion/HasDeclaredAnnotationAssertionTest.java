@@ -1,11 +1,11 @@
-package org.langera.freud.javasource.method.assertion;
+package org.langera.freud.javasource.methoddecl.assertion;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.langera.freud.javasource.annotation.Annotation;
 import org.langera.freud.javasource.annotation.AnnotationStub;
-import org.langera.freud.javasource.method.MethodDeclarationStub;
+import org.langera.freud.javasource.methoddecl.MethodDeclarationStub;
 
 public class HasDeclaredAnnotationAssertionTest
 {
@@ -19,9 +19,9 @@ public class HasDeclaredAnnotationAssertionTest
         Assert.assertTrue(nameAssertion.analyse(
                 new MethodDeclarationStub("",
                         new Annotation[]
-                        {
-                            new AnnotationStub("SuppressWarnings", null, null, null)
-                        }, null)));
+                                {
+                                        new AnnotationStub("SuppressWarnings", null, null, null)
+                                }, null)));
     }
 
     @Test
@@ -30,9 +30,9 @@ public class HasDeclaredAnnotationAssertionTest
         Assert.assertTrue(nameAndDefaultValueAssertion.analyse(
                 new MethodDeclarationStub("",
                         new Annotation[]
-                        {
-                            new AnnotationStub("SuppressWarnings", "\"unused\"", null, null)
-                        }, null)));
+                                {
+                                        new AnnotationStub("SuppressWarnings", "\"unused\"", null, null)
+                                }, null)));
     }
 
     @Test
@@ -41,9 +41,9 @@ public class HasDeclaredAnnotationAssertionTest
         Assert.assertFalse(nameAndDefaultValueAssertion.analyse(
                 new MethodDeclarationStub("",
                         new Annotation[]
-                        {
-                            new AnnotationStub("SuppressWarnings", "\"unchecked\"", null, null)
-                        }, null)));
+                                {
+                                        new AnnotationStub("SuppressWarnings", "\"unchecked\"", null, null)
+                                }, null)));
     }
 
     @Test
@@ -52,9 +52,9 @@ public class HasDeclaredAnnotationAssertionTest
         Assert.assertTrue(nameAndValueAssertion.analyse(
                 new MethodDeclarationStub("",
                         new Annotation[]
-                        {
-                            new AnnotationStub("Test", null, "\"expected\"", "\"IllegalStateException.class\"")
-                        }, null)));
+                                {
+                                        new AnnotationStub("Test", null, "\"expected\"", "\"IllegalStateException.class\"")
+                                }, null)));
     }
 
     @Test
@@ -63,9 +63,9 @@ public class HasDeclaredAnnotationAssertionTest
         Assert.assertFalse(nameAndValueAssertion.analyse(
                 new MethodDeclarationStub("",
                         new Annotation[]
-                        {
-                            new AnnotationStub("Test", null, "\"expected\"", "17")
-                        }, null)));
+                                {
+                                        new AnnotationStub("Test", null, "\"expected\"", "17")
+                                }, null)));
     }
 
 

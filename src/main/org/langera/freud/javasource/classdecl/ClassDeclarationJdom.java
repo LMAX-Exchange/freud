@@ -3,8 +3,8 @@ package org.langera.freud.javasource.classdecl;
 import org.apache.commons.jxpath.JXPathContext;
 import org.jdom.Element;
 import org.langera.freud.javasource.JavaSourceJdom;
-import org.langera.freud.javasource.method.MethodDeclaration;
-import org.langera.freud.javasource.method.MethodDeclarationJdom;
+import org.langera.freud.javasource.methoddecl.MethodDeclaration;
+import org.langera.freud.javasource.methoddecl.MethodDeclarationJdom;
 import org.langera.freud.util.parser.JdomTreeAdaptor;
 import org.langera.freudgenerated.javasource.parser.JavaSourceTokenType;
 
@@ -14,23 +14,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
 public final class ClassDeclarationJdom implements ClassDeclaration
 {
@@ -97,7 +97,7 @@ public final class ClassDeclarationJdom implements ClassDeclaration
         {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
             List<Element> methodDeclElementList =
-                        context.selectNodes("//" + JavaSourceTokenType.FUNCTION_METHOD_DECL.getName());
+                    context.selectNodes("//" + JavaSourceTokenType.FUNCTION_METHOD_DECL.getName());
             methodDeclarationListByNameMap = new HashMap<String, List<MethodDeclaration>>();
             for (Element methodElement : methodDeclElementList)
             {
