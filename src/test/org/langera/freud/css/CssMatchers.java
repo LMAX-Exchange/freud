@@ -3,10 +3,12 @@ package org.langera.freud.css;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.junit.internal.matchers.TypeSafeMatcher;
+import org.langera.freud.css.cssrule.CssRule;
 import org.langera.freud.css.cssrule.declaration.CssDeclaration;
 import org.langera.freud.css.cssrule.selector.CssSelector;
 
 import java.util.Arrays;
+import java.util.List;
 
 public final class CssMatchers
 {
@@ -20,9 +22,55 @@ public final class CssMatchers
         return new CssDeclarationMatcher(key, values);
     }
 
+    public static Matcher<CssRule> cssRule(final Matcher<CssSelector>... cssSelectorMatcher)
+    {
+        return new CssRuleByItsSelectorsMatcher(cssSelectorMatcher);
+    }
+
     private CssMatchers()
     {
         // static utility
+    }
+
+    private static class CssRuleByItsSelectorsMatcher extends TypeSafeMatcher<CssRule>
+    {
+        private final Matcher<CssSelector>[] cssSelectorMatcher;
+
+        private CssRuleByItsSelectorsMatcher(final Matcher<CssSelector>... cssSelectorMatcher)
+        {
+            this.cssSelectorMatcher = cssSelectorMatcher;
+        }
+
+        @Override
+        public boolean matchesSafely(CssRule cssRule)
+        {
+            List<CssSelector> cssSelectorList = cssRule.getCssSelectorList();
+            for (int i = 0; i < cssSelectorMatcher.length; i++)
+            {
+                Matcher<CssSelector> matcher = cssSelectorMatcher[i];
+                if (!matcher.matches(cssSelectorList.get(i)))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText("CssRule[");
+            for (int i = 0; i < cssSelectorMatcher.length; i++)
+            {
+                if (i > 0)
+                {
+                    description.appendText(", ");
+                }
+                Matcher<CssSelector> matcher = cssSelectorMatcher[i];
+                matcher.describeTo(description);
+            }
+            description.appendText("]");
+        }
     }
 
     private static class CssSelectorMatcher extends TypeSafeMatcher<CssSelector>

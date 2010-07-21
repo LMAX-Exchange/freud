@@ -1,4 +1,4 @@
-// Freud generated code 2010-03-21 00:07:44
+// Freud generated code 2010-07-21 21:22:44
 package org.langera.freudgenerated.javasource;
 
 import org.langera.freud.NestedTypeAnalysisAdapter;
@@ -31,10 +31,7 @@ public final class ClassDeclarationToCodeBlockAnalysisAdapter implements NestedT
         for (MethodDeclaration methodDeclaration : methodDeclarationCollection)
         {
             final CodeBlock implementation = methodDeclaration.getImplementation();
-            if (implementation != null)
-            {
-                codeBlockCollection.add(implementation);
-            }
+            if (implementation != null) {codeBlockCollection.add(implementation);}
         }
         return codeBlockCollection;
     }

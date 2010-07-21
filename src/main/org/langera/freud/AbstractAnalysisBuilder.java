@@ -1,10 +1,7 @@
 package org.langera.freud;
 
-import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.CountableDsl;
-import org.langera.freud.dsl.FilterDsl;
-import org.langera.freud.dsl.ReadableDsl;
-import org.langera.freud.dsl.UnaryBooleanOperatorDsl;
+import org.hamcrest.Matcher;
+import org.langera.freud.dsl.*;
 import org.langera.freud.util.regex.RegexMatchAnalysisAssertion;
 import org.langera.freud.util.regex.RegexMatchAnalysisAssertionAdapter;
 
@@ -14,30 +11,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
 public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl, T>
         implements Builder<T>,
         BooleanOperatorDsl<ThisDsl>,
         UnaryBooleanOperatorDsl<ThisDsl>,
+// TODO       MatchableDsl<ThisDsl>,
         ReadableDsl<ThisDsl>,
-        CountableDsl<ThisDsl>
+        NumericOperatorDsl<ThisDsl>
 {
     private Constructor<? extends RegexMatchAnalysisAssertionAdapter> currentRegexAssertionConstructor = null;
     private AnalysisCalculation<T> currentCalculation = null;
@@ -51,7 +49,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     {
         setAssertion(AnalysisUtils.<T>trueAssertion());
         return this;
-    }        
+    }
 
     @SuppressWarnings("unchecked")
     public BooleanOperatorDsl<ThisDsl> and(final BooleanOperatorDsl<ThisDsl> dsl)
@@ -82,6 +80,15 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
+    @SuppressWarnings("unchecked")
+    public BooleanOperatorDsl<ThisDsl> have(final Matcher<T> matcher)
+    {
+        // cheat IDEs by downcasting
+        // (.. and making sure every DSL is also a builder).
+        setAssertion(AnalysisUtils.hamcrestMatcherAssertion(matcher));
+        return this;
+    }
+
     ///////////////////////////////////////////////////////////////////////
     // Readable DSL
 
@@ -103,7 +110,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         try
         {
             setAssertion((AnalysisAssertion<T>) new RegexMatchAnalysisAssertion(regex, fullMatch,
-                                                        currentRegexAssertionConstructor.newInstance()));
+                                                                                currentRegexAssertionConstructor.newInstance()));
         }
         catch (InvocationTargetException e)
         {
@@ -120,61 +127,61 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     ///////////////////////////////////////////////////////////////////////
-    // Countable DSL
+    // Numeric Operator DSL
 
     @SuppressWarnings("unchecked")
-    public CountableDsl<ThisDsl> add(CountableDsl<ThisDsl> dsl)
+    public NumericOperatorDsl<ThisDsl> add(NumericOperatorDsl<ThisDsl> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).        
         updateCalculation(AnalysisUtils.addOperatorCalculation(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                               ((Builder) dsl).buildCalculation()));
         return this;
     }
 
-    public CountableDsl<ThisDsl> add(int value)
+    public NumericOperatorDsl<ThisDsl> add(int value)
     {
         updateCalculation(AnalysisUtils.addOperatorCalculation(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                               AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public CountableDsl<ThisDsl> multiply(CountableDsl<ThisDsl> dsl)
+    public NumericOperatorDsl<ThisDsl> multiply(NumericOperatorDsl<ThisDsl> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         updateCalculation(AnalysisUtils.multiplyOperatorCalculation(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                                    ((Builder) dsl).buildCalculation()));
         return this;
     }
 
-    public CountableDsl<ThisDsl> multiply(int value)
+    public NumericOperatorDsl<ThisDsl> multiply(int value)
     {
         updateCalculation(AnalysisUtils.multiplyOperatorCalculation(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                                    AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public CountableDsl<ThisDsl> subtract(CountableDsl<ThisDsl> dsl)
+    public NumericOperatorDsl<ThisDsl> subtract(NumericOperatorDsl<ThisDsl> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         updateCalculation(AnalysisUtils.subtractOperatorCalculation(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                                    ((Builder) dsl).buildCalculation()));
         return this;
     }
 
-    public CountableDsl<ThisDsl> subtract(int value)
+    public NumericOperatorDsl<ThisDsl> subtract(int value)
     {
         updateCalculation(AnalysisUtils.subtractOperatorCalculation(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                                    AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> equalTo(CountableDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<ThisDsl> equalTo(NumericOperatorDsl<ThisDsl> dsl)
     {
         if (currentCalculation == null)
         {
@@ -183,7 +190,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         setAssertion(AnalysisUtils.equalOperatorAssertion(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                          ((Builder) dsl).buildCalculation()));
         return this;
     }
 
@@ -194,12 +201,12 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
             throw new AnalysisInitialisationException("Cannot build numeric assertion for == " + value);
         }
         setAssertion(AnalysisUtils.equalOperatorAssertion(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                          AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> greaterThanOrEqualTo(CountableDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<ThisDsl> greaterThanOrEqualTo(NumericOperatorDsl<ThisDsl> dsl)
     {
         if (currentCalculation == null)
         {
@@ -208,7 +215,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         setAssertion(AnalysisUtils.greaterThanEqualOperatorAssertion(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                                     ((Builder) dsl).buildCalculation()));
 
         return this;
     }
@@ -220,12 +227,12 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
             throw new AnalysisInitialisationException("Cannot build numeric assertion for >= " + value);
         }
         setAssertion(AnalysisUtils.greaterThanEqualOperatorAssertion(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                                     AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> lessThanOrEqualTo(CountableDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<ThisDsl> lessThanOrEqualTo(NumericOperatorDsl<ThisDsl> dsl)
     {
         if (currentCalculation == null)
         {
@@ -234,7 +241,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         setAssertion(AnalysisUtils.lessThanEqualOperatorAssertion(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                                  ((Builder) dsl).buildCalculation()));
         return this;
     }
 
@@ -245,12 +252,12 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
             throw new AnalysisInitialisationException("Cannot build numeric assertion for =< " + value);
         }
         setAssertion(AnalysisUtils.lessThanEqualOperatorAssertion(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                                  AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> greaterThan(CountableDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<ThisDsl> greaterThan(NumericOperatorDsl<ThisDsl> dsl)
     {
         if (currentCalculation == null)
         {
@@ -259,7 +266,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         setAssertion(AnalysisUtils.greaterThanOperatorAssertion(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                                ((Builder) dsl).buildCalculation()));
         return this;
     }
 
@@ -270,12 +277,12 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
             throw new AnalysisInitialisationException("Cannot build numeric assertion for > " + value);
         }
         setAssertion(AnalysisUtils.greaterThanOperatorAssertion(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                                AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> lessThan(CountableDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<ThisDsl> lessThan(NumericOperatorDsl<ThisDsl> dsl)
     {
         if (currentCalculation == null)
         {
@@ -284,7 +291,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
         setAssertion(AnalysisUtils.lessThanOperatorAssertion(currentCalculation,
-                ((Builder) dsl).buildCalculation()));
+                                                             ((Builder) dsl).buildCalculation()));
         return this;
     }
 
@@ -295,7 +302,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
             throw new AnalysisInitialisationException("Cannot build numeric assertion for < " + value);
         }
         setAssertion(AnalysisUtils.lessThanOperatorAssertion(currentCalculation,
-                AnalysisUtils.<T>noOpCalculation(value)));
+                                                             AnalysisUtils.<T>noOpCalculation(value)));
         return this;
     }
 

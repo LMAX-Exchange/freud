@@ -19,7 +19,7 @@ public final class CssJdomTest
     {
         List<CssRule> cssRuleList = cssJdom.getCssRuleList();
 
-        Assert.assertEquals(2, cssRuleList.size());
+        Assert.assertEquals(5, cssRuleList.size());
     }
 
     @Before

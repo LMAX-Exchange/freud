@@ -3,7 +3,7 @@ package org.langera.freud.javasource.block;
 import org.langera.freud.AbstractAnalysisBuilder;
 import org.langera.freud.Builder;
 import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.CountableDsl;
+import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.javasource.block.assertion.CodeBlockNumberOfLinesCalculation;
 import org.langera.freud.javasource.block.assertion.HasMethodCallAssertion;
 import org.langera.freud.javasource.block.assertion.MethodDeclAssertionDelegator;
@@ -51,7 +51,7 @@ public final class CodeBlockAnalysisBuilder extends AbstractAnalysisBuilder<Code
         return this;
     }
 
-    public CountableDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines()
+    public NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines()
     {
         setCalculation(CodeBlockNumberOfLinesCalculation.getInstance());
         return this;

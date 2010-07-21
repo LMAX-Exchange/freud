@@ -1,4 +1,4 @@
-// Freud generated code [InstanceAnalysis] [2010-03-21 00:07:44]
+// Freud generated code [InstanceAnalysis] [2010-07-21 21:22:44]
 package org.langera.freudgenerated.instance;
 
 import org.langera.freud.AbstractAnalysis;
@@ -20,8 +20,8 @@ import java.lang.reflect.Method;
 
 public class InstanceAnalysis extends AbstractAnalysis<Object>
         implements
-        InstanceDsl,
         MethodDsl,
+        InstanceDsl,
         ClassDsl,
         Analysis
 {
@@ -59,13 +59,6 @@ public class InstanceAnalysis extends AbstractAnalysis<Object>
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
-
-    public ReadableDsl<InstanceAnalysisBuilder> instance()
-    {
-
-        return new InstanceAnalysisBuilder().instance(
-        );
-    }
 
     public ReadableDsl<MethodAnalysisBuilder> method()
     {
@@ -108,6 +101,13 @@ public class InstanceAnalysis extends AbstractAnalysis<Object>
     {
 
         return new MethodAnalysisBuilder().declaredMethod(
+        );
+    }
+
+    public ReadableDsl<InstanceAnalysisBuilder> instance()
+    {
+
+        return new InstanceAnalysisBuilder().instance(
         );
     }
 

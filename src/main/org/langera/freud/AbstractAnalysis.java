@@ -5,46 +5,42 @@ import org.langera.freud.dsl.FilterDsl;
 import org.langera.freud.dsl.UnaryBooleanOperatorDsl;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
 public abstract class AbstractAnalysis<Type> implements Analysis
 {
     private static final ThreadLocal<Map<Class, AnalysedObjectIterator>> CONTEXT =
-        new ThreadLocal<Map<Class, AnalysedObjectIterator>>()
-        {
-            @Override
-            protected Map<Class, AnalysedObjectIterator> initialValue()
+            new ThreadLocal<Map<Class, AnalysedObjectIterator>>()
             {
-                return new HashMap<Class, AnalysedObjectIterator>();
-            }                        
-        };
-    
+                @Override
+                protected Map<Class, AnalysedObjectIterator> initialValue()
+                {
+                    return new HashMap<Class, AnalysedObjectIterator>();
+                }
+            };
+
     @SuppressWarnings("unchecked")
     public static <T> T getCurrentlyAnalysed(Class<T> type)
     {

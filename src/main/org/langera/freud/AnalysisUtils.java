@@ -1,5 +1,8 @@
 package org.langera.freud;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.StringDescription;
 import org.langera.freud.listener.AnalysisListenerChain;
 import org.langera.freud.listener.AssertionErrorAnalysisListener;
 import org.langera.freud.listener.TraceAnalysisListener;
@@ -8,23 +11,23 @@ import java.util.List;
 
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
 public final class AnalysisUtils
 {
@@ -46,6 +49,13 @@ public final class AnalysisUtils
     {
         return new NegateAnalysisAssertion(assertion);
     }
+
+    @SuppressWarnings("unchecked")
+    public static <T> AnalysisAssertion<T> hamcrestMatcherAssertion(Matcher<T> matcher)
+    {
+        return new HamcrestMatcherAssertion(matcher);
+    }
+
 
     @SuppressWarnings("unchecked")
     public static <T> AnalysisAssertion<T> andOperatorAssertion(
@@ -185,25 +195,6 @@ public final class AnalysisUtils
         }
 
         @Override
-        public boolean equals(Object o)
-        {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            NegateAnalysisAssertion that = (NegateAnalysisAssertion) o;
-
-            if (!assertion.equals(that.assertion)) return false;
-
-            return true;
-        }
-
-        @Override
-        public int hashCode()
-        {
-            return assertion.hashCode();
-        }
-
-        @Override
         public String toString()
         {
             return "(NOT " + assertion + ")";
@@ -248,10 +239,33 @@ public final class AnalysisUtils
         }
     }
 
+    private static class HamcrestMatcherAssertion<T> implements AnalysisAssertion<T>
+    {
+        private final Matcher<T> matcher;
+
+        private HamcrestMatcherAssertion(Matcher<T> matcher)
+        {
+            this.matcher = matcher;
+        }
+
+        public boolean analyse(T toBeAnalysed)
+        {
+            return matcher.matches(toBeAnalysed);
+        }
+
+        @Override
+        public String toString()
+        {
+            final Description description = new StringDescription();
+            matcher.describeTo(description);
+            return description.toString();
+        }
+    }
+
     private static abstract class AbstractBinaryOpAnalysisAssertion<T> implements AnalysisAssertion<T>
     {
-        private AnalysisAssertion<T> left;
-        private AnalysisAssertion<T> right;
+        private final AnalysisAssertion<T> left;
+        private final AnalysisAssertion<T> right;
 
         public AbstractBinaryOpAnalysisAssertion(final AnalysisAssertion<T> left, final AnalysisAssertion<T> right)
         {
@@ -267,40 +281,6 @@ public final class AnalysisUtils
         public AnalysisAssertion<T> getRight()
         {
             return right;
-        }
-
-        @Override
-        public boolean equals(Object o)
-        {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            AbstractBinaryOpAnalysisAssertion that = (AbstractBinaryOpAnalysisAssertion) o;
-
-            if (!left.equals(that.left))
-            {
-                if (!left.equals(that.right))
-                {
-                    return false;
-                }
-                else
-                {
-                    return (right.equals(that.left));
-                }
-            }
-            else
-            {
-                return (right.equals(that.right));
-            }
-        }
-
-        @Override
-        public int hashCode()
-        {
-            int result = 31;
-            result += left.hashCode();
-            result += right.hashCode();
-            return result;
         }
 
         protected abstract String operatorDisplayString();
@@ -331,8 +311,14 @@ public final class AnalysisUtils
         @Override
         public boolean equals(Object o)
         {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o)
+            {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass())
+            {
+                return false;
+            }
 
             NoOpCalculation that = (NoOpCalculation) o;
 
@@ -538,8 +524,14 @@ public final class AnalysisUtils
         @Override
         public boolean equals(Object o)
         {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o)
+            {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass())
+            {
+                return false;
+            }
 
             AbstractBinaryOpAnalysisCalculation that = (AbstractBinaryOpAnalysisCalculation) o;
 

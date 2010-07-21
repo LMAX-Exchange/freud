@@ -10,6 +10,23 @@
         </PROPERTY>
     </RULE>
     <RULE>RULE
+        <TAG id="d" lineNumber="5" colNumber="0">TAG
+            <IDENT lineNumber="5" colNumber="0">d</IDENT>
+        </TAG>
+        <COMMA lineNumber="5" colNumber="1">,</COMMA>
+        <TAG id="e" lineNumber="5" colNumber="3">TAG
+            <IDENT lineNumber="5" colNumber="3">e</IDENT>
+        </TAG>
+        <COMMA lineNumber="5" colNumber="4">,</COMMA>
+        <TAG id="f" lineNumber="5" colNumber="6">TAG
+            <IDENT lineNumber="5" colNumber="6">f</IDENT>
+        </TAG>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="7" colNumber="1">display</IDENT>
+            <IDENT lineNumber="7" colNumber="10">none</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
         <TAG id="a" lineNumber="6" colNumber="0">TAG
             <IDENT lineNumber="6" colNumber="0">a</IDENT>
         </TAG>

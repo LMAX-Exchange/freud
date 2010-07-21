@@ -1,4 +1,4 @@
-// Freud generated code [CssAnalysis] [2010-03-21 00:07:44]
+// Freud generated code [CssAnalysis] [2010-07-21 21:22:44]
 package org.langera.freudgenerated.css;
 
 import org.langera.freud.AbstractAnalysis;
@@ -18,15 +18,16 @@ import org.langera.freud.css.cssrule.selector.CssSelector;
 import org.langera.freud.css.cssrule.selector.CssSelectorAnalysisBuilder;
 import org.langera.freud.css.cssrule.selector.CssSelectorDsl;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.dsl.ReadableDsl;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 public class CssAnalysis extends AbstractAnalysis<Css>
         implements
-        CssSelectorDsl,
         CssRuleDsl,
-        CssDeclarationDsl,
         CssDsl,
+        CssDeclarationDsl,
+        CssSelectorDsl,
         Analysis
 {
     public CssAnalysis(AnalysedObjectIterator<Css> cssAnalysedObjectIterator)
@@ -74,6 +75,58 @@ public class CssAnalysis extends AbstractAnalysis<Css>
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
+    public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
+    {
+
+        return new CssRuleAnalysisBuilder().cssRule(
+        );
+    }
+
+    public BooleanOperatorDsl<CssRuleAnalysisBuilder> containsSelector(CssSelector.Type selectorType)
+    {
+
+        return new CssRuleAnalysisBuilder().containsSelector(
+                selectorType
+        );
+    }
+
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors(CssSelector.Type selectorType)
+    {
+
+        return new CssRuleAnalysisBuilder().numberOfSelectors(
+                selectorType
+        );
+    }
+
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors()
+    {
+
+        return new CssRuleAnalysisBuilder().numberOfSelectors(
+        );
+    }
+
+    public BooleanOperatorDsl<CssAnalysisBuilder> css()
+    {
+
+        return new CssAnalysisBuilder().css(
+        );
+    }
+
+    public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
+    {
+
+        return new CssDeclarationAnalysisBuilder().declaration(
+        );
+    }
+
+    public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(String regex)
+    {
+
+        return new CssDeclarationAnalysisBuilder().declarationValue(
+                regex
+        );
+    }
+
     public ReadableDsl<CssSelectorAnalysisBuilder> selector()
     {
 
@@ -99,35 +152,6 @@ public class CssAnalysis extends AbstractAnalysis<Css>
     {
 
         return new CssSelectorAnalysisBuilder().idSelector(
-        );
-    }
-
-    public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
-    {
-
-        return new CssRuleAnalysisBuilder().cssRule(
-        );
-    }
-
-    public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
-    {
-
-        return new CssDeclarationAnalysisBuilder().declaration(
-        );
-    }
-
-    public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(String regex)
-    {
-
-        return new CssDeclarationAnalysisBuilder().declarationValue(
-                regex
-        );
-    }
-
-    public BooleanOperatorDsl<CssAnalysisBuilder> css()
-    {
-
-        return new CssAnalysisBuilder().css(
         );
     }
 

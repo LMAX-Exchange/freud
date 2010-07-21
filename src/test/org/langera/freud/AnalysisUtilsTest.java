@@ -1,5 +1,6 @@
 package org.langera.freud;
 
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,6 +26,17 @@ public class AnalysisUtilsTest
         Assert.assertFalse(negatedTrue.analyse(null));
     }
 
+    @Test
+    public void testShouldCreateHamcrestMatcherAssertion() throws Exception
+    {
+
+        AnalysisAssertion<String> equalityUsingHamcrest =
+                AnalysisUtils.hamcrestMatcherAssertion(Matchers.equalTo("a"));
+
+        Assert.assertTrue(equalityUsingHamcrest.analyse("a"));
+        Assert.assertFalse(equalityUsingHamcrest.analyse("A"));
+    }
+
 
     @Test
     public void testShouldCreateAndAssertion() throws Exception
@@ -42,36 +54,6 @@ public class AnalysisUtilsTest
         Assert.assertFalse(AnalysisUtils.andOperatorAssertion(
                 dummyFalseAssertion, dummyFalseAssertion).
                 analyse(null));
-    }
-
-    @Test
-    public void testNegateAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.negatedAssertion(dummyTrueAssertion);
-        final AnalysisAssertion assertion2 = AnalysisUtils.negatedAssertion(dummyTrueAssertion);
-        final AnalysisAssertion assertion3 = AnalysisUtils.negatedAssertion(dummyFalseAssertion);
-        Assert.assertTrue(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion2.equals(assertion1));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion2.equals(assertion3));
-        Assert.assertTrue(assertion1.hashCode() == assertion2.hashCode());
-    }
-
-
-    @Test
-    public void testAndAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.andOperatorAssertion(
-                dummyTrueAssertion, dummyFalseAssertion);
-        final AnalysisAssertion assertion2 = AnalysisUtils.andOperatorAssertion(
-                dummyFalseAssertion, dummyTrueAssertion);
-        final AnalysisAssertion assertion3 = AnalysisUtils.andOperatorAssertion(
-                dummyTrueAssertion, dummyTrueAssertion);
-        Assert.assertTrue(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion2.equals(assertion1));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion2.equals(assertion3));
-        Assert.assertTrue(assertion1.hashCode() == assertion2.hashCode());
     }
 
     @Test
@@ -93,35 +75,9 @@ public class AnalysisUtilsTest
     }
 
     @Test
-    public void testOrAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.orOperatorAssertion(
-                dummyTrueAssertion, dummyFalseAssertion);
-        final AnalysisAssertion assertion2 = AnalysisUtils.orOperatorAssertion(
-                dummyFalseAssertion, dummyTrueAssertion);
-        final AnalysisAssertion assertion3 = AnalysisUtils.orOperatorAssertion(
-                dummyTrueAssertion, dummyTrueAssertion);
-        Assert.assertTrue(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion2.equals(assertion1));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion2.equals(assertion3));
-        Assert.assertTrue(assertion1.hashCode() == assertion2.hashCode());
-    }
-
-    @Test
     public void testShouldCreateTrueAssertion() throws Exception
     {
         Assert.assertTrue(AnalysisUtils.trueAssertion().analyse(null));
-    }
-
-    @Test
-    public void testTrueAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.trueAssertion();
-        final AnalysisAssertion assertion2 = AnalysisUtils.trueAssertion();
-        Assert.assertTrue(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion2.equals(assertion1));
-        Assert.assertTrue(assertion1.hashCode() == assertion2.hashCode());
     }
 
     @Test
@@ -140,22 +96,6 @@ public class AnalysisUtilsTest
         Assert.assertTrue(AnalysisUtils.equalOperatorAssertion(
                 dummyFourCalculation, dummyFourCalculation).
                 analyse(null));
-    }
-
-    @Test
-    public void testEqualAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.equalOperatorAssertion(
-                dummyFourCalculation, dummyFourCalculation);
-        final AnalysisAssertion assertion2 = AnalysisUtils.equalOperatorAssertion(
-                dummyThreeCalculation, dummyFourCalculation);
-        final AnalysisAssertion assertion3 = AnalysisUtils.equalOperatorAssertion(
-                dummyFourCalculation, dummyThreeCalculation);
-        Assert.assertTrue(assertion2.equals(assertion3));
-        Assert.assertTrue(assertion3.equals(assertion2));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion3.hashCode() == assertion2.hashCode());
     }
 
     @Test
@@ -208,21 +148,6 @@ public class AnalysisUtilsTest
         Assert.assertFalse(AnalysisUtils.greaterThanOperatorAssertion(
                 dummyFourCalculation, dummyFourCalculation).
                 analyse(null));
-    }
-
-    @Test
-    public void testGreaterThanAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.greaterThanOperatorAssertion(
-                dummyFourCalculation, dummyFourCalculation);
-        final AnalysisAssertion assertion2 = AnalysisUtils.greaterThanOperatorAssertion(
-                dummyThreeCalculation, dummyFourCalculation);
-        final AnalysisAssertion assertion3 = AnalysisUtils.greaterThanOperatorAssertion(
-                dummyFourCalculation, dummyThreeCalculation);
-        Assert.assertFalse(assertion2.equals(assertion3));
-        Assert.assertFalse(assertion3.equals(assertion2));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion1.equals(assertion2));
     }
 
 
@@ -278,21 +203,6 @@ public class AnalysisUtilsTest
                 analyse(null));
     }
 
-    @Test
-    public void testLessThanAssertionEquality() throws Exception
-    {
-        final AnalysisAssertion assertion1 = AnalysisUtils.lessThanOperatorAssertion(
-                dummyFourCalculation, dummyFourCalculation);
-        final AnalysisAssertion assertion2 = AnalysisUtils.lessThanOperatorAssertion(
-                dummyThreeCalculation, dummyFourCalculation);
-        final AnalysisAssertion assertion3 = AnalysisUtils.lessThanOperatorAssertion(
-                dummyFourCalculation, dummyThreeCalculation);
-        Assert.assertFalse(assertion2.equals(assertion3));
-        Assert.assertFalse(assertion3.equals(assertion2));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion1.equals(assertion2));
-    }
-
 
     @Test
     public void testShouldCreateMultiplyCalculation() throws Exception
@@ -310,22 +220,6 @@ public class AnalysisUtilsTest
         Assert.assertTrue(16 == AnalysisUtils.multiplyOperatorCalculation(
                 dummyFourCalculation, dummyFourCalculation).
                 analyse(null));
-    }
-
-    @Test
-    public void testMultiplyCalculationEquality() throws Exception
-    {
-        final AnalysisCalculation assertion1 = AnalysisUtils.multiplyOperatorCalculation(
-                dummyFourCalculation, dummyFourCalculation);
-        final AnalysisCalculation assertion2 = AnalysisUtils.multiplyOperatorCalculation(
-                dummyThreeCalculation, dummyFourCalculation);
-        final AnalysisCalculation assertion3 = AnalysisUtils.multiplyOperatorCalculation(
-                dummyFourCalculation, dummyThreeCalculation);
-        Assert.assertTrue(assertion2.equals(assertion3));
-        Assert.assertTrue(assertion3.equals(assertion2));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion3.hashCode() == assertion2.hashCode());
     }
 
     @Test
@@ -347,21 +241,6 @@ public class AnalysisUtilsTest
     }
 
     @Test
-    public void testSubtractCalculationEquality() throws Exception
-    {
-        final AnalysisCalculation assertion1 = AnalysisUtils.subtractOperatorCalculation(
-                dummyFourCalculation, dummyFourCalculation);
-        final AnalysisCalculation assertion2 = AnalysisUtils.subtractOperatorCalculation(
-                dummyThreeCalculation, dummyFourCalculation);
-        final AnalysisCalculation assertion3 = AnalysisUtils.subtractOperatorCalculation(
-                dummyFourCalculation, dummyThreeCalculation);
-        Assert.assertFalse(assertion2.equals(assertion3));
-        Assert.assertFalse(assertion3.equals(assertion2));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion1.equals(assertion2));
-    }
-
-    @Test
     public void testShouldCreateAddCalculation() throws Exception
     {
 
@@ -377,22 +256,6 @@ public class AnalysisUtilsTest
         Assert.assertTrue(8 == AnalysisUtils.addOperatorCalculation(
                 dummyFourCalculation, dummyFourCalculation).
                 analyse(null));
-    }
-
-    @Test
-    public void testAddCalculationEquality() throws Exception
-    {
-        final AnalysisCalculation assertion1 = AnalysisUtils.addOperatorCalculation(
-                dummyFourCalculation, dummyFourCalculation);
-        final AnalysisCalculation assertion2 = AnalysisUtils.addOperatorCalculation(
-                dummyThreeCalculation, dummyFourCalculation);
-        final AnalysisCalculation assertion3 = AnalysisUtils.addOperatorCalculation(
-                dummyFourCalculation, dummyThreeCalculation);
-        Assert.assertTrue(assertion2.equals(assertion3));
-        Assert.assertTrue(assertion3.equals(assertion2));
-        Assert.assertFalse(assertion1.equals(assertion3));
-        Assert.assertFalse(assertion1.equals(assertion2));
-        Assert.assertTrue(assertion3.hashCode() == assertion2.hashCode());
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////

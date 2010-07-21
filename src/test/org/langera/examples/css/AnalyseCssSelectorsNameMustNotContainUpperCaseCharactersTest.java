@@ -19,15 +19,15 @@ public final class AnalyseCssSelectorsNameMustNotContainUpperCaseCharactersTest
     {
         Analysis analysis = CssExamples.classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters(
                 AnalysisResource.selfResourceIterator(CssJdom.PARSER,
-                        ".shouldFail \n" +
-                        "{ \n" +
-                        " display: none; \n" +
-                        "} \n" +
-                        " \n" +
-                        "a #my-link-id #myOtherLinkId \n" +
-                        "{ \n" +
-                        " display: none; \n" +
-                        "} \n"));
+                                                      ".shouldFail \n" +
+                                                              "{ \n" +
+                                                              " display: none; \n" +
+                                                              "} \n" +
+                                                              " \n" +
+                                                              "a #my-link-id #myOtherLinkId \n" +
+                                                              "{ \n" +
+                                                              " display: none; \n" +
+                                                              "} \n"));
 
         analysis.analyse(listener);
 
@@ -37,6 +37,16 @@ public final class AnalyseCssSelectorsNameMustNotContainUpperCaseCharactersTest
         listener.assertPassed(CssMatchers.cssSelector(CssSelector.Type.ID, "my-link-id"));
         listener.assertFailed(CssMatchers.cssSelector(CssSelector.Type.ID, "myOtherLinkId"));
         listener.assertFiltered(CssMatchers.cssSelector(CssSelector.Type.TAG, "a"));
+    }
+
+    @Test
+    public void test() throws Exception
+    {
+        Analysis analysis = CssExamples.classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters(
+                AnalysisResource.selfResourceIterator(CssJdom.PARSER,
+                                                      "ul#main-navigation {  }  "));
+
+        analysis.analyse(listener);
     }
 
     @Before

@@ -1,7 +1,7 @@
 package org.langera.freud.javasource.block;
 
 import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.CountableDsl;
+import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.javasource.methoddecl.MethodDeclarationAnalysisBuilder;
 
 /**
@@ -29,7 +29,7 @@ public interface CodeBlockDsl
 
     BooleanOperatorDsl<CodeBlockAnalysisBuilder> hasMethodCall(String methodCall);
 
-    CountableDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines();
+    NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines();
 
     BooleanOperatorDsl<CodeBlockAnalysisBuilder> method(
             BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclarationDsl);

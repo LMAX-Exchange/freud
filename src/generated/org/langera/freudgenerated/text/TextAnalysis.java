@@ -1,10 +1,10 @@
-// Freud generated code [TextAnalysis] [2010-03-21 00:07:44]
+// Freud generated code [TextAnalysis] [2010-07-21 21:22:44]
 package org.langera.freudgenerated.text;
 
 import org.langera.freud.AbstractAnalysis;
 import org.langera.freud.Analysis;
 import org.langera.freud.NestedTypeAnalysisAdapter;
-import org.langera.freud.dsl.CountableDsl;
+import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.dsl.ReadableDsl;
 import org.langera.freud.text.Text;
 import org.langera.freud.text.TextAnalysisBuilder;
@@ -48,14 +48,14 @@ public class TextAnalysis extends AbstractAnalysis<Text>
         );
     }
 
-    public CountableDsl<LineAnalysisBuilder> lineLength()
+    public NumericOperatorDsl<LineAnalysisBuilder> lineLength()
     {
 
         return new LineAnalysisBuilder().lineLength(
         );
     }
 
-    public CountableDsl<LineAnalysisBuilder> lineNumber()
+    public NumericOperatorDsl<LineAnalysisBuilder> lineNumber()
     {
 
         return new LineAnalysisBuilder().lineNumber(
