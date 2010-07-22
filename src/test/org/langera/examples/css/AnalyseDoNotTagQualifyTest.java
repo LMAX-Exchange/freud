@@ -24,13 +24,23 @@ public final class AnalyseDoNotTagQualifyTest
                                                       "a .shouldPass \n" +
                                                               "{ \n" +
                                                               " display: none; \n" +
+                                                              "} \n" +
+                                                              "#id shouldAlsoPass \n" +
+                                                              "{ \n" +
+                                                              " display: none;" +
+                                                              "} \n" +
+                                                              "#andWithNoTagAtAll \n" +
+                                                              "{ \n" +
+                                                              " display: none;" +
                                                               "} \n"));
 
         analysis.analyse(listener);
 
 
-        Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
+        Assert.assertEquals(3, listener.getTotalObjectsAnalysed());
         listener.assertPassed(cssRule(cssSelector(Type.TAG, "a"), cssSelector(Type.CLASS, "shouldPass")));
+        listener.assertPassed(cssRule(cssSelector(Type.ID, "id"), cssSelector(Type.TAG, "shouldAlsoPass")));
+        listener.assertPassed(cssRule(cssSelector(Type.ID, "andWithNoTagAtAll")));
     }
 
     @Test

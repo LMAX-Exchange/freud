@@ -1,4 +1,4 @@
-// Freud generated code [JavaSourceAnalysis] [2010-07-21 21:22:44]
+// Freud generated code [JavaSourceAnalysis] [2010-07-22 08:46:00]
 package org.langera.freudgenerated.javasource;
 
 import org.hamcrest.Matcher;
@@ -35,13 +35,13 @@ import java.lang.reflect.Method;
 
 public class JavaSourceAnalysis extends AbstractAnalysis<JavaSource>
         implements
+        PackageDeclarationDsl,
+        ClassDsl,
         JavaSourceDsl,
         MethodDsl,
         ClassDeclarationDsl,
-        MethodDeclarationDsl,
-        PackageDeclarationDsl,
         CodeBlockDsl,
-        ClassDsl,
+        MethodDeclarationDsl,
         Analysis
 {
     public JavaSourceAnalysis(AnalysedObjectIterator<JavaSource> javasourceAnalysedObjectIterator)
@@ -60,6 +60,14 @@ public class JavaSourceAnalysis extends AbstractAnalysis<JavaSource>
             if (nestedType == MethodDeclaration.class)
             {
                 return ClassDeclarationToMethodDeclarationAnalysisAdapter.getInstance();
+            }
+            return null;
+        }
+        if (type == Class.class)
+        {
+            if (nestedType == Method.class)
+            {
+                return ClassToMethodAnalysisAdapter.getInstance();
             }
             return null;
         }
@@ -97,19 +105,85 @@ public class JavaSourceAnalysis extends AbstractAnalysis<JavaSource>
             }
             return null;
         }
-        if (type == Class.class)
-        {
-            if (nestedType == Method.class)
-            {
-                return ClassToMethodAnalysisAdapter.getInstance();
-            }
-            return null;
-        }
         return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
+
+    public ReadableDsl<PackageDeclarationAnalysisBuilder> packageDeclaration()
+    {
+
+        return new PackageDeclarationAnalysisBuilder().packageDeclaration(
+        );
+    }
+
+    public NumericOperatorDsl<PackageDeclarationAnalysisBuilder> packageDepth()
+    {
+
+        return new PackageDeclarationAnalysisBuilder().packageDepth(
+        );
+    }
+
+    public ReadableDsl<ClassAnalysisBuilder> aClass()
+    {
+
+        return new ClassAnalysisBuilder().aClass(
+        );
+    }
+
+    public BooleanOperatorDsl<ClassAnalysisBuilder> subTypeOf(Class type)
+    {
+
+        return new ClassAnalysisBuilder().subTypeOf(
+                type
+        );
+    }
+
+    public BooleanOperatorDsl<ClassAnalysisBuilder> classAnnotation(Class<? extends Annotation> annotationType)
+    {
+
+        return new ClassAnalysisBuilder().classAnnotation(
+                annotationType
+        );
+    }
+
+    public BooleanOperatorDsl<ClassAnalysisBuilder> classAnnotation(
+            Class<? extends Annotation> annotationType, Object annotationValue)
+    {
+
+        return new ClassAnalysisBuilder().classAnnotation(
+                annotationType
+                ,
+                annotationValue
+        );
+    }
+
+    public BooleanOperatorDsl<ClassAnalysisBuilder> hasDeclaredMethod(String methodName, Class... parameterTypes)
+    {
+
+        return new ClassAnalysisBuilder().hasDeclaredMethod(
+                methodName
+                ,
+                parameterTypes
+        );
+    }
+
+    public BooleanOperatorDsl<ClassAnalysisBuilder> hasDeclaredField(Class fieldType)
+    {
+
+        return new ClassAnalysisBuilder().hasDeclaredField(
+                fieldType
+        );
+    }
+
+    public BooleanOperatorDsl<ClassAnalysisBuilder> hasPropertyOfType(Class type)
+    {
+
+        return new ClassAnalysisBuilder().hasPropertyOfType(
+                type
+        );
+    }
 
     public ReadableDsl<JavaSourceAnalysisBuilder> javaSource()
     {
@@ -177,6 +251,37 @@ public class JavaSourceAnalysis extends AbstractAnalysis<JavaSource>
         );
     }
 
+    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> codeBlock()
+    {
+
+        return new CodeBlockAnalysisBuilder().codeBlock(
+        );
+    }
+
+    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> hasMethodCall(String methodCall)
+    {
+
+        return new CodeBlockAnalysisBuilder().hasMethodCall(
+                methodCall
+        );
+    }
+
+    public NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines()
+    {
+
+        return new CodeBlockAnalysisBuilder().codeBlockNumberOfLines(
+        );
+    }
+
+    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> method(
+            BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclarationDsl)
+    {
+
+        return new CodeBlockAnalysisBuilder().method(
+                methodDeclarationDsl
+        );
+    }
+
     public BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclaration()
     {
 
@@ -241,111 +346,6 @@ public class JavaSourceAnalysis extends AbstractAnalysis<JavaSource>
 
         return new MethodDeclarationAnalysisBuilder().methodName(
                 regex
-        );
-    }
-
-    public ReadableDsl<PackageDeclarationAnalysisBuilder> packageDeclaration()
-    {
-
-        return new PackageDeclarationAnalysisBuilder().packageDeclaration(
-        );
-    }
-
-    public NumericOperatorDsl<PackageDeclarationAnalysisBuilder> packageDepth()
-    {
-
-        return new PackageDeclarationAnalysisBuilder().packageDepth(
-        );
-    }
-
-    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> codeBlock()
-    {
-
-        return new CodeBlockAnalysisBuilder().codeBlock(
-        );
-    }
-
-    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> hasMethodCall(String methodCall)
-    {
-
-        return new CodeBlockAnalysisBuilder().hasMethodCall(
-                methodCall
-        );
-    }
-
-    public NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines()
-    {
-
-        return new CodeBlockAnalysisBuilder().codeBlockNumberOfLines(
-        );
-    }
-
-    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> method(
-            BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclarationDsl)
-    {
-
-        return new CodeBlockAnalysisBuilder().method(
-                methodDeclarationDsl
-        );
-    }
-
-    public ReadableDsl<ClassAnalysisBuilder> aClass()
-    {
-
-        return new ClassAnalysisBuilder().aClass(
-        );
-    }
-
-    public BooleanOperatorDsl<ClassAnalysisBuilder> subTypeOf(Class type)
-    {
-
-        return new ClassAnalysisBuilder().subTypeOf(
-                type
-        );
-    }
-
-    public BooleanOperatorDsl<ClassAnalysisBuilder> classAnnotation(Class<? extends Annotation> annotationType)
-    {
-
-        return new ClassAnalysisBuilder().classAnnotation(
-                annotationType
-        );
-    }
-
-    public BooleanOperatorDsl<ClassAnalysisBuilder> classAnnotation(
-            Class<? extends Annotation> annotationType, Object annotationValue)
-    {
-
-        return new ClassAnalysisBuilder().classAnnotation(
-                annotationType
-                ,
-                annotationValue
-        );
-    }
-
-    public BooleanOperatorDsl<ClassAnalysisBuilder> hasDeclaredMethod(String methodName, Class... parameterTypes)
-    {
-
-        return new ClassAnalysisBuilder().hasDeclaredMethod(
-                methodName
-                ,
-                parameterTypes
-        );
-    }
-
-    public BooleanOperatorDsl<ClassAnalysisBuilder> hasDeclaredField(Class fieldType)
-    {
-
-        return new ClassAnalysisBuilder().hasDeclaredField(
-                fieldType
-        );
-    }
-
-    public BooleanOperatorDsl<ClassAnalysisBuilder> hasPropertyOfType(Class type)
-    {
-
-        return new ClassAnalysisBuilder().hasPropertyOfType(
-                type
         );
     }
 

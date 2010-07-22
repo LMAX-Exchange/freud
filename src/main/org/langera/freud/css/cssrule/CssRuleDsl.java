@@ -32,4 +32,6 @@ public interface CssRuleDsl
     NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors(CssSelector.Type selectorType);
 
     NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors();
+
+    NumericOperatorDsl<CssRuleAnalysisBuilder> lastIndexOfSelector(CssSelector.Type selectorType);
 }

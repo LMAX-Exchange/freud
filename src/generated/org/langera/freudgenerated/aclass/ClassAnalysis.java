@@ -1,4 +1,4 @@
-// Freud generated code [ClassAnalysis] [2010-07-21 21:22:44]
+// Freud generated code [ClassAnalysis] [2010-07-22 08:46:00]
 package org.langera.freudgenerated.aclass;
 
 import org.langera.freud.AbstractAnalysis;
@@ -17,8 +17,8 @@ import java.lang.reflect.Method;
 
 public class ClassAnalysis extends AbstractAnalysis<Class>
         implements
-        MethodDsl,
         ClassDsl,
+        MethodDsl,
         Analysis
 {
     public ClassAnalysis(AnalysedObjectIterator<Class> classAnalysedObjectIterator)
@@ -41,50 +41,6 @@ public class ClassAnalysis extends AbstractAnalysis<Class>
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
-
-    public ReadableDsl<MethodAnalysisBuilder> method()
-    {
-
-        return new MethodAnalysisBuilder().method(
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> methodAnnotation(final Class<? extends Annotation> annotationType)
-    {
-
-        return new MethodAnalysisBuilder().methodAnnotation(
-                annotationType
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> throwsException(final Class<? extends Exception> exceptionType)
-    {
-
-        return new MethodAnalysisBuilder().throwsException(
-                exceptionType
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> publicMethod()
-    {
-
-        return new MethodAnalysisBuilder().publicMethod(
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> staticMethod()
-    {
-
-        return new MethodAnalysisBuilder().staticMethod(
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> declaredMethod()
-    {
-
-        return new MethodAnalysisBuilder().declaredMethod(
-        );
-    }
 
     public ReadableDsl<ClassAnalysisBuilder> aClass()
     {
@@ -143,6 +99,50 @@ public class ClassAnalysis extends AbstractAnalysis<Class>
 
         return new ClassAnalysisBuilder().hasPropertyOfType(
                 type
+        );
+    }
+
+    public ReadableDsl<MethodAnalysisBuilder> method()
+    {
+
+        return new MethodAnalysisBuilder().method(
+        );
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> methodAnnotation(final Class<? extends Annotation> annotationType)
+    {
+
+        return new MethodAnalysisBuilder().methodAnnotation(
+                annotationType
+        );
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> throwsException(final Class<? extends Exception> exceptionType)
+    {
+
+        return new MethodAnalysisBuilder().throwsException(
+                exceptionType
+        );
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> publicMethod()
+    {
+
+        return new MethodAnalysisBuilder().publicMethod(
+        );
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> staticMethod()
+    {
+
+        return new MethodAnalysisBuilder().staticMethod(
+        );
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> declaredMethod()
+    {
+
+        return new MethodAnalysisBuilder().declaredMethod(
         );
     }
 

@@ -3,6 +3,7 @@ package org.langera.freud.css.cssrule;
 import org.langera.freud.AbstractAnalysisBuilder;
 import org.langera.freud.css.cssrule.assertion.HasSelectorTypeAssertion;
 import org.langera.freud.css.cssrule.assertion.SelectorCountingCalculation;
+import org.langera.freud.css.cssrule.assertion.SelectorTypeLastIndexCalculation;
 import org.langera.freud.css.cssrule.selector.CssSelector;
 import org.langera.freud.dsl.BooleanOperatorDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
@@ -43,6 +44,12 @@ public final class CssRuleAnalysisBuilder extends AbstractAnalysisBuilder<CssRul
     public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors()
     {
         setCalculation(new SelectorCountingCalculation());
+        return this;
+    }
+
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> lastIndexOfSelector(CssSelector.Type selectorType)
+    {
+        setCalculation(new SelectorTypeLastIndexCalculation(selectorType));
         return this;
     }
 

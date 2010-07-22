@@ -1,4 +1,4 @@
-// Freud generated code [PropertyAnalysis] [2010-07-21 21:22:44]
+// Freud generated code [PropertyAnalysis] [2010-07-22 08:46:00]
 package org.langera.freudgenerated.property;
 
 import org.langera.freud.AbstractAnalysis;

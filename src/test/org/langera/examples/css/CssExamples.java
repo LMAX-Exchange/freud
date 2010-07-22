@@ -44,7 +44,8 @@ public final class CssExamples
         {
             {
                 forEach(cssRule());
-                assertThat(no(containsSelector(CssSelector.Type.TAG).and(containsSelector(CssSelector.Type.ID))));
+                assertThat(no(containsSelector(CssSelector.Type.TAG).and(
+                        lastIndexOfSelector(CssSelector.Type.TAG).lessThan(lastIndexOfSelector(CssSelector.Type.ID)))));
             }
         };
     }
