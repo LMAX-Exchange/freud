@@ -36,9 +36,9 @@ public final class CssExamples
     }
 
     /**
-     * @see http://css-tricks.com/efficiently-rendering-css/
+     * @see https://developer.mozilla.org/en/Writing_Efficient_CSS
      */
-    public static Analysis doNotTagQualify(final AnalysedObjectIterator<Css> iterator)
+    public static Analysis doNotQualifyIdRuleWithTagName(final AnalysedObjectIterator<Css> iterator)
     {
         return new CssAnalysis(iterator)
         {
@@ -46,6 +46,21 @@ public final class CssExamples
                 forEach(cssRule());
                 assertThat(no(containsSelector(CssSelector.Type.TAG).and(
                         lastIndexOfSelector(CssSelector.Type.TAG).lessThan(lastIndexOfSelector(CssSelector.Type.ID)))));
+            }
+        };
+    }
+
+    /**
+     * @see https://developer.mozilla.org/en/Writing_Efficient_CSS
+     */
+    public static Analysis doNotQualifyIdRuleWithClassName(final AnalysedObjectIterator<Css> iterator)
+    {
+        return new CssAnalysis(iterator)
+        {
+            {
+                forEach(cssRule());
+                assertThat(no(containsSelector(CssSelector.Type.CLASS).and(
+                        lastIndexOfSelector(CssSelector.Type.CLASS).lessThan(lastIndexOfSelector(CssSelector.Type.ID)))));
             }
         };
     }

@@ -12,20 +12,20 @@ import static org.langera.freud.css.CssMatchers.cssRule;
 import static org.langera.freud.css.CssMatchers.cssSelector;
 import static org.langera.freud.css.cssrule.selector.CssSelector.Type;
 
-public final class AnalyseDoNotTagQualifyTest
+public final class AnalyseQualifyIdRuleWithClassNameTest
 {
     private TestAnalysisListenerStub listener;
 
     @Test
     public void shouldPassAnalysis()
     {
-        Analysis analysis = CssExamples.doNotTagQualify(
+        Analysis analysis = CssExamples.doNotQualifyIdRuleWithClassName(
                 AnalysisResource.selfResourceIterator(CssJdom.PARSER,
                                                       "a .shouldPass \n" +
                                                               "{ \n" +
                                                               " display: none; \n" +
                                                               "} \n" +
-                                                              "#id shouldAlsoPass \n" +
+                                                              "#id .shouldAlsoPass \n" +
                                                               "{ \n" +
                                                               " display: none;" +
                                                               "} \n" +
@@ -39,20 +39,20 @@ public final class AnalyseDoNotTagQualifyTest
 
         Assert.assertEquals(3, listener.getTotalObjectsAnalysed());
         listener.assertPassed(cssRule(cssSelector(Type.TAG, "a"), cssSelector(Type.CLASS, "shouldPass")));
-        listener.assertPassed(cssRule(cssSelector(Type.ID, "id"), cssSelector(Type.TAG, "shouldAlsoPass")));
+        listener.assertPassed(cssRule(cssSelector(Type.ID, "id"), cssSelector(Type.CLASS, "shouldAlsoPass")));
         listener.assertPassed(cssRule(cssSelector(Type.ID, "andWithNoTagAtAll")));
     }
 
     @Test
     public void shouldFailAnalysis()
     {
-        Analysis analysis = CssExamples.doNotTagQualify(
+        Analysis analysis = CssExamples.doNotQualifyIdRuleWithClassName(
                 AnalysisResource.selfResourceIterator(CssJdom.PARSER,
-                                                      "a .shouldPass \n" +
+                                                      ".a .shouldPass \n" +
                                                               "{ \n" +
                                                               " display: none; \n" +
                                                               "} \n" +
-                                                              "a #shouldFail \n" +
+                                                              ".a #shouldFail \n" +
                                                               "{ \n" +
                                                               " display: none; \n" +
                                                               "} \n"));
@@ -62,8 +62,8 @@ public final class AnalyseDoNotTagQualifyTest
 
         Assert.assertEquals(2, listener.getTotalObjectsAnalysed());
 
-        listener.assertPassed(cssRule(cssSelector(Type.TAG, "a"), cssSelector(Type.CLASS, "shouldPass")));
-        listener.assertFailed(cssRule(cssSelector(Type.TAG, "a"), cssSelector(Type.ID, "shouldFail")));
+        listener.assertPassed(cssRule(cssSelector(Type.CLASS, "a"), cssSelector(Type.CLASS, "shouldPass")));
+        listener.assertFailed(cssRule(cssSelector(Type.CLASS, "a"), cssSelector(Type.ID, "shouldFail")));
     }
 
     @Before
