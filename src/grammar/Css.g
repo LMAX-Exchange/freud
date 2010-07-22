@@ -14,8 +14,8 @@ tokens {
 	NEST;
 	RULE;
 	ATTRIB;
-	PARENTOF;
-	PRECEDEDS;
+	CHILD;
+	ADJACENT_SIBLING;
 	ATTRIBEQUAL;
 	HASVALUE;
 	BEGINSWITH;
@@ -26,6 +26,7 @@ tokens {
 	TAG;
 	ID;
 	CLASS;
+	UNIVERSAL;
 }
 
 @header {
@@ -69,8 +70,8 @@ selectorOperation
 	;
 
 selectop
-	: '>' -> PARENTOF
-        | '+'  -> PRECEDEDS
+	: '>' -> CHILD
+        | '+'  -> ADJACENT_SIBLING
 	;
 
 properties
@@ -78,7 +79,8 @@ properties
 	;
 	
 elem
-	: '#' IDENT -> ^( ID IDENT )
+	: '*' -> ^( UNIVERSAL )
+	| '#' IDENT -> ^( ID IDENT )
 	| '.' IDENT -> ^( CLASS IDENT )			
 	| IDENT -> ^( TAG IDENT )
 	;

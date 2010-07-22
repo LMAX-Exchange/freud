@@ -5,8 +5,8 @@
             <IDENT lineNumber="1" colNumber="1">shouldFail</IDENT>
         </CLASS>
         <PROPERTY>PROPERTY
-            <IDENT lineNumber="3" colNumber="1">display</IDENT>
-            <IDENT lineNumber="3" colNumber="10">none</IDENT>
+            <IDENT lineNumber="2" colNumber="4">display</IDENT>
+            <IDENT lineNumber="2" colNumber="13">none</IDENT>
         </PROPERTY>
     </RULE>
     <RULE>RULE
@@ -22,27 +22,89 @@
             <IDENT lineNumber="5" colNumber="6">f</IDENT>
         </TAG>
         <PROPERTY>PROPERTY
-            <IDENT lineNumber="7" colNumber="1">display</IDENT>
-            <IDENT lineNumber="7" colNumber="10">none</IDENT>
+            <IDENT lineNumber="6" colNumber="4">display</IDENT>
+            <IDENT lineNumber="6" colNumber="13">none</IDENT>
         </PROPERTY>
     </RULE>
     <RULE>RULE
-        <TAG id="a" lineNumber="6" colNumber="0">TAG
-            <IDENT lineNumber="6" colNumber="0">a</IDENT>
+        <TAG id="a" lineNumber="9" colNumber="0">TAG
+            <IDENT lineNumber="9" colNumber="0">a</IDENT>
         </TAG>
-        <ID id="my-link-id" lineNumber="6" colNumber="3">ID
-            <IDENT lineNumber="6" colNumber="3">my-link-id</IDENT>
+        <ADJACENT_SIBLING>ADJACENT_SIBLING</ADJACENT_SIBLING>
+        <ID id="my-link-id" lineNumber="9" colNumber="5">ID
+            <IDENT lineNumber="9" colNumber="5">my-link-id</IDENT>
         </ID>
-        <ID id="myOtherLinkId" lineNumber="6" colNumber="15">ID
-            <IDENT lineNumber="6" colNumber="15">myOtherLinkId</IDENT>
+        <CHILD>CHILD</CHILD>
+        <ID id="myOtherLinkId" lineNumber="9" colNumber="19">ID
+            <IDENT lineNumber="9" colNumber="19">myOtherLinkId</IDENT>
         </ID>
         <PROPERTY>PROPERTY
-            <IDENT lineNumber="8" colNumber="1">display</IDENT>
-            <IDENT lineNumber="8" colNumber="10">none</IDENT>
+            <IDENT lineNumber="10" colNumber="4">display</IDENT>
+            <IDENT lineNumber="10" colNumber="12">none</IDENT>
         </PROPERTY>
         <PROPERTY>PROPERTY
-            <IDENT lineNumber="8" colNumber="1">color</IDENT>
-            <IDENT lineNumber="8" colNumber="10">red</IDENT>
+            <IDENT lineNumber="11" colNumber="4">color</IDENT>
+            <IDENT lineNumber="11" colNumber="11">red</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
+        <TAG id="a" lineNumber="14" colNumber="0">TAG
+            <IDENT lineNumber="14" colNumber="0">a</IDENT>
+        </TAG>
+        <PSEUDO id="hover" lineNumber="14" colNumber="2">PSEUDO
+            <IDENT lineNumber="14" colNumber="2">hover</IDENT>
+        </PSEUDO>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="15" colNumber="4">color</IDENT>
+            <IDENT lineNumber="15" colNumber="11">FFF</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
+        <TAG id="a" lineNumber="18" colNumber="0">TAG
+            <IDENT lineNumber="18" colNumber="0">a</IDENT>
+        </TAG>
+        <CHILD>CHILD</CHILD>
+        <TAG id="b" lineNumber="18" colNumber="4">TAG
+            <IDENT lineNumber="18" colNumber="4">b</IDENT>
+        </TAG>
+        <CHILD>CHILD</CHILD>
+        <TAG id="c" lineNumber="18" colNumber="8">TAG
+            <IDENT lineNumber="18" colNumber="8">c</IDENT>
+        </TAG>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="19" colNumber="4">display</IDENT>
+            <IDENT lineNumber="19" colNumber="13">none</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
+        <UNIVERSAL>UNIVERSAL</UNIVERSAL>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="23" colNumber="4">display</IDENT>
+            <IDENT lineNumber="23" colNumber="13">block</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
+        <TAG id="a" lineNumber="26" colNumber="0">TAG
+            <IDENT lineNumber="26" colNumber="0">a</IDENT>
+        </TAG>
+        <ATTRIB id="href" lineNumber="26" colNumber="3">ATTRIB
+            <IDENT lineNumber="26" colNumber="3">href</IDENT>
+        </ATTRIB>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="27" colNumber="4">display</IDENT>
+            <IDENT lineNumber="27" colNumber="13">block</IDENT>
+        </PROPERTY>
+    </RULE>
+    <RULE>RULE
+        <TAG id="a" lineNumber="31" colNumber="0">TAG
+            <IDENT lineNumber="31" colNumber="0">a</IDENT>
+        </TAG>
+        <ATTRIB id="href=&quot;foo.html&quot;" lineNumber="31" colNumber="3">ATTRIB
+            <IDENT lineNumber="31" colNumber="3">href="foo.html"</IDENT>
+        </ATTRIB>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="32" colNumber="4">display</IDENT>
+            <IDENT lineNumber="32" colNumber="13">block</IDENT>
         </PROPERTY>
     </RULE>
 </CSS>

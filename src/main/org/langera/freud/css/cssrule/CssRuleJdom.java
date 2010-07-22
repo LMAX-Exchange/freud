@@ -60,15 +60,24 @@ public final class CssRuleJdom implements CssRule
         cssSelectorList = new ArrayList<CssSelector>();
         final List<Element> children = ruleElement.getChildren();
         int index = 0;
+        CssSelector.Combinator combinator = CssSelector.Combinator.DESCENDANT;
         for (Element child : children)
         {
             if (CssTokenType.COMMA.name().equals(child.getName()))
             {
                 index++;
             }
-            else if (getCommaSeparatedSelectorListIndex() == index && isSelector(child))
+            else if (getCommaSeparatedSelectorListIndex() == index)
             {
-                cssSelectorList.add(new CssSelectorJdom(this, child));
+                if (CssSelector.Type.isType(child.getName()))
+                {
+                    cssSelectorList.add(new CssSelectorJdom(this, child, combinator));
+                    combinator = CssSelector.Combinator.DESCENDANT;
+                }
+                else if (CssSelector.Combinator.isCombinator(child.getName()))
+                {
+                    combinator = CssSelector.Combinator.valueOf(child.getName());
+                }
             }
         }
     }
@@ -76,14 +85,6 @@ public final class CssRuleJdom implements CssRule
     public int getCommaSeparatedSelectorListIndex()
     {
         return commaSeparatedSelectorListIndex;
-    }
-
-    private boolean isSelector(Element element)
-    {
-        final String name = element.getName();
-        return name.equals(CssSelector.Type.TAG.name()) ||
-                name.equals(CssSelector.Type.CLASS.name()) ||
-                name.equals(CssSelector.Type.ID.name());
     }
 
     public List<CssDeclaration> getCssDeclarationList()
@@ -111,7 +112,7 @@ public final class CssRuleJdom implements CssRule
     @Override
     public String toString()
     {
-        return "CSS Rule: " + cssSelectorList.toString();
+        return "CSS Rule: " + getCssSelectorList().toString();
     }
 
     public int getNumberOfCommaSeparatedSelectorLists()

@@ -26,7 +26,7 @@ public final class AnalyseFileNamesMustNotContainUpperCaseCharactersTest
                 {
                     public Object parseResource(String resourceIdentifier, Resource resource) throws IOException, ResourceParserException
                     {
-                        return resourceIdentifier;
+                        return resourceIdentifier.substring(resourceIdentifier.lastIndexOf(File.separatorChar) + 1);
                     }
                 }, new FilenameFilter()
                 {
@@ -34,7 +34,7 @@ public final class AnalyseFileNamesMustNotContainUpperCaseCharactersTest
                     {
                         return name.endsWith(".properties");
                     }
-                }, true, "src/def"));
+                }, true, "src" + File.separatorChar + "def"));
 
         analysis.analyse(listener);
 

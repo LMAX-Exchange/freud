@@ -31,7 +31,7 @@ public final class CssSelectorTypeAssertionTest
     {
         final Element element = new Element(CssSelector.Type.CLASS.name());
         element.setAttribute(JdomTreeAdaptor.ID_ATTR, "test");
-        toBeAnalysed = new CssSelectorJdom(null, element);
+        toBeAnalysed = new CssSelectorJdom(null, element, CssSelector.Combinator.DESCENDANT);
         classTypeAssertion = new CssSelectorTypeAssertion(CssSelector.Type.CLASS);
         idTypeAssertion = new CssSelectorTypeAssertion(CssSelector.Type.ID);
     }

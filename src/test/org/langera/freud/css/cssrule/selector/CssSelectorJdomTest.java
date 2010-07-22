@@ -30,7 +30,7 @@ public final class CssSelectorJdomTest
         final SAXBuilder saxBuilder = new SAXBuilder(false);
         Document document = saxBuilder.build(ClassLoader.getSystemResourceAsStream("parsed_css_example.xml"));
         JXPathContext context = JXPathContext.newContext(document.getRootElement());
-        cssSelectorJdom = new CssSelectorJdom(null, (Element) context.selectSingleNode("//CLASS"));
+        cssSelectorJdom = new CssSelectorJdom(null, (Element) context.selectSingleNode("//CLASS"), CssSelector.Combinator.DESCENDANT);
 
     }
 }

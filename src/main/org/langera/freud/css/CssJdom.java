@@ -57,9 +57,9 @@ public final class CssJdom implements Css
     }
 
 
-    public CssJdom(final Reader javaSourceReader, final String fileName) throws IOException, RecognitionException
+    public CssJdom(final Reader cssSourceReader, final String fileName) throws IOException, RecognitionException
     {
-        this(parseCssToDocument(javaSourceReader), fileName);
+        this(parseCssToDocument(cssSourceReader), fileName);
     }
 
     @SuppressWarnings("unchecked")

@@ -8,7 +8,7 @@ import org.langera.freud.util.io.IoUtil;
 
 import java.io.*;
 
-public class FileResourceTest 
+public class FileResourceTest
 {
     private File testFile;
     private static final String FILE_CONTENT = "test test test\n";
@@ -24,25 +24,19 @@ public class FileResourceTest
 
         Assert.assertEquals(FILE_CONTENT, data);
     }
-    @Test
+
+    @Test(expected = IOException.class)
     public void testShouldNotFindResource() throws Exception
     {
         FileResource resource = FileResource.getInstance();
 
-        try
-        {
-            resource.getResource("unknown.file");
-            Assert.fail("Expected IOException");
-        } catch (IOException e)
-        {
-            Assert.assertEquals("unknown.file (No such file or directory)", e.getMessage());
-        }
+        resource.getResource("unknown.file");
     }
 
     @Before
     public void setUp() throws Exception
     {
-        testFile = new File(System.getProperty("java.io.tmpdir"),"testfile");
+        testFile = new File(System.getProperty("java.io.tmpdir"), "testfile");
         FileWriter w = new FileWriter(testFile);
         w.write(FILE_CONTENT);
         w.close();
@@ -51,6 +45,6 @@ public class FileResourceTest
     @After
     public void tearDown()
     {
-        testFile.delete();        
+        testFile.delete();
     }
 }

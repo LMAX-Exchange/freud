@@ -28,12 +28,14 @@ public final class CssSelectorJdom implements CssSelector
     private final String selectorString;
     private final Type type;
     private final CssRule cssRule;
+    private final Combinator combinator;
 
-    public CssSelectorJdom(final CssRule cssRule, final Element element)
+    public CssSelectorJdom(final CssRule cssRule, final Element element, Combinator combinator)
     {
         this.cssRule = cssRule;
         type = Type.valueOf(element.getName());
         selectorString = element.getAttributeValue(JdomTreeAdaptor.ID_ATTR);
+        this.combinator = combinator;
     }
 
     public String getSelectorString()
@@ -51,9 +53,24 @@ public final class CssSelectorJdom implements CssSelector
         return cssRule;
     }
 
+    public Combinator getCombinator()
+    {
+        return combinator;
+    }
+
     @Override
     public String toString()
     {
-        return type + ":" + selectorString;
+        StringBuilder sb = new StringBuilder();
+        if (combinator != Combinator.DESCENDANT)
+        {
+            sb.append(combinator).append(':');
+        }
+        sb.append(type);
+        if (selectorString != null)
+        {
+            sb.append(':').append(selectorString);
+        }
+        return sb.toString();
     }
 }
