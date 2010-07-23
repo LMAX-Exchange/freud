@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/langera/dev/freud/src/grammar/Css.g 2010-07-23 17:56:05
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/langera/dev/freud/src/grammar/Css.g 2010-07-23 21:37:09
 
 package org.langera.freudgenerated.css.parser;
 
@@ -503,7 +503,7 @@ public class CssParser extends Parser
 
 
                 // AST REWRITE
-                // elements: nest, nested, properties
+                // elements: nested, nest, properties
                 // token labels:
                 // rule labels: retval
                 // token list labels:
@@ -804,7 +804,7 @@ public class CssParser extends Parser
 
 
                 // AST REWRITE
-                // elements: properties, selectors
+                // elements: selectors, properties
                 // token labels:
                 // rule labels: retval
                 // token list labels:
@@ -1090,7 +1090,7 @@ public class CssParser extends Parser
 
 
                 // AST REWRITE
-                // elements: selectorOperation, pseudo, elem, attrib
+                // elements: elem, pseudo, attrib, selectorOperation
                 // token labels:
                 // rule labels: retval
                 // token list labels:
@@ -1215,7 +1215,7 @@ public class CssParser extends Parser
 
 
                 // AST REWRITE
-                // elements: elem, selectop
+                // elements: selectop, elem
                 // token labels:
                 // rule labels: retval
                 // token list labels:
@@ -2345,7 +2345,7 @@ public class CssParser extends Parser
 
 
                 // AST REWRITE
-                // elements: args, IDENT
+                // elements: IDENT, args
                 // token labels:
                 // rule labels: retval
                 // token list labels:
@@ -2628,7 +2628,7 @@ public class CssParser extends Parser
 
 
                     // AST REWRITE
-                    // elements: IDENT, 36
+                    // elements: 36, IDENT
                     // token labels:
                     // rule labels: retval
                     // token list labels:
@@ -2847,7 +2847,7 @@ public class CssParser extends Parser
 
 
                 // AST REWRITE
-                // elements: 62, args, IDENT, 61
+                // elements: 62, args, 61, IDENT
                 // token labels:
                 // rule labels: retval
                 // token list labels:

@@ -21,7 +21,7 @@ public final class CssDeclarationJdomTest
     @Test
     public void testGetValues() throws Exception
     {
-        Assert.assertArrayEquals(new String[] { "none" }, cssDeclarationJdom.getValues());
+        Assert.assertEquals("none", cssDeclarationJdom.getValue());
     }
 
     @Before
@@ -32,5 +32,5 @@ public final class CssDeclarationJdomTest
         JXPathContext context = JXPathContext.newContext(document.getRootElement());
         cssDeclarationJdom = new CssDeclarationJdom(null, (Element) context.selectSingleNode("//PROPERTY"));
 
-    }    
+    }
 }

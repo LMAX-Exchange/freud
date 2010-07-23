@@ -38,8 +38,8 @@ public final class CssRuleJdomTest
         Assert.assertEquals(2, cssDeclarationList.size());
         Assert.assertEquals("display", cssDeclarationList.get(0).getKey());
         Assert.assertEquals("color", cssDeclarationList.get(1).getKey());
-        Assert.assertArrayEquals(new String[]{"none"}, cssDeclarationList.get(0).getValues());
-        Assert.assertArrayEquals(new String[]{"red"}, cssDeclarationList.get(1).getValues());
+        Assert.assertEquals("none", cssDeclarationList.get(0).getValue());
+        Assert.assertEquals("red", cssDeclarationList.get(1).getValue());
 
     }
 

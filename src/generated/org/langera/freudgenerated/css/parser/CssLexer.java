@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/langera/dev/freud/src/grammar/Css.g 2010-07-23 17:56:06
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/langera/dev/freud/src/grammar/Css.g 2010-07-23 21:37:10
 
 package org.langera.freudgenerated.css.parser;
 
@@ -963,10 +963,10 @@ public class CssLexer extends Lexer
         {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /home/langera/dev/freud/src/grammar/Css.g:128:2: ( ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '=' ) ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '.' | '=' ) )* )
-            // /home/langera/dev/freud/src/grammar/Css.g:128:4: ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '=' ) ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '.' | '=' ) )*
+            // /home/langera/dev/freud/src/grammar/Css.g:128:2: ( ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '=' | '!' ) ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' ) )* )
+            // /home/langera/dev/freud/src/grammar/Css.g:128:4: ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '=' | '!' ) ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' ) )*
             {
-                if (input.LA(1) == '\"' || input.LA(1) == '\'' || input.LA(1) == '-' || (input.LA(1) >= '0' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE'))
+                if ((input.LA(1) >= '!' && input.LA(1) <= '\"') || input.LA(1) == '\'' || input.LA(1) == '-' || (input.LA(1) >= '/' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE'))
                 {
                     input.consume();
 
@@ -978,14 +978,14 @@ public class CssLexer extends Lexer
                     throw mse;
                 }
 
-                // /home/langera/dev/freud/src/grammar/Css.g:129:4: ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '.' | '=' ) )*
+                // /home/langera/dev/freud/src/grammar/Css.g:129:4: ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' ) )*
                 loop1:
                 do
                 {
                     int alt1 = 2;
                     int LA1_0 = input.LA(1);
 
-                    if ((LA1_0 == '\"' || LA1_0 == '\'' || (LA1_0 >= '-' && LA1_0 <= '.') || (LA1_0 >= '0' && LA1_0 <= '9') || LA1_0 == '=' || (LA1_0 >= 'A' && LA1_0 <= 'Z') || LA1_0 == '_' || (LA1_0 >= 'a' && LA1_0 <= 'z') || (LA1_0 >= '\u0100' && LA1_0 <= '\uFFFE')))
+                    if ((LA1_0 == '\"' || LA1_0 == '\'' || (LA1_0 >= '-' && LA1_0 <= '9') || LA1_0 == '=' || (LA1_0 >= 'A' && LA1_0 <= 'Z') || LA1_0 == '_' || (LA1_0 >= 'a' && LA1_0 <= 'z') || (LA1_0 >= '\u0100' && LA1_0 <= '\uFFFE')))
                     {
                         alt1 = 1;
                     }
@@ -994,9 +994,9 @@ public class CssLexer extends Lexer
                     switch (alt1)
                     {
                         case 1:
-                            // /home/langera/dev/freud/src/grammar/Css.g:129:34: ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '.' | '=' )
+                            // /home/langera/dev/freud/src/grammar/Css.g:129:34: ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' )
                         {
-                            if (input.LA(1) == '\"' || input.LA(1) == '\'' || (input.LA(1) >= '-' && input.LA(1) <= '.') || (input.LA(1) >= '0' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE'))
+                            if (input.LA(1) == '\"' || input.LA(1) == '\'' || (input.LA(1) >= '-' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE'))
                             {
                                 input.consume();
 
@@ -1597,38 +1597,38 @@ public class CssLexer extends Lexer
 
     protected DFA7 dfa7 = new DFA7(this);
     static final String DFA7_eotS =
-            "\1\uffff\1\43\11\uffff\1\45\2\uffff\1\46\3\uffff\10\37\1\63\2\37" +
-                    "\12\uffff\1\72\1\73\1\74\1\75\1\76\1\77\1\100\1\101\1\102\3\37\1" +
-                    "\uffff\1\106\1\37\15\uffff\1\110\1\111\1\37\1\uffff\1\113\2\uffff" +
-                    "\1\114\2\uffff";
+            "\1\uffff\1\43\11\uffff\1\45\2\uffff\1\46\3\uffff\10\40\1\63\2\40" +
+                    "\2\uffff\1\40\7\uffff\1\72\1\73\1\74\1\75\1\76\1\77\1\100\1\101" +
+                    "\1\102\3\40\1\uffff\1\106\2\40\14\uffff\1\112\1\113\1\40\1\uffff" +
+                    "\1\115\1\40\3\uffff\1\116\2\uffff";
     static final String DFA7_eofS =
-            "\115\uffff";
+            "\117\uffff";
     static final String DFA7_minS =
             "\1\11\1\151\11\uffff\1\72\2\uffff\1\42\3\uffff\1\143\2\155\1\156" +
-                    "\1\155\1\145\1\141\1\162\1\42\1\172\1\150\3\uffff\1\52\1\uffff\1" +
-                    "\155\4\uffff\11\42\1\147\1\144\1\141\1\uffff\1\42\1\172\15\uffff" +
-                    "\2\42\1\144\1\uffff\1\42\2\uffff\1\42\2\uffff";
+                    "\1\155\1\145\1\141\1\162\1\42\1\172\1\150\2\uffff\1\52\2\uffff\1" +
+                    "\155\4\uffff\11\42\1\147\1\144\1\141\1\uffff\1\42\1\172\1\0\14\uffff" +
+                    "\2\42\1\144\1\uffff\1\42\1\0\3\uffff\1\42\2\uffff";
     static final String DFA7_maxS =
             "\1\ufffe\1\151\11\uffff\1\72\2\uffff\1\ufffe\3\uffff\1\170\1\155" +
-                    "\1\163\1\156\1\170\1\145\1\141\1\162\1\ufffe\1\172\1\150\3\uffff" +
-                    "\1\57\1\uffff\1\156\4\uffff\11\ufffe\1\147\1\144\1\141\1\uffff\1" +
-                    "\ufffe\1\172\15\uffff\2\ufffe\1\144\1\uffff\1\ufffe\2\uffff\1\ufffe" +
-                    "\2\uffff";
+                    "\1\163\1\156\1\170\1\145\1\141\1\162\1\ufffe\1\172\1\150\2\uffff" +
+                    "\1\57\2\uffff\1\156\4\uffff\11\ufffe\1\147\1\144\1\141\1\uffff\1" +
+                    "\ufffe\1\172\1\uffff\14\uffff\2\ufffe\1\144\1\uffff\1\ufffe\1\uffff" +
+                    "\3\uffff\1\ufffe\2\uffff";
     static final String DFA7_acceptS =
             "\2\uffff\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\uffff\1\17\1" +
-                    "\20\1\uffff\1\22\1\23\1\24\13\uffff\1\44\1\45\1\46\1\uffff\1\51" +
-                    "\1\uffff\1\3\1\16\1\15\1\21\14\uffff\1\41\2\uffff\1\47\1\50\1\1" +
-                    "\1\2\1\25\1\31\1\32\1\26\1\27\1\40\1\30\1\33\1\34\3\uffff\1\42\1" +
-                    "\uffff\1\35\1\36\1\uffff\1\43\1\37";
+                    "\20\1\uffff\1\22\1\23\1\24\13\uffff\1\44\1\45\1\uffff\1\46\1\51" +
+                    "\1\uffff\1\3\1\16\1\15\1\21\14\uffff\1\41\3\uffff\1\50\1\1\1\2\1" +
+                    "\25\1\31\1\32\1\26\1\27\1\40\1\30\1\33\1\34\3\uffff\1\42\2\uffff" +
+                    "\1\47\1\35\1\36\1\uffff\1\43\1\37";
     static final String DFA7_specialS =
-            "\115\uffff}>";
+            "\66\uffff\1\0\21\uffff\1\1\6\uffff}>";
     static final String[] DFA7_transitionS = {
-            "\2\41\1\uffff\2\41\22\uffff\1\41\1\uffff\1\37\1\11\1\uffff\1" +
-                    "\21\1\uffff\1\37\1\35\1\36\1\10\1\6\1\4\1\37\1\12\1\40\12\37" +
-                    "\1\13\1\7\1\uffff\1\16\1\5\1\uffff\1\1\32\37\1\14\1\uffff\1" +
-                    "\15\1\uffff\1\37\1\uffff\2\37\1\23\1\27\1\26\1\37\1\31\1\33" +
-                    "\1\25\1\37\1\34\1\37\1\24\2\37\1\22\1\37\1\30\1\32\7\37\1\2" +
-                    "\1\20\1\3\1\17\u0081\uffff\ufeff\37",
+            "\2\41\1\uffff\2\41\22\uffff\1\41\2\40\1\11\1\uffff\1\21\1\uffff" +
+                    "\1\40\1\35\1\36\1\10\1\6\1\4\1\40\1\12\1\37\12\40\1\13\1\7\1" +
+                    "\uffff\1\16\1\5\1\uffff\1\1\32\40\1\14\1\uffff\1\15\1\uffff" +
+                    "\1\40\1\uffff\2\40\1\23\1\27\1\26\1\40\1\31\1\33\1\25\1\40\1" +
+                    "\34\1\40\1\24\2\40\1\22\1\40\1\30\1\32\7\40\1\2\1\20\1\3\1\17" +
+                    "\u0081\uffff\ufeff\40",
             "\1\42",
             "",
             "",
@@ -1642,9 +1642,8 @@ public class CssLexer extends Lexer
             "\1\44",
             "",
             "",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
             "",
             "",
             "",
@@ -1656,56 +1655,47 @@ public class CssLexer extends Lexer
             "\1\60",
             "\1\61",
             "\1\62",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
             "\1\64",
             "\1\65",
             "",
             "",
-            "",
             "\1\67\4\uffff\1\66",
+            "",
             "",
             "\1\70\1\71",
             "",
             "",
             "",
             "",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
             "\1\103",
             "\1\104",
             "\1\105",
             "",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
             "\1\107",
+            "\42\111\1\110\4\111\1\110\5\111\15\110\3\111\1\110\3\111\32" +
+                    "\110\4\111\1\110\1\111\32\110\u0085\111\ufeff\110\1\111",
             "",
             "",
             "",
@@ -1718,23 +1708,21 @@ public class CssLexer extends Lexer
             "",
             "",
             "",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\1\114",
             "",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
-            "\1\112",
-            "",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
+            "\42\111\1\110\4\111\1\110\5\111\15\110\3\111\1\110\3\111\32" +
+                    "\110\4\111\1\110\1\111\32\110\u0085\111\ufeff\110\1\111",
             "",
             "",
-            "\1\37\4\uffff\1\37\5\uffff\2\37\1\uffff\12\37\3\uffff\1\37" +
-                    "\3\uffff\32\37\4\uffff\1\37\1\uffff\32\37\u0085\uffff\ufeff" +
-                    "\37",
+            "",
+            "\1\40\4\uffff\1\40\5\uffff\15\40\3\uffff\1\40\3\uffff\32\40" +
+                    "\4\uffff\1\40\1\uffff\32\40\u0085\uffff\ufeff\40",
             "",
             ""
     };
@@ -1776,6 +1764,59 @@ public class CssLexer extends Lexer
         public String getDescription()
         {
             return "1:1: Tokens : ( T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | IDENT | SL_COMMENT | COMMENT | WS );";
+        }
+
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException
+        {
+            IntStream input = _input;
+            int _s = s;
+            switch (s)
+            {
+                case 0:
+                    int LA7_54 = input.LA(1);
+
+                    s = -1;
+                    if ((LA7_54 == '\"' || LA7_54 == '\'' || (LA7_54 >= '-' && LA7_54 <= '9') || LA7_54 == '=' || (LA7_54 >= 'A' && LA7_54 <= 'Z') || LA7_54 == '_' || (LA7_54 >= 'a' && LA7_54 <= 'z') || (LA7_54 >= '\u0100' && LA7_54 <= '\uFFFE')))
+                    {s = 72;}
+
+                    else if (((LA7_54 >= '\u0000' && LA7_54 <= '!') || (LA7_54 >= '#' && LA7_54 <= '&') || (LA7_54 >= '(' && LA7_54 <= ',') || (LA7_54 >= ':' && LA7_54 <= '<') || (LA7_54 >= '>' && LA7_54 <= '@') || (LA7_54 >= '[' && LA7_54 <= '^') || LA7_54 == '`' || (LA7_54 >= '{' && LA7_54 <= '\u00FF') || LA7_54 == '\uFFFF'))
+                    {s = 73;}
+
+                    else
+                    {
+                        s = 32;
+                    }
+
+                    if (s >= 0)
+                    {
+                        return s;
+                    }
+                    break;
+                case 1:
+                    int LA7_72 = input.LA(1);
+
+                    s = -1;
+                    if (((LA7_72 >= '\u0000' && LA7_72 <= '!') || (LA7_72 >= '#' && LA7_72 <= '&') || (LA7_72 >= '(' && LA7_72 <= ',') || (LA7_72 >= ':' && LA7_72 <= '<') || (LA7_72 >= '>' && LA7_72 <= '@') || (LA7_72 >= '[' && LA7_72 <= '^') || LA7_72 == '`' || (LA7_72 >= '{' && LA7_72 <= '\u00FF') || LA7_72 == '\uFFFF'))
+                    {s = 73;}
+
+                    else if ((LA7_72 == '\"' || LA7_72 == '\'' || (LA7_72 >= '-' && LA7_72 <= '9') || LA7_72 == '=' || (LA7_72 >= 'A' && LA7_72 <= 'Z') || LA7_72 == '_' || (LA7_72 >= 'a' && LA7_72 <= 'z') || (LA7_72 >= '\u0100' && LA7_72 <= '\uFFFE')))
+                    {s = 72;}
+
+                    else
+                    {
+                        s = 32;
+                    }
+
+                    if (s >= 0)
+                    {
+                        return s;
+                    }
+                    break;
+            }
+            NoViableAltException nvae =
+                    new NoViableAltException(getDescription(), 7, _s, input);
+            error(nvae);
+            throw nvae;
         }
     }
 

@@ -3,40 +3,43 @@ package org.langera.freud.css.cssrule.declaration.assertion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.langera.freud.AnalysisAssertion;
 import org.langera.freud.css.cssrule.CssRule;
 import org.langera.freud.css.cssrule.declaration.CssDeclaration;
+import org.langera.freud.util.regex.RegexMatchAnalysisAssertion;
 
 public final class CssDeclarationHasValueMatchAssertionTest
 {
-    private CssDeclarationHasValueMatchAssertion assertion;
+    private AnalysisAssertion<CssDeclaration> assertion;
 
     @Test
     public void shouldMatchDeclarationValue()
     {
-        Assert.assertTrue(assertion.analyse(new SimeplCssDeclaration("color", "#ff0000")));   
+        Assert.assertTrue(assertion.analyse(new SimpleCssDeclaration("color", "#ff0000")));
     }
 
     @Test
     public void shouldNotMatchDeclarationValue()
     {
-        Assert.assertFalse(assertion.analyse(new SimeplCssDeclaration("color", "red")));
+        Assert.assertFalse(assertion.analyse(new SimpleCssDeclaration("color", "red")));
     }
 
     @Before
     public void setUp()
     {
-        assertion = new CssDeclarationHasValueMatchAssertion("#[a-fA-F0-9]{3,6}");
+        assertion = new RegexMatchAnalysisAssertion<CssDeclaration>("#[a-fA-F0-9]{3,6}", true,
+                                                                    CssDeclarationValueMatchAssertionAdapter.getInstance());
     }
 
-    private static final class SimeplCssDeclaration implements CssDeclaration
+    private static final class SimpleCssDeclaration implements CssDeclaration
     {
         private final String key;
-        private final String[] values;
+        private final String value;
 
-        private SimeplCssDeclaration(final String key, final String... values)
+        private SimpleCssDeclaration(final String key, final String value)
         {
             this.key = key;
-            this.values = values;
+            this.value = value;
         }
 
         public String getKey()
@@ -44,9 +47,9 @@ public final class CssDeclarationHasValueMatchAssertionTest
             return key;
         }
 
-        public String[] getValues()
+        public String getValue()
         {
-            return values;
+            return value;
         }
 
         public CssRule getCssRuleForDeclaration()

@@ -7,7 +7,6 @@ import org.langera.freud.css.cssrule.CssRule;
 import org.langera.freud.css.cssrule.declaration.CssDeclaration;
 import org.langera.freud.css.cssrule.selector.CssSelector;
 
-import java.util.Arrays;
 import java.util.List;
 
 public final class CssMatchers
@@ -17,9 +16,9 @@ public final class CssMatchers
         return new CssSelectorMatcher(type, selector);
     }
 
-    public static Matcher<CssDeclaration> cssDeclaration(final String key, final String... values)
+    public static Matcher<CssDeclaration> cssDeclaration(final String key, final String value)
     {
-        return new CssDeclarationMatcher(key, values);
+        return new CssDeclarationMatcher(key, value);
     }
 
     public static Matcher<CssRule> cssRule(final Matcher<CssSelector>... cssSelectorMatcher)
@@ -102,46 +101,24 @@ public final class CssMatchers
     private static class CssDeclarationMatcher extends TypeSafeMatcher<CssDeclaration>
     {
         private final String key;
-        private final String[] values;
+        private final String value;
 
-        private CssDeclarationMatcher(String key, String[] values)
+        private CssDeclarationMatcher(String key, String value)
         {
             this.key = key;
-            this.values = values;
+            this.value = value;
         }
 
         @Override
         public boolean matchesSafely(CssDeclaration cssDeclaration)
         {
-            if (key.equals(cssDeclaration.getKey()))
-            {
-                final String[] actualValues = cssDeclaration.getValues();
-                if (values.length == actualValues.length)
-                {
-                    for (int i = 0, size = values.length; i < size; i++)
-                    {
-                        if (!values[i].equals(actualValues[i]))
-                        {
-                            return false;
-                        }
-                    }
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
+            return key.equals(cssDeclaration.getKey()) && value.equals(cssDeclaration.getValue());
         }
 
         public void describeTo(Description description)
         {
             description.appendText("CssDeclaration[").
-                    appendText(key).appendText(Arrays.toString(values)).appendText("]");
+                    appendText(key).appendText(":").appendText(value).appendText("]");
         }
     }
 }
