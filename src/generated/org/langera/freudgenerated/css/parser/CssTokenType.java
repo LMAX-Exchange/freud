@@ -3,7 +3,7 @@ package org.langera.freudgenerated.css.parser;
 import org.langera.freud.util.parser.TokenType;
 
 public enum CssTokenType implements TokenType
-{     
+{
     INVALID,
     EOR,
     DOWN,
@@ -39,6 +39,7 @@ public enum CssTokenType implements TokenType
     GREATER_THAN,
     PLUS,
     SEMICOLON,
+    ASTERIK,
     HASH,
     DOT,
     COLON,
@@ -49,7 +50,7 @@ public enum CssTokenType implements TokenType
     TILDE_EQUAL,
     VERTICAL_LINE_EQUAL,
     PERCENTAGE,
-    PX,    
+    PX,
     CM,
     MM,
     IN,
@@ -66,7 +67,6 @@ public enum CssTokenType implements TokenType
     KHZ,
     LEFT_PARENTHESIS,
     RIGHT_PARENTHESIS;
-
 
 
     private final boolean idRequired;
@@ -101,5 +101,5 @@ public enum CssTokenType implements TokenType
     public boolean isIdent()
     {
         return this == IDENT;
-    }    
+    }
 }

@@ -19,12 +19,12 @@ public final class CssJdomTest
     public void shouldParseCssFile() throws Exception
     {
         cssJdom = new CssJdom(new InputStreamReader(ClassLoader.getSystemResourceAsStream(CSS_EXAMPLE)), PARSED_CSS_EXAMPLE_XML);
-        
+
         List<CssRule> cssRuleList = cssJdom.getCssRuleList();
 
 //        System.out.println(cssJdom);
 
-        Assert.assertEquals(10, cssRuleList.size());
+        Assert.assertEquals(11, cssRuleList.size());
     }
 
 
@@ -39,14 +39,15 @@ public final class CssJdomTest
 
         Assert.assertEquals(
                 "[CSS Rule: [CLASS:shouldFail], " +
-                 "CSS Rule: [TAG:d], " +
-                 "CSS Rule: [TAG:e], " +
-                 "CSS Rule: [TAG:f], " +
-                 "CSS Rule: [TAG:a, ADJACENT_SIBLING:ID:my-link-id, CHILD:ID:myOtherLinkId], " +
-                 "CSS Rule: [TAG:a, PSEUDO:hover], " +
-                 "CSS Rule: [TAG:a, CHILD:TAG:b, CHILD:TAG:c], " +
-                 "CSS Rule: [UNIVERSAL], " +
-                 "CSS Rule: [TAG:a, ATTRIB:href], " +
-                 "CSS Rule: [TAG:a, ATTRIB:href=\"foo.html\"]]", cssRuleList.toString());
+                        "CSS Rule: [TAG:d], " +
+                        "CSS Rule: [TAG:e], " +
+                        "CSS Rule: [TAG:f], " +
+                        "CSS Rule: [TAG:a, ADJACENT_SIBLING:ID:my-link-id, CHILD:ID:myOtherLinkId], " +
+                        "CSS Rule: [TAG:a, PSEUDO:hover], " +
+                        "CSS Rule: [TAG:a, CHILD:TAG:b, CHILD:TAG:c], " +
+                        "CSS Rule: [UNIVERSAL], " +
+                        "CSS Rule: [TAG:a, ATTRIB:href], " +
+                        "CSS Rule: [TAG:a, ATTRIB:href=\"foo.html\"], " +
+                        "CSS Rule: [CLASS:tfx-btn-add]]", cssRuleList.toString());
     }
 }

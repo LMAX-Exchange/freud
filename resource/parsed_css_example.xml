@@ -107,4 +107,19 @@
             <IDENT lineNumber="32" colNumber="13">block</IDENT>
         </PROPERTY>
     </RULE>
+    <RULE>RULE
+        <CLASS id="tfx-btn-add" lineNumber="35" colNumber="1">CLASS
+            <IDENT lineNumber="35" colNumber="1">tfx-btn-add</IDENT>
+        </CLASS>
+        <PROPERTY>PROPERTY
+            <IDENT lineNumber="36" colNumber="4">background-image</IDENT>
+            <IDENT lineNumber="36" colNumber="21">url</IDENT>
+            <LEFT_PARENTHESIS lineNumber="36" colNumber="24">(</LEFT_PARENTHESIS>
+            <IDENT lineNumber="36" colNumber="25">'..</IDENT>
+            <IDENT lineNumber="36" colNumber="29">images</IDENT>
+            <IDENT lineNumber="36" colNumber="36">drop-add.gif'</IDENT>
+            <RIGHT_PARENTHESIS lineNumber="36" colNumber="49">)</RIGHT_PARENTHESIS>
+            <IDENT lineNumber="36" colNumber="52">important</IDENT>
+        </PROPERTY>
+    </RULE>
 </CSS>

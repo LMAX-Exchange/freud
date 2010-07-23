@@ -7,7 +7,7 @@ d, e, f {
 }
 
 a + #my-link-id > #myOtherLinkId {
-    display:none;
+    display: none;
     color: red;
 }
 
@@ -16,7 +16,7 @@ a:hover {
 }
 
 a > b > c {
-    display: none; 
+    display: none;
 }
 
 * {
@@ -27,7 +27,10 @@ a [href] {
     display: block;
 }
 
-
 a [href="foo.html"] {
     display: block;
+}
+
+.tfx-btn-add {
+    background-image: url('../images/drop-add.gif') !important;
 }
