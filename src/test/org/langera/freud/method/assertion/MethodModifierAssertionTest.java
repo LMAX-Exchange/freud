@@ -13,19 +13,19 @@ public final class MethodModifierAssertionTest
     @Test
     public void shouldPassAnalysis() throws Exception
     {
-        Assert.assertTrue(finalModifierAssertion.analyse(MethodModifierAssertionTest.class.getMethod("setUp")));
+        Assert.assertTrue(finalModifierAssertion.matches(MethodModifierAssertionTest.class.getMethod("setUp")));
     }
 
     @Test
     public void shouldFailAnalysis() throws Exception
     {
-        Assert.assertFalse(finalModifierAssertion.analyse(MethodModifierAssertionTest.class.getMethod("shouldPassAnalysis")));
+        Assert.assertFalse(finalModifierAssertion.matches(MethodModifierAssertionTest.class.getMethod("shouldPassAnalysis")));
     }
 
     @Before
     public final void setUp()
     {
-        finalModifierAssertion = new MethodModifierAssertion(Modifier.FINAL);    
+        finalModifierAssertion = new MethodModifierAssertion(Modifier.FINAL);
     }
 
 }

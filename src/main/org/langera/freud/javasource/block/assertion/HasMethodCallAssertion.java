@@ -1,6 +1,7 @@
 package org.langera.freud.javasource.block.assertion;
 
-import org.langera.freud.AnalysisAssertion;
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.langera.freud.javasource.block.CodeBlock;
 import org.langera.freud.javasource.methodcall.MethodCall;
 
@@ -26,7 +27,7 @@ import java.util.List;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public final class HasMethodCallAssertion implements AnalysisAssertion<CodeBlock>
+public final class HasMethodCallAssertion extends TypeSafeMatcher<CodeBlock>
 {
     private String methodName;
     private String[] instanceReferences;
@@ -41,7 +42,7 @@ public final class HasMethodCallAssertion implements AnalysisAssertion<CodeBlock
     }
 
 
-    public boolean analyse(CodeBlock toBeAnalysed)
+    public final boolean matchesSafely(final CodeBlock toBeAnalysed)
     {
         List<MethodCall> methodCallList = toBeAnalysed.getMethodCallListByMethodName(methodName);
         if (methodCallList != null)
@@ -60,5 +61,10 @@ public final class HasMethodCallAssertion implements AnalysisAssertion<CodeBlock
     public String toString()
     {
         return super.toString();
+    }
+
+    public void describeTo(Description description)
+    {
+        description.appendText(toString());
     }
 }

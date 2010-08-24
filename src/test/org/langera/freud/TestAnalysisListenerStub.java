@@ -10,10 +10,10 @@ import java.util.LinkedList;
 
 /**
  * Created by IntelliJ IDEA.
-* User: langera
-* Date: 09-Oct-2008
-* Time: 09:11:43
-*/
+ * User: langera
+ * Date: 09-Oct-2008
+ * Time: 09:11:43
+ */
 public class TestAnalysisListenerStub implements AnalysisListener
 {
     private Deque<Event> passed = new LinkedList<Event>();
@@ -21,19 +21,19 @@ public class TestAnalysisListenerStub implements AnalysisListener
     private Deque<Event> filtered = new LinkedList<Event>();
     private Deque<Event> unexpected = new LinkedList<Event>();
 
-    public void failed(Object toBeAnalysed, AnalysisAssertion analysisAssertion)
+    public void failed(Object toBeAnalysed, Matcher typeSafeMatcher)
     {
-        failed.addLast(new Event(toBeAnalysed, analysisAssertion));
+        failed.addLast(new Event(toBeAnalysed, typeSafeMatcher));
     }
 
-    public void filtered(Object toBeAnalysed, AnalysisAssertion analysisAssertion)
+    public void filtered(Object toBeAnalysed, Matcher typeSafeMatcher)
     {
-        filtered.addLast(new Event(toBeAnalysed, analysisAssertion));
+        filtered.addLast(new Event(toBeAnalysed, typeSafeMatcher));
     }
 
-    public void passed(Object toBeAnalysed, AnalysisAssertion analysisAssertion)
+    public void passed(Object toBeAnalysed, Matcher typeSafeMatcher)
     {
-        passed.addLast(new Event(toBeAnalysed, analysisAssertion));
+        passed.addLast(new Event(toBeAnalysed, typeSafeMatcher));
     }
 
     public void unexpected(Object toBeAnalysed, Exception exception)
@@ -99,7 +99,7 @@ public class TestAnalysisListenerStub implements AnalysisListener
 
     private Matcher getMatcher(Object analysed)
     {
-        return (analysed instanceof Matcher) ? (Matcher)analysed : Matchers.equalTo(analysed);
+        return (analysed instanceof Matcher) ? (Matcher) analysed : Matchers.equalTo(analysed);
     }
 
     @Deprecated
@@ -112,9 +112,9 @@ public class TestAnalysisListenerStub implements AnalysisListener
     public static class Event
     {
         private Object analysed;
-        private AnalysisAssertion assertion;
+        private Matcher assertion;
 
-        public Event(Object analysed, AnalysisAssertion assertion)
+        public Event(Object analysed, Matcher assertion)
         {
             this.analysed = analysed;
             this.assertion = assertion;
@@ -125,7 +125,7 @@ public class TestAnalysisListenerStub implements AnalysisListener
             return analysed;
         }
 
-        public AnalysisAssertion getAssertion()
+        public Matcher getAssertion()
         {
             return assertion;
         }

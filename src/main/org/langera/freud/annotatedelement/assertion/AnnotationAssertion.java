@@ -1,8 +1,9 @@
 package org.langera.freud.annotatedelement.assertion;
 
+import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.langera.freud.AnalysisAssertion;
+import org.hamcrest.TypeSafeMatcher;
 import org.langera.freud.AnalysisInitialisationException;
 
 import java.lang.annotation.Annotation;
@@ -11,25 +12,25 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- *   This file is part of "Freud".
+ * This file is part of "Freud".
+ * <p/>
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * <p/>
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
  *
- *   Freud is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as published by
- *   the Free Software Foundation, either version 3 of the License, or
- *   (at your option) any later version.
- *
- *   Freud is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with Freud.  If not, see <http://www.gnu.org/licenses/>.
- *
- *   @author Amir Langer  langera_at_gmail_dot_com
-**/
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
 
-public final class AnnotationAssertion<T extends AnnotatedElement> implements AnalysisAssertion<T>
+public final class AnnotationAssertion<T extends AnnotatedElement> extends TypeSafeMatcher<T>
 {
     private final Class<? extends Annotation> annotationType;
     private final Matcher annotationValueMatcher;
@@ -54,7 +55,8 @@ public final class AnnotationAssertion<T extends AnnotatedElement> implements An
             try
             {
                 valueGetter = annotationType.getMethod("value");
-            } catch (NoSuchMethodException e)
+            }
+            catch (NoSuchMethodException e)
             {
                 throw new AnalysisInitialisationException("Did not find 'value' in Annotation " + annotationType, e);
             }
@@ -65,7 +67,7 @@ public final class AnnotationAssertion<T extends AnnotatedElement> implements An
         }
     }
 
-    public boolean analyse(T toBeAnalysed)
+    public final boolean matchesSafely(final T toBeAnalysed)
     {
         Annotation annotation = toBeAnalysed.getAnnotation(annotationType);
         return annotation != null &&
@@ -77,10 +79,12 @@ public final class AnnotationAssertion<T extends AnnotatedElement> implements An
         try
         {
             return valueGetter.invoke(annotation);
-        } catch (IllegalAccessException e)
+        }
+        catch (IllegalAccessException e)
         {
             throw new RuntimeException("Failed to get value for annotation " + annotation, e);
-        } catch (InvocationTargetException e)
+        }
+        catch (InvocationTargetException e)
         {
             throw new RuntimeException("Failed to get value for annotation " + annotation, e.getTargetException());
         }
@@ -91,5 +95,10 @@ public final class AnnotationAssertion<T extends AnnotatedElement> implements An
     {
         return "Annotation(" + annotationType +
                 (annotationValueMatcher == null ? ")" : "(" + annotationValueMatcher.toString() + "))");
+    }
+
+    public void describeTo(Description description)
+    {
+        description.appendText(toString());
     }
 }

@@ -1,11 +1,11 @@
 package org.langera.freud.text;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 
-public class TextAnalysisBuilderTest 
+public class TextAnalysisBuilderTest
 {
     private TextAnalysisBuilder builder;
 
@@ -15,7 +15,7 @@ public class TextAnalysisBuilderTest
     {
         builder.text();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
@@ -25,7 +25,7 @@ public class TextAnalysisBuilderTest
     {
         builder.text().contains("regex");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TextContains(regex)", assertion.toString());
     }
@@ -35,7 +35,7 @@ public class TextAnalysisBuilderTest
     {
         builder.text().matches("regex");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TextMatch(regex)", assertion.toString());
     }

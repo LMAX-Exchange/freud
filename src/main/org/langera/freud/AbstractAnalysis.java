@@ -1,5 +1,6 @@
 package org.langera.freud;
 
+import org.hamcrest.Matcher;
 import org.langera.freud.dsl.BooleanOperatorDsl;
 import org.langera.freud.dsl.FilterDsl;
 import org.langera.freud.dsl.UnaryBooleanOperatorDsl;
@@ -29,7 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public abstract class AbstractAnalysis<Type> implements Analysis
+public abstract class AbstractAnalysis<Type, This> implements Analysis
 {
     private static final ThreadLocal<Map<Class, AnalysedObjectIterator>> CONTEXT =
             new ThreadLocal<Map<Class, AnalysedObjectIterator>>()
@@ -56,6 +57,7 @@ public abstract class AbstractAnalysis<Type> implements Analysis
     private final Class<Type> type;
 
     // internal data structure
+    private transient Builder currentBuilder;
     private transient Builder currentFilter;
     private transient AnalysisListener analysisListener = AnalysisUtils.defaultAnalysisListener();
     private transient CopyOnWriteArrayList<Builder> filterList = new CopyOnWriteArrayList<Builder>();
@@ -78,14 +80,14 @@ public abstract class AbstractAnalysis<Type> implements Analysis
         }
         this.analysisListener = listener;
         iterator.setListener(listener);
-        List<AnalysisAssertion<Type>> adapterList = buildAdapterList();
+        List<Matcher<Type>> adapterList = buildAdapterList();
         for (Type currentlyAnalysed : iterator)
         {
-            for (AnalysisAssertion<Type> assertion : adapterList)
+            for (Matcher<Type> assertion : adapterList)
             {
                 try
                 {
-                    assertion.analyse(currentlyAnalysed);
+                    assertion.matches(currentlyAnalysed);
                 }
                 catch (Exception e)
                 {
@@ -96,7 +98,7 @@ public abstract class AbstractAnalysis<Type> implements Analysis
     }
 
     @SuppressWarnings("unchecked")
-    public void assertThat(BooleanOperatorDsl dsl)
+    protected final This assertThat(BooleanOperatorDsl dsl)
     {
         Builder builder = (Builder) dsl;
         if (currentFilter == null)
@@ -115,9 +117,11 @@ public abstract class AbstractAnalysis<Type> implements Analysis
 
         List<Builder> builderList = assertionBuilderListByFilterBuilderMap.get(currentFilter);
         builderList.add(builder);
+
+        return (This) this;
     }
 
-    public FilterDsl forEach(BooleanOperatorDsl dsl)
+    protected final FilterDsl forEach(BooleanOperatorDsl dsl)
     {
         if (currentFilter != null &&
                 assertionBuilderListByFilterBuilderMap.get(currentFilter).isEmpty())
@@ -156,15 +160,15 @@ public abstract class AbstractAnalysis<Type> implements Analysis
     }
 
     @SuppressWarnings("unchecked")
-    protected List<AnalysisAssertion<Type>> buildAdapterList()
+    protected List<Matcher<Type>> buildAdapterList()
     {
-        List<AnalysisAssertion<Type>> adapterList =
-                new ArrayList<AnalysisAssertion<Type>>(filterList.size());
+        List<Matcher<Type>> adapterList =
+                new ArrayList<Matcher<Type>>(filterList.size());
         for (Builder filterBuilder : filterList)
         {
-            AnalysisAssertion filter = filterBuilder.buildAssertion();
-            AnalysisAssertion<Type> hierarchicalFilter = buildAssertionForHierarchicalBuilderList(filterBuilder);
-            AnalysisAssertion[] assertions =
+            Matcher filter = filterBuilder.buildAssertion();
+            Matcher<Type> hierarchicalFilter = buildAssertionForHierarchicalBuilderList(filterBuilder);
+            Matcher[] assertions =
                     AnalysisUtils.buildAssertions(assertionBuilderListByFilterBuilderMap.get(filterBuilder));
             final Class otherType = filterBuilder.getType();
             adapterList.add(new NestedTypeAnalysisAssertion(
@@ -176,20 +180,20 @@ public abstract class AbstractAnalysis<Type> implements Analysis
     }
 
     @SuppressWarnings("unchecked")
-    private AnalysisAssertion<Type> buildAssertionForHierarchicalBuilderList(Builder filterBuilder)
+    private Matcher<Type> buildAssertionForHierarchicalBuilderList(Builder filterBuilder)
     {
-        AnalysisAssertion<Type> filter = AnalysisUtils.trueAssertion();
-        Map<Class, List<AnalysisAssertion>> additionalFilterListByTypeMap =
+        Matcher<Type> filter = AnalysisUtils.trueAssertion();
+        Map<Class, List<Matcher>> additionalFilterListByTypeMap =
                 buildHierarchicalFilterListByTypeMap(filterBuilder);
-        for (Map.Entry<Class, List<AnalysisAssertion>> entry : additionalFilterListByTypeMap.entrySet())
+        for (Map.Entry<Class, List<Matcher>> entry : additionalFilterListByTypeMap.entrySet())
         {
-            List<AnalysisAssertion> assertionList = entry.getValue();
-            AnalysisAssertion assertion = assertionList.get(0);
+            List<Matcher> assertionList = entry.getValue();
+            Matcher assertion = assertionList.get(0);
             for (int i = 1, size = assertionList.size(); i < size; i++)
             {
                 assertion = AnalysisUtils.andOperatorAssertion(assertion, assertionList.get(i));
             }
-            final AnalysisAssertion<Type> assertionForType =
+            final Matcher<Type> assertionForType =
                     new NestedTypeFilterAnalysisAssertion(getAnalysisAdapterInternal(type, entry.getKey()), assertion);
 
             checkHierarchyViaAdapter(filterBuilder.getType(), entry.getKey());
@@ -210,12 +214,12 @@ public abstract class AbstractAnalysis<Type> implements Analysis
         StringBuilder sb = new StringBuilder();
         for (Builder filterBuilder : filterList)
         {
-            final AnalysisAssertion filter = filterBuilder.buildAssertion();
+            final Matcher filter = filterBuilder.buildAssertion();
             sb.append("forEach(").append((filter == null) ? "" : filter).append(")");
             List<Builder> filterAttachedBuilderList = filterBuilder.getFilterBuilderList();
             for (Builder attachedFilterBuilder : filterAttachedBuilderList)
             {
-                final AnalysisAssertion attachedFilter = attachedFilterBuilder.buildAssertion();
+                final Matcher attachedFilter = attachedFilterBuilder.buildAssertion();
                 sb.append("of(").append(attachedFilter).append(")");
             }
             sb.append("assertThat(");
@@ -240,15 +244,15 @@ public abstract class AbstractAnalysis<Type> implements Analysis
     /////////////////////////////////////////////////////////////////////////////////////
 
     @SuppressWarnings("unchecked")
-    private static Map<Class, List<AnalysisAssertion>> buildHierarchicalFilterListByTypeMap(Builder filterBuilder)
+    private static Map<Class, List<Matcher>> buildHierarchicalFilterListByTypeMap(Builder filterBuilder)
     {
         final List<Builder> builderList = filterBuilder.getFilterBuilderList();
-        final Map<Class, List<AnalysisAssertion>> additionalFilterListByTypeMap =
-                new HashMap<Class, List<AnalysisAssertion>>(builderList.size());
+        final Map<Class, List<Matcher>> additionalFilterListByTypeMap =
+                new HashMap<Class, List<Matcher>>(builderList.size());
         for (Builder builder : builderList)
         {
             final Class type = builder.getType();
-            List<AnalysisAssertion> assertionList = additionalFilterListByTypeMap.get(type);
+            List<Matcher> assertionList = additionalFilterListByTypeMap.get(type);
             if (assertionList == null)
             {
                 assertionList = new LinkedList();

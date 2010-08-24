@@ -1,11 +1,11 @@
 package org.langera.freud.aclass;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 
-public class ClassAnalysisBuilderTest 
+public class ClassAnalysisBuilderTest
 {
     private ClassAnalysisBuilder builder;
     private ClassAnalysisBuilder otherBuilder;
@@ -15,7 +15,7 @@ public class ClassAnalysisBuilderTest
     {
         builder.aClass();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
@@ -25,7 +25,7 @@ public class ClassAnalysisBuilderTest
     {
         builder.aClass().contains(".*Impl");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("ClassSimpleNameContains(.*Impl)", assertion.toString());
     }
@@ -35,7 +35,7 @@ public class ClassAnalysisBuilderTest
     {
         builder.subTypeOf(String.class);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("subTypeOf(java.lang.String)", assertion.toString());
     }
@@ -46,7 +46,7 @@ public class ClassAnalysisBuilderTest
     {
         builder.subTypeOf(String.class).and(otherBuilder.subTypeOf(Integer.class));
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(subTypeOf(java.lang.String) AND subTypeOf(java.lang.Integer))", assertion.toString());
     }
@@ -57,7 +57,7 @@ public class ClassAnalysisBuilderTest
     {
         builder.subTypeOf(String.class).or(otherBuilder.subTypeOf(Integer.class));
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(subTypeOf(java.lang.String) OR subTypeOf(java.lang.Integer))", assertion.toString());
     }
@@ -68,13 +68,13 @@ public class ClassAnalysisBuilderTest
     {
         builder.no(otherBuilder.subTypeOf(Integer.class));
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(NOT subTypeOf(java.lang.Integer))", assertion.toString());
     }
 
     @Before
-    public void setUp() throws Exception 
+    public void setUp() throws Exception
     {
         builder = new ClassAnalysisBuilder();
         otherBuilder = new ClassAnalysisBuilder();

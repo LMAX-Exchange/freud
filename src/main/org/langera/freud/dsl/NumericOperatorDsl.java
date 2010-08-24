@@ -21,6 +21,8 @@ package org.langera.freud.dsl;
 
 public interface NumericOperatorDsl<ThisDsl extends BooleanOperatorDsl>
 {
+    NumericOperatorDsl<ThisDsl> numberOf(NumericOperatorDsl<ThisDsl> numericOperatorDsl);
+
     // TODO NumericOperatorDsl<ThisDsl> min(NumericOperatorDsl<ThisDsl>... values);
 
     // TODO NumericOperatorDsl<ThisDsl> max(NumericOperatorDsl<ThisDsl>... values);

@@ -12,25 +12,25 @@ public final class RegexMatchAnalysisAssertionTest
     @Test
     public void shouldPassACompleteMatch()
     {
-        Assert.assertTrue(matchAssertion.analyse("abc12"));
+        Assert.assertTrue(matchAssertion.matches("abc12"));
     }
 
     @Test
     public void shouldFailACompleteMatch()
     {
-        Assert.assertFalse(matchAssertion.analyse("abcd"));
+        Assert.assertFalse(matchAssertion.matches("abcd"));
     }
 
     @Test
     public void shouldPassAPartialMatch()
     {
-        Assert.assertTrue(containsAssertion.analyse("ab12cd"));
+        Assert.assertTrue(containsAssertion.matches("ab12cd"));
     }
 
     @Test
     public void shouldFailAPartialMatch()
     {
-        Assert.assertFalse(containsAssertion.analyse("abcd"));
+        Assert.assertFalse(containsAssertion.matches("abcd"));
     }
 
     @Before

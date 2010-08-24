@@ -1,4 +1,4 @@
-// Freud generated code [SpringBeanAnalysis] [2010-07-22 08:46:00]
+// Freud generated code [SpringBeanAnalysis] [2010-08-24 21:26:16]
 package org.langera.freudgenerated.spring;
 
 import org.langera.freud.AbstractAnalysis;
@@ -21,11 +21,11 @@ import org.langera.freud.util.collection.AnalysedObjectIterator;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
-public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean>
+public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean, SpringBeanAnalysis>
         implements
+        MethodDsl,
         InstanceDsl,
         ClassDsl,
-        MethodDsl,
         SpringBeanDsl,
         Analysis
 {
@@ -36,32 +36,6 @@ public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean>
 
     protected NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, Class nestedType)
     {
-        if (type == Class.class)
-        {
-            if (nestedType == Method.class)
-            {
-                return ClassToMethodAnalysisAdapter.getInstance();
-            }
-            if (nestedType == Method.class)
-            {
-                return ClassToMethodAnalysisAdapter.getInstance();
-            }
-            return null;
-        }
-        if (type == Object.class)
-        {
-            if (nestedType == Class.class)
-            {
-                return ObjectToClassAnalysisAdapter.getInstance();
-            }
-            if (nestedType == Method.class)
-            {
-                return NestedTypeAnalysisAdapterChain.createChain(
-                        ObjectToClassAnalysisAdapter.getInstance(),
-                        ClassToMethodAnalysisAdapter.getInstance());
-            }
-            return null;
-        }
         if (type == SpringBean.class)
         {
             if (nestedType == Object.class)
@@ -80,128 +54,154 @@ public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean>
             }
             return null;
         }
+        if (type == Object.class)
+        {
+            if (nestedType == Class.class)
+            {
+                return ObjectToClassAnalysisAdapter.getInstance();
+            }
+            if (nestedType == Method.class)
+            {
+                return NestedTypeAnalysisAdapterChain.createChain(
+                        ObjectToClassAnalysisAdapter.getInstance(),
+                        ClassToMethodAnalysisAdapter.getInstance());
+            }
+            return null;
+        }
+        if (type == Class.class)
+        {
+            if (nestedType == Method.class)
+            {
+                return ClassToMethodAnalysisAdapter.getInstance();
+            }
+            if (nestedType == Method.class)
+            {
+                return ClassToMethodAnalysisAdapter.getInstance();
+            }
+            return null;
+        }
         return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
+    public ReadableDsl<MethodAnalysisBuilder> method()
+    {
+        ReadableDsl<MethodAnalysisBuilder> builder = new MethodAnalysisBuilder().method(
+        );
+        return builder;
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> methodAnnotation(final Class<? extends Annotation> annotationType)
+    {
+        BooleanOperatorDsl<MethodAnalysisBuilder> builder = new MethodAnalysisBuilder().methodAnnotation(
+                annotationType
+        );
+        return builder;
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> throwsException(final Class<? extends Exception> exceptionType)
+    {
+        BooleanOperatorDsl<MethodAnalysisBuilder> builder = new MethodAnalysisBuilder().throwsException(
+                exceptionType
+        );
+        return builder;
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> publicMethod()
+    {
+        BooleanOperatorDsl<MethodAnalysisBuilder> builder = new MethodAnalysisBuilder().publicMethod(
+        );
+        return builder;
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> staticMethod()
+    {
+        BooleanOperatorDsl<MethodAnalysisBuilder> builder = new MethodAnalysisBuilder().staticMethod(
+        );
+        return builder;
+    }
+
+    public BooleanOperatorDsl<MethodAnalysisBuilder> declaredMethod()
+    {
+        BooleanOperatorDsl<MethodAnalysisBuilder> builder = new MethodAnalysisBuilder().declaredMethod(
+        );
+        return builder;
+    }
+
     public ReadableDsl<InstanceAnalysisBuilder> instance()
     {
-
-        return new InstanceAnalysisBuilder().instance(
+        ReadableDsl<InstanceAnalysisBuilder> builder = new InstanceAnalysisBuilder().instance(
         );
+        return builder;
     }
 
     public ReadableDsl<ClassAnalysisBuilder> aClass()
     {
-
-        return new ClassAnalysisBuilder().aClass(
+        ReadableDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().aClass(
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<ClassAnalysisBuilder> subTypeOf(Class type)
     {
-
-        return new ClassAnalysisBuilder().subTypeOf(
+        BooleanOperatorDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().subTypeOf(
                 type
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<ClassAnalysisBuilder> classAnnotation(Class<? extends Annotation> annotationType)
     {
-
-        return new ClassAnalysisBuilder().classAnnotation(
+        BooleanOperatorDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().classAnnotation(
                 annotationType
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<ClassAnalysisBuilder> classAnnotation(
             Class<? extends Annotation> annotationType, Object annotationValue)
     {
-
-        return new ClassAnalysisBuilder().classAnnotation(
+        BooleanOperatorDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().classAnnotation(
                 annotationType
                 ,
                 annotationValue
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<ClassAnalysisBuilder> hasDeclaredMethod(String methodName, Class... parameterTypes)
     {
-
-        return new ClassAnalysisBuilder().hasDeclaredMethod(
+        BooleanOperatorDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().hasDeclaredMethod(
                 methodName
                 ,
                 parameterTypes
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<ClassAnalysisBuilder> hasDeclaredField(Class fieldType)
     {
-
-        return new ClassAnalysisBuilder().hasDeclaredField(
+        BooleanOperatorDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().hasDeclaredField(
                 fieldType
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<ClassAnalysisBuilder> hasPropertyOfType(Class type)
     {
-
-        return new ClassAnalysisBuilder().hasPropertyOfType(
+        BooleanOperatorDsl<ClassAnalysisBuilder> builder = new ClassAnalysisBuilder().hasPropertyOfType(
                 type
         );
-    }
-
-    public ReadableDsl<MethodAnalysisBuilder> method()
-    {
-
-        return new MethodAnalysisBuilder().method(
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> methodAnnotation(final Class<? extends Annotation> annotationType)
-    {
-
-        return new MethodAnalysisBuilder().methodAnnotation(
-                annotationType
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> throwsException(final Class<? extends Exception> exceptionType)
-    {
-
-        return new MethodAnalysisBuilder().throwsException(
-                exceptionType
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> publicMethod()
-    {
-
-        return new MethodAnalysisBuilder().publicMethod(
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> staticMethod()
-    {
-
-        return new MethodAnalysisBuilder().staticMethod(
-        );
-    }
-
-    public BooleanOperatorDsl<MethodAnalysisBuilder> declaredMethod()
-    {
-
-        return new MethodAnalysisBuilder().declaredMethod(
-        );
+        return builder;
     }
 
     public ReadableDsl<SpringBeanAnalysisBuilder> springBean()
     {
-
-        return new SpringBeanAnalysisBuilder().springBean(
+        ReadableDsl<SpringBeanAnalysisBuilder> builder = new SpringBeanAnalysisBuilder().springBean(
         );
+        return builder;
     }
 
 

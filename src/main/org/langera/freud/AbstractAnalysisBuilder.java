@@ -39,7 +39,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
 {
     private Constructor<? extends RegexMatchAnalysisAssertionAdapter> currentRegexAssertionConstructor = null;
     private AnalysisCalculation<T> currentCalculation = null;
-    private AnalysisAssertion<T> currentAssertion = null;
+    private Matcher<T> currentAssertion = null;
     private List<Builder> filterBuilderList = new LinkedList<Builder>();
 
     ///////////////////////////////////////////////////////////////////////
@@ -80,15 +80,6 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> have(final Matcher<T> matcher)
-    {
-        // cheat IDEs by downcasting
-        // (.. and making sure every DSL is also a builder).
-        setAssertion(AnalysisUtils.hamcrestMatcherAssertion(matcher));
-        return this;
-    }
-
     ///////////////////////////////////////////////////////////////////////
     // Readable DSL
 
@@ -109,8 +100,8 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     {
         try
         {
-            setAssertion((AnalysisAssertion<T>) new RegexMatchAnalysisAssertion(regex, fullMatch,
-                                                                                currentRegexAssertionConstructor.newInstance()));
+            setAssertion((Matcher<T>) new RegexMatchAnalysisAssertion(regex, fullMatch,
+                                                                      currentRegexAssertionConstructor.newInstance()));
         }
         catch (InvocationTargetException e)
         {
@@ -136,6 +127,11 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         // (.. and making sure every DSL is also a builder).        
         updateCalculation(AnalysisUtils.addOperatorCalculation(currentCalculation,
                                                                ((Builder) dsl).buildCalculation()));
+        return this;
+    }
+
+    public NumericOperatorDsl<ThisDsl> numberOf(NumericOperatorDsl<ThisDsl> thisDslNumericOperatorDsl)
+    {
         return this;
     }
 
@@ -315,7 +311,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public AnalysisAssertion<T> buildAssertion()
+    public Matcher<T> buildAssertion()
     {
         return currentAssertion;
     }
@@ -333,7 +329,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     ///////////////////////////////////////////////////////////////////////
     // currentAssertion management
 
-    protected void setAssertion(AnalysisAssertion<T> assertion)
+    protected void setAssertion(Matcher<T> assertion)
     {
         this.currentAssertion = assertion;
     }
@@ -355,7 +351,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         }
     }
 
-    private void updateAssertion(AnalysisAssertion<T> assertion)
+    private void updateAssertion(Matcher<T> assertion)
     {
         if (currentAssertion == null)
         {

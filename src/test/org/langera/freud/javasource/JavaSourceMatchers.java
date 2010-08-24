@@ -27,7 +27,7 @@ public final class JavaSourceMatchers
     public static Matcher<CodeBlock> codeBlockIn(final String expectedName)
     {
         return new CodeBlockClassNameMatcher(expectedName);
-    }    
+    }
 
     private JavaSourceMatchers()
     {
@@ -45,7 +45,7 @@ public final class JavaSourceMatchers
         }
 
         @Override
-        public boolean matchesSafely(PackageDeclaration item)
+        public final boolean matchesSafely(final PackageDeclaration item)
         {
             return expectedPackagePath.equals(item.getPackagePathAsString());
         }
@@ -67,7 +67,7 @@ public final class JavaSourceMatchers
         }
 
         @Override
-        public boolean matchesSafely(JavaSource item)
+        public final boolean matchesSafely(final JavaSource item)
         {
             return expectedName.equals(item.getFullClassName());
         }
@@ -89,7 +89,7 @@ public final class JavaSourceMatchers
         }
 
         @Override
-        public boolean matchesSafely(ClassDeclaration item)
+        public final boolean matchesSafely(final ClassDeclaration item)
         {
             return expectedName.equals(item.getName());
         }
@@ -98,7 +98,7 @@ public final class JavaSourceMatchers
         {
             description.appendText("ClassDeclaration[").appendText(expectedName).appendText("]");
         }
-    }    
+    }
 
     private static class CodeBlockClassNameMatcher extends TypeSafeMatcher<CodeBlock>
     {
@@ -111,7 +111,7 @@ public final class JavaSourceMatchers
 
 
         @Override
-        public boolean matchesSafely(CodeBlock item)
+        public final boolean matchesSafely(final CodeBlock item)
         {
             return expectedName.equals(item.getClassDeclaration().getName());
         }

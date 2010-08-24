@@ -30,7 +30,7 @@ public final class CssExamples
         {
             {
                 forEach(declaration().matches("display"));
-                assertThat(declarationValue("none"));
+                assertThat(declarationValue("none")).declarationValue("none");
             }
         };
     }

@@ -1,22 +1,29 @@
 package org.langera.freud.listener;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.langera.freud.AnalysisAssertion;
 import org.langera.freud.AnalysisListener;
 
 @RunWith(JMock.class)
 public class AnalysisListenerChainTest
 {
-    private static final AnalysisAssertion DUMMY_ASSERTION = new AnalysisAssertion()
+    private static final Matcher DUMMY_ASSERTION = new TypeSafeMatcher()
     {
-        public boolean analyse(Object toBeAnalysed)
+        public final boolean matchesSafely(final Object toBeAnalysed)
         {
             return false;
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
     };
     private static final Object ANALYSED_OBJECT = new Object();

@@ -1,11 +1,11 @@
 package org.langera.freud.method;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 
-public class MethodAnalysisBuilderTest 
+public class MethodAnalysisBuilderTest
 {
     private MethodAnalysisBuilder builder;
 
@@ -15,7 +15,7 @@ public class MethodAnalysisBuilderTest
     {
         builder.method();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
@@ -25,13 +25,13 @@ public class MethodAnalysisBuilderTest
     {
         builder.method().matches("should.+");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("MethodNameMatch(should.+)", assertion.toString());
     }
 
     @Before
-    public void setUp() throws Exception 
+    public void setUp() throws Exception
     {
         builder = new MethodAnalysisBuilder();
     }

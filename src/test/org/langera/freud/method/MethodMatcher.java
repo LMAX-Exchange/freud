@@ -22,7 +22,7 @@ public final class MethodMatcher extends TypeSafeMatcher<Method>
     }
 
     @Override
-    public boolean matchesSafely(Method item)
+    public final boolean matchesSafely(final Method item)
     {
         if (!expectedName.equals(item.getName()))
         {

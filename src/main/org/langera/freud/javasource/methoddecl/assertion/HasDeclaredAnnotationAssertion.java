@@ -3,7 +3,7 @@ package org.langera.freud.javasource.methoddecl.assertion;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
-import org.langera.freud.AnalysisAssertion;
+import org.hamcrest.TypeSafeMatcher;
 import org.langera.freud.javasource.annotation.Annotation;
 import org.langera.freud.javasource.methoddecl.MethodDeclaration;
 
@@ -30,7 +30,7 @@ import static org.hamcrest.Matchers.equalTo;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public final class HasDeclaredAnnotationAssertion implements AnalysisAssertion<MethodDeclaration>
+public final class HasDeclaredAnnotationAssertion extends TypeSafeMatcher<MethodDeclaration>
 {
     private final String annotationName;
     private final Matcher<String> defaultValueMatcher;
@@ -70,7 +70,7 @@ public final class HasDeclaredAnnotationAssertion implements AnalysisAssertion<M
         this.valueMatcher = valueMatcher;
     }
 
-    public boolean analyse(MethodDeclaration toBeAnalysed)
+    public final boolean matchesSafely(final MethodDeclaration toBeAnalysed)
     {
         for (Annotation declaredAnnotation : toBeAnalysed.getDeclaredMethodAnnotations())
         {
@@ -111,5 +111,10 @@ public final class HasDeclaredAnnotationAssertion implements AnalysisAssertion<M
         }
         description.appendText(")");
         return description.toString();
+    }
+
+    public void describeTo(Description description)
+    {
+        description.appendText(toString());
     }
 }

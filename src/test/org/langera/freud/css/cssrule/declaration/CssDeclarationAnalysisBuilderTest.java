@@ -1,9 +1,9 @@
 package org.langera.freud.css.cssrule.declaration;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 
 public class CssDeclarationAnalysisBuilderTest
 {
@@ -14,7 +14,7 @@ public class CssDeclarationAnalysisBuilderTest
     {
         builder.declaration();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
@@ -24,7 +24,7 @@ public class CssDeclarationAnalysisBuilderTest
     {
         builder.declaration().contains("color");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("CssDeclarationKeyContains(color)", assertion.toString());
     }
@@ -33,6 +33,6 @@ public class CssDeclarationAnalysisBuilderTest
     @Before
     public void setUp()
     {
-        builder = new CssDeclarationAnalysisBuilder();    
+        builder = new CssDeclarationAnalysisBuilder();
     }
 }

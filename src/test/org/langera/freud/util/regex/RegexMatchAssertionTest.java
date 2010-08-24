@@ -40,20 +40,20 @@ public class RegexMatchAssertionTest
     @Test
     public void testShouldMatchClassName() throws Exception
     {
-        Assert.assertTrue(assertion.analyse(new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name")));
+        Assert.assertTrue(assertion.matches(new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name")));
     }
 
 
     @Test
     public void testShouldNotMatchClassName() throws Exception
     {
-        Assert.assertFalse(assertion.analyse(new JavaSourceJdom(new StringReader(OTHER_CLASS_EXAMPLE), "Name")));
+        Assert.assertFalse(assertion.matches(new JavaSourceJdom(new StringReader(OTHER_CLASS_EXAMPLE), "Name")));
     }
 
     @Before
     public void setUp() throws Exception
     {
         assertion = new RegexMatchAnalysisAssertion<JavaSource>("org\\.langera\\.examples\\.S.*", true,
-                                new JavaSourceFullNameMatchAssertionAdapter());
+                                                                new JavaSourceFullNameMatchAssertionAdapter());
     }
 }

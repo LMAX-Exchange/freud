@@ -18,7 +18,7 @@ public final class JavaSourceClassNameMatcher extends TypeSafeMatcher<JavaSource
     }
 
     @Override
-    public boolean matchesSafely(JavaSource item)
+    public final boolean matchesSafely(final JavaSource item)
     {
         return expectedName.equals(item.getFullClassName());
     }

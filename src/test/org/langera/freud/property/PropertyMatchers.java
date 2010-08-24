@@ -2,7 +2,7 @@ package org.langera.freud.property;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.junit.internal.matchers.TypeSafeMatcher;
+import org.hamcrest.TypeSafeMatcher;
 
 public final class PropertyMatchers
 {
@@ -26,7 +26,7 @@ public final class PropertyMatchers
         }
 
         @Override
-        public boolean matchesSafely(Property property)
+        public final boolean matchesSafely(final Property property)
         {
             return key.equals(property.getKey());
         }

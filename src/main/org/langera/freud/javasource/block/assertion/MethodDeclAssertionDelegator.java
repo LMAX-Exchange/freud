@@ -1,6 +1,8 @@
 package org.langera.freud.javasource.block.assertion;
 
-import org.langera.freud.AnalysisAssertion;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.langera.freud.javasource.block.CodeBlock;
 import org.langera.freud.javasource.methoddecl.MethodDeclaration;
 
@@ -23,18 +25,23 @@ import org.langera.freud.javasource.methoddecl.MethodDeclaration;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public final class MethodDeclAssertionDelegator implements AnalysisAssertion<CodeBlock>
+public final class MethodDeclAssertionDelegator extends TypeSafeMatcher<CodeBlock>
 {
-    private AnalysisAssertion<MethodDeclaration> methodDeclarationAssertion;
+    private Matcher<MethodDeclaration> methodDeclarationAssertion;
 
-    public MethodDeclAssertionDelegator(AnalysisAssertion<MethodDeclaration> methodDeclarationAssertion)
+    public MethodDeclAssertionDelegator(Matcher<MethodDeclaration> methodDeclarationAssertion)
     {
         this.methodDeclarationAssertion = methodDeclarationAssertion;
     }
 
-    public boolean analyse(CodeBlock toBeAnalysed)
+    public final boolean matchesSafely(final CodeBlock toBeAnalysed)
     {
         final MethodDeclaration methodDeclaration = toBeAnalysed.getMethodDeclaration();
-        return (methodDeclaration != null) && methodDeclarationAssertion.analyse(methodDeclaration);
+        return (methodDeclaration != null) && methodDeclarationAssertion.matches(methodDeclaration);
+    }
+
+    public void describeTo(Description description)
+    {
+        description.appendText(toString());
     }
 }

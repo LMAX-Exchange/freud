@@ -1,9 +1,9 @@
 package org.langera.freud.css.cssrule;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 import org.langera.freud.css.cssrule.selector.CssSelector;
 
 public final class CssRuleAnalysisBuilderTest
@@ -15,7 +15,7 @@ public final class CssRuleAnalysisBuilderTest
     {
         builder.cssRule();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
@@ -25,7 +25,7 @@ public final class CssRuleAnalysisBuilderTest
     {
         builder.containsSelector(CssSelector.Type.TAG);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("hasCssSelectorType(TAG)", assertion.toString());
     }

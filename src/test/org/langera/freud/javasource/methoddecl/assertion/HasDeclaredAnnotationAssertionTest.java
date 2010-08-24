@@ -16,63 +16,63 @@ public class HasDeclaredAnnotationAssertionTest
     @Test
     public void shouldDetectAnnotation()
     {
-        Assert.assertTrue(nameAssertion.analyse(
+        Assert.assertTrue(nameAssertion.matches(
                 new MethodDeclarationStub("",
-                        new Annotation[]
-                                {
-                                        new AnnotationStub("SuppressWarnings", null, null, null)
-                                }, null)));
+                                          new Annotation[]
+                                                  {
+                                                          new AnnotationStub("SuppressWarnings", null, null, null)
+                                                  }, null)));
     }
 
     @Test
     public void shouldDetectAnnotationWithDefaultValue()
     {
-        Assert.assertTrue(nameAndDefaultValueAssertion.analyse(
+        Assert.assertTrue(nameAndDefaultValueAssertion.matches(
                 new MethodDeclarationStub("",
-                        new Annotation[]
-                                {
-                                        new AnnotationStub("SuppressWarnings", "\"unused\"", null, null)
-                                }, null)));
+                                          new Annotation[]
+                                                  {
+                                                          new AnnotationStub("SuppressWarnings", "\"unused\"", null, null)
+                                                  }, null)));
     }
 
     @Test
     public void shouldNotDetectAnnotationWithDifferentDefaultValue()
     {
-        Assert.assertFalse(nameAndDefaultValueAssertion.analyse(
+        Assert.assertFalse(nameAndDefaultValueAssertion.matches(
                 new MethodDeclarationStub("",
-                        new Annotation[]
-                                {
-                                        new AnnotationStub("SuppressWarnings", "\"unchecked\"", null, null)
-                                }, null)));
+                                          new Annotation[]
+                                                  {
+                                                          new AnnotationStub("SuppressWarnings", "\"unchecked\"", null, null)
+                                                  }, null)));
     }
 
     @Test
     public void shouldDetectAnnotationWithKeyValuePair()
     {
-        Assert.assertTrue(nameAndValueAssertion.analyse(
+        Assert.assertTrue(nameAndValueAssertion.matches(
                 new MethodDeclarationStub("",
-                        new Annotation[]
-                                {
-                                        new AnnotationStub("Test", null, "\"expected\"", "\"IllegalStateException.class\"")
-                                }, null)));
+                                          new Annotation[]
+                                                  {
+                                                          new AnnotationStub("Test", null, "\"expected\"", "\"IllegalStateException.class\"")
+                                                  }, null)));
     }
 
     @Test
     public void shouldNotDetectAnnotationWithDifferentKeyValuePair()
     {
-        Assert.assertFalse(nameAndValueAssertion.analyse(
+        Assert.assertFalse(nameAndValueAssertion.matches(
                 new MethodDeclarationStub("",
-                        new Annotation[]
-                                {
-                                        new AnnotationStub("Test", null, "\"expected\"", "17")
-                                }, null)));
+                                          new Annotation[]
+                                                  {
+                                                          new AnnotationStub("Test", null, "\"expected\"", "17")
+                                                  }, null)));
     }
 
 
     @Test
     public void shouldNotDetectAnnotation()
     {
-        Assert.assertFalse(nameAssertion.analyse(
+        Assert.assertFalse(nameAssertion.matches(
                 new MethodDeclarationStub("", new Annotation[]{}, null)));
     }
 

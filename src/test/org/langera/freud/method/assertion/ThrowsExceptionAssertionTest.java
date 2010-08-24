@@ -12,19 +12,19 @@ public final class ThrowsExceptionAssertionTest
     @Test
     public void shouldFailAnalysisBecauseMethodDoesNotThrowAnyException() throws Exception
     {
-        Assert.assertFalse(throwsExceptionAssertion.analyse(ThrowsExceptionAssertionTest.class.getMethod("setUp")));
+        Assert.assertFalse(throwsExceptionAssertion.matches(ThrowsExceptionAssertionTest.class.getMethod("setUp")));
     }
 
     @Test
     public void shouldPassAnalysis() throws Exception
     {
-        Assert.assertTrue(throwsExceptionAssertion.analyse(MethodModifierAssertionTest.class.getMethod("shouldPassAnalysis")));
+        Assert.assertTrue(throwsExceptionAssertion.matches(MethodModifierAssertionTest.class.getMethod("shouldPassAnalysis")));
     }
-    
+
     @Test
     public void shouldFailAnalysisBecauseMethodThrowsOtherException() throws Exception
     {
-        Assert.assertFalse(throwsRuntimeExceptionAssertion.analyse(MethodModifierAssertionTest.class.getMethod("shouldPassAnalysis")));
+        Assert.assertFalse(throwsRuntimeExceptionAssertion.matches(MethodModifierAssertionTest.class.getMethod("shouldPassAnalysis")));
     }
 
     @Before

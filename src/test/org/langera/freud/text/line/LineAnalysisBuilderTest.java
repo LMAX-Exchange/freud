@@ -1,11 +1,11 @@
 package org.langera.freud.text.line;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 
-public class LineAnalysisBuilderTest 
+public class LineAnalysisBuilderTest
 {
     private LineAnalysisBuilder builder;
 
@@ -15,7 +15,7 @@ public class LineAnalysisBuilderTest
     {
         builder.line();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
@@ -26,7 +26,7 @@ public class LineAnalysisBuilderTest
     {
         builder.line().matches("abc.*def");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TextLineMatch(abc.*def)", assertion.toString());
     }
@@ -36,7 +36,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().lessThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() < 666)", assertion.toString());
     }
@@ -46,7 +46,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() > 666)", assertion.toString());
     }
@@ -57,7 +57,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().lessThanOrEqualTo(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() <= 666)", assertion.toString());
     }
@@ -68,7 +68,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().greaterThanOrEqualTo(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() >= 666)", assertion.toString());
     }
@@ -78,7 +78,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().equalTo(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() == 666)", assertion.toString());
     }
@@ -88,7 +88,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().lessThan(builder.lineLength());
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() < LineLength())", assertion.toString());
     }
@@ -98,7 +98,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().greaterThan(builder.lineLength());
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() > LineLength())", assertion.toString());
     }
@@ -109,7 +109,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().lessThanOrEqualTo(builder.lineLength());
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() <= LineLength())", assertion.toString());
     }
@@ -120,7 +120,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().greaterThanOrEqualTo(builder.lineLength());
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() >= LineLength())", assertion.toString());
     }
@@ -130,7 +130,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().equalTo(builder.lineLength());
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("(LineLength() == LineLength())", assertion.toString());
     }
@@ -140,7 +140,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().add(17).greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("((LineLength() + 17) > 666)", assertion.toString());
     }
@@ -150,7 +150,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().subtract(17).greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("((LineLength() - 17) > 666)", assertion.toString());
     }
@@ -160,18 +160,18 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().multiply(17).greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("((LineLength() * 17) > 666)", assertion.toString());
     }
-    
+
 
     @Test
     public void testShouldSetAssertionAsLineLengthAdditionToDynamicValueAssertion() throws Exception
     {
         builder.lineLength().add(builder.lineLength()).greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("((LineLength() + LineLength()) > 666)", assertion.toString());
     }
@@ -182,7 +182,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().subtract(builder.lineLength()).greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("((LineLength() - LineLength()) > 666)", assertion.toString());
     }
@@ -193,7 +193,7 @@ public class LineAnalysisBuilderTest
     {
         builder.lineLength().multiply(builder.lineLength()).greaterThan(666);
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("((LineLength() * LineLength()) > 666)", assertion.toString());
     }
@@ -203,11 +203,10 @@ public class LineAnalysisBuilderTest
     {
         builder.line().contains("regex");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TextLineContains(regex)", assertion.toString());
     }
-
 
 
     @Test
@@ -215,13 +214,13 @@ public class LineAnalysisBuilderTest
     {
         builder.line().matches("regex");
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TextLineMatch(regex)", assertion.toString());
     }
 
     @Before
-    public void setUp() throws Exception 
+    public void setUp() throws Exception
     {
         builder = new LineAnalysisBuilder();
     }

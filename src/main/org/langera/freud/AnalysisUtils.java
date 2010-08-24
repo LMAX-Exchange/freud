@@ -1,8 +1,9 @@
 package org.langera.freud;
 
+import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.hamcrest.StringDescription;
+import org.hamcrest.TypeSafeMatcher;
 import org.langera.freud.listener.AnalysisListenerChain;
 import org.langera.freud.listener.AssertionErrorAnalysisListener;
 import org.langera.freud.listener.TraceAnalysisListener;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public final class AnalysisUtils
 {
-    private static final AnalysisAssertion TRUE_ASSERTION = new TrueAnalysisAssertion();
+    private static final Matcher TRUE_ASSERTION = new TrueAnalysisAssertion();
 
     private AnalysisUtils()
     {
@@ -45,30 +46,24 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> negatedAssertion(final AnalysisAssertion<T> assertion)
+    public static <T> Matcher<T> negatedAssertion(final Matcher<T> assertion)
     {
         return new NegateAnalysisAssertion(assertion);
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> hamcrestMatcherAssertion(Matcher<T> matcher)
-    {
-        return new HamcrestMatcherAssertion(matcher);
-    }
-
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> andOperatorAssertion(
-            final AnalysisAssertion<T> leftAssertion,
-            final AnalysisAssertion<T> rightAssertion)
+    public static <T> Matcher<T> andOperatorAssertion(
+            final Matcher<T> leftAssertion,
+            final Matcher<T> rightAssertion)
     {
         return new AndAnalysisAssertion(leftAssertion, rightAssertion);
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> orOperatorAssertion(
-            final AnalysisAssertion<T> leftAssertion,
-            final AnalysisAssertion<T> rightAssertion)
+    public static <T> Matcher<T> orOperatorAssertion(
+            final Matcher<T> leftAssertion,
+            final Matcher<T> rightAssertion)
     {
         return new OrAnalysisAssertion(leftAssertion, rightAssertion);
     }
@@ -82,7 +77,7 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> equalOperatorAssertion(
+    public static <T> Matcher<T> equalOperatorAssertion(
             final AnalysisCalculation<T> leftAssertion,
             final AnalysisCalculation<T> rightAssertion)
     {
@@ -90,7 +85,7 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> greaterThanOperatorAssertion(
+    public static <T> Matcher<T> greaterThanOperatorAssertion(
             final AnalysisCalculation<T> leftAssertion,
             final AnalysisCalculation<T> rightAssertion)
     {
@@ -98,7 +93,7 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> lessThanOperatorAssertion(
+    public static <T> Matcher<T> lessThanOperatorAssertion(
             final AnalysisCalculation<T> leftAssertion,
             final AnalysisCalculation<T> rightAssertion)
     {
@@ -106,7 +101,7 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> greaterThanEqualOperatorAssertion(
+    public static <T> Matcher<T> greaterThanEqualOperatorAssertion(
             final AnalysisCalculation<T> leftAssertion,
             final AnalysisCalculation<T> rightAssertion)
     {
@@ -114,7 +109,7 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> lessThanEqualOperatorAssertion(
+    public static <T> Matcher<T> lessThanEqualOperatorAssertion(
             final AnalysisCalculation<T> leftAssertion,
             final AnalysisCalculation<T> rightAssertion)
     {
@@ -148,15 +143,15 @@ public final class AnalysisUtils
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T> trueAssertion()
+    public static <T> Matcher<T> trueAssertion()
     {
-        return (AnalysisAssertion<T>) TRUE_ASSERTION;
+        return (Matcher<T>) TRUE_ASSERTION;
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> AnalysisAssertion<T>[] buildAssertions(List<Builder> builderList)
+    public static <T> Matcher<T>[] buildAssertions(List<Builder> builderList)
     {
-        AnalysisAssertion<T>[] assertions = new AnalysisAssertion[builderList.size()];
+        Matcher<T>[] assertions = new Matcher[builderList.size()];
         int i = 0;
         for (Builder assertionBuilder : builderList)
         {
@@ -165,9 +160,9 @@ public final class AnalysisUtils
         return assertions;
     }
 
-    private static final class TrueAnalysisAssertion implements AnalysisAssertion
+    private static final class TrueAnalysisAssertion extends BaseMatcher
     {
-        public boolean analyse(final Object toBeAnalysed)
+        public boolean matches(final Object toBeAnalysed)
         {
             return true;
         }
@@ -177,21 +172,26 @@ public final class AnalysisUtils
         {
             return "TRUE";
         }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
+        }
     }
 
 
-    private static final class NegateAnalysisAssertion<T> implements AnalysisAssertion<T>
+    private static final class NegateAnalysisAssertion<T> extends TypeSafeMatcher<T>
     {
-        private final AnalysisAssertion<T> assertion;
+        private final Matcher<T> assertion;
 
-        public NegateAnalysisAssertion(final AnalysisAssertion<T> assertion)
+        public NegateAnalysisAssertion(final Matcher<T> assertion)
         {
             this.assertion = assertion;
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public boolean matchesSafely(final T toBeAnalysed)
         {
-            return !assertion.analyse(toBeAnalysed);
+            return !assertion.matches(toBeAnalysed);
         }
 
         @Override
@@ -199,11 +199,16 @@ public final class AnalysisUtils
         {
             return "(NOT " + assertion + ")";
         }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
+        }
     }
 
     private static final class OrAnalysisAssertion<T> extends AbstractBinaryOpAnalysisAssertion<T>
     {
-        private OrAnalysisAssertion(AnalysisAssertion<T> left, AnalysisAssertion<T> right)
+        private OrAnalysisAssertion(Matcher<T> left, Matcher<T> right)
         {
             super(left, right);
         }
@@ -214,15 +219,15 @@ public final class AnalysisUtils
             return "OR";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public boolean matchesSafely(final T toBeAnalysed)
         {
-            return getLeft().analyse(toBeAnalysed) || getRight().analyse(toBeAnalysed);
+            return getLeft().matches(toBeAnalysed) || getRight().matches(toBeAnalysed);
         }
     }
 
     private static final class AndAnalysisAssertion<T> extends AbstractBinaryOpAnalysisAssertion<T>
     {
-        private AndAnalysisAssertion(AnalysisAssertion<T> left, AnalysisAssertion<T> right)
+        private AndAnalysisAssertion(Matcher<T> left, Matcher<T> right)
         {
             super(left, right);
         }
@@ -233,52 +238,29 @@ public final class AnalysisUtils
             return "AND";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public boolean matchesSafely(final T toBeAnalysed)
         {
-            return getLeft().analyse(toBeAnalysed) && getRight().analyse(toBeAnalysed);
+            return getLeft().matches(toBeAnalysed) && getRight().matches(toBeAnalysed);
         }
     }
 
-    private static class HamcrestMatcherAssertion<T> implements AnalysisAssertion<T>
+    private static abstract class AbstractBinaryOpAnalysisAssertion<T> extends TypeSafeMatcher<T>
     {
-        private final Matcher<T> matcher;
+        private final Matcher<T> left;
+        private final Matcher<T> right;
 
-        private HamcrestMatcherAssertion(Matcher<T> matcher)
-        {
-            this.matcher = matcher;
-        }
-
-        public boolean analyse(T toBeAnalysed)
-        {
-            return matcher.matches(toBeAnalysed);
-        }
-
-        @Override
-        public String toString()
-        {
-            final Description description = new StringDescription();
-            matcher.describeTo(description);
-            return description.toString();
-        }
-    }
-
-    private static abstract class AbstractBinaryOpAnalysisAssertion<T> implements AnalysisAssertion<T>
-    {
-        private final AnalysisAssertion<T> left;
-        private final AnalysisAssertion<T> right;
-
-        public AbstractBinaryOpAnalysisAssertion(final AnalysisAssertion<T> left, final AnalysisAssertion<T> right)
+        public AbstractBinaryOpAnalysisAssertion(final Matcher<T> left, final Matcher<T> right)
         {
             this.left = left;
             this.right = right;
         }
 
-        public AnalysisAssertion<T> getLeft()
+        public Matcher<T> getLeft()
         {
             return left;
         }
 
-        public AnalysisAssertion<T> getRight()
+        public Matcher<T> getRight()
         {
             return right;
         }
@@ -289,6 +271,11 @@ public final class AnalysisUtils
         public String toString()
         {
             return "(" + left + " " + operatorDisplayString() + " " + right + ")";
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
     }
 
@@ -338,8 +325,7 @@ public final class AnalysisUtils
         }
     }
 
-    private static final class EqualAnalysisAssertion<T>
-            extends AbstractBinaryOpAnalysisCalculation<T> implements AnalysisAssertion<T>
+    private static final class EqualAnalysisAssertion<T> extends AbstractBinaryOpAnalysisCalculation<T>
     {
         private EqualAnalysisAssertion(AnalysisCalculation<T> left, AnalysisCalculation<T> right)
         {
@@ -352,14 +338,19 @@ public final class AnalysisUtils
             return "==";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public boolean matchesSafely(final T toBeAnalysed)
         {
             return getLeft().analyse(toBeAnalysed) == getRight().analyse(toBeAnalysed);
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
     }
 
     private static final class LessThanAnalysisAssertion<T>
-            extends AbstractBinaryOpAnalysisCalculation<T> implements AnalysisAssertion<T>
+            extends AbstractBinaryOpAnalysisCalculation<T>
     {
         private LessThanAnalysisAssertion(AnalysisCalculation<T> left, AnalysisCalculation<T> right)
         {
@@ -372,14 +363,19 @@ public final class AnalysisUtils
             return "<";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public boolean matchesSafely(final T toBeAnalysed)
         {
             return getLeft().analyse(toBeAnalysed) < getRight().analyse(toBeAnalysed);
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
     }
 
     private static final class LessThanEqualAnalysisAssertion<T>
-            extends AbstractBinaryOpAnalysisCalculation<T> implements AnalysisAssertion<T>
+            extends AbstractBinaryOpAnalysisCalculation<T>
     {
         private LessThanEqualAnalysisAssertion(AnalysisCalculation<T> left, AnalysisCalculation<T> right)
         {
@@ -392,14 +388,19 @@ public final class AnalysisUtils
             return "<=";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public final boolean matchesSafely(final T toBeAnalysed)
         {
             return getLeft().analyse(toBeAnalysed) <= getRight().analyse(toBeAnalysed);
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
     }
 
     private static final class GreaterThanAnalysisAssertion<T>
-            extends AbstractBinaryOpAnalysisCalculation<T> implements AnalysisAssertion<T>
+            extends AbstractBinaryOpAnalysisCalculation<T>
     {
         private GreaterThanAnalysisAssertion(AnalysisCalculation<T> left, AnalysisCalculation<T> right)
         {
@@ -412,14 +413,19 @@ public final class AnalysisUtils
             return ">";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public final boolean matchesSafely(final T toBeAnalysed)
         {
             return getLeft().analyse(toBeAnalysed) > getRight().analyse(toBeAnalysed);
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
     }
 
     private static final class GreaterThanEqualAnalysisAssertion<T>
-            extends AbstractBinaryOpAnalysisCalculation<T> implements AnalysisAssertion<T>
+            extends AbstractBinaryOpAnalysisCalculation<T>
     {
         private GreaterThanEqualAnalysisAssertion(AnalysisCalculation<T> left, AnalysisCalculation<T> right)
         {
@@ -432,7 +438,7 @@ public final class AnalysisUtils
             return ">=";
         }
 
-        public boolean analyse(final T toBeAnalysed)
+        public final boolean matchesSafely(final T toBeAnalysed)
         {
             return getLeft().analyse(toBeAnalysed) >= getRight().analyse(toBeAnalysed);
         }
@@ -498,7 +504,7 @@ public final class AnalysisUtils
         }
     }
 
-    private static abstract class AbstractBinaryOpAnalysisCalculation<T>
+    private static abstract class AbstractBinaryOpAnalysisCalculation<T> extends TypeSafeMatcher<T>
     {
         private boolean symmetricOp;
         private AnalysisCalculation<T> left;
@@ -519,6 +525,16 @@ public final class AnalysisUtils
         public AnalysisCalculation<T> getRight()
         {
             return right;
+        }
+
+        protected boolean matchesSafely(T t)
+        {
+            return false;
+        }
+
+        public void describeTo(Description description)
+        {
+            description.appendText(toString());
         }
 
         @Override

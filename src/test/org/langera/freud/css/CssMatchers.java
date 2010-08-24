@@ -2,7 +2,7 @@ package org.langera.freud.css;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
-import org.junit.internal.matchers.TypeSafeMatcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.langera.freud.css.cssrule.CssRule;
 import org.langera.freud.css.cssrule.declaration.CssDeclaration;
 import org.langera.freud.css.cssrule.selector.CssSelector;
@@ -41,7 +41,7 @@ public final class CssMatchers
         }
 
         @Override
-        public boolean matchesSafely(CssRule cssRule)
+        public final boolean matchesSafely(final CssRule cssRule)
         {
             List<CssSelector> cssSelectorList = cssRule.getCssSelectorList();
             for (int i = 0; i < cssSelectorMatcher.length; i++)
@@ -84,7 +84,7 @@ public final class CssMatchers
         }
 
         @Override
-        public boolean matchesSafely(CssSelector cssSelector)
+        public final boolean matchesSafely(final CssSelector cssSelector)
         {
             return selector.equals(cssSelector.getSelectorString()) &&
                     cssSelector.getType() == type;
@@ -110,7 +110,7 @@ public final class CssMatchers
         }
 
         @Override
-        public boolean matchesSafely(CssDeclaration cssDeclaration)
+        public final boolean matchesSafely(final CssDeclaration cssDeclaration)
         {
             return key.equals(cssDeclaration.getKey()) && value.equals(cssDeclaration.getValue());
         }

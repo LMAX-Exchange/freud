@@ -14,14 +14,14 @@ public final class HasSetterForTypeAssertionTest
     @Test
     public void shouldPassSetter()
     {
-        Assert.assertTrue(assertionOfIntProperty.analyse(BigDecimal.class));
+        Assert.assertTrue(assertionOfIntProperty.matches(BigDecimal.class));
     }
 
 
     @Test
     public void shouldFailSetter()
     {
-        Assert.assertFalse(assertionOfObjectProperty.analyse(String.class));
+        Assert.assertFalse(assertionOfObjectProperty.matches(String.class));
     }
 
     @Before

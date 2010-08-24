@@ -309,7 +309,7 @@ public final class AnalysisCodeGenerator
             if (adapterDef.getAdapterCode() != null)
             {
                 final File dir = new File(GENERATED_SRC_DIR.getAbsolutePath() + File.separatorChar +
-                                          adapterDef.getPackageName().replace('.', File.separatorChar));
+                        adapterDef.getPackageName().replace('.', File.separatorChar));
                 final String classFileName = adapterDef.getName() + ".java";
                 final VelocityContext context = new VelocityContext();
                 context.put("context", this);
@@ -507,8 +507,9 @@ public final class AnalysisCodeGenerator
 
     public final static class DslMethodDecl
     {
-        private static final Pattern PATTERN = Pattern.compile("\\s+([a-zA-Z]\\w*)\\s*\\(([^\\)]*)");
+        private static final Pattern PATTERN = Pattern.compile("([a-zA-Z][\\w<>]*)\\s+([a-zA-Z]\\w*)\\s*\\(([^\\)]*)");
         private final String signature;
+        private final String returnType;
         private final String name;
         private final String[] params;
 
@@ -518,8 +519,9 @@ public final class AnalysisCodeGenerator
             final Matcher matcher = PATTERN.matcher(signature);
             if (matcher.find())
             {
-                this.name = matcher.group(1);
-                final String paramsString = matcher.group(2).trim();
+                this.returnType = matcher.group(1);
+                this.name = matcher.group(2);
+                final String paramsString = matcher.group(3).trim();
                 if (!paramsString.isEmpty())
                 {
                     final String[] paramsDefs = paramsString.split("\\s*,\\s*");
@@ -544,6 +546,11 @@ public final class AnalysisCodeGenerator
         public String getSignature()
         {
             return signature;
+        }
+
+        public String getReturnType()
+        {
+            return returnType;
         }
 
         public String getName()

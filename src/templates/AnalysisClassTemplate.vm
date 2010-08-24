@@ -14,7 +14,7 @@ import ${package.Name}.*;
 import $import;
 #end
 
-public class ${classname} extends AbstractAnalysis<$name>
+public class ${classname} extends AbstractAnalysis<$name, $classname>
         implements
 #foreach ($dsl in $context.DslSet)
                     $dsl.SimpleName,
@@ -55,8 +55,7 @@ public class ${classname} extends AbstractAnalysis<$name>
     #foreach($method in $methods)
         public $method.Signature
         {
-
-            return new ${builderClass.SimpleName}().${method.Name}(
+            $method.ReturnType builder = new ${builderClass.SimpleName}().${method.Name}(
             #foreach($param in $method.Params)
                 $param
                 #if($velocityHasNext)
@@ -64,6 +63,7 @@ public class ${classname} extends AbstractAnalysis<$name>
                 #end
             #end
             );
+            return builder;
         }
         
     #end

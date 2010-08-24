@@ -8,25 +8,25 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-public class SubTypeOfAssertionTest 
+public class SubTypeOfAssertionTest
 {
     private SubTypeOfAssertion assertion;
 
     @Test
-    public void testShouldMatchSubType() throws Exception 
+    public void testShouldMatchSubType() throws Exception
     {
-        Assert.assertTrue(assertion.analyse(ArrayList.class));
+        Assert.assertTrue(assertion.matches(ArrayList.class));
     }
 
     @Test
-    public void testShouldNotMatchANonSubType() throws Exception 
+    public void testShouldNotMatchANonSubType() throws Exception
     {
-        Assert.assertFalse(assertion.analyse(HashMap.class));
+        Assert.assertFalse(assertion.matches(HashMap.class));
     }
 
     @Before
     public void setUp()
     {
-        assertion = new SubTypeOfAssertion(Collection.class);        
+        assertion = new SubTypeOfAssertion(Collection.class);
     }
 }

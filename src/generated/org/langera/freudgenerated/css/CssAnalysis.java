@@ -1,4 +1,4 @@
-// Freud generated code [CssAnalysis] [2010-07-22 08:46:00]
+// Freud generated code [CssAnalysis] [2010-08-24 21:26:16]
 package org.langera.freudgenerated.css;
 
 import org.langera.freud.AbstractAnalysis;
@@ -22,12 +22,12 @@ import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.dsl.ReadableDsl;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
 
-public class CssAnalysis extends AbstractAnalysis<Css>
+public class CssAnalysis extends AbstractAnalysis<Css, CssAnalysis>
         implements
+        CssDsl,
         CssDeclarationDsl,
         CssSelectorDsl,
         CssRuleDsl,
-        CssDsl,
         Analysis
 {
     public CssAnalysis(AnalysedObjectIterator<Css> cssAnalysedObjectIterator)
@@ -37,6 +37,18 @@ public class CssAnalysis extends AbstractAnalysis<Css>
 
     protected NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, Class nestedType)
     {
+        if (type == CssRule.class)
+        {
+            if (nestedType == CssSelector.class)
+            {
+                return CssRuleToCssSelectorAnalysisAdapter.getInstance();
+            }
+            if (nestedType == CssDeclaration.class)
+            {
+                return CssRuleToCssDeclarationAnalysisAdapter.getInstance();
+            }
+            return null;
+        }
         if (type == Css.class)
         {
             if (nestedType == CssRule.class)
@@ -57,110 +69,98 @@ public class CssAnalysis extends AbstractAnalysis<Css>
             }
             return null;
         }
-        if (type == CssRule.class)
-        {
-            if (nestedType == CssSelector.class)
-            {
-                return CssRuleToCssSelectorAnalysisAdapter.getInstance();
-            }
-            if (nestedType == CssDeclaration.class)
-            {
-                return CssRuleToCssDeclarationAnalysisAdapter.getInstance();
-            }
-            return null;
-        }
         return null;
     }
 
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
+    public BooleanOperatorDsl<CssAnalysisBuilder> css()
+    {
+        BooleanOperatorDsl<CssAnalysisBuilder> builder = new CssAnalysisBuilder().css(
+        );
+        return builder;
+    }
+
     public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
     {
-
-        return new CssDeclarationAnalysisBuilder().declaration(
+        ReadableDsl<CssDeclarationAnalysisBuilder> builder = new CssDeclarationAnalysisBuilder().declaration(
         );
+        return builder;
     }
 
     public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(String regex)
     {
-
-        return new CssDeclarationAnalysisBuilder().declarationValue(
+        ReadableDsl<CssDeclarationAnalysisBuilder> builder = new CssDeclarationAnalysisBuilder().declarationValue(
                 regex
         );
+        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> selector()
     {
-
-        return new CssSelectorAnalysisBuilder().selector(
+        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().selector(
         );
+        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> classSelector()
     {
-
-        return new CssSelectorAnalysisBuilder().classSelector(
+        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().classSelector(
         );
+        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> tagSelector()
     {
-
-        return new CssSelectorAnalysisBuilder().tagSelector(
+        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().tagSelector(
         );
+        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> idSelector()
     {
-
-        return new CssSelectorAnalysisBuilder().idSelector(
+        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().idSelector(
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
     {
-
-        return new CssRuleAnalysisBuilder().cssRule(
+        BooleanOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().cssRule(
         );
+        return builder;
     }
 
     public BooleanOperatorDsl<CssRuleAnalysisBuilder> containsSelector(CssSelector.Type selectorType)
     {
-
-        return new CssRuleAnalysisBuilder().containsSelector(
+        BooleanOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().containsSelector(
                 selectorType
         );
+        return builder;
     }
 
     public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors(CssSelector.Type selectorType)
     {
-
-        return new CssRuleAnalysisBuilder().numberOfSelectors(
+        NumericOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().numberOfSelectors(
                 selectorType
         );
+        return builder;
     }
 
     public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors()
     {
-
-        return new CssRuleAnalysisBuilder().numberOfSelectors(
+        NumericOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().numberOfSelectors(
         );
+        return builder;
     }
 
     public NumericOperatorDsl<CssRuleAnalysisBuilder> lastIndexOfSelector(CssSelector.Type selectorType)
     {
-
-        return new CssRuleAnalysisBuilder().lastIndexOfSelector(
+        NumericOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().lastIndexOfSelector(
                 selectorType
         );
-    }
-
-    public BooleanOperatorDsl<CssAnalysisBuilder> css()
-    {
-
-        return new CssAnalysisBuilder().css(
-        );
+        return builder;
     }
 
 

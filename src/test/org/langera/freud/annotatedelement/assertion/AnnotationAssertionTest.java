@@ -9,7 +9,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Method;
 
-public class AnnotationAssertionTest 
+public class AnnotationAssertionTest
 {
     private AnnotationAssertion<Method> assertion;
     private AnnotationAssertion<Method> assertionWithValue;
@@ -17,44 +17,44 @@ public class AnnotationAssertionTest
 
 
     @Test
-    public void testShouldPassAnalysis() throws Exception 
+    public void testShouldPassAnalysis() throws Exception
     {
-        Assert.assertTrue(assertion.analyse(getClass().getMethod("setUp")));    
+        Assert.assertTrue(assertion.matches(getClass().getMethod("setUp")));
     }
 
     @Test
-    public void testShouldFailAnalysis() throws Exception 
+    public void testShouldFailAnalysis() throws Exception
     {
-        Assert.assertFalse(assertion.analyse(getClass().getMethod("testShouldFailAnalysis")));
+        Assert.assertFalse(assertion.matches(getClass().getMethod("testShouldFailAnalysis")));
     }
 
     @Test
-    public void testShouldPassAnalysisForAnnotationWithValue() throws Exception 
+    public void testShouldPassAnalysisForAnnotationWithValue() throws Exception
     {
-        Assert.assertTrue(assertionWithValue.analyse(getClass().getMethod("setUp")));
+        Assert.assertTrue(assertionWithValue.matches(getClass().getMethod("setUp")));
     }
 
     @Test
     @Dummy("other value")
     public void testShouldFailAnalysisForAnnotationWithValue() throws Exception
     {
-        Assert.assertFalse(assertionWithValue.analyse(getClass().getMethod("testShouldFailAnalysisForAnnotationWithValue")));
+        Assert.assertFalse(assertionWithValue.matches(getClass().getMethod("testShouldFailAnalysisForAnnotationWithValue")));
     }
 
     @Test
-    @DummyArray({ "other-value", "and-other" })
+    @DummyArray({"other-value", "and-other"})
     public void testShouldFailAnalysisForAnnotationWithMatcher() throws Exception
     {
-        Assert.assertFalse(assertionWithContainsMatcher.analyse(getClass().getMethod("testShouldFailAnalysisForAnnotationWithMatcher")));
+        Assert.assertFalse(assertionWithContainsMatcher.matches(getClass().getMethod("testShouldFailAnalysisForAnnotationWithMatcher")));
     }
 
     @Test
-    @DummyArray({ "my-value", "other" })
+    @DummyArray({"my-value", "other"})
     public void testShouldPassAnalysisForAnnotationWithMatcher() throws Exception
     {
-        Assert.assertTrue(assertionWithContainsMatcher.analyse(getClass().getMethod("testShouldPassAnalysisForAnnotationWithMatcher")));
+        Assert.assertTrue(assertionWithContainsMatcher.matches(getClass().getMethod("testShouldPassAnalysisForAnnotationWithMatcher")));
     }
-    
+
     @Before
     @Dummy("value to test")
     public void setUp() throws Exception

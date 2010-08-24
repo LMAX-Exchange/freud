@@ -22,7 +22,7 @@ public final class HasSelectorTypeAssertionTest
                 new CssSelectorStub(CssSelector.Type.TAG, "testTag", cssRule)
         ));
 
-        Assert.assertTrue(assertion.analyse(cssRule));
+        Assert.assertTrue(assertion.matches(cssRule));
     }
 
     @Test
@@ -33,7 +33,7 @@ public final class HasSelectorTypeAssertionTest
                 new CssSelectorStub(CssSelector.Type.ID, "testId", cssRule)
         ));
 
-        Assert.assertFalse(assertion.analyse(cssRule));
+        Assert.assertFalse(assertion.matches(cssRule));
     }
 
     @Before

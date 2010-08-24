@@ -10,24 +10,24 @@ import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 import java.util.Iterator;
 
-public class DeclaredMethodAssertionTest 
+public class DeclaredMethodAssertionTest
 {
     private DeclaredMethodAssertion assertionForString;
 
     @Test
-    public void shouldPassAnalysisMethodDeclaredOnCurrentlyAnalysedClass() throws Exception 
+    public void shouldPassAnalysisMethodDeclaredOnCurrentlyAnalysedClass() throws Exception
     {
-        Assert.assertTrue(assertionForString.analyse(String.class.getMethod("length")));    
+        Assert.assertTrue(assertionForString.matches(String.class.getMethod("length")));
     }
 
     @Test
     public void shouldFailAnalysisMethodDeclaredOnCurrentlyAnalysedClass() throws Exception
     {
-        Assert.assertFalse(assertionForString.analyse(String.class.getMethod("getClass")));
+        Assert.assertFalse(assertionForString.matches(String.class.getMethod("getClass")));
     }
 
     @Before
-    public void setUp() throws Exception 
+    public void setUp() throws Exception
     {
         fakeCurrentlyAnalysedClass(String.class);
 
@@ -36,7 +36,7 @@ public class DeclaredMethodAssertionTest
 
     private void fakeCurrentlyAnalysedClass(final Class currentlyAnalysed)
     {
-        new AbstractAnalysis<Class>(new AnalysedObjectIterator<Class>()
+        new AbstractAnalysis<Class, Void>(new AnalysedObjectIterator<Class>()
         {
             public Class current()
             {

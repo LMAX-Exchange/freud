@@ -1,4 +1,4 @@
-// Freud generated code [TextAnalysis] [2010-07-22 08:46:00]
+// Freud generated code [TextAnalysis] [2010-08-24 21:26:16]
 package org.langera.freudgenerated.text;
 
 import org.langera.freud.AbstractAnalysis;
@@ -14,7 +14,7 @@ import org.langera.freud.text.line.LineDsl;
 import org.langera.freud.text.line.TextLine;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
 
-public class TextAnalysis extends AbstractAnalysis<Text>
+public class TextAnalysis extends AbstractAnalysis<Text, TextAnalysis>
         implements
         LineDsl,
         TextDsl,
@@ -43,30 +43,30 @@ public class TextAnalysis extends AbstractAnalysis<Text>
 
     public ReadableDsl<LineAnalysisBuilder> line()
     {
-
-        return new LineAnalysisBuilder().line(
+        ReadableDsl<LineAnalysisBuilder> builder = new LineAnalysisBuilder().line(
         );
+        return builder;
     }
 
     public NumericOperatorDsl<LineAnalysisBuilder> lineLength()
     {
-
-        return new LineAnalysisBuilder().lineLength(
+        NumericOperatorDsl<LineAnalysisBuilder> builder = new LineAnalysisBuilder().lineLength(
         );
+        return builder;
     }
 
     public NumericOperatorDsl<LineAnalysisBuilder> lineNumber()
     {
-
-        return new LineAnalysisBuilder().lineNumber(
+        NumericOperatorDsl<LineAnalysisBuilder> builder = new LineAnalysisBuilder().lineNumber(
         );
+        return builder;
     }
 
     public ReadableDsl<TextAnalysisBuilder> text()
     {
-
-        return new TextAnalysisBuilder().text(
+        ReadableDsl<TextAnalysisBuilder> builder = new TextAnalysisBuilder().text(
         );
+        return builder;
     }
 
 

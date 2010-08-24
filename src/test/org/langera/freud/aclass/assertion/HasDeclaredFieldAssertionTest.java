@@ -4,22 +4,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HasDeclaredFieldAssertionTest 
+public class HasDeclaredFieldAssertionTest
 {
     private HasDeclaredFieldAssertion assertion;
     private HasDeclaredFieldAssertion assertionOnStringField;
 
-    @Test   
+    @Test
     public void shouldPassDeclaredField()
     {
-        Assert.assertTrue(assertion.analyse(HasDeclaredFieldAssertionTest.class));        
+        Assert.assertTrue(assertion.matches(HasDeclaredFieldAssertionTest.class));
     }
 
 
     @Test
     public void shouldFailDeclaredField()
     {
-        Assert.assertFalse(assertionOnStringField.analyse(HasDeclaredFieldAssertionTest.class));
+        Assert.assertFalse(assertionOnStringField.matches(HasDeclaredFieldAssertionTest.class));
     }
 
     @Before

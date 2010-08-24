@@ -13,20 +13,20 @@ public final class HasDeclaredMethodAssertionTest
     @Test
     public void shouldPass() throws Exception
     {
-        Assert.assertTrue(hasSetUpMethodAssertion.analyse(HasDeclaredMethodAssertionTest.class));                
+        Assert.assertTrue(hasSetUpMethodAssertion.matches(HasDeclaredMethodAssertionTest.class));
     }
 
-    
+
     @Test
     public void shouldFailBecauseMethodNotDeclared() throws Exception
     {
-        Assert.assertFalse(hasDeclaredToStringMethodAssertion.analyse(HasDeclaredMethodAssertionTest.class));        
+        Assert.assertFalse(hasDeclaredToStringMethodAssertion.matches(HasDeclaredMethodAssertionTest.class));
     }
 
     @Test
     public void shouldFailBecauseMethodDoesNotExist() throws Exception
     {
-        Assert.assertFalse(hasDeclaredFooMethodAssertion.analyse(HasDeclaredMethodAssertionTest.class));
+        Assert.assertFalse(hasDeclaredFooMethodAssertion.matches(HasDeclaredMethodAssertionTest.class));
     }
 
     @Before

@@ -1,11 +1,11 @@
 package org.langera.freud.instance;
 
+import org.hamcrest.Matcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.AnalysisAssertion;
 
-public class InstanceAnalysisBuilderTest 
+public class InstanceAnalysisBuilderTest
 {
     private InstanceAnalysisBuilder builder;
 
@@ -14,13 +14,13 @@ public class InstanceAnalysisBuilderTest
     {
         builder.instance();
 
-        AnalysisAssertion assertion = builder.buildAssertion();
+        Matcher assertion = builder.buildAssertion();
 
         Assert.assertEquals("TRUE", assertion.toString());
     }
 
     @Before
-    public void setUp() throws Exception 
+    public void setUp() throws Exception
     {
         builder = new InstanceAnalysisBuilder();
     }

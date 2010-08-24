@@ -12,14 +12,14 @@ public final class HasConstructorArgOfTypeAssertionTest
     @Test
     public void shouldPassConstructorArg()
     {
-        Assert.assertTrue(assertionOfStringArg.analyse(String.class));
+        Assert.assertTrue(assertionOfStringArg.matches(String.class));
     }
 
 
     @Test
     public void shouldFailConstructorArg()
     {
-        Assert.assertFalse(assertionOfIntegerArg.analyse(String.class));
+        Assert.assertFalse(assertionOfIntegerArg.matches(String.class));
     }
 
     @Before

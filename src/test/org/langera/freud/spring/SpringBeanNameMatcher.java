@@ -18,7 +18,7 @@ public final class SpringBeanNameMatcher extends TypeSafeMatcher<SpringBean>
     }
 
     @Override
-    public boolean matchesSafely(SpringBean item)
+    public final boolean matchesSafely(final SpringBean item)
     {
         return expectedName.equals(item.getBeanName());
     }

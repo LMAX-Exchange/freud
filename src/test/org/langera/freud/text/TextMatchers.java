@@ -28,7 +28,7 @@ public final class TextMatchers
         }
 
         @Override
-        public boolean matchesSafely(TextLine item)
+        public final boolean matchesSafely(final TextLine item)
         {
             return item.getLineNumber() == lineNumber && line.equals(item.getLine());
         }

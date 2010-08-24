@@ -17,13 +17,13 @@ public final class CssSelectorTypeAssertionTest
     @Test
     public void shouldPassAssertion()
     {
-        Assert.assertTrue(classTypeAssertion.analyse(toBeAnalysed));
+        Assert.assertTrue(classTypeAssertion.matches(toBeAnalysed));
     }
 
     @Test
     public void shouldFailAssertion()
     {
-        Assert.assertFalse(idTypeAssertion.analyse(toBeAnalysed));
+        Assert.assertFalse(idTypeAssertion.matches(toBeAnalysed));
     }
 
     @Before
