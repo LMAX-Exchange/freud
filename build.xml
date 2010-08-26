@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="freud" default="all" basedir=".">
 
-    <property name="version" value="0.1"/>
+    <property name="version" value="0.9"/>
     <property name="dir.main.src" value="src/main"/>
     <property name="dir.generated.src" value="src/generated"/>
     <property name="dir.main.build" value="build/main/classes"/>

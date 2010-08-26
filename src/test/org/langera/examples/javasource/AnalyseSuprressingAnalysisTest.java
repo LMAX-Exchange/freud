@@ -18,18 +18,18 @@ public class AnalyseSuprressingAnalysisTest
     {
         Analysis analysis = JavaSourceExamples.codeBlockSizeIsLimitedToOneLineIfFreudNotSuppressed(
                 AnalysisResource.selfResourceIterator(JavaSourceJdom.PARSER,
-                "package org.langera.examples;\n" +
-                        " \n" +
-                        "public class SimpleClass \n" +
-                        "{ \n" +
-                        " \n" +
-                        "  public String toFail()\n" +
-                        "  {\n" +
-                        "       return \"\" \n" +
-                        "              + getClass();\n" +
-                        "  }\n" +
-                        " \n" +
-                        "}"));
+                                                      "package org.langera.examples;\n" +
+                                                              " \n" +
+                                                              "public class SimpleClass \n" +
+                                                              "{ \n" +
+                                                              " \n" +
+                                                              "  public String toFail()\n" +
+                                                              "  {\n" +
+                                                              "       return \"\" \n" +
+                                                              "              + getClass();\n" +
+                                                              "  }\n" +
+                                                              " \n" +
+                                                              "}"));
 
         analysis.analyse(listener);
 
@@ -43,21 +43,21 @@ public class AnalyseSuprressingAnalysisTest
     {
         Analysis analysis = JavaSourceExamples.codeBlockSizeIsLimitedToOneLineIfFreudNotSuppressed(
                 AnalysisResource.selfResourceIterator(JavaSourceJdom.PARSER,
-                "package org.langera.examples;\n" +
-                        " \n" +
-                        "public class SimpleClass \n" +
-                        "{ \n" +
-                        " \n" +
-                        "  @SuppressWarnings(\"freud:NumberOfLinesOfCodeBlock() <= 1\")\n" +
-                        "  public String toBeSuppressed()\n" +
-                        "  {\n" +
-                        "       int i = 1;\n" +
-                        "       int i = 2;\n" +
-                        "       int i = 3;\n" +
-                        "       return \"\" + getClass();\n" +
-                        "  }\n" +
-                        " \n" +
-                        "}"));
+                                                      "package org.langera.examples;\n" +
+                                                              " \n" +
+                                                              "public class SimpleClass \n" +
+                                                              "{ \n" +
+                                                              " \n" +
+                                                              "  @SuppressWarnings(\"freud:CodeBlockLines() <= 1\")\n" +
+                                                              "  public String toBeSuppressed()\n" +
+                                                              "  {\n" +
+                                                              "       int i = 1;\n" +
+                                                              "       int i = 2;\n" +
+                                                              "       int i = 3;\n" +
+                                                              "       return \"\" + getClass();\n" +
+                                                              "  }\n" +
+                                                              " \n" +
+                                                              "}"));
 
         analysis.analyse(listener);
 

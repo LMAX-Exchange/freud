@@ -59,22 +59,6 @@ public final class AnalyseDescendantSelectorsAreTheWorstTest
                                       cssSelector(Type.TAG, "a"), cssSelector(Type.CLASS, "shouldFail")));
     }
 
-    @Test
-    public void t()
-    {
-        Analysis analysis = CssExamples.descendantSelectorsAreTheWorst(
-                AnalysisResource.selfResourceIterator(CssJdom.PARSER,
-                                                      "a b c \n" +
-                                                              "{ \n" +
-                                                              " display: none; \n" +
-                                                              "} \n" +
-                                                              "d, e, f \n" +
-                                                              "{ \n" +
-                                                              " display: none; \n" +
-                                                              "} \n"));
-
-        analysis.analyse(listener);
-    }
 
     @Before
     public void setUp() throws Exception

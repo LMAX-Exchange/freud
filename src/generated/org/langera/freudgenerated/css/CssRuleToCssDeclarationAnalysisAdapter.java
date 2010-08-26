@@ -1,4 +1,4 @@
-// Freud generated code 2010-08-24 21:26:16
+// Freud generated code 2010-08-25 22:33:47
 package org.langera.freudgenerated.css;
 
 import org.langera.freud.NestedTypeAnalysisAdapter;

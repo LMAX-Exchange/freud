@@ -1,4 +1,4 @@
-// Freud generated code [CssAnalysis] [2010-08-24 21:26:16]
+// Freud generated code [CssAnalysis] [2010-08-25 22:33:47]
 package org.langera.freudgenerated.css;
 
 import org.langera.freud.AbstractAnalysis;
@@ -24,8 +24,8 @@ import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 public class CssAnalysis extends AbstractAnalysis<Css, CssAnalysis>
         implements
-        CssDsl,
         CssDeclarationDsl,
+        CssDsl,
         CssSelectorDsl,
         CssRuleDsl,
         Analysis
@@ -75,92 +75,80 @@ public class CssAnalysis extends AbstractAnalysis<Css, CssAnalysis>
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
-    public BooleanOperatorDsl<CssAnalysisBuilder> css()
-    {
-        BooleanOperatorDsl<CssAnalysisBuilder> builder = new CssAnalysisBuilder().css(
-        );
-        return builder;
-    }
-
     public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
     {
-        ReadableDsl<CssDeclarationAnalysisBuilder> builder = new CssDeclarationAnalysisBuilder().declaration(
+        return new CssDeclarationAnalysisBuilder().declaration(
         );
-        return builder;
     }
 
     public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(String regex)
     {
-        ReadableDsl<CssDeclarationAnalysisBuilder> builder = new CssDeclarationAnalysisBuilder().declarationValue(
+        return new CssDeclarationAnalysisBuilder().declarationValue(
                 regex
         );
-        return builder;
+    }
+
+    public BooleanOperatorDsl<CssAnalysisBuilder> css()
+    {
+        return new CssAnalysisBuilder().css(
+        );
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> selector()
     {
-        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().selector(
+        return new CssSelectorAnalysisBuilder().selector(
         );
-        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> classSelector()
     {
-        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().classSelector(
+        return new CssSelectorAnalysisBuilder().classSelector(
         );
-        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> tagSelector()
     {
-        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().tagSelector(
+        return new CssSelectorAnalysisBuilder().tagSelector(
         );
-        return builder;
     }
 
     public ReadableDsl<CssSelectorAnalysisBuilder> idSelector()
     {
-        ReadableDsl<CssSelectorAnalysisBuilder> builder = new CssSelectorAnalysisBuilder().idSelector(
+        return new CssSelectorAnalysisBuilder().idSelector(
         );
-        return builder;
     }
 
     public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
     {
-        BooleanOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().cssRule(
+        return new CssRuleAnalysisBuilder().cssRule(
         );
-        return builder;
     }
 
     public BooleanOperatorDsl<CssRuleAnalysisBuilder> containsSelector(CssSelector.Type selectorType)
     {
-        BooleanOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().containsSelector(
+        return new CssRuleAnalysisBuilder().containsSelector(
                 selectorType
         );
-        return builder;
     }
 
-    public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors(CssSelector.Type selectorType)
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> selectors(CssSelector.Type selectorType)
     {
-        NumericOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().numberOfSelectors(
+        return new CssRuleAnalysisBuilder().selectors(
                 selectorType
         );
-        return builder;
     }
 
-    public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors()
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> selectors()
     {
-        NumericOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().numberOfSelectors(
+        return new CssRuleAnalysisBuilder().selectors(
         );
-        return builder;
     }
 
     public NumericOperatorDsl<CssRuleAnalysisBuilder> lastIndexOfSelector(CssSelector.Type selectorType)
     {
-        NumericOperatorDsl<CssRuleAnalysisBuilder> builder = new CssRuleAnalysisBuilder().lastIndexOfSelector(
+        return new CssRuleAnalysisBuilder().lastIndexOfSelector(
                 selectorType
         );
-        return builder;
     }
 
 

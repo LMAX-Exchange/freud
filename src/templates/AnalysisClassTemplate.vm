@@ -55,7 +55,7 @@ public class ${classname} extends AbstractAnalysis<$name, $classname>
     #foreach($method in $methods)
         public $method.Signature
         {
-            $method.ReturnType builder = new ${builderClass.SimpleName}().${method.Name}(
+            return new ${builderClass.SimpleName}().${method.Name}(
             #foreach($param in $method.Params)
                 $param
                 #if($velocityHasNext)
@@ -63,7 +63,6 @@ public class ${classname} extends AbstractAnalysis<$name, $classname>
                 #end
             #end
             );
-            return builder;
         }
         
     #end

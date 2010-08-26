@@ -3,6 +3,7 @@ package org.langera.freud;
 import org.hamcrest.Matcher;
 import org.langera.freud.dsl.BooleanOperatorDsl;
 import org.langera.freud.dsl.FilterDsl;
+import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.dsl.UnaryBooleanOperatorDsl;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
 
@@ -140,6 +141,12 @@ public abstract class AbstractAnalysis<Type, This> implements Analysis
     public <Dsl extends BooleanOperatorDsl> BooleanOperatorDsl<Dsl> no(final BooleanOperatorDsl<Dsl> booleanOperatorDsl)
     {
         return ((UnaryBooleanOperatorDsl) booleanOperatorDsl).no(booleanOperatorDsl);
+    }
+
+    @SuppressWarnings("unchecked")
+    public <Dsl extends BooleanOperatorDsl> NumericOperatorDsl<Dsl> numberOf(final NumericOperatorDsl<Dsl> numericOperatorDsl)
+    {
+        return ((NumericOperatorDsl) numericOperatorDsl).numberOf(numericOperatorDsl);
     }
 
     protected abstract NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, final Class nestedType);

@@ -29,7 +29,7 @@ public interface CodeBlockDsl
 
     BooleanOperatorDsl<CodeBlockAnalysisBuilder> hasMethodCall(String methodCall);
 
-    NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines();
+    NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockLines();
 
     BooleanOperatorDsl<CodeBlockAnalysisBuilder> method(
             BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclarationDsl);

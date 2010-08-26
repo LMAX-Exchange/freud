@@ -29,9 +29,9 @@ public interface CssRuleDsl
 
     BooleanOperatorDsl<CssRuleAnalysisBuilder> containsSelector(CssSelector.Type selectorType);
 
-    NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors(CssSelector.Type selectorType);
+    NumericOperatorDsl<CssRuleAnalysisBuilder> selectors(CssSelector.Type selectorType);
 
-    NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors();
+    NumericOperatorDsl<CssRuleAnalysisBuilder> selectors();
 
     NumericOperatorDsl<CssRuleAnalysisBuilder> lastIndexOfSelector(CssSelector.Type selectorType);
 }

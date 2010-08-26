@@ -19,7 +19,7 @@ public final class JavaSourceExamples
         {
             {
                 assertThat(packageDepth().lessThanOrEqualTo(7).and(
-                               packageDepth().greaterThanOrEqualTo(3)));
+                        packageDepth().greaterThanOrEqualTo(3)));
             }
         };
     }
@@ -39,7 +39,7 @@ public final class JavaSourceExamples
         return new JavaSourceAnalysis(iterator)
         {
             {
-                assertThat(codeBlockNumberOfLines().lessThanOrEqualTo(30));
+                assertThat(codeBlockLines().lessThanOrEqualTo(30));
             }
         };
     }
@@ -50,7 +50,7 @@ public final class JavaSourceExamples
         {
             {
                 forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("\"freud:")))));
-                assertThat(codeBlockNumberOfLines().lessThanOrEqualTo(1));
+                assertThat(numberOf(codeBlockLines()).lessThanOrEqualTo(1));
             }
         };
     }

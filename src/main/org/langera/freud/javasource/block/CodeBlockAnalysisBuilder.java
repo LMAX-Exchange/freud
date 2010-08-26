@@ -51,7 +51,7 @@ public final class CodeBlockAnalysisBuilder extends AbstractAnalysisBuilder<Code
         return this;
     }
 
-    public NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockNumberOfLines()
+    public NumericOperatorDsl<CodeBlockAnalysisBuilder> codeBlockLines()
     {
         setCalculation(CodeBlockNumberOfLinesCalculation.getInstance());
         return this;

@@ -41,7 +41,7 @@ public final class CssRuleAnalysisBuilder extends AbstractAnalysisBuilder<CssRul
         return this;
     }
 
-    public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors()
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> selectors()
     {
         setCalculation(new SelectorCountingCalculation());
         return this;
@@ -53,7 +53,7 @@ public final class CssRuleAnalysisBuilder extends AbstractAnalysisBuilder<CssRul
         return this;
     }
 
-    public NumericOperatorDsl<CssRuleAnalysisBuilder> numberOfSelectors(CssSelector.Type selectorType)
+    public NumericOperatorDsl<CssRuleAnalysisBuilder> selectors(CssSelector.Type selectorType)
     {
         setCalculation(new SelectorCountingCalculation(selectorType));
         return this;

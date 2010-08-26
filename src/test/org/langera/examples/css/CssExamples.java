@@ -74,7 +74,7 @@ public final class CssExamples
         {
             {
                 forEach(cssRule());
-                assertThat(numberOfSelectors(CssSelector.Type.TAG).lessThanOrEqualTo(1));
+                assertThat(numberOf(selectors(CssSelector.Type.TAG)).lessThanOrEqualTo(1));
             }
         };
     }

@@ -1,4 +1,4 @@
-// Freud generated code [PropertyAnalysis] [2010-08-24 21:26:16]
+// Freud generated code [PropertyAnalysis] [2010-08-25 22:33:47]
 package org.langera.freudgenerated.property;
 
 import org.langera.freud.AbstractAnalysis;
@@ -30,23 +30,20 @@ public class PropertyAnalysis extends AbstractAnalysis<Property, PropertyAnalysi
 
     public ReadableDsl<PropertyAnalysisBuilder> property()
     {
-        ReadableDsl<PropertyAnalysisBuilder> builder = new PropertyAnalysisBuilder().property(
+        return new PropertyAnalysisBuilder().property(
         );
-        return builder;
     }
 
     public ReadableDsl<PropertyAnalysisBuilder> propertyKey()
     {
-        ReadableDsl<PropertyAnalysisBuilder> builder = new PropertyAnalysisBuilder().propertyKey(
+        return new PropertyAnalysisBuilder().propertyKey(
         );
-        return builder;
     }
 
     public ReadableDsl<PropertyAnalysisBuilder> propertyValue()
     {
-        ReadableDsl<PropertyAnalysisBuilder> builder = new PropertyAnalysisBuilder().propertyValue(
+        return new PropertyAnalysisBuilder().propertyValue(
         );
-        return builder;
     }
 
 

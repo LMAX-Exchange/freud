@@ -33,7 +33,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         implements Builder<T>,
         BooleanOperatorDsl<ThisDsl>,
         UnaryBooleanOperatorDsl<ThisDsl>,
-// TODO       MatchableDsl<ThisDsl>,
+        MatchingDsl<ThisDsl, T>,
         ReadableDsl<ThisDsl>,
         NumericOperatorDsl<ThisDsl>
 {
@@ -79,6 +79,16 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         setAssertion(AnalysisUtils.negatedAssertion(((Builder) dsl).buildAssertion()));
         return this;
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    // Matching DSL
+
+    public BooleanOperatorDsl<ThisDsl> is(Matcher<T> matcher)
+    {
+        setAssertion(matcher);
+        return this;
+    }
+
 
     ///////////////////////////////////////////////////////////////////////
     // Readable DSL

@@ -1,11 +1,16 @@
 package org.langera.examples.aclass;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.junit.runner.RunWith;
 import org.langera.freud.Analysis;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
 import org.langera.freudgenerated.aclass.ClassAnalysis;
+
+import java.util.Comparator;
 
 /**
  * Created by IntelliJ IDEA.
@@ -50,6 +55,35 @@ public final class ClassExamples
                 forEach(aClass().matches(".+Test"));
                 assertThat(no(hasDeclaredField(Mockery.class)).
                         or(classAnnotation(RunWith.class, JMock.class)));
+            }
+        };
+    }
+
+    // + example of use of Custom hamcrest Matcher
+
+    public static Analysis allImplementorsOfComparatorMustNotContainFields(final AnalysedObjectIterator<Class> iterator)
+    {
+        return new ClassAnalysis(iterator)
+        {
+            {
+                assertThat(no(subTypeOf(Comparator.class)).or(no(aClass().is(withFields()))));
+            }
+        };
+    }
+
+    private static Matcher<Class> withFields()
+    {
+        return new TypeSafeMatcher<Class>()
+        {
+            @Override
+            protected boolean matchesSafely(Class item)
+            {
+                return item.getDeclaredFields().length > 0;
+            }
+
+            public void describeTo(Description description)
+            {
+                description.appendText("<Class>.withFields()");
             }
         };
     }
