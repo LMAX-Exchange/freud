@@ -1,7 +1,7 @@
-package org.langera.freud.javasource.classdecl;
+package org.langera.freud.javasource.classdecl.assertion;
 
-import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.CommonDsl;
+import org.langera.freud.javasource.classdecl.ClassDeclaration;
+import org.langera.freud.util.regex.RegexMatchAnalysisAssertionAdapter;
 
 /**
  * This file is part of "Freud".
@@ -22,10 +22,15 @@ import org.langera.freud.dsl.CommonDsl;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public interface ClassDeclarationDsl
+public final class ClassDeclarationNameMatchAssertionAdapter implements RegexMatchAnalysisAssertionAdapter<ClassDeclaration>
 {
-    CommonDsl<ClassDeclarationAnalysisBuilder, ClassDeclaration> classDeclaration();
+    public String getStringToMatch(ClassDeclaration toBeAnalysed)
+    {
+        return toBeAnalysed.getName();
+    }
 
-    BooleanOperatorDsl<ClassDeclarationAnalysisBuilder> hasDeclaredMethod(String methodName);
-
+    public String assertionDisplayName()
+    {
+        return "ClassDeclarationName";
+    }
 }

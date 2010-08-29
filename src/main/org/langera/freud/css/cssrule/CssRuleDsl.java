@@ -2,6 +2,7 @@ package org.langera.freud.css.cssrule;
 
 import org.langera.freud.css.cssrule.selector.CssSelector;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
 
 /**
@@ -25,7 +26,7 @@ import org.langera.freud.dsl.NumericOperatorDsl;
 
 public interface CssRuleDsl
 {
-    BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule();
+    CommonDsl<CssRuleAnalysisBuilder, CssRule> cssRule();
 
     BooleanOperatorDsl<CssRuleAnalysisBuilder> containsSelector(CssSelector.Type selectorType);
 

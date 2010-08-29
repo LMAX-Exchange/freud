@@ -138,13 +138,13 @@ public abstract class AbstractAnalysis<Type, This> implements Analysis
     }
 
     @SuppressWarnings("unchecked")
-    public <Dsl extends BooleanOperatorDsl> BooleanOperatorDsl<Dsl> no(final BooleanOperatorDsl<Dsl> booleanOperatorDsl)
+    public <DSL extends BooleanOperatorDsl> BooleanOperatorDsl<DSL> no(final BooleanOperatorDsl<DSL> booleanOperatorDsl)
     {
         return ((UnaryBooleanOperatorDsl) booleanOperatorDsl).no(booleanOperatorDsl);
     }
 
     @SuppressWarnings("unchecked")
-    public <Dsl extends BooleanOperatorDsl> NumericOperatorDsl<Dsl> numberOf(final NumericOperatorDsl<Dsl> numericOperatorDsl)
+    public <DSL extends BooleanOperatorDsl> NumericOperatorDsl<DSL> numberOf(final NumericOperatorDsl<DSL> numericOperatorDsl)
     {
         return ((NumericOperatorDsl) numericOperatorDsl).numberOf(numericOperatorDsl);
     }

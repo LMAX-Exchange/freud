@@ -3,6 +3,7 @@ package org.langera.freud.javasource.methoddecl;
 import org.hamcrest.Matcher;
 import org.langera.freud.AbstractAnalysisBuilder;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.javasource.methoddecl.assertion.HasDeclaredAnnotationAssertion;
 import org.langera.freud.javasource.methoddecl.assertion.MethodDeclNameMatchAssertionAdapter;
 import org.langera.freud.util.regex.RegexMatchAnalysisAssertion;
@@ -30,9 +31,10 @@ public final class MethodDeclarationAnalysisBuilder
         extends AbstractAnalysisBuilder<MethodDeclarationAnalysisBuilder, MethodDeclaration>
         implements MethodDeclarationDsl
 {
-    public BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclaration()
+    public CommonDsl<MethodDeclarationAnalysisBuilder, MethodDeclaration> methodDeclaration()
     {
-        return trueAssertion();
+        setRegexAssertionAdapterClass(MethodDeclNameMatchAssertionAdapter.class);
+        return (CommonDsl<MethodDeclarationAnalysisBuilder, MethodDeclaration>) trueAssertion();
     }
 
     public BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> hasDeclaredAnnotation(String annotation)

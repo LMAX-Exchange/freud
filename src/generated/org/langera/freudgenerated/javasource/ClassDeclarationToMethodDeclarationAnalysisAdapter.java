@@ -1,10 +1,11 @@
-// Freud generated code 2010-08-25 22:33:46
+// Freud generated code 2010-08-29 18:09:34
 package org.langera.freudgenerated.javasource;
 
-import org.langera.freud.NestedTypeAnalysisAdapter;
+import org.langera.freud.*;
+import org.langera.freud.dsl.*;
 import org.langera.freud.javasource.classdecl.ClassDeclaration;
 import org.langera.freud.javasource.methoddecl.MethodDeclaration;
-import org.langera.freud.util.collection.MultiCollection;
+import org.langera.freud.util.collection.MultiCollection;    
 
 public final class ClassDeclarationToMethodDeclarationAnalysisAdapter implements NestedTypeAnalysisAdapter<ClassDeclaration, MethodDeclaration>
 {

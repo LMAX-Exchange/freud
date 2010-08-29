@@ -1,7 +1,7 @@
 package org.langera.freud.javasource.apackage;
 
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
-import org.langera.freud.dsl.ReadableDsl;
 
 /**
  * This file is part of "Freud".
@@ -24,7 +24,7 @@ import org.langera.freud.dsl.ReadableDsl;
 
 public interface PackageDeclarationDsl
 {
-    ReadableDsl<PackageDeclarationAnalysisBuilder> packageDeclaration();
+    CommonDsl<PackageDeclarationAnalysisBuilder, PackageDeclaration> packageDeclaration();
 
     NumericOperatorDsl<PackageDeclarationAnalysisBuilder> packageDepth();
 }

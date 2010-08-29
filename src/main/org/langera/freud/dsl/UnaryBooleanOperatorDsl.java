@@ -19,7 +19,7 @@ package org.langera.freud.dsl;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public interface UnaryBooleanOperatorDsl<Dsl extends BooleanOperatorDsl>
+public interface UnaryBooleanOperatorDsl<DSL extends BooleanOperatorDsl>
 {
-    BooleanOperatorDsl<Dsl> no(BooleanOperatorDsl<Dsl> dsl);
+    BooleanOperatorDsl<DSL> no(BooleanOperatorDsl<DSL> dsl);
 }

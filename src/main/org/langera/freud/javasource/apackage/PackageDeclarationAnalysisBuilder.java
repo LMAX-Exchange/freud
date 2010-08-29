@@ -1,8 +1,8 @@
 package org.langera.freud.javasource.apackage;
 
 import org.langera.freud.AbstractAnalysisBuilder;
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
-import org.langera.freud.dsl.ReadableDsl;
 import org.langera.freud.javasource.apackage.assertion.PackageDepthCalculation;
 import org.langera.freud.javasource.apackage.assertion.PackagePathMatchAssertionAdapter;
 
@@ -29,10 +29,10 @@ public final class PackageDeclarationAnalysisBuilder
         extends AbstractAnalysisBuilder<PackageDeclarationAnalysisBuilder, PackageDeclaration>
         implements PackageDeclarationDsl
 {
-    public ReadableDsl<PackageDeclarationAnalysisBuilder> packageDeclaration()
+    public CommonDsl<PackageDeclarationAnalysisBuilder, PackageDeclaration> packageDeclaration()
     {
         setRegexAssertionAdapterClass(PackagePathMatchAssertionAdapter.class);
-        return (ReadableDsl<PackageDeclarationAnalysisBuilder>) trueAssertion();
+        return (CommonDsl<PackageDeclarationAnalysisBuilder, PackageDeclaration>) trueAssertion();
     }
 
     public NumericOperatorDsl<PackageDeclarationAnalysisBuilder> packageDepth()

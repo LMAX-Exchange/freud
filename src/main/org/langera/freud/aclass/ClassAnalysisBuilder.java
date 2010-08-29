@@ -5,7 +5,7 @@ import org.langera.freud.AnalysisUtils;
 import org.langera.freud.aclass.assertion.*;
 import org.langera.freud.annotatedelement.assertion.AnnotationAssertion;
 import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.MatchingDsl;
+import org.langera.freud.dsl.CommonDsl;
 
 import java.lang.annotation.Annotation;
 
@@ -31,6 +31,12 @@ import java.lang.annotation.Annotation;
 public final class ClassAnalysisBuilder extends AbstractAnalysisBuilder<ClassAnalysisBuilder, Class>
         implements ClassDsl
 {
+    public CommonDsl<ClassAnalysisBuilder, Class> aClass()
+    {
+        setRegexAssertionAdapterClass(ClassSimpleNameMatchAssertionAdapter.class);
+        return (CommonDsl<ClassAnalysisBuilder, Class>) trueAssertion();
+    }
+
     public ClassAnalysisBuilder subTypeOf(Class type)
     {
         setAssertion(new SubTypeOfAssertion(type));
@@ -66,12 +72,6 @@ public final class ClassAnalysisBuilder extends AbstractAnalysisBuilder<ClassAna
     {
         setAssertion(new HasDeclaredFieldAssertion(type));
         return this;
-    }
-
-    public MatchingDsl<ClassAnalysisBuilder, Class> aClass()
-    {
-        setRegexAssertionAdapterClass(ClassSimpleNameMatchAssertionAdapter.class);
-        return (MatchingDsl<ClassAnalysisBuilder, Class>) trueAssertion();
     }
 
     public Class<Class> getType()

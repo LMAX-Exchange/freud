@@ -1,8 +1,8 @@
 package org.langera.freud.text.line;
 
 import org.langera.freud.AbstractAnalysisBuilder;
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
-import org.langera.freud.dsl.ReadableDsl;
 import org.langera.freud.text.line.assertion.LineLengthCalculation;
 import org.langera.freud.text.line.assertion.LineNumberCalculation;
 import org.langera.freud.text.line.assertion.LineRegexMatchAnalysisAssertionAdapter;
@@ -34,10 +34,10 @@ public final class LineAnalysisBuilder extends AbstractAnalysisBuilder<LineAnaly
         return TextLine.class;
     }
 
-    public ReadableDsl<LineAnalysisBuilder> line()
+    public CommonDsl<LineAnalysisBuilder, TextLine> line()
     {
         setRegexAssertionAdapterClass(LineRegexMatchAnalysisAssertionAdapter.class);
-        return (ReadableDsl<LineAnalysisBuilder>) trueAssertion();
+        return (CommonDsl<LineAnalysisBuilder, TextLine>) trueAssertion();
     }
 
     public NumericOperatorDsl<LineAnalysisBuilder> lineLength()

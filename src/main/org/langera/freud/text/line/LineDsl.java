@@ -1,7 +1,7 @@
 package org.langera.freud.text.line;
 
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
-import org.langera.freud.dsl.ReadableDsl;
 
 /**
  * This file is part of "Freud".
@@ -24,7 +24,7 @@ import org.langera.freud.dsl.ReadableDsl;
 
 public interface LineDsl
 {
-    ReadableDsl<LineAnalysisBuilder> line();
+    CommonDsl<LineAnalysisBuilder, TextLine> line();
 
     NumericOperatorDsl<LineAnalysisBuilder> lineLength();
 

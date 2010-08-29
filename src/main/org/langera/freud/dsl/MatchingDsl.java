@@ -2,7 +2,7 @@ package org.langera.freud.dsl;
 
 import org.hamcrest.Matcher;
 
-public interface MatchingDsl<Dsl extends BooleanOperatorDsl, T> extends ReadableDsl<Dsl>
+public interface MatchingDsl<DSL extends BooleanOperatorDsl, T> extends BooleanOperatorDsl<DSL>
 {
-    BooleanOperatorDsl<Dsl> is(Matcher<T> matcher);
+    BooleanOperatorDsl<DSL> is(Matcher<T> matcher);
 }

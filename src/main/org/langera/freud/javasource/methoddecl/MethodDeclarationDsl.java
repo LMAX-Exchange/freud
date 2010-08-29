@@ -2,6 +2,7 @@ package org.langera.freud.javasource.methoddecl;
 
 import org.hamcrest.Matcher;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.CommonDsl;
 
 /**
  * This file is part of "Freud".
@@ -24,7 +25,7 @@ import org.langera.freud.dsl.BooleanOperatorDsl;
 
 public interface MethodDeclarationDsl
 {
-    BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> methodDeclaration();
+    CommonDsl<MethodDeclarationAnalysisBuilder, MethodDeclaration> methodDeclaration();
 
     BooleanOperatorDsl<MethodDeclarationAnalysisBuilder> hasDeclaredAnnotation(String annotation);
 

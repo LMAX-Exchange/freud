@@ -3,6 +3,7 @@ package org.langera.freud.css.cssrule.declaration;
 import org.langera.freud.AbstractAnalysisBuilder;
 import org.langera.freud.css.cssrule.declaration.assertion.CssDeclarationKeyMatchAssertionAdapter;
 import org.langera.freud.css.cssrule.declaration.assertion.CssDeclarationValueMatchAssertionAdapter;
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.ReadableDsl;
 import org.langera.freud.util.regex.RegexMatchAnalysisAssertion;
 
@@ -28,10 +29,10 @@ import org.langera.freud.util.regex.RegexMatchAnalysisAssertion;
 public final class CssDeclarationAnalysisBuilder extends AbstractAnalysisBuilder<CssDeclarationAnalysisBuilder, CssDeclaration>
         implements CssDeclarationDsl
 {
-    public ReadableDsl<CssDeclarationAnalysisBuilder> declaration()
+    public CommonDsl<CssDeclarationAnalysisBuilder, CssDeclaration> declaration()
     {
         setRegexAssertionAdapterClass(CssDeclarationKeyMatchAssertionAdapter.class);
-        return (ReadableDsl<CssDeclarationAnalysisBuilder>) trueAssertion();
+        return (CommonDsl<CssDeclarationAnalysisBuilder, CssDeclaration>) trueAssertion();
     }
 
     public ReadableDsl<CssDeclarationAnalysisBuilder> declarationValue(final String regex)

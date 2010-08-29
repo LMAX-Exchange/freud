@@ -29,13 +29,11 @@ import java.util.List;
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl, T>
+public abstract class AbstractAnalysisBuilder<DSL extends BooleanOperatorDsl, T>
         implements Builder<T>,
-        BooleanOperatorDsl<ThisDsl>,
-        UnaryBooleanOperatorDsl<ThisDsl>,
-        MatchingDsl<ThisDsl, T>,
-        ReadableDsl<ThisDsl>,
-        NumericOperatorDsl<ThisDsl>
+        UnaryBooleanOperatorDsl<DSL>,
+        CommonDsl<DSL, T>,
+        NumericOperatorDsl<DSL>
 {
     private Constructor<? extends RegexMatchAnalysisAssertionAdapter> currentRegexAssertionConstructor = null;
     private AnalysisCalculation<T> currentCalculation = null;
@@ -45,14 +43,14 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     ///////////////////////////////////////////////////////////////////////
     // DSL
 
-    protected BooleanOperatorDsl<ThisDsl> trueAssertion()
+    protected BooleanOperatorDsl<DSL> trueAssertion()
     {
         setAssertion(AnalysisUtils.<T>trueAssertion());
         return this;
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> and(final BooleanOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> and(final BooleanOperatorDsl<DSL> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder). 
@@ -62,7 +60,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> or(final BooleanOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> or(final BooleanOperatorDsl<DSL> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
@@ -72,7 +70,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> no(BooleanOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> no(BooleanOperatorDsl<DSL> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
@@ -83,7 +81,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     ///////////////////////////////////////////////////////////////////////
     // Matching DSL
 
-    public BooleanOperatorDsl<ThisDsl> is(Matcher<T> matcher)
+    public BooleanOperatorDsl<DSL> is(Matcher<T> matcher)
     {
         setAssertion(matcher);
         return this;
@@ -93,13 +91,13 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     ///////////////////////////////////////////////////////////////////////
     // Readable DSL
 
-    public BooleanOperatorDsl<ThisDsl> contains(String regex)
+    public BooleanOperatorDsl<DSL> contains(String regex)
     {
         buildRegexAnalysisAssertion(regex, Boolean.FALSE);
         return this;
     }
 
-    public BooleanOperatorDsl<ThisDsl> matches(String regex)
+    public BooleanOperatorDsl<DSL> matches(String regex)
     {
         buildRegexAnalysisAssertion(regex, Boolean.TRUE);
         return this;
@@ -131,7 +129,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     // Numeric Operator DSL
 
     @SuppressWarnings("unchecked")
-    public NumericOperatorDsl<ThisDsl> add(NumericOperatorDsl<ThisDsl> dsl)
+    public NumericOperatorDsl<DSL> add(NumericOperatorDsl<DSL> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).        
@@ -140,12 +138,12 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public NumericOperatorDsl<ThisDsl> numberOf(NumericOperatorDsl<ThisDsl> thisDslNumericOperatorDsl)
+    public NumericOperatorDsl<DSL> numberOf(NumericOperatorDsl<DSL> thisDslNumericOperatorDsl)
     {
         return this;
     }
 
-    public NumericOperatorDsl<ThisDsl> add(int value)
+    public NumericOperatorDsl<DSL> add(int value)
     {
         updateCalculation(AnalysisUtils.addOperatorCalculation(currentCalculation,
                                                                AnalysisUtils.<T>noOpCalculation(value)));
@@ -153,7 +151,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public NumericOperatorDsl<ThisDsl> multiply(NumericOperatorDsl<ThisDsl> dsl)
+    public NumericOperatorDsl<DSL> multiply(NumericOperatorDsl<DSL> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
@@ -162,7 +160,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public NumericOperatorDsl<ThisDsl> multiply(int value)
+    public NumericOperatorDsl<DSL> multiply(int value)
     {
         updateCalculation(AnalysisUtils.multiplyOperatorCalculation(currentCalculation,
                                                                     AnalysisUtils.<T>noOpCalculation(value)));
@@ -170,7 +168,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public NumericOperatorDsl<ThisDsl> subtract(NumericOperatorDsl<ThisDsl> dsl)
+    public NumericOperatorDsl<DSL> subtract(NumericOperatorDsl<DSL> dsl)
     {
         // cheat IDEs by downcasting
         // (.. and making sure every DSL is also a builder).
@@ -179,7 +177,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public NumericOperatorDsl<ThisDsl> subtract(int value)
+    public NumericOperatorDsl<DSL> subtract(int value)
     {
         updateCalculation(AnalysisUtils.subtractOperatorCalculation(currentCalculation,
                                                                     AnalysisUtils.<T>noOpCalculation(value)));
@@ -187,7 +185,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> equalTo(NumericOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> equalTo(NumericOperatorDsl<DSL> dsl)
     {
         if (currentCalculation == null)
         {
@@ -200,7 +198,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public BooleanOperatorDsl<ThisDsl> equalTo(int value)
+    public BooleanOperatorDsl<DSL> equalTo(int value)
     {
         if (currentCalculation == null)
         {
@@ -212,7 +210,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> greaterThanOrEqualTo(NumericOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> greaterThanOrEqualTo(NumericOperatorDsl<DSL> dsl)
     {
         if (currentCalculation == null)
         {
@@ -226,7 +224,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public BooleanOperatorDsl<ThisDsl> greaterThanOrEqualTo(int value)
+    public BooleanOperatorDsl<DSL> greaterThanOrEqualTo(int value)
     {
         if (currentCalculation == null)
         {
@@ -238,7 +236,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> lessThanOrEqualTo(NumericOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> lessThanOrEqualTo(NumericOperatorDsl<DSL> dsl)
     {
         if (currentCalculation == null)
         {
@@ -251,7 +249,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public BooleanOperatorDsl<ThisDsl> lessThanOrEqualTo(int value)
+    public BooleanOperatorDsl<DSL> lessThanOrEqualTo(int value)
     {
         if (currentCalculation == null)
         {
@@ -263,7 +261,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> greaterThan(NumericOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> greaterThan(NumericOperatorDsl<DSL> dsl)
     {
         if (currentCalculation == null)
         {
@@ -276,7 +274,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public BooleanOperatorDsl<ThisDsl> greaterThan(int value)
+    public BooleanOperatorDsl<DSL> greaterThan(int value)
     {
         if (currentCalculation == null)
         {
@@ -288,7 +286,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
     }
 
     @SuppressWarnings("unchecked")
-    public BooleanOperatorDsl<ThisDsl> lessThan(NumericOperatorDsl<ThisDsl> dsl)
+    public BooleanOperatorDsl<DSL> lessThan(NumericOperatorDsl<DSL> dsl)
     {
         if (currentCalculation == null)
         {
@@ -301,7 +299,7 @@ public abstract class AbstractAnalysisBuilder<ThisDsl extends BooleanOperatorDsl
         return this;
     }
 
-    public BooleanOperatorDsl<ThisDsl> lessThan(int value)
+    public BooleanOperatorDsl<DSL> lessThan(int value)
     {
         if (currentCalculation == null)
         {

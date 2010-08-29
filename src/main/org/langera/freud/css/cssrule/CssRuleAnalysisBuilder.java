@@ -1,11 +1,13 @@
 package org.langera.freud.css.cssrule;
 
 import org.langera.freud.AbstractAnalysisBuilder;
+import org.langera.freud.css.cssrule.assertion.CssRuleRegexMatchAnalysisAssertionAdapter;
 import org.langera.freud.css.cssrule.assertion.HasSelectorTypeAssertion;
 import org.langera.freud.css.cssrule.assertion.SelectorCountingCalculation;
 import org.langera.freud.css.cssrule.assertion.SelectorTypeLastIndexCalculation;
 import org.langera.freud.css.cssrule.selector.CssSelector;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
 
 /**
@@ -30,9 +32,10 @@ import org.langera.freud.dsl.NumericOperatorDsl;
 public final class CssRuleAnalysisBuilder extends AbstractAnalysisBuilder<CssRuleAnalysisBuilder, CssRule>
         implements CssRuleDsl
 {
-    public BooleanOperatorDsl<CssRuleAnalysisBuilder> cssRule()
+    public CommonDsl<CssRuleAnalysisBuilder, CssRule> cssRule()
     {
-        return trueAssertion();
+        setRegexAssertionAdapterClass(CssRuleRegexMatchAnalysisAssertionAdapter.class);
+        return (CommonDsl<CssRuleAnalysisBuilder, CssRule>) trueAssertion();
     }
 
     public BooleanOperatorDsl<CssRuleAnalysisBuilder> containsSelector(CssSelector.Type selectorType)

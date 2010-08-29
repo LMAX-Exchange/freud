@@ -3,6 +3,7 @@ package org.langera.freud.javasource.block;
 import org.langera.freud.AbstractAnalysisBuilder;
 import org.langera.freud.Builder;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.MatchingDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.javasource.block.assertion.CodeBlockNumberOfLinesCalculation;
 import org.langera.freud.javasource.block.assertion.HasMethodCallAssertion;
@@ -32,9 +33,9 @@ import org.langera.freud.javasource.methoddecl.MethodDeclarationAnalysisBuilder;
 public final class CodeBlockAnalysisBuilder extends AbstractAnalysisBuilder<CodeBlockAnalysisBuilder, CodeBlock>
         implements CodeBlockDsl
 {
-    public BooleanOperatorDsl<CodeBlockAnalysisBuilder> codeBlock()
+    public MatchingDsl<CodeBlockAnalysisBuilder, CodeBlock> codeBlock()
     {
-        return trueAssertion();
+        return (MatchingDsl<CodeBlockAnalysisBuilder, CodeBlock>) trueAssertion();
     }
 
     public BooleanOperatorDsl<CodeBlockAnalysisBuilder> hasMethodCall(String methodCall)

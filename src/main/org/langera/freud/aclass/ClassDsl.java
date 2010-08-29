@@ -1,7 +1,7 @@
 package org.langera.freud.aclass;
 
 import org.langera.freud.dsl.BooleanOperatorDsl;
-import org.langera.freud.dsl.MatchingDsl;
+import org.langera.freud.dsl.CommonDsl;
 
 import java.lang.annotation.Annotation;
 
@@ -26,7 +26,7 @@ import java.lang.annotation.Annotation;
 
 public interface ClassDsl
 {
-    MatchingDsl<ClassAnalysisBuilder, Class> aClass();
+    CommonDsl<ClassAnalysisBuilder, Class> aClass();
 
     BooleanOperatorDsl<ClassAnalysisBuilder> subTypeOf(Class type);
 
