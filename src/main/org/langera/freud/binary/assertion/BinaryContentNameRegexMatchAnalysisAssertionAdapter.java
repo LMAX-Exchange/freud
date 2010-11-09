@@ -1,8 +1,7 @@
-package org.langera.freud.util.resource;
+package org.langera.freud.binary.assertion;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import org.langera.freud.binary.BinaryContent;
+import org.langera.freud.util.regex.RegexMatchAnalysisAssertionAdapter;
 
 /**
  *   This file is part of "Freud".
@@ -23,21 +22,15 @@ import java.io.InputStream;
  *   @author Amir Langer  langera_at_gmail_dot_com
 **/
 
-public final class SelfResource implements Resource
+public final class BinaryContentNameRegexMatchAnalysisAssertionAdapter implements RegexMatchAnalysisAssertionAdapter<BinaryContent>
 {
-    private static final SelfResource SINGLETON = new SelfResource();
-
-    public static SelfResource getInstance()
+    public String getStringToMatch(BinaryContent toBeAnalysed)
     {
-        return SINGLETON;
+        return toBeAnalysed.getResourceIdentifier();
     }
 
-    private SelfResource()
+    public String assertionDisplayName()
     {
-    }
-
-    public InputStream getResource(String content) throws IOException
-    {
-        return new ByteArrayInputStream(content.getBytes());
+        return "BinaryContent";
     }
 }

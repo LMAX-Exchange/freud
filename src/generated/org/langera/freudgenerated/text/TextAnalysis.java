@@ -1,14 +1,18 @@
-// Freud generated code [TextAnalysis] [2010-08-29 18:09:34]
+// Freud generated code [TextAnalysis] [2010-11-09 14:03:57]
 package org.langera.freudgenerated.text;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.text.line.*;
-import org.langera.freud.text.*;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
-import org.langera.freud.dsl.ReadableDsl;
+import org.langera.freud.text.Text;
+import org.langera.freud.text.TextAnalysisBuilder;
+import org.langera.freud.text.TextDsl;
+import org.langera.freud.text.line.LineAnalysisBuilder;
+import org.langera.freud.text.line.LineDsl;
+import org.langera.freud.text.line.TextLine;
+import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 public class TextAnalysis extends AbstractAnalysis<Text, TextAnalysis>
         implements

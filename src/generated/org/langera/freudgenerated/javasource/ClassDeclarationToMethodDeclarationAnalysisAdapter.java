@@ -1,8 +1,7 @@
-// Freud generated code 2010-08-29 18:09:34
+// Freud generated code 2010-11-09 14:03:57
 package org.langera.freudgenerated.javasource;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.javasource.classdecl.ClassDeclaration;
 import org.langera.freud.javasource.methoddecl.MethodDeclaration;
 import org.langera.freud.util.collection.MultiCollection;    

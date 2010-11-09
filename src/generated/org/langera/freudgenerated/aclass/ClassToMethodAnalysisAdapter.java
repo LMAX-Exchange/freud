@@ -1,9 +1,8 @@
-// Freud generated code 2010-08-29 18:09:33
+// Freud generated code 2010-11-09 14:03:56
 package org.langera.freudgenerated.aclass;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import java.lang.Class;
+import org.langera.freud.NestedTypeAnalysisAdapter;
+
 import java.lang.reflect.Method;
 import java.util.Arrays;    
 

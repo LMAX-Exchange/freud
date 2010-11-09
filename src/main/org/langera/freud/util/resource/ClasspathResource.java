@@ -1,5 +1,7 @@
 package org.langera.freud.util.resource;
 
+import org.langera.freud.util.io.IoUtil;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -40,6 +42,7 @@ public final class ClasspathResource implements Resource
         final InputStream stream = ClassLoader.getSystemResourceAsStream(resourceIdentifier);
         if (stream != null)
         {
+            IoUtil.scheduleToBeClosed(stream);
             return stream;
         }
         else

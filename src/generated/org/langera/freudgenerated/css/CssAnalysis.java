@@ -1,25 +1,30 @@
-// Freud generated code [CssAnalysis] [2010-08-29 18:09:34]
+// Freud generated code [CssAnalysis] [2010-11-09 14:03:56]
 package org.langera.freudgenerated.css;
 
-import org.langera.freud.*;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
+import org.langera.freud.NestedTypeAnalysisAdapterChain;
+import org.langera.freud.css.Css;
+import org.langera.freud.css.CssAnalysisBuilder;
+import org.langera.freud.css.CssDsl;
+import org.langera.freud.css.cssrule.CssRule;
+import org.langera.freud.css.cssrule.CssRuleAnalysisBuilder;
+import org.langera.freud.css.cssrule.CssRuleDsl;
+import org.langera.freud.css.cssrule.declaration.CssDeclaration;
+import org.langera.freud.css.cssrule.declaration.CssDeclarationAnalysisBuilder;
+import org.langera.freud.css.cssrule.declaration.CssDeclarationDsl;
+import org.langera.freud.css.cssrule.selector.CssSelector;
+import org.langera.freud.css.cssrule.selector.CssSelectorAnalysisBuilder;
+import org.langera.freud.css.cssrule.selector.CssSelectorDsl;
 import org.langera.freud.dsl.*;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.css.cssrule.declaration.*;
-import org.langera.freud.css.cssrule.selector.*;
-import org.langera.freud.css.*;
-import org.langera.freud.css.cssrule.*;
-import org.langera.freud.dsl.CommonDsl;
-import org.langera.freud.dsl.NumericOperatorDsl;
-import org.langera.freud.dsl.ReadableDsl;
-import org.langera.freud.css.cssrule.selector.CssSelector;
-import org.langera.freud.dsl.MatchingDsl;
-import org.langera.freud.dsl.BooleanOperatorDsl;
 
 public class CssAnalysis extends AbstractAnalysis<Css, CssAnalysis>
         implements
+                    CssDsl,
                     CssDeclarationDsl,
                     CssSelectorDsl,
-                    CssDsl,
                     CssRuleDsl,
                     Analysis
 {
@@ -68,7 +73,13 @@ public class CssAnalysis extends AbstractAnalysis<Css, CssAnalysis>
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
-            public CommonDsl<CssDeclarationAnalysisBuilder, CssDeclaration> declaration()
+            public MatchingDsl<CssAnalysisBuilder, Css> css()
+        {
+            return new CssAnalysisBuilder().css(
+                        );
+        }
+        
+                public CommonDsl<CssDeclarationAnalysisBuilder, CssDeclaration> declaration()
         {
             return new CssDeclarationAnalysisBuilder().declaration(
                         );
@@ -102,12 +113,6 @@ public class CssAnalysis extends AbstractAnalysis<Css, CssAnalysis>
             public ReadableDsl<CssSelectorAnalysisBuilder> idSelector()
         {
             return new CssSelectorAnalysisBuilder().idSelector(
-                        );
-        }
-        
-                public MatchingDsl<CssAnalysisBuilder, Css> css()
-        {
-            return new CssAnalysisBuilder().css(
                         );
         }
         

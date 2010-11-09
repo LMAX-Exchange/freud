@@ -1,12 +1,15 @@
-// Freud generated code [PropertyAnalysis] [2010-08-29 18:09:34]
+// Freud generated code [PropertyAnalysis] [2010-11-09 14:03:57]
 package org.langera.freudgenerated.property;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.property.*;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.dsl.CommonDsl;
 import org.langera.freud.dsl.ReadableDsl;
+import org.langera.freud.property.Property;
+import org.langera.freud.property.PropertyAnalysisBuilder;
+import org.langera.freud.property.PropertyDsl;
+import org.langera.freud.util.collection.AnalysedObjectIterator;
 
 public class PropertyAnalysis extends AbstractAnalysis<Property, PropertyAnalysis>
         implements

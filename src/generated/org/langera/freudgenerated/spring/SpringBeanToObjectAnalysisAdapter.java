@@ -1,10 +1,9 @@
-// Freud generated code 2010-08-29 18:09:34
+// Freud generated code 2010-11-09 14:03:57
 package org.langera.freudgenerated.spring;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.spring.SpringBean;
-import java.lang.Object;
+
 import java.util.Collections;    
 
 public final class SpringBeanToObjectAnalysisAdapter implements NestedTypeAnalysisAdapter<SpringBean, Object>

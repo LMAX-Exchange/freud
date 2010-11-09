@@ -1,17 +1,19 @@
-// Freud generated code [ClassAnalysis] [2010-08-29 18:09:33]
+// Freud generated code [ClassAnalysis] [2010-11-09 14:03:56]
 package org.langera.freudgenerated.aclass;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.method.*;
-import org.langera.freud.aclass.*;
-import java.lang.annotation.Annotation;
-import org.langera.freud.dsl.CommonDsl;
-import org.langera.freud.dsl.ReadableDsl;
-import java.lang.reflect.Method;
-import org.langera.freud.dsl.MatchingDsl;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
+import org.langera.freud.aclass.ClassAnalysisBuilder;
+import org.langera.freud.aclass.ClassDsl;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.CommonDsl;
+import org.langera.freud.method.MethodAnalysisBuilder;
+import org.langera.freud.method.MethodDsl;
+import org.langera.freud.util.collection.AnalysedObjectIterator;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 public class ClassAnalysis extends AbstractAnalysis<Class, ClassAnalysis>
         implements

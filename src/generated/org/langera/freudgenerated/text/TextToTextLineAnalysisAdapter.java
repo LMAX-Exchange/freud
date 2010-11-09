@@ -1,8 +1,7 @@
-// Freud generated code 2010-08-29 18:09:34
+// Freud generated code 2010-11-09 14:03:57
 package org.langera.freudgenerated.text;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
+import org.langera.freud.NestedTypeAnalysisAdapter;
 import org.langera.freud.text.Text;
 import org.langera.freud.text.line.TextLine;
 

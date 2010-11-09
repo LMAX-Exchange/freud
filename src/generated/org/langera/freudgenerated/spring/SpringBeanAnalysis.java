@@ -1,25 +1,31 @@
-// Freud generated code [SpringBeanAnalysis] [2010-08-29 18:09:34]
+// Freud generated code [SpringBeanAnalysis] [2010-11-09 14:03:57]
 package org.langera.freudgenerated.spring;
 
-import org.langera.freud.*;
-import org.langera.freud.dsl.*;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freud.method.*;
-import org.langera.freud.spring.*;
-import org.langera.freud.instance.*;
-import org.langera.freud.aclass.*;
-import java.lang.annotation.Annotation;
-import org.langera.freud.dsl.CommonDsl;
-import org.langera.freud.dsl.ReadableDsl;
-import java.lang.reflect.Method;
-import org.langera.freud.dsl.MatchingDsl;
+import org.langera.freud.AbstractAnalysis;
+import org.langera.freud.Analysis;
+import org.langera.freud.NestedTypeAnalysisAdapter;
+import org.langera.freud.NestedTypeAnalysisAdapterChain;
+import org.langera.freud.aclass.ClassAnalysisBuilder;
+import org.langera.freud.aclass.ClassDsl;
 import org.langera.freud.dsl.BooleanOperatorDsl;
+import org.langera.freud.dsl.CommonDsl;
+import org.langera.freud.instance.InstanceAnalysisBuilder;
+import org.langera.freud.instance.InstanceDsl;
+import org.langera.freud.method.MethodAnalysisBuilder;
+import org.langera.freud.method.MethodDsl;
+import org.langera.freud.spring.SpringBean;
+import org.langera.freud.spring.SpringBeanAnalysisBuilder;
+import org.langera.freud.spring.SpringBeanDsl;
+import org.langera.freud.util.collection.AnalysedObjectIterator;
+
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 
 public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean, SpringBeanAnalysis>
         implements
+                    InstanceDsl,
                     MethodDsl,
                     SpringBeanDsl,
-                    InstanceDsl,
                     ClassDsl,
                     Analysis
 {
@@ -30,6 +36,20 @@ public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean, SpringBeanA
 
     protected NestedTypeAnalysisAdapter getAnalysisAdapter(final Class type, Class nestedType)
     {
+                    if (type == Object.class)
+            {
+                                    if (nestedType == Class.class)
+                    {                                                
+                        return ObjectToClassAnalysisAdapter.getInstance();
+                    }
+                                    if (nestedType == Method.class)
+                    {                                                
+                        return NestedTypeAnalysisAdapterChain.createChain(
+			ObjectToClassAnalysisAdapter.getInstance(),
+			ClassToMethodAnalysisAdapter.getInstance());
+                    }
+                                return null;
+            }
                     if (type == SpringBean.class)
             {
                                     if (nestedType == Object.class)
@@ -44,20 +64,6 @@ public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean, SpringBeanA
                     {                                                
                         return NestedTypeAnalysisAdapterChain.createChain(
 			SpringBeanToClassAnalysisAdapter.getInstance(),
-			ClassToMethodAnalysisAdapter.getInstance());
-                    }
-                                return null;
-            }
-                    if (type == Object.class)
-            {
-                                    if (nestedType == Class.class)
-                    {                                                
-                        return ObjectToClassAnalysisAdapter.getInstance();
-                    }
-                                    if (nestedType == Method.class)
-                    {                                                
-                        return NestedTypeAnalysisAdapterChain.createChain(
-			ObjectToClassAnalysisAdapter.getInstance(),
 			ClassToMethodAnalysisAdapter.getInstance());
                     }
                                 return null;
@@ -80,7 +86,13 @@ public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean, SpringBeanA
     //////////////////////////////////////////////////////////////////////////////////
     /// DSL
 
-            public CommonDsl<MethodAnalysisBuilder, Method> method()
+            public CommonDsl<InstanceAnalysisBuilder, Object> instance()
+        {
+            return new InstanceAnalysisBuilder().instance(
+                        );
+        }
+        
+                public CommonDsl<MethodAnalysisBuilder, Method> method()
         {
             return new MethodAnalysisBuilder().method(
                         );
@@ -121,12 +133,6 @@ public class SpringBeanAnalysis extends AbstractAnalysis<SpringBean, SpringBeanA
                 public CommonDsl<SpringBeanAnalysisBuilder, SpringBean> springBean()
         {
             return new SpringBeanAnalysisBuilder().springBean(
-                        );
-        }
-        
-                public CommonDsl<InstanceAnalysisBuilder, Object> instance()
-        {
-            return new InstanceAnalysisBuilder().instance(
                         );
         }
         

@@ -6,6 +6,7 @@ import org.langera.freud.dsl.FilterDsl;
 import org.langera.freud.dsl.NumericOperatorDsl;
 import org.langera.freud.dsl.UnaryBooleanOperatorDsl;
 import org.langera.freud.util.collection.AnalysedObjectIterator;
+import org.langera.freud.util.io.IoUtil;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -95,6 +96,7 @@ public abstract class AbstractAnalysis<Type, This> implements Analysis
                     listener.unexpected(currentlyAnalysed, e);
                 }
             }
+            IoUtil.safeClose();
         }
     }
 

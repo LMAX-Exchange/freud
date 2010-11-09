@@ -1,5 +1,7 @@
 package org.langera.freud.util.resource;
 
+import org.langera.freud.util.io.IoUtil;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +40,8 @@ public final class FileResource implements Resource
 
     public InputStream getResource(String resourceIdentifier) throws IOException
     {
-        return new FileInputStream(resourceIdentifier);
+        final FileInputStream inputStream = new FileInputStream(resourceIdentifier);
+        IoUtil.scheduleToBeClosed(inputStream);
+        return inputStream;
     }
 }

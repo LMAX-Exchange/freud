@@ -39,8 +39,8 @@ public final class AnalyseFileNamesMustNotContainUpperCaseCharactersTest
         analysis.analyse(listener);
 
 
-        Assert.assertEquals(16, listener.getTotalObjectsAnalysed());
-        Assert.assertEquals(12, listener.getPassed().size());
+        Assert.assertEquals(17, listener.getTotalObjectsAnalysed());
+        Assert.assertEquals(13, listener.getPassed().size());
         Assert.assertEquals(4, listener.getFailed().size());
     }
 

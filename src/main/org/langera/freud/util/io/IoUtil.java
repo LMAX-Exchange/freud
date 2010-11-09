@@ -1,10 +1,8 @@
 package org.langera.freud.util.io;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.io.Reader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *   This file is part of "Freud".
@@ -28,9 +26,30 @@ import java.util.ArrayList;
 public final class IoUtil
 {
     private static final int BUFFER_SIZE = 1024;
+    private static final List<Closeable> TO_BE_CLOSED = new ArrayList<Closeable>();
 
     private IoUtil()
     {
+    }
+
+    public static void scheduleToBeClosed(Closeable closeable)
+    {
+        TO_BE_CLOSED.add(closeable);
+    }
+
+    public static void safeClose()
+    {
+        for (Closeable closeable : TO_BE_CLOSED)
+        {
+            try
+            {
+                closeable.close();
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static String readFully(Reader reader)
