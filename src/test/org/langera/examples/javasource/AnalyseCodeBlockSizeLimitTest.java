@@ -43,6 +43,28 @@ public class AnalyseCodeBlockSizeLimitTest
     }
 
     @Test
+    public void testShouldAnalyseCodeBlockSizeLimitWhenIReturnTypeIsVoid() throws Exception
+    {
+        Analysis analysis = JavaSourceExamples.codeBlockSizeIsLimitedTo30Lines(
+                AnalysisResource.selfResourceIterator(JavaSourceJdom.PARSER,
+                "package org.langera.examples;\n" +
+                        " \n" +
+                        "public class SimpleClass \n" +
+                        "{ \n" +
+                        " \n" +
+                        "  public void doStuff()\n" +
+                        "  {\n" +
+                        "       toString();\n" +
+                        "  }\n" +
+                        "}"));
+
+        analysis.analyse(listener);
+
+        Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
+        listener.assertPassed(codeBlockIn("SimpleClass"));
+    }
+
+    @Test
     public void testShouldAnalyseCodeBlockSizeLimitWhenItsTooBig() throws Exception
     {
         Analysis analysis = JavaSourceExamples.codeBlockSizeIsLimitedTo30Lines(

@@ -8,7 +8,6 @@ import org.langera.freud.javasource.annotation.AnnotationJdom;
 import org.langera.freud.javasource.block.CodeBlock;
 import org.langera.freud.javasource.block.CodeBlockJdom;
 import org.langera.freud.javasource.classdecl.ClassDeclaration;
-import org.langera.freud.util.parser.JdomTreeAdaptor;
 import org.langera.freudgenerated.javasource.parser.JavaSourceTokenType;
 
 import java.util.List;
@@ -43,7 +42,7 @@ public final class MethodDeclarationJdom implements MethodDeclaration
     public MethodDeclarationJdom(Element methodDeclElement, ClassDeclaration classDeclaration)
     {
         this.methodDeclElement = methodDeclElement;
-        this.name = methodDeclElement.getAttribute(JdomTreeAdaptor.ID_ATTR).getValue();
+        this.name = methodDeclElement.getChildText(JavaSourceTokenType.IDENT.getName());
         this.classDeclaration = classDeclaration;
     }
 

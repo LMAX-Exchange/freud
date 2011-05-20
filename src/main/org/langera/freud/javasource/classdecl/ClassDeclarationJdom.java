@@ -90,30 +90,35 @@ public final class ClassDeclarationJdom implements ClassDeclaration
     // TODO   Block getStaticBlock();
 
 
-    @SuppressWarnings("unchecked")
     public Map<String, List<MethodDeclaration>> getMethodDeclarationListByNameMap()
     {
         if (methodDeclarationListByNameMap == null)
         {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
-            List<Element> methodDeclElementList =
-                    context.selectNodes("//" + JavaSourceTokenType.FUNCTION_METHOD_DECL.getName());
             methodDeclarationListByNameMap = new HashMap<String, List<MethodDeclaration>>();
-            for (Element methodElement : methodDeclElementList)
-            {
-                MethodDeclaration methodDeclaration = new MethodDeclarationJdom(methodElement, this);
-                final String name = methodDeclaration.getName();
-                List<MethodDeclaration> methodDeclarationList = methodDeclarationListByNameMap.get(name);
-                if (methodDeclarationList == null)
-                {
-                    methodDeclarationList = new LinkedList<MethodDeclaration>();
-                    methodDeclarationListByNameMap.put(name, methodDeclarationList);
-                }
-                methodDeclarationList.add(methodDeclaration);
-
-            }
+            getMethodDeclarationListByNameMap(context, JavaSourceTokenType.FUNCTION_METHOD_DECL);
+            getMethodDeclarationListByNameMap(context, JavaSourceTokenType.VOID_METHOD_DECL);
         }
         return methodDeclarationListByNameMap;
+    }
+
+    private void getMethodDeclarationListByNameMap(final JXPathContext context, final JavaSourceTokenType methodElementName)
+    {
+        List<Element> methodDeclElementList =
+                context.selectNodes("//" + methodElementName.getName());
+        for (Element methodElement : methodDeclElementList)
+        {
+            MethodDeclaration methodDeclaration = new MethodDeclarationJdom(methodElement, this);
+            final String name = methodDeclaration.getName();
+            List<MethodDeclaration> methodDeclarationList = methodDeclarationListByNameMap.get(name);
+            if (methodDeclarationList == null)
+            {
+                methodDeclarationList = new LinkedList<MethodDeclaration>();
+                methodDeclarationListByNameMap.put(name, methodDeclarationList);
+            }
+            methodDeclarationList.add(methodDeclaration);
+
+        }
     }
 
     public long getModifierMask()
