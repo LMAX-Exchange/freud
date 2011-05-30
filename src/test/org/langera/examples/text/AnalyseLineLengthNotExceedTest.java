@@ -3,12 +3,12 @@ package org.langera.examples.text;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.langera.freud.Analysis;
-import org.langera.freud.TestAnalysisListenerStub;
-import org.langera.freud.text.TextResourceParser;
-import org.langera.freud.util.resource.AnalysisResource;
+import org.langera.freud.core.FreudAnalyser;
+import org.langera.freud.core.iterator.resource.ResourceIterators;
+import org.langera.freud.core.listener.AnalysisListenerStub;
+import org.langera.freud.optional.text.TextResourceParser;
 
-import static org.langera.freud.text.TextMatchers.line;
+import static org.langera.examples.text.TextTestMatchers.line;
 
 /**
  * Created by IntelliJ IDEA.
@@ -20,19 +20,19 @@ public class AnalyseLineLengthNotExceedTest
 {
     private static final String PASSING_TEXT = "0\n1\n2\n3\n4\n5";
     private static final String FAILURE_TEXT = "12345678901";
-    private TestAnalysisListenerStub listener;
+    private AnalysisListenerStub listener;
 
     @Test
-    public void testShouldAnalyseEqualsAlwaysGoesTogetherWithHashCode() throws Exception
+    public void shouldAnalyseTextLinesForLineLength() throws Exception
     {
 
-        Analysis analysis = TextExamples.lineLengthDoesNotExceed(10,
-                AnalysisResource.selfResourceIterator(TextResourceParser.getInstance(),
+        FreudAnalyser analyser = TextExamples.lineLengthDoesNotExceed(10,
+                ResourceIterators.selfResourceIterator(TextResourceParser.getInstance(),
                         PASSING_TEXT,
                         FAILURE_TEXT));
 
 
-        analysis.analyse(listener);
+        analyser.analyse(listener);
 
                            
         Assert.assertEquals(7, listener.getTotalObjectsAnalysed());
@@ -47,7 +47,7 @@ public class AnalyseLineLengthNotExceedTest
     @Before
     public void setUp() throws Exception
     {
-        listener = new TestAnalysisListenerStub();
+        listener = new AnalysisListenerStub();
 
     }
 }

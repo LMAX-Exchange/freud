@@ -1,9 +1,13 @@
 package org.langera.examples.text;
 
-import org.langera.freud.Analysis;
-import org.langera.freud.text.Text;
-import org.langera.freud.util.collection.AnalysedObjectIterator;
-import org.langera.freudgenerated.text.TextAnalysis;
+import org.langera.freud.core.Freud;
+import org.langera.freud.core.FreudAnalyser;
+import org.langera.freud.core.iterator.AnalysedObjectIterator;
+import org.langera.freud.optional.text.Text;
+import org.langera.freud.optional.text.textline.TextLine;
+import org.langera.freud.optional.text.textline.TextLineMatchers;
+
+import static org.langera.freud.optional.text.textline.TextLineMatchers.*;
 
 public final class TextExamples
 {
@@ -12,15 +16,11 @@ public final class TextExamples
         // a class of static methods - should not be initialised
     }
 
-    public static Analysis lineLengthDoesNotExceed(final int value,
+    public static FreudAnalyser lineLengthDoesNotExceed(final int value,
                                                    final AnalysedObjectIterator<Text> iterator)
     {
-        return new TextAnalysis(iterator)
-        {
-            {
-                assertThat(lineLength().lessThanOrEqualTo(value));
-            }
-        };
+        return Freud.iterateOver(TextLine.class).within(iterator).
+                assertThat(lineLength().lessThan(value));
     }
 
 }

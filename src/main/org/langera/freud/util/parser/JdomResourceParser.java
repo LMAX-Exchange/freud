@@ -1,8 +1,8 @@
 package org.langera.freud.util.parser;
 
-import org.langera.freud.util.resource.Resource;
-import org.langera.freud.util.resource.ResourceParser;
-import org.langera.freud.util.resource.ResourceParserException;
+import org.langera.freud.core.iterator.resource.Resource;
+import org.langera.freud.core.iterator.resource.ResourceParser;
+import org.langera.freud.core.iterator.resource.ResourceParserException;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -29,12 +29,19 @@ import java.lang.reflect.InvocationTargetException;
  *   @author Amir Langer  langera_at_gmail_dot_com
 **/
 
-public final class JdomResourceParser<Type> implements ResourceParser<Type>
+public final class JdomResourceParser<T> implements ResourceParser<T>
 {
-    private final Constructor<? extends Type> jdomImplConstructor;
+    private final Constructor<? extends T> jdomImplConstructor;
     private static final Class[] PARAMS = {Reader.class, String.class};
 
-    public JdomResourceParser(final Class<? extends Type> jdomImplClass)
+
+    @Override
+    public Class<T> getType()
+    {
+        return null;
+    }
+
+    public JdomResourceParser(final Class<? extends T> jdomImplClass)
     {
         try
         {
@@ -46,7 +53,7 @@ public final class JdomResourceParser<Type> implements ResourceParser<Type>
         }
     }
 
-    public Type parseResource(String resourceIdentifier, Resource resource) throws IOException, ResourceParserException
+    public T parseResource(String resourceIdentifier, Resource resource) throws IOException, ResourceParserException
     {
         try
         {
