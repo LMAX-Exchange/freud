@@ -3,15 +3,12 @@ package org.langera.freud.optional.classobject;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.langera.freud.core.FreudBuilderException;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 
 public final class ClassObjectMatchers
@@ -120,59 +117,6 @@ public final class ClassObjectMatchers
 
     public static FreudMatcher<Class> classAnnotation(final Class<? extends Annotation>  annotationType, final Matcher valueMatcher)
     {
-        return new FreudMatcher<Class>()
-        {
-            private final Method valueGetter;
-
-            {
-                if (valueMatcher != null)
-                {
-                    try
-                    {
-                        valueGetter = annotationType.getMethod("value");
-                    }
-                    catch (NoSuchMethodException e)
-                    {
-                        throw new FreudBuilderException("Did not find 'value' in Annotation " + annotationType, e);
-                    }
-                }
-                else
-                {
-                    valueGetter = null;
-                }
-            }
-
-            @Override
-            @SuppressWarnings("unchecked")
-            protected boolean matchesSafely(final Class item)
-            {
-                Annotation annotation = item.getAnnotation(annotationType);
-                return annotation != null &&
-                        (valueMatcher == null || valueMatcher.matches(getValue(annotation)));
-            }
-
-            @Override
-            public void describeTo(final Description description)
-            {
-                description.appendText("Annotation(" + annotationType +
-                (valueMatcher == null ? ")" : "(value = " + valueMatcher.toString() + "))"));
-            }
-
-            private Object getValue(Annotation annotation)
-            {
-                try
-                {
-                    return valueGetter.invoke(annotation);
-                }
-                catch (IllegalAccessException e)
-                {
-                    throw new RuntimeException("Failed to get value for annotation " + annotation, e);
-                }
-                catch (InvocationTargetException e)
-                {
-                    throw new RuntimeException("Failed to get value for annotation " + annotation, e.getTargetException());
-                }
-            }
-        };
+        return new AnnotationFreudMatcher<Class>(valueMatcher, annotationType);
     }
 }
