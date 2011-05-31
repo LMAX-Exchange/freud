@@ -20,6 +20,18 @@ public final class TextLineMatchersTest
     }
 
     @Test
+    public void shouldReturnTrueToAContainedRegex()
+    {
+        Assert.assertThat(new TextLine("12345678901234567", 19, ""), TextLineMatchers.lineContains("\\d"));
+    }
+
+    @Test
+    public void shouldReturnFalseToANonContainedRegex()
+    {
+        Assert.assertThat(new TextLine("12345678901234567", 19, ""), no(TextLineMatchers.lineContains("a")));
+    }
+
+    @Test
     public void shouldReturnTrueToAMatchedLineLength()
     {
         Assert.assertThat(new TextLine("12345678901234567", 19, ""), TextLineMatchers.lineLength().equalTo(17));

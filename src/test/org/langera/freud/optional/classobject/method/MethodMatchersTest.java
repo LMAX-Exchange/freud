@@ -18,6 +18,7 @@ import static org.langera.freud.core.matcher.FreudMatchers.no;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.declaredMethod;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.definedWithModifier;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.methodAnnotation;
+import static org.langera.freud.optional.classobject.method.MethodMatchers.methodNameContains;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.methodNameMatches;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.publicMethod;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.staticMethod;
@@ -43,6 +44,18 @@ public final class MethodMatchersTest
     public void shouldReturnFalseToANonMatchedRegex() throws Exception
     {
         Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnTrueToAMatchedRegex"), no(methodNameMatches("a.*")));
+    }
+
+    @Test
+    public void shouldReturnTrueToAContainedRegex() throws Exception
+    {
+        Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnTrueToAContainedRegex"), methodNameContains("should"));
+    }
+
+    @Test
+    public void shouldReturnFalseToANonContainedRegex() throws Exception
+    {
+        Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnFalseToANonContainedRegex"), no(methodNameContains("Q")));
     }
 
     @Test

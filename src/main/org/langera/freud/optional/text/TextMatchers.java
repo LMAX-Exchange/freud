@@ -13,7 +13,17 @@ public final class TextMatchers
 
     public static FreudMatcher<Text> textMatches(final String regex)
     {
-        return new RegexMatcher<Text>(regex, true, new RegexMatcherAdapter<Text>()
+        return regexMatcher(regex, true);
+    }
+
+    public static FreudMatcher<Text> textContains(final String regex)
+    {
+        return regexMatcher(regex, false);
+    }
+
+    private static FreudMatcher<Text> regexMatcher(final String regex, final boolean completeMatch)
+    {
+        return new RegexMatcher<Text>(regex, completeMatch, new RegexMatcherAdapter<Text>()
         {
             @Override
             public String getStringToMatch(final Text toBeAnalysed)

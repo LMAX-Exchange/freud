@@ -22,20 +22,12 @@ public final class MethodMatchers
 
     public static FreudMatcher<Method> methodNameMatches(final String regex)
     {
-        return new RegexMatcher<Method>(regex, true, new RegexMatcherAdapter<Method>()
-        {
-            @Override
-            public String getStringToMatch(final Method toBeAnalysed)
-            {
-                return toBeAnalysed.getName();
-            }
+        return regexMatcher(regex, true);
+    }
 
-            @Override
-            public String matcherDisplayName()
-            {
-                return "MethodName";
-            }
-        });
+    public static FreudMatcher<Method> methodNameContains(final String regex)
+    {
+        return regexMatcher(regex, false);
     }
 
     public static FreudMatcher<Method> methodAnnotation(final Class<? extends Annotation> annotationType)
@@ -78,7 +70,6 @@ public final class MethodMatchers
         };
     }
 
-
     public static FreudMatcher<Method> definedWithModifier(final int modifierMask)
     {
         return new FreudMatcher<Method>()
@@ -100,6 +91,7 @@ public final class MethodMatchers
         };
 
     }
+
 
     public static FreudMatcher<Method> publicMethod()
     {
@@ -128,6 +120,24 @@ public final class MethodMatchers
                 description.appendText("DeclaredMethod()");
             }
         };
+    }
+
+    private static FreudMatcher<Method> regexMatcher(final String regex, final boolean completeMatch)
+    {
+        return new RegexMatcher<Method>(regex, completeMatch, new RegexMatcherAdapter<Method>()
+        {
+            @Override
+            public String getStringToMatch(final Method toBeAnalysed)
+            {
+                return toBeAnalysed.getName();
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "MethodName";
+            }
+        });
     }
 
 }

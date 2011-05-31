@@ -15,20 +15,13 @@ public final class TextLineMatchers
 
     public static FreudMatcher<TextLine> lineMatches(final String regex)
     {
-        return new RegexMatcher<TextLine>(regex, true, new RegexMatcherAdapter<TextLine>()
-        {
-            @Override
-            public String getStringToMatch(final TextLine toBeAnalysed)
-            {
-                return toBeAnalysed.getLine();
-            }
+        return regexMatcher(regex, true);
+    }
 
-            @Override
-            public String matcherDisplayName()
-            {
-                return "TextLine";
-            }
-        });
+
+    public static FreudMatcher<TextLine> lineContains(final String regex)
+    {
+        return regexMatcher(regex, false);
     }
 
     public static IntOperatorMatcherBuilder<TextLine> lineLength()
@@ -63,6 +56,24 @@ public final class TextLineMatchers
             public String matcherDisplayName()
             {
                 return "LineNumber()";
+            }
+        });
+    }
+
+    private static FreudMatcher<TextLine> regexMatcher(final String regex, final boolean completeMatch)
+    {
+        return new RegexMatcher<TextLine>(regex, completeMatch, new RegexMatcherAdapter<TextLine>()
+        {
+            @Override
+            public String getStringToMatch(final TextLine toBeAnalysed)
+            {
+                return toBeAnalysed.getLine();
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "TextLine";
             }
         });
     }

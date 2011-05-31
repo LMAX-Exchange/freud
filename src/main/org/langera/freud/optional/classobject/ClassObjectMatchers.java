@@ -20,20 +20,12 @@ public final class ClassObjectMatchers
 
     public static FreudMatcher<Class> classSimpleNameMatches(final String regex)
     {
-        return new RegexMatcher<Class>(regex, true, new RegexMatcherAdapter<Class>()
-        {
-            @Override
-            public String getStringToMatch(final Class toBeAnalysed)
-            {
-                return toBeAnalysed.getSimpleName();
-            }
+        return regexMatcher(regex, true);
+    }
 
-            @Override
-            public String matcherDisplayName()
-            {
-                return "ClassObjectName";
-            }
-        });
+    public static FreudMatcher<Class> classSimpleNameContains(final String regex)
+    {
+        return regexMatcher(regex, false);
     }
 
     public static FreudMatcher<Class> subTypeOf(final Class superType)
@@ -118,5 +110,23 @@ public final class ClassObjectMatchers
     public static FreudMatcher<Class> classAnnotation(final Class<? extends Annotation>  annotationType, final Matcher valueMatcher)
     {
         return new AnnotationFreudMatcher<Class>(valueMatcher, annotationType);
+    }
+
+    private static FreudMatcher<Class> regexMatcher(final String regex, final boolean completeMatch)
+    {
+        return new RegexMatcher<Class>(regex, completeMatch, new RegexMatcherAdapter<Class>()
+        {
+            @Override
+            public String getStringToMatch(final Class toBeAnalysed)
+            {
+                return toBeAnalysed.getSimpleName();
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "ClassObjectName";
+            }
+        });
     }
 }

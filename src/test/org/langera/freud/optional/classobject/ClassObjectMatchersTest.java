@@ -9,6 +9,7 @@ import java.lang.annotation.RetentionPolicy;
 
 import static org.langera.freud.core.matcher.FreudMatchers.no;
 import static org.langera.freud.optional.classobject.ClassObjectMatchers.classAnnotation;
+import static org.langera.freud.optional.classobject.ClassObjectMatchers.classSimpleNameContains;
 import static org.langera.freud.optional.classobject.ClassObjectMatchers.classSimpleNameMatches;
 import static org.langera.freud.optional.classobject.ClassObjectMatchers.hasDeclaredFieldOfType;
 import static org.langera.freud.optional.classobject.ClassObjectMatchers.hasDeclaredMethod;
@@ -27,6 +28,19 @@ public final class ClassObjectMatchersTest
     {
         Assert.assertThat(ClassObjectMatchersTest.class, no(classSimpleNameMatches("a.*")));
     }
+
+    @Test
+    public void shouldReturnTrueToAContainedRegex()
+    {
+        Assert.assertThat(ClassObjectMatchersTest.class, classSimpleNameContains("Class"));
+    }
+
+    @Test
+    public void shouldReturnFalseToANonContainedRegex()
+    {
+        Assert.assertThat(ClassObjectMatchersTest.class, no(classSimpleNameContains("Q")));
+    }
+
 
     @Test
     public void shouldReturnTrueToACorrectSubType()
