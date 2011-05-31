@@ -9,6 +9,7 @@ import java.util.Map;
 
 public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAnalyser
 {
+    public static final String FREUD_CONFIG_SUFFIX = "FreudConfig";
     private Class type;
     private AnalysedObjectIterator<T> iterator;
     private Matcher<T> filter;
@@ -131,7 +132,14 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAna
         {
             try
             {
-                Class configClass = Thread.currentThread().getContextClassLoader().loadClass(type.getName() + "FreudConfig");
+                final String name = type.getName() + FREUD_CONFIG_SUFFIX;
+                String classname = System.getProperty(name);
+                if (classname == null)
+                {
+                    classname = name;
+                }
+                Class configClass = Thread.currentThread().getContextClassLoader().loadClass(classname);
+                
                 config = (FreudConfig<T>) configClass.newInstance();
             }
             catch (ClassNotFoundException e)
