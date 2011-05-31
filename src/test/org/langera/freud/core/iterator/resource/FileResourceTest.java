@@ -6,7 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.langera.freud.util.io.IoUtil;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class FileResourceTest
 {
@@ -14,7 +18,7 @@ public class FileResourceTest
     private static final String FILE_CONTENT = "test test test\n";
 
     @Test
-    public void testShouldReturnResourceAsStream() throws Exception
+    public void shouldReturnResourceAsStream() throws Exception
     {
         FileResource resource = FileResource.getInstance();
 
@@ -26,7 +30,7 @@ public class FileResourceTest
     }
 
     @Test(expected = IOException.class)
-    public void testShouldNotFindResource() throws Exception
+    public void shouldNotFindResource() throws Exception
     {
         FileResource resource = FileResource.getInstance();
 

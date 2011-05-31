@@ -4,7 +4,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MultiCollectionTest 
 {
@@ -35,7 +41,7 @@ public class MultiCollectionTest
     }
 
     @Test
-    public void testShouldCalculateSizeCorrectly() throws Exception 
+    public void shouldCalculateSizeCorrectly() throws Exception
     {
 
         Assert.assertEquals(6, multiCollection.size());
@@ -43,7 +49,7 @@ public class MultiCollectionTest
 
 
     @Test
-    public void testShouldIterateOverAll() throws Exception
+    public void shouldIterateOverAll() throws Exception
     {
         Iterator<String> iterator = multiCollection.iterator();
         

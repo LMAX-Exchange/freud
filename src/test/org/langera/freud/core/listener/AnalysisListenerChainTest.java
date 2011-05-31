@@ -36,7 +36,7 @@ public class AnalysisListenerChainTest
 
 
     @Test
-    public void testShouldDelegatePassed() throws Exception
+    public void shouldDelegatePassed() throws Exception
     {
         mockery.checking(new Expectations()
         {
@@ -51,7 +51,7 @@ public class AnalysisListenerChainTest
 
 
     @Test
-    public void testShouldDelegateFiltered() throws Exception
+    public void shouldDelegateFiltered() throws Exception
     {
         mockery.checking(new Expectations()
         {
@@ -66,7 +66,7 @@ public class AnalysisListenerChainTest
 
 
     @Test
-    public void testShouldDelegateFailed() throws Exception
+    public void shouldDelegateFailed() throws Exception
     {
         mockery.checking(new Expectations()
         {
@@ -81,7 +81,7 @@ public class AnalysisListenerChainTest
 
 
     @Test
-    public void testShouldDelegateUnexpected() throws Exception
+    public void shouldDelegateUnexpected() throws Exception
     {
         mockery.checking(new Expectations()
         {

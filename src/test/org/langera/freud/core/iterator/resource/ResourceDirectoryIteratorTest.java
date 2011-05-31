@@ -18,7 +18,7 @@ public class ResourceDirectoryIteratorTest
 
 
     @Test
-    public void testShouldIterateOverFilesInDirectories() throws Exception
+    public void shouldIterateOverFilesInDirectories() throws Exception
     {
         Assert.assertTrue(iterator.hasNext());
         Text text1 = iterator.next();

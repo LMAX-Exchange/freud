@@ -14,7 +14,7 @@ public class MultiIteratorTest
     private MultiIterator<String> iterator;
 
     @Test
-    public void testShouldIterateOverAll() throws Exception 
+    public void shouldIterateOverAll() throws Exception
     {
         Assert.assertTrue(iterator.hasNext());
         Assert.assertEquals("a", iterator.next());

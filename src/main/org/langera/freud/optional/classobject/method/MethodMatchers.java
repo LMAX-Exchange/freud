@@ -3,7 +3,7 @@ package org.langera.freud.optional.classobject.method;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
-import org.langera.freud.core.Freud;
+import org.langera.freud.core.FreudRuntimeContext;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
@@ -62,7 +62,7 @@ public final class MethodMatchers
             {
                 for (Class<?> declaredExceptionType : item.getExceptionTypes())
                 {
-                    if (exceptionType.isAssignableFrom(declaredExceptionType))
+                    if (declaredExceptionType.isAssignableFrom(exceptionType))
                     {
                         return true;
                     }
@@ -119,7 +119,7 @@ public final class MethodMatchers
             @Override
             protected boolean matchesSafely(final Method item)
             {
-                return item.getDeclaringClass().equals(Freud.getCurrentlyAnalysed(Class.class));
+                return item.getDeclaringClass().equals(FreudRuntimeContext.getCurrentlyAnalysed(Class.class));
             }
 
             @Override

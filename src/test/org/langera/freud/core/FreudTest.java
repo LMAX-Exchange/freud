@@ -93,7 +93,7 @@ public final class FreudTest
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
             {
-                Assert.assertEquals("a", Freud.getCurrentlyAnalysed(String.class));
+                Assert.assertEquals("a", FreudRuntimeContext.getCurrentlyAnalysed(String.class));
             }
 
             @Override
@@ -114,8 +114,8 @@ public final class FreudTest
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
             {
-                Assert.assertEquals("text", Freud.getCurrentlyAnalysed(Text.class).getText());
-                Assert.assertEquals("text", Freud.getCurrentlyAnalysed(TextLine.class).getLine());
+                Assert.assertEquals("text", FreudRuntimeContext.getCurrentlyAnalysed(Text.class).getText());
+                Assert.assertEquals("text", FreudRuntimeContext.getCurrentlyAnalysed(TextLine.class).getLine());
             }
 
             @Override
@@ -143,7 +143,7 @@ public final class FreudTest
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
             {
-                Assert.assertNull(Freud.getCurrentlyAnalysed(Integer.class));
+                Assert.assertNull(FreudRuntimeContext.getCurrentlyAnalysed(Integer.class));
             }
 
             @Override

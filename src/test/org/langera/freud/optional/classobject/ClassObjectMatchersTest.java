@@ -84,37 +84,37 @@ public final class ClassObjectMatchersTest
 
 
     @Test
-    public void testShouldPassWhenAnnotationExists() throws Exception
+    public void shouldPassWhenAnnotationExists() throws Exception
     {
         Assert.assertThat(TestingDummy.class, classAnnotation(Dummy.class));
     }
 
     @Test
-    public void testShouldFailAnalysisWhenAnnotationDoesNotExist() throws Exception
+    public void shouldFailAnalysisWhenAnnotationDoesNotExist() throws Exception
     {
         Assert.assertThat(TestingDummySubClass.class, no(classAnnotation(Dummy.class)));
     }
 
     @Test
-    public void testShouldPassAnalysisForAnnotationWithValue() throws Exception
+    public void shouldPassAnalysisForAnnotationWithValue() throws Exception
     {
         Assert.assertThat(TestingDummy.class, classAnnotation(Dummy.class, "value to test"));
     }
 
     @Test
-    public void testShouldFailAnalysisForAnnotationWithOtherValue() throws Exception
+    public void shouldFailAnalysisForAnnotationWithOtherValue() throws Exception
     {
         Assert.assertThat(TestingDummy.class, no(classAnnotation(Dummy.class, "other value")));
     }
 
     @Test
-    public void testShouldFailAnalysisForAnnotationWithMatcher() throws Exception
+    public void shouldFailAnalysisForAnnotationWithMatcher() throws Exception
     {
         Assert.assertThat(TestingDummy.class, classAnnotation(Dummy.class, no(Matchers.equalTo("other value"))));
     }
 
     @Test
-    public void testShouldPassAnalysisForAnnotationWithMatcher() throws Exception
+    public void shouldPassAnalysisForAnnotationWithMatcher() throws Exception
     {
         Assert.assertThat(TestingDummy.class, classAnnotation(Dummy.class, Matchers.equalTo("value to test")));
     }

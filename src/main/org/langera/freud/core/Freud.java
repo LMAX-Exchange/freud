@@ -4,9 +4,6 @@ import org.hamcrest.Matcher;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.core.listener.AnalysisListener;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAnalyser
 {
     public static final String FREUD_CONFIG_SUFFIX = "FreudConfig";
@@ -15,28 +12,6 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAna
     private Matcher<T> filter;
     private Matcher<T> assertion;
     private FreudConfig<T> config;
-
-    private static final ThreadLocal<Map<Class, AnalysedObjectIterator>> CONTEXT =
-            new ThreadLocal<Map<Class, AnalysedObjectIterator>>()
-            {
-                @Override
-                protected Map<Class, AnalysedObjectIterator> initialValue()
-                {
-                    return new HashMap<Class, AnalysedObjectIterator>();
-                }
-            };
-
-    @SuppressWarnings("unchecked")
-    public static <T> T getCurrentlyAnalysed(Class<T> type)
-    {
-        final AnalysedObjectIterator analysedObjectIterator = CONTEXT.get().get(type);
-        return (T) ((analysedObjectIterator == null) ? null : analysedObjectIterator.current());
-    }
-
-    private static <T> void register(Class<T> type, AnalysedObjectIterator<T> iterator)
-    {
-        CONTEXT.get().put(type, iterator);
-    }
 
     public Freud(final Class type)
     {
@@ -53,7 +28,7 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAna
     public FreudRule<T> in(final AnalysedObjectIterator<T> iterator)
     {
         this.iterator = iterator;
-        register(iterator.analysedObjectType(), iterator);
+        FreudRuntimeContext.register(iterator.analysedObjectType(), iterator);
         return this;
     }
 
@@ -61,9 +36,9 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAna
     @SuppressWarnings("unchecked")
     public FreudRule<T> within(final AnalysedObjectIterator<?> iterator)
     {
-        register((Class<Object>)iterator.analysedObjectType(), (AnalysedObjectIterator<Object>) iterator);
+        FreudRuntimeContext.register((Class<Object>) iterator.analysedObjectType(), (AnalysedObjectIterator<Object>) iterator);
         this.iterator = adapter(iterator);
-        register(this.iterator.analysedObjectType(), this.iterator);
+        FreudRuntimeContext.register(this.iterator.analysedObjectType(), this.iterator);
         return this;
     }
 

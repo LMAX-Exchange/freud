@@ -2,22 +2,37 @@ package org.langera.freud.optional.classobject.method;
 
 import org.hamcrest.Matchers;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.langera.freud.core.Freud;
+import org.langera.freud.core.iterator.resource.ResourceIterators;
+import org.langera.freud.core.listener.AnalysisListenerStub;
 
 import java.io.IOException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.RetentionPolicy;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import static org.langera.freud.core.matcher.FreudMatchers.no;
+import static org.langera.freud.optional.classobject.method.MethodMatchers.declaredMethod;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.definedWithModifier;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.methodAnnotation;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.methodNameMatches;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.publicMethod;
+import static org.langera.freud.optional.classobject.method.MethodMatchers.staticMethod;
 import static org.langera.freud.optional.classobject.method.MethodMatchers.throwsException;
 
 public final class MethodMatchersTest
 {
+    static
+    {
+        // Method is a third party class that needs a config - point ot it using a System property
+        System.setProperty(Method.class.getName() + Freud.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
+    }
+
+    private AnalysisListenerStub listenerStub;
+
     @Test
     public void shouldReturnTrueToAMatchedRegex() throws Exception
     {
@@ -60,55 +75,88 @@ public final class MethodMatchersTest
         Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnFalseToANonMatchedModifier"), no(definedWithModifier(Modifier.PRIVATE)));
     }
 
-//    @Test
-//    public void shouldReturnTrueToAPublicModifier() throws Exception
-//    {
-//        Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnTrueToAPublicModifier"), publicMethod());
-//    }
-//
-//    @Test
-//    public void shouldReturnTrueToAPublicModifier() throws Exception
-//    {
-//        Assert.assertThat(MethodMatchersTest.class.getMethod("dummyMethod"), publicMethod());
-//    }
+    @Test
+    public void shouldReturnTrueToAPublicModifier() throws Exception
+    {
+        Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnTrueToAPublicModifier"), publicMethod());
+    }
 
     @Test
-    public void testShouldPassWhenAnnotationExists() throws Exception
+    public void shouldReturnFalseToANonPublicModifier() throws Exception
+    {
+        Assert.assertThat(MethodMatchersTest.class.getDeclaredMethod("dummyMethod"), no(publicMethod()));
+    }
+
+    @Test
+    public void shouldReturnTrueToAStaticModifier() throws Exception
+    {
+        Assert.assertThat(MethodMatchersTest.class.getDeclaredMethod("dummyMethod"), staticMethod());
+    }
+
+    @Test
+    public void shouldReturnFalseToANonStaticModifier() throws Exception
+    {
+        Assert.assertThat(MethodMatchersTest.class.getMethod("shouldReturnFalseToANonStaticModifier"), no(staticMethod()));
+    }
+
+    @Test
+    public void shouldReturnTrueToADeclaredMethod() throws Exception
+    {
+        Freud.iterateOver(Method.class).within(ResourceIterators.selfResourceIterator(MethodMatchersTest.class)).
+                assertThat(declaredMethod()).
+                analyse(listenerStub);
+
+        listenerStub.assertPassed(MethodMatchersTest.class.getDeclaredMethod("dummyMethod"));
+    }
+
+    @Test
+    public void shouldReturnFalseToANonDeclaredMethod() throws Exception
+    {
+        Freud.iterateOver(Method.class).within(ResourceIterators.selfResourceIterator(MethodMatchersTest.class)).
+                assertThat(declaredMethod()).
+                analyse(listenerStub);
+
+        listenerStub.assertFailed(MethodMatchersTest.class.getMethod("hashCode"));
+    }
+
+
+    @Test
+    public void shouldPassWhenAnnotationExists() throws Exception
     {
         Assert.assertThat(TestingDummy.class.getMethod("myMethod"), methodAnnotation(Dummy.class));
     }
 
     @Test
-    public void testShouldFailAnalysisWhenAnnotationDoesNotExist() throws Exception
+    public void shouldFailAnalysisWhenAnnotationDoesNotExist() throws Exception
     {
         Assert.assertThat(TestingDummy.class.getMethod("myOtherMethod"), no(methodAnnotation(Dummy.class)));
     }
 
     @Test
-    public void testShouldPassAnalysisForAnnotationWithValue() throws Exception
+    public void shouldPassAnalysisForAnnotationWithValue() throws Exception
     {
         Assert.assertThat(TestingDummy.class.getMethod("myMethod"), methodAnnotation(Dummy.class, "value to test"));
     }
 
     @Test
-    public void testShouldFailAnalysisForAnnotationWithOtherValue() throws Exception
+    public void shouldFailAnalysisForAnnotationWithOtherValue() throws Exception
     {
         Assert.assertThat(TestingDummy.class.getMethod("myMethod"), no(methodAnnotation(Dummy.class, "other value")));
     }
 
     @Test
-    public void testShouldFailAnalysisForAnnotationWithMatcher() throws Exception
+    public void shouldFailAnalysisForAnnotationWithMatcher() throws Exception
     {
         Assert.assertThat(TestingDummy.class.getMethod("myMethod"), methodAnnotation(Dummy.class, no(Matchers.equalTo("other value"))));
     }
 
     @Test
-    public void testShouldPassAnalysisForAnnotationWithMatcher() throws Exception
+    public void shouldPassAnalysisForAnnotationWithMatcher() throws Exception
     {
         Assert.assertThat(TestingDummy.class.getMethod("myMethod"), methodAnnotation(Dummy.class, Matchers.equalTo("value to test")));
     }
 
-    private static void dummyMethod()
+    static void dummyMethod()
     {
         // no op
     }
@@ -133,5 +181,11 @@ public final class MethodMatchersTest
         {
             // do nothing
         }
+    }
+
+    @Before
+    public void setUp()
+    {
+        listenerStub = new AnalysisListenerStub();
     }
 }

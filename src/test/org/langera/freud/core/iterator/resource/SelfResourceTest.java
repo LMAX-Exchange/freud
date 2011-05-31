@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 public class SelfResourceTest
 {
     @Test
-    public void testShouldReturnResourceAsText() throws Exception
+    public void shouldReturnResourceAsText() throws Exception
     {
         SelfResource resource = SelfResource.getInstance();
 

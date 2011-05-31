@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 public class ClasspathTextResourceTest 
 {
     @Test
-    public void testShouldReturnResourceAsStream() throws Exception
+    public void shouldReturnResourceAsStream() throws Exception
     {
         ClasspathResource resource = ClasspathResource.getInstance();
 
@@ -27,7 +27,7 @@ public class ClasspathTextResourceTest
                 "File\n", data);
     }
     @Test
-    public void testShouldNotFindResource() throws Exception
+    public void shouldNotFindResource() throws Exception
     {
         ClasspathResource resource = ClasspathResource.getInstance();
 

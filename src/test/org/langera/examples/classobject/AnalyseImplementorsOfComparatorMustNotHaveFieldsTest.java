@@ -19,7 +19,7 @@ public class AnalyseImplementorsOfComparatorMustNotHaveFieldsTest
     private AnalysisListenerStub listener;
 
     @Test
-    public void testShouldPassBecauseComparatorHasNoFields()
+    public void shouldPassBecauseComparatorHasNoFields()
     {
         FreudAnalyser analyser = ClassExamples.allImplementorsOfComparatorMustNotContainFields(
                 ResourceIterators.<Class>selfResourceIterator(ComparatorWithNoFields.class));
@@ -29,7 +29,7 @@ public class AnalyseImplementorsOfComparatorMustNotHaveFieldsTest
     }
 
     @Test
-    public void testShouldFailBecauseImplementationHasAField()
+    public void shouldFailBecauseImplementationHasAField()
     {
         FreudAnalyser analyser = ClassExamples.allImplementorsOfComparatorMustNotContainFields(
                 ResourceIterators.<Class>selfResourceIterator(ComparatorWithFields.class));
@@ -39,7 +39,7 @@ public class AnalyseImplementorsOfComparatorMustNotHaveFieldsTest
     }
 
     @Test
-    public void testShouldPassBecauseNotAComparator()
+    public void shouldPassBecauseNotAComparator()
     {
         FreudAnalyser analyser = ClassExamples.allImplementorsOfComparatorMustNotContainFields(
                 ResourceIterators.<Class>selfResourceIterator(String.class));

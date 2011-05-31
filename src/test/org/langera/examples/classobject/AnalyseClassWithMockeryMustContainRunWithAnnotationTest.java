@@ -16,7 +16,7 @@ public class AnalyseClassWithMockeryMustContainRunWithAnnotationTest
     private AnalysisListenerStub listener;
 
     @Test
-    public void testShouldAnalyseMockeryDeclaredProperly() throws Exception
+    public void shouldAnalyseMockeryDeclaredProperly() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.testClassWithMockeryMustContainRunWithAnnotation(
                 ResourceIterators.<Class>selfResourceIterator(ProperJunit4JmockClassTest.class));
@@ -28,7 +28,7 @@ public class AnalyseClassWithMockeryMustContainRunWithAnnotationTest
     }
 
     @Test
-    public void testShouldAnalyseWhenMockeryDeclaredWithoutCustomRunner() throws Exception
+    public void shouldAnalyseWhenMockeryDeclaredWithoutCustomRunner() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.testClassWithMockeryMustContainRunWithAnnotation(
                 ResourceIterators.<Class>selfResourceIterator(MockeryButNoRunWithRunnerClassTest.class));
@@ -40,7 +40,7 @@ public class AnalyseClassWithMockeryMustContainRunWithAnnotationTest
     }
 
     @Test
-    public void testShouldAnalyseWhenMockeryDeclaredWithDifferentRunner() throws Exception
+    public void shouldAnalyseWhenMockeryDeclaredWithDifferentRunner() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.testClassWithMockeryMustContainRunWithAnnotation(
                 ResourceIterators.<Class>selfResourceIterator(MockeryButDifferentRunWithRunnerClassTest.class));
@@ -52,7 +52,7 @@ public class AnalyseClassWithMockeryMustContainRunWithAnnotationTest
     }
 
     @Test
-    public void testShouldClassesThatDoNotEndWithTestAreFiltered() throws Exception
+    public void shouldClassesThatDoNotEndWithTestAreFiltered() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.testClassWithMockeryMustContainRunWithAnnotation(
                 ResourceIterators.<Class>selfResourceIterator(String.class));

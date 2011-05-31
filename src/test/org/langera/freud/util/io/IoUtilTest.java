@@ -12,7 +12,7 @@ public class IoUtilTest
 
 
     @Test
-    public void testShouldParseStreamToLines() throws Exception 
+    public void shouldParseStreamToLines() throws Exception
     {
         Reader reader = new InputStreamReader(new ByteArrayInputStream("line1 \nline2\t\nline3\n\n".getBytes()));
 
@@ -26,7 +26,7 @@ public class IoUtilTest
     }
 
     @Test
-    public void testShouldReadStreamFully() throws Exception
+    public void shouldReadStreamFully() throws Exception
     {
         Reader reader = new InputStreamReader(new ByteArrayInputStream("line1 \nline2\t\nline3\n\nline4".getBytes()));
 

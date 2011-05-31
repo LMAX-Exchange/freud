@@ -18,7 +18,7 @@ public class AnalyseEqualsAlwaysGoesTogetherWithHashCodeTest
     private AnalysisListenerStub listener;
 
     @Test
-    public void testShouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereBothDeclared() throws Exception
+    public void shouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereBothDeclared() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.equalsAlwaysGoesTogetherWithHashCode(
                 ResourceIterators.<Class>selfResourceIterator(String.class));
@@ -30,7 +30,7 @@ public class AnalyseEqualsAlwaysGoesTogetherWithHashCodeTest
     }
 
     @Test
-    public void testShouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereNoneDeclared() throws Exception
+    public void shouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereNoneDeclared() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.equalsAlwaysGoesTogetherWithHashCode(
                 ResourceIterators.<Class>selfResourceIterator(IllegalStateException.class));
@@ -42,7 +42,7 @@ public class AnalyseEqualsAlwaysGoesTogetherWithHashCodeTest
     }
 
     @Test
-    public void testShouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereOnlyHashCodeDeclared() throws Exception
+    public void shouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereOnlyHashCodeDeclared() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.equalsAlwaysGoesTogetherWithHashCode(
                 ResourceIterators.<Class>selfResourceIterator(HashCodeButNoEquals.class));
@@ -54,7 +54,7 @@ public class AnalyseEqualsAlwaysGoesTogetherWithHashCodeTest
     }
 
     @Test
-    public void testShouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereOnlyEqualsDeclared() throws Exception
+    public void shouldAnalyseEqualsAlwaysGoesTogetherWithHashCodeWhereOnlyEqualsDeclared() throws Exception
     {
         FreudAnalyser analyser = ClassExamples.equalsAlwaysGoesTogetherWithHashCode(
                 ResourceIterators.<Class>selfResourceIterator(EqualsButNoHashCode.class));

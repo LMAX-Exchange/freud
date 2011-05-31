@@ -7,7 +7,8 @@ import org.langera.freud.core.iterator.SubTypeAnalysedObjectIterator;
 import org.langera.freud.core.iterator.SubTypeIteratorBuilder;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class MethodFreudConfig implements FreudConfig<Method>
 {
@@ -23,7 +24,18 @@ public final class MethodFreudConfig implements FreudConfig<Method>
                         @Override
                         public Iterable<Method> buildIterable(final Class superTypeItem)
                         {
-                            return Arrays.asList(superTypeItem.getMethods());
+                            final Method[] methods = superTypeItem.getMethods();
+                            final Method[] declaredMethods = superTypeItem.getDeclaredMethods();
+                            final Set<Method> methodSet = new HashSet<Method>(methods.length + declaredMethods.length);
+                            for (int i = 0; i < methods.length; i++)
+                            {
+                                methodSet.add(methods[i]);
+                            }
+                            for (int i = 0; i < declaredMethods.length; i++)
+                            {
+                                methodSet.add(declaredMethods[i]);
+                            }
+                            return methodSet;
                         }
                     }, Method.class);
         }
