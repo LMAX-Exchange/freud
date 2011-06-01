@@ -41,7 +41,7 @@ public final class MethodFreudConfig implements FreudConfig<Method>
         }
         else
         {
-            throw new FreudBuilderException("Cannot iterate over TextLine objects from [" +
+            throw new FreudBuilderException("Cannot iterate over Method objects from [" +
                     superTypeIterator.analysedObjectType() + "] iterator.");
         }
     }

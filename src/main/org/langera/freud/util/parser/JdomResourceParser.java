@@ -33,16 +33,12 @@ public final class JdomResourceParser<T> implements ResourceParser<T>
 {
     private final Constructor<? extends T> jdomImplConstructor;
     private static final Class[] PARAMS = {Reader.class, String.class};
+    private final Class<T> type;
 
 
-    @Override
-    public Class<T> getType()
+    public JdomResourceParser(final Class<? extends T> jdomImplClass, final Class<T> type)
     {
-        return null;
-    }
-
-    public JdomResourceParser(final Class<? extends T> jdomImplClass)
-    {
+        this.type = type;
         try
         {
             this.jdomImplConstructor = jdomImplClass.getConstructor(PARAMS);
@@ -71,6 +67,12 @@ public final class JdomResourceParser<T> implements ResourceParser<T>
         {
             throw new ResourceParserException(createErrorMessage(resourceIdentifier), e);
         }
+    }
+
+    @Override
+    public Class<T> getType()
+    {
+        return type;
     }
 
     private String createErrorMessage(String resourceIdentifier)

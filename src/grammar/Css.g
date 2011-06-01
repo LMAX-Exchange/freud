@@ -30,11 +30,11 @@ tokens {
 }
 
 @header {
-package org.langera.freudgenerated.css.parser;
+package org.langera.freud.optional.css.parser;
 }
 
 @lexer::header {
-package org.langera.freudgenerated.css.parser;
+package org.langera.freud.optional.css.parser;
 }
 
 stylesheet
