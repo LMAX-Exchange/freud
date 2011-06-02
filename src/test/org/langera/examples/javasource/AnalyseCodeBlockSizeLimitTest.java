@@ -2,7 +2,6 @@ package org.langera.examples.javasource;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.langera.freud.core.FreudAnalyser;
 import org.langera.freud.core.iterator.resource.ResourceIterators;
@@ -11,7 +10,6 @@ import org.langera.freud.optional.javasource.JavaSourceJdom;
 
 import static org.langera.freud.optional.javasource.JavaSourceTestMatchers.codeBlockIn;
 
-@Ignore
 public class AnalyseCodeBlockSizeLimitTest
 {
     private AnalysisListenerStub listener;

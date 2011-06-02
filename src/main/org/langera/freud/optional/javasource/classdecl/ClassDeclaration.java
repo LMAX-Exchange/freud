@@ -44,7 +44,7 @@ public interface ClassDeclaration
 
     long getModifierMask();
 
-    //    Block getStaticBlock();
+    //    CodeBlock getStaticBlock();
 
     Map<String, List<MethodDeclaration>> getMethodDeclarationListByNameMap();
 
