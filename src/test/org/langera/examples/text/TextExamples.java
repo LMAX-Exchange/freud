@@ -5,9 +5,8 @@ import org.langera.freud.core.FreudAnalyser;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.optional.text.Text;
 import org.langera.freud.optional.text.textline.TextLine;
-import org.langera.freud.optional.text.textline.TextLineMatchers;
 
-import static org.langera.freud.optional.text.textline.TextLineMatchers.*;
+import static org.langera.freud.optional.text.textline.TextLineDsl.lineLength;
 
 public final class TextExamples
 {

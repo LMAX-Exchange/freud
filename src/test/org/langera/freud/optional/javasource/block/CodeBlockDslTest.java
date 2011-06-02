@@ -1,0 +1,67 @@
+package org.langera.freud.optional.javasource.block;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.langera.freud.optional.javasource.JavaSourceJdom;
+
+import java.io.StringReader;
+
+import static org.langera.freud.core.matcher.FreudDsl.no;
+import static org.langera.freud.optional.javasource.block.CodeBlockDsl.hasMethodCall;
+import static org.langera.freud.optional.javasource.block.CodeBlockDsl.method;
+import static org.langera.freud.optional.javasource.methoddecl.MethodDeclarationDsl.methodName;
+
+public final class CodeBlockDslTest
+{
+    private static final String CLASS_EXAMPLE =
+            "package org.langera.examples;" +
+                    " " +
+                    "public class SimpleClass " +
+                    "{ " +
+                    "  " +
+                    "  public String toString()" +
+                    "  {" +
+                    "        System.out.println(\"HERE\");\n "+
+                    "       return \"\";" +
+                    "  }" +
+                    "}";
+    private CodeBlock toStringMethodCodeBlock;
+
+    @Test
+    public void shouldDelegateToMethodDeclarationMatcher()
+    {
+        Assert.assertThat(toStringMethodCodeBlock, method(methodName().contains("Str")));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenItIncludesInputMethodCall()
+    {
+        Assert.assertThat(toStringMethodCodeBlock, hasMethodCall("System.out.println"));
+    }
+
+    @Test
+    public void shouldReturnFalseWhenItDoesNotIncludeInputMethodCall()
+    {
+        Assert.assertThat(toStringMethodCodeBlock, no(hasMethodCall("System.out.print")));
+    }
+
+    @Test
+    public void shouldReturnTrueWhenItReturnsTheRightNumberOfLines()
+    {
+        Assert.assertThat(toStringMethodCodeBlock, CodeBlockDsl.codeBlockLines().equalTo(2));
+    }
+
+    @Test
+    public void shouldReturnFalseWhenItReturnsTheWrongNumberOfLines()
+    {
+        Assert.assertThat(toStringMethodCodeBlock, no(CodeBlockDsl.codeBlockLines().equalTo(17)));
+    }
+
+    @Before
+    public void setUp() throws Exception
+    {
+        toStringMethodCodeBlock = new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name").
+                getClassDeclaration().getMethodDeclarationListByNameMap().get("toString").get(0).getImplementation();
+    }
+}

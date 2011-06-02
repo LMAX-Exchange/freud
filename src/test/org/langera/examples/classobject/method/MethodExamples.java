@@ -8,9 +8,9 @@ import org.langera.freud.optional.classobject.method.MethodFreudConfig;
 
 import java.lang.reflect.Method;
 
-import static org.langera.freud.core.matcher.FreudMatchers.no;
-import static org.langera.freud.optional.classobject.method.MethodMatchers.methodAnnotation;
-import static org.langera.freud.optional.classobject.method.MethodMatchers.methodNameMatches;
+import static org.langera.freud.core.matcher.FreudDsl.no;
+import static org.langera.freud.optional.classobject.method.MethodDsl.methodAnnotation;
+import static org.langera.freud.optional.classobject.method.MethodDsl.methodName;
 
 public final class MethodExamples
 {
@@ -28,7 +28,7 @@ public final class MethodExamples
     public static FreudAnalyser allTestMethodsMustStartWithShould(final AnalysedObjectIterator<Class> iterator)
     {
         return Freud.iterateOver(Method.class).within(iterator).
-                assertThat(methodNameMatches("should.+").or(no(methodAnnotation(Test.class))));
+                assertThat(methodName().matches("should.+").or(no(methodAnnotation(Test.class))));
     }
 
 }

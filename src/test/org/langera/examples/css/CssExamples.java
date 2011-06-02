@@ -8,15 +8,15 @@ import org.langera.freud.optional.css.cssrule.CssRule;
 import org.langera.freud.optional.css.cssrule.declaration.CssDeclaration;
 import org.langera.freud.optional.css.cssrule.selector.CssSelector;
 
-import static org.langera.freud.core.matcher.FreudMatchers.no;
-import static org.langera.freud.optional.css.cssrule.CssRuleMatchers.containsSelector;
-import static org.langera.freud.optional.css.cssrule.CssRuleMatchers.lastIndexOfSelector;
-import static org.langera.freud.optional.css.cssrule.CssRuleMatchers.selectors;
-import static org.langera.freud.optional.css.cssrule.declaration.CssDeclarationMatchers.declarationKeyMatches;
-import static org.langera.freud.optional.css.cssrule.declaration.CssDeclarationMatchers.declarationValueMatches;
-import static org.langera.freud.optional.css.cssrule.selector.CssSelectorMatchers.classSelector;
-import static org.langera.freud.optional.css.cssrule.selector.CssSelectorMatchers.idSelector;
-import static org.langera.freud.optional.css.cssrule.selector.CssSelectorMatchers.selectorContains;
+import static org.langera.freud.core.matcher.FreudDsl.no;
+import static org.langera.freud.optional.css.cssrule.CssRuleDsl.containsSelector;
+import static org.langera.freud.optional.css.cssrule.CssRuleDsl.lastIndexOfSelector;
+import static org.langera.freud.optional.css.cssrule.CssRuleDsl.selectors;
+import static org.langera.freud.optional.css.cssrule.declaration.CssDeclarationDsl.declarationKey;
+import static org.langera.freud.optional.css.cssrule.declaration.CssDeclarationDsl.declarationValue;
+import static org.langera.freud.optional.css.cssrule.selector.CssSelectorDsl.classSelector;
+import static org.langera.freud.optional.css.cssrule.selector.CssSelectorDsl.idSelector;
+import static org.langera.freud.optional.css.cssrule.selector.CssSelectorDsl.selector;
 
 public final class CssExamples
 {
@@ -29,14 +29,14 @@ public final class CssExamples
     {
         return Freud.iterateOver(CssSelector.class).within(iterator).
                 forEach(classSelector().or(idSelector())).
-                assertThat(no(selectorContains("[A-Z]")));
+                assertThat(no(selector().contains("[A-Z]")));
     }
 
     public static FreudAnalyser cssDisplayDeclarationIsAlwaysNone(final AnalysedObjectIterator<Css> iterator)
     {
         return Freud.iterateOver(CssDeclaration.class).within(iterator).
-                forEach(declarationKeyMatches("display")).
-                assertThat(declarationValueMatches("none"));
+                forEach(declarationKey().matches("display")).
+                assertThat(declarationValue().matches("none"));
     }
 
     /**

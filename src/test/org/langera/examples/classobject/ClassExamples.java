@@ -12,12 +12,12 @@ import org.langera.freud.core.iterator.AnalysedObjectIterator;
 
 import java.util.Comparator;
 
-import static org.langera.freud.core.matcher.FreudMatchers.no;
-import static org.langera.freud.optional.classobject.ClassObjectMatchers.classAnnotation;
-import static org.langera.freud.optional.classobject.ClassObjectMatchers.classSimpleNameMatches;
-import static org.langera.freud.optional.classobject.ClassObjectMatchers.hasDeclaredFieldOfType;
-import static org.langera.freud.optional.classobject.ClassObjectMatchers.hasDeclaredMethod;
-import static org.langera.freud.optional.classobject.ClassObjectMatchers.subTypeOf;
+import static org.langera.freud.core.matcher.FreudDsl.no;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.classAnnotation;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.classSimpleName;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredFieldOfType;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredMethod;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.subTypeOf;
 
 /**
  * Created by IntelliJ IDEA.
@@ -42,7 +42,7 @@ public final class ClassExamples
     public static FreudAnalyser testClassWithMockeryMustContainRunWithAnnotation(final AnalysedObjectIterator<Class> iterator)
     {
         return Freud.iterateOver(Class.class).in(iterator).
-                forEach(classSimpleNameMatches(".+Test")).
+                forEach(classSimpleName().matches(".+Test")).
                 assertThat(no(hasDeclaredFieldOfType(Mockery.class)).
                         or(classAnnotation(RunWith.class, JMock.class)));
     }

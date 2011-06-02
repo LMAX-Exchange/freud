@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.langera.freud.optional.text.textline.TextLineMatchers.lineLength;
+import static org.langera.freud.optional.text.textline.TextLineDsl.lineLength;
 
 public final class FreudTest
 {

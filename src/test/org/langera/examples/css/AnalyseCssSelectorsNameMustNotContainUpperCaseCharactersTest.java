@@ -15,7 +15,7 @@ public final class AnalyseCssSelectorsNameMustNotContainUpperCaseCharactersTest
     private AnalysisListenerStub listener;
 
     @Test
-    public void testShouldAnalyseCssSelectors() throws Exception
+    public void shouldAnalyseCssSelectors() throws Exception
     {
         FreudAnalyser analysis = CssExamples.classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters(
                 ResourceIterators.selfResourceIterator(CssJdom.PARSER,
