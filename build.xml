@@ -3,7 +3,6 @@
 
     <property name="version" value="0.9"/>
     <property name="dir.main.src" value="src/main"/>
-    <property name="dir.generated.src" value="src/generated"/>
     <property name="dir.main.build" value="build/main/classes"/>
     <property name="dir.main.lib" value="lib"/>
     <property name="dir.optional.lib" value="lib/optional"/>
@@ -53,7 +52,6 @@
                debuglevel="lines,vars,source">
             <classpath refid="main.classpath"/>
             <src path="${dir.main.src}"/>
-            <src path="${dir.generated.src}"/>
         </javac>
 
     </target>
@@ -91,7 +89,6 @@
         <mkdir dir="${dir.dist}"/>
         <copy todir="${dir.main.build}">
             <fileset dir="${dir.main.src}"/>
-            <fileset dir="${dir.generated.src}"/>
         </copy>
         <jar destfile="${dir.dist}/freud-${version}.jar"
              basedir="${dir.main.build}">
