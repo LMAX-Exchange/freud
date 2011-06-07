@@ -22,6 +22,11 @@ public final class FreudRuntimeContext
                 }
             };
 
+    public static void clear()
+    {
+        CONTEXT.get().clear();
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> T getCurrentlyAnalysed(Class<T> type)
     {
@@ -29,8 +34,8 @@ public final class FreudRuntimeContext
         return (T) ((analysedObjectIterator == null) ? null : analysedObjectIterator.current());
     }
 
-    static <T> void register(Class<T> type, AnalysedObjectIterator<T> iterator)
+    static <T> void register(AnalysedObjectIterator<T> iterator)
     {
-        CONTEXT.get().put(type, iterator);
+        CONTEXT.get().put(iterator.analysedObjectType(), iterator);
     }
 }

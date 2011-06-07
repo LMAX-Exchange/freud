@@ -5,7 +5,6 @@ import org.langera.freud.core.FreudConfig;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.core.iterator.SubTypeAnalysedObjectIterator;
 import org.langera.freud.core.iterator.SubTypeIteratorBuilder;
-import org.langera.freud.optional.javasource.JavaSource;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
 
 import java.util.ArrayList;
@@ -13,34 +12,32 @@ import java.util.List;
 
 public final class MethodDeclarationFreudConfig implements FreudConfig<MethodDeclaration>
 {
+
+    @Override
+    public Class<?> supports()
+    {
+        return ClassDeclaration.class;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<MethodDeclaration> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (JavaSource.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<JavaSource, MethodDeclaration>((AnalysedObjectIterator<JavaSource>) superTypeIterator,
-                    new SubTypeIteratorBuilder<JavaSource, MethodDeclaration>()
+        return new SubTypeAnalysedObjectIterator<ClassDeclaration, MethodDeclaration>((AnalysedObjectIterator<ClassDeclaration>) superTypeIterator,
+                new SubTypeIteratorBuilder<ClassDeclaration, MethodDeclaration>()
+                {
+                    @Override
+                    public Iterable<MethodDeclaration> buildIterable(final ClassDeclaration superTypeItem)
                     {
-                        @Override
-                        public Iterable<MethodDeclaration> buildIterable(final JavaSource superTypeItem)
+                        List<MethodDeclaration> collector = new ArrayList<MethodDeclaration>();
+                        collectMethodDeclarationsInsideClassDeclaration(superTypeItem, collector);
+                        for (ClassDeclaration innerClassDecl : superTypeItem.getInnerClassDeclarationByNameMap().values())
                         {
-                            List<MethodDeclaration> collector = new ArrayList<MethodDeclaration>();
-                            final ClassDeclaration classDecl = superTypeItem.getClassDeclaration();
-                            collectMethodDeclarationsInsideClassDeclaration(classDecl, collector);
-                            for (ClassDeclaration innerClassDecl : classDecl.getInnerClassDeclarationByNameMap().values())
-                            {
-                                collectMethodDeclarationsInsideClassDeclaration(innerClassDecl, collector);
-                            }
-                            return collector;
+                            collectMethodDeclarationsInsideClassDeclaration(innerClassDecl, collector);
                         }
-                    }, MethodDeclaration.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over MethodDeclaration objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        return collector;
+                    }
+                }, MethodDeclaration.class);
     }
 
     private void collectMethodDeclarationsInsideClassDeclaration(final ClassDeclaration classDecl, final List<MethodDeclaration> collector)

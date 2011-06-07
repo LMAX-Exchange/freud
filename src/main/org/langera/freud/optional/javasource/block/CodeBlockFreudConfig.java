@@ -5,43 +5,39 @@ import org.langera.freud.core.FreudConfig;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.core.iterator.SubTypeAnalysedObjectIterator;
 import org.langera.freud.core.iterator.SubTypeIteratorBuilder;
-import org.langera.freud.optional.javasource.JavaSource;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
 import org.langera.freud.optional.javasource.methoddecl.MethodDeclaration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CodeBlockFreudConfig implements FreudConfig<CodeBlock>
+public class CodeBlockFreudConfig implements FreudConfig<CodeBlock>
 {
+    @Override
+    public Class<?> supports()
+    {
+        return ClassDeclaration.class;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<CodeBlock> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (JavaSource.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<JavaSource, CodeBlock>((AnalysedObjectIterator<JavaSource>) superTypeIterator,
-                    new SubTypeIteratorBuilder<JavaSource, CodeBlock>()
+        return new SubTypeAnalysedObjectIterator<ClassDeclaration, CodeBlock>((AnalysedObjectIterator<ClassDeclaration>) superTypeIterator,
+                new SubTypeIteratorBuilder<ClassDeclaration, CodeBlock>()
+                {
+                    @Override
+                    public Iterable<CodeBlock> buildIterable(final ClassDeclaration superTypeItem)
                     {
-                        @Override
-                        public Iterable<CodeBlock> buildIterable(final JavaSource superTypeItem)
+                        List<CodeBlock> collector = new ArrayList<CodeBlock>();
+                        collectCodeBlocksInsideClassDeclaration(superTypeItem, collector);
+                        for (ClassDeclaration innerClassDecl : superTypeItem.getInnerClassDeclarationByNameMap().values())
                         {
-                            List<CodeBlock> collector = new ArrayList<CodeBlock>();
-                            final ClassDeclaration classDecl = superTypeItem.getClassDeclaration();
-                            collectCodeBlocksInsideClassDeclaration(classDecl, collector);
-                            for (ClassDeclaration innerClassDecl : classDecl.getInnerClassDeclarationByNameMap().values())
-                            {
-                                collectCodeBlocksInsideClassDeclaration(innerClassDecl, collector);
-                            }
-                            return collector;
+                            collectCodeBlocksInsideClassDeclaration(innerClassDecl, collector);
                         }
-                    }, CodeBlock.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over CodeBlock objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        return collector;
+                    }
+                }, CodeBlock.class);
     }
 
     private void collectCodeBlocksInsideClassDeclaration(final ClassDeclaration classDecl, final List<CodeBlock> collector)

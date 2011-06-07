@@ -2,19 +2,18 @@ package org.langera.freud.core;
 
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 
-public final class DefaultFreudConfig<T> implements FreudConfig<T>
+public class DefaultFreudConfig<T> implements FreudConfig<T>
 {
-    private static final DefaultFreudConfig SINGLETON = new DefaultFreudConfig();
+    private static final DefaultFreudConfig INSTANCE = new DefaultFreudConfig();
 
-    private DefaultFreudConfig()
+    protected DefaultFreudConfig()
     {
-        // singleton
     }
 
     @SuppressWarnings("unchecked")
     public static <T> FreudConfig<T> getInstance()
     {
-        return SINGLETON;
+        return INSTANCE;
     }
 
     @Override
@@ -23,4 +22,9 @@ public final class DefaultFreudConfig<T> implements FreudConfig<T>
         throw new FreudBuilderException("Config missing");
     }
 
+    @Override
+    public Class<?> supports()
+    {
+        return null;
+    }
 }

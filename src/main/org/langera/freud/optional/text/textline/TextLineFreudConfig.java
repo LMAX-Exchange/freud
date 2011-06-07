@@ -9,26 +9,25 @@ import org.langera.freud.optional.text.Text;
 
 public final class TextLineFreudConfig implements FreudConfig<TextLine>
 {
+
+    @Override
+    public Class<?> supports()
+    {
+        return Text.class;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<TextLine> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (Text.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<Text, TextLine>((AnalysedObjectIterator<Text>) superTypeIterator,
-                    new SubTypeIteratorBuilder<Text, TextLine>()
+        return new SubTypeAnalysedObjectIterator<Text, TextLine>((AnalysedObjectIterator<Text>) superTypeIterator,
+                new SubTypeIteratorBuilder<Text, TextLine>()
+                {
+                    @Override
+                    public Iterable<TextLine> buildIterable(final Text superTypeItem)
                     {
-                        @Override
-                        public Iterable<TextLine> buildIterable(final Text superTypeItem)
-                        {
-                            return superTypeItem.getTextLines();
-                        }
-                    }, TextLine.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over TextLine objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        return superTypeItem.getTextLines();
+                    }
+                }, TextLine.class);
     }
 }

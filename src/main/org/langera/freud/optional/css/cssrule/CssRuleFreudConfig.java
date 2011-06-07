@@ -9,26 +9,25 @@ import org.langera.freud.optional.css.Css;
 
 public final class CssRuleFreudConfig implements FreudConfig<CssRule>
 {
+
+    @Override
+    public Class<?> supports()
+    {
+        return Css.class;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<CssRule> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (Css.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<Css, CssRule>((AnalysedObjectIterator<Css>) superTypeIterator,
-                    new SubTypeIteratorBuilder<Css, CssRule>()
+        return new SubTypeAnalysedObjectIterator<Css, CssRule>((AnalysedObjectIterator<Css>) superTypeIterator,
+                new SubTypeIteratorBuilder<Css, CssRule>()
+                {
+                    @Override
+                    public Iterable<CssRule> buildIterable(final Css superTypeItem)
                     {
-                        @Override
-                        public Iterable<CssRule> buildIterable(final Css superTypeItem)
-                        {
-                            return superTypeItem.getCssRuleList();
-                        }
-                    }, CssRule.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over CssRule objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        return superTypeItem.getCssRuleList();
+                    }
+                }, CssRule.class);
     }
 }

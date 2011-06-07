@@ -11,27 +11,28 @@ import java.util.Collections;
 
 public final class PackageDeclarationFreudConfig implements FreudConfig<PackageDeclaration>
 {
+
+
+    @Override
+    public Class<?> supports()
+    {
+        return JavaSource.class;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<PackageDeclaration> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (JavaSource.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<JavaSource, PackageDeclaration>((AnalysedObjectIterator<JavaSource>) superTypeIterator,
-                    new SubTypeIteratorBuilder<JavaSource, PackageDeclaration>()
+        return new SubTypeAnalysedObjectIterator<JavaSource, PackageDeclaration>((AnalysedObjectIterator<JavaSource>) superTypeIterator,
+                new SubTypeIteratorBuilder<JavaSource, PackageDeclaration>()
+                {
+                    @Override
+                    public Iterable<PackageDeclaration> buildIterable(final JavaSource superTypeItem)
                     {
-                        @Override
-                        public Iterable<PackageDeclaration> buildIterable(final JavaSource superTypeItem)
-                        {
-                            return Collections.singleton(superTypeItem.getPackageDeclaration());
-                        }
-                    }, PackageDeclaration.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over PackageDeclaration objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        return Collections.singleton(superTypeItem.getPackageDeclaration());
+                    }
+                }, PackageDeclaration.class);
+
     }
 
 }

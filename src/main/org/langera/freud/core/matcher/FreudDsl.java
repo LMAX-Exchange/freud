@@ -23,7 +23,7 @@ public final class FreudDsl
             @Override
             public void describeTo(final Description description)
             {
-                description.appendText("no(");
+                description.appendText("NO (");
                 matcher.describeTo(description);
                 description.appendText(")");
             }
@@ -43,9 +43,11 @@ public final class FreudDsl
             @Override
             public void describeTo(final Description description)
             {
+                description.appendText("(");
                 matcher1.describeTo(description);
-                description.appendText("AND ");
+                description.appendText(") AND (");
                 matcher2.describeTo(description);
+                description.appendText(")");
             }
         };
     }
@@ -63,9 +65,11 @@ public final class FreudDsl
             @Override
             public void describeTo(final Description description)
             {
+                description.appendText("(");
                 matcher1.describeTo(description);
-                description.appendText("OR ");
+                description.appendText(") OR (");
                 matcher2.describeTo(description);
+                description.appendText(")");
             }
         };
     }

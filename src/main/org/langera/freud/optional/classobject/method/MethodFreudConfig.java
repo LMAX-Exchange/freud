@@ -12,37 +12,36 @@ import java.util.Set;
 
 public final class MethodFreudConfig implements FreudConfig<Method>
 {
+
+    @Override
+    public Class<?> supports()
+    {
+        return Class.class;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<Method> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (Class.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<Class, Method>((AnalysedObjectIterator<Class>) superTypeIterator,
-                    new SubTypeIteratorBuilder<Class, Method>()
+        return new SubTypeAnalysedObjectIterator<Class, Method>((AnalysedObjectIterator<Class>) superTypeIterator,
+                new SubTypeIteratorBuilder<Class, Method>()
+                {
+                    @Override
+                    public Iterable<Method> buildIterable(final Class superTypeItem)
                     {
-                        @Override
-                        public Iterable<Method> buildIterable(final Class superTypeItem)
+                        final Method[] methods = superTypeItem.getMethods();
+                        final Method[] declaredMethods = superTypeItem.getDeclaredMethods();
+                        final Set<Method> methodSet = new HashSet<Method>(methods.length + declaredMethods.length);
+                        for (int i = 0; i < methods.length; i++)
                         {
-                            final Method[] methods = superTypeItem.getMethods();
-                            final Method[] declaredMethods = superTypeItem.getDeclaredMethods();
-                            final Set<Method> methodSet = new HashSet<Method>(methods.length + declaredMethods.length);
-                            for (int i = 0; i < methods.length; i++)
-                            {
-                                methodSet.add(methods[i]);
-                            }
-                            for (int i = 0; i < declaredMethods.length; i++)
-                            {
-                                methodSet.add(declaredMethods[i]);
-                            }
-                            return methodSet;
+                            methodSet.add(methods[i]);
                         }
-                    }, Method.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over Method objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        for (int i = 0; i < declaredMethods.length; i++)
+                        {
+                            methodSet.add(declaredMethods[i]);
+                        }
+                        return methodSet;
+                    }
+                }, Method.class);
     }
 }

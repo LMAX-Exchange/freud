@@ -13,29 +13,27 @@ import java.util.List;
 public final class ClassDeclarationFreudConfig implements FreudConfig<ClassDeclaration>
 {
     @Override
+    public Class<?> supports()
+    {
+        return JavaSource.class;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public AnalysedObjectIterator<ClassDeclaration> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
     {
-        if (JavaSource.class.equals(superTypeIterator.analysedObjectType()))
-        {
-            return new SubTypeAnalysedObjectIterator<JavaSource, ClassDeclaration>((AnalysedObjectIterator<JavaSource>) superTypeIterator,
-                    new SubTypeIteratorBuilder<JavaSource, ClassDeclaration>()
+        return new SubTypeAnalysedObjectIterator<JavaSource, ClassDeclaration>((AnalysedObjectIterator<JavaSource>) superTypeIterator,
+                new SubTypeIteratorBuilder<JavaSource, ClassDeclaration>()
+                {
+                    @Override
+                    public Iterable<ClassDeclaration> buildIterable(final JavaSource superTypeItem)
                     {
-                        @Override
-                        public Iterable<ClassDeclaration> buildIterable(final JavaSource superTypeItem)
-                        {
-                            List<ClassDeclaration> collector = new ArrayList<ClassDeclaration>();
-                            final ClassDeclaration classDecl = superTypeItem.getClassDeclaration();
-                            collector.add(classDecl);
-                            collector.addAll(classDecl.getInnerClassDeclarationByNameMap().values());
-                            return collector;
-                        }
-                    }, ClassDeclaration.class);
-        }
-        else
-        {
-            throw new FreudBuilderException("Cannot iterate over ClassDeclaration objects from [" +
-                    superTypeIterator.analysedObjectType() + "] iterator.");
-        }
+                        List<ClassDeclaration> collector = new ArrayList<ClassDeclaration>();
+                        final ClassDeclaration classDecl = superTypeItem.getClassDeclaration();
+                        collector.add(classDecl);
+                        collector.addAll(classDecl.getInnerClassDeclarationByNameMap().values());
+                        return collector;
+                    }
+                }, ClassDeclaration.class);
     }
 }

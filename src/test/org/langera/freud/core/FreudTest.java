@@ -5,6 +5,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 import org.junit.Test;
+import org.langera.freud.core.iterator.AbstractAnalysedObjectIterator;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.core.iterator.IteratorWrapperAnalysedObjectIterator;
 import org.langera.freud.core.iterator.resource.ResourceIterators;
@@ -34,7 +35,7 @@ public final class FreudTest
         final boolean[] isDone = {false};
         final List<String> expected = A_B_C;
 
-        Freud.iterateOver(String.class).in(iterator(A_B_C)).
+        Freud.iterateOver(String.class).in(iterator(A_B_C, String.class)).
                 forEach(filter).
                 assertThat(assertion).analyse(new AnalysisListener()
         {
@@ -79,6 +80,31 @@ public final class FreudTest
         Assert.assertTrue(isDone[0]);
     }
 
+    @Test
+    public void shouldBuildTestWithSuperTypeFilters()
+    {
+        System.setProperty(String.class.getName() + Freud.FREUD_CONFIG_SUFFIX, StringTestFreudConfig.class.getName());
+
+        Freud.iterateOver(String.class).within(iterator(
+                        Arrays.<Integer>asList((int)'a', (int)'b', (int)'c'), Integer.class)).
+                forEach().of(filterOut_cInteger(), Integer.class).
+                assertThat(assert_a()).analyse(new NoOpAnalysisListener()
+        {
+            @Override
+            public void filtered(final Object analysedObject, final Matcher matcher)
+            {
+                Assert.assertEquals("c", analysedObject);
+                Assert.assertEquals("(java.lang.Integer Of (Filter C by hashCode)) AND (TRUE)", matcher.toString());
+            }
+
+            @Override
+            public void unexpected(final Object analysedObject, final Exception exception)
+            {
+                Assert.fail();
+            }
+        });
+    }
+
 
     @Test
     public void shouldKeepCurrentAnalysedItemsInMemory() throws Exception
@@ -86,7 +112,7 @@ public final class FreudTest
         final TypeSafeMatcher<String> filter = filterOut_c();
         final TypeSafeMatcher<String> assertion = assert_a();
 
-        Freud.iterateOver(String.class).in(iterator(A_B_C)).
+        Freud.iterateOver(String.class).in(iterator(A_B_C, String.class)).
                 forEach(filter).
                 assertThat(assertion).analyse(new NoOpAnalysisListener()
         {
@@ -136,14 +162,14 @@ public final class FreudTest
         final TypeSafeMatcher<String> filter = filterOut_c();
         final TypeSafeMatcher<String> assertion = assert_a();
 
-        Freud.iterateOver(String.class).in(iterator(A_B_C)).
+        Freud.iterateOver(String.class).in(iterator(A_B_C, String.class)).
                 forEach(filter).
                 assertThat(assertion).analyse(new NoOpAnalysisListener()
         {
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
             {
-                Assert.assertNull(FreudRuntimeContext.getCurrentlyAnalysed(Integer.class));
+                Assert.assertNull(FreudRuntimeContext.getCurrentlyAnalysed(Boolean.class));
             }
 
             @Override
@@ -185,12 +211,54 @@ public final class FreudTest
             @Override
             public void describeTo(final Description description)
             {
+                description.appendText("filter C");
             }
         };
     }
 
-    private AnalysedObjectIterator<String> iterator(final List<String> stringList)
+    private TypeSafeMatcher<Integer> filterOut_cInteger()
     {
-        return new IteratorWrapperAnalysedObjectIterator<String>(stringList, String.class, false);
+        return new TypeSafeMatcher<Integer>()
+        {
+            @Override
+            protected boolean matchesSafely(final Integer item)
+            {
+                return "c".hashCode() != item.intValue();
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText("Filter C by hashCode");
+            }
+        };
+    }
+
+    private <T> AnalysedObjectIterator<T> iterator(final List<T> list, Class<T> type)
+    {
+        return new IteratorWrapperAnalysedObjectIterator<T>(list, type, false);
+    }
+
+    static class StringTestFreudConfig implements FreudConfig<String>
+    {
+        @Override
+        public AnalysedObjectIterator<String> iteratorAdapter(final AnalysedObjectIterator<?> superTypeIterator) throws FreudBuilderException
+        {
+            return new AbstractAnalysedObjectIterator<String>(String.class, false)
+            {
+                @Override
+                protected String generateNextItem()
+                {
+                    final Integer next = (Integer) superTypeIterator.next();
+                    return (next == null) ? null : String.valueOf(Character.valueOf((char) next.intValue()));
+                }
+            };
+        }
+
+        @Override
+        public Class<?> supports()
+        {
+            return Integer.class;
+        }
     }
 }
