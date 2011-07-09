@@ -3,6 +3,7 @@ package org.langera.freud.optional.classfile.parser.asm;
 import org.langera.freud.optional.classfile.ClassFileInnerClass;
 import org.langera.freud.optional.classfile.ClassFileMethod;
 import org.langera.freud.optional.classfile.Instruction;
+import org.langera.freud.optional.classfile.InstructionVisitor;
 import org.langera.freud.optional.classfile.Opcode;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
@@ -16,19 +17,20 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import static org.objectweb.asm.util.AbstractVisitor.OPCODES;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMethod
 {
+    private static final Pattern METHOD_DESC_PATTERN = Pattern.compile("\\((.*)\\)(.+)");
     private static final Opcode[] OPCODES_ARRAY = Opcode.values();
-    private static final Class[] NEWARRAY_TYPES =
+    private static final String[] NEWARRAY_TYPES =
             {
                     null, null, null, null,
-                    boolean.class, char.class,
-                    float.class, double.class,
-                    byte.class, short.class,
-                    int.class, long.class,
+                    boolean.class.getCanonicalName(), char.class.getCanonicalName(),
+                    float.class.getCanonicalName(), double.class.getCanonicalName(),
+                    byte.class.getCanonicalName(), short.class.getCanonicalName(),
+                    int.class.getCanonicalName(), long.class.getCanonicalName(),
             };
 
     private final String name;
@@ -37,13 +39,13 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     private final String[] exceptions;
     private final List<ClassFileInnerClass> innerClassList;
     private final List<Instruction> instructionList;
+    private final Map<Label, Integer> labelPtrByLabelMap;
+    private final List<AsmStatement> statementList;
 
     private int currentLineNumber;
 
 
     private StringBuilder buf = new StringBuilder();
-    private List<String> text = new ArrayList<String>();
-    private final Map<Label, String> labelNames = new HashMap();
 
     public AsmMethod(final AsmClassFile classFile, final int access, final String name, final String desc, final String signature, final String... exceptions)
     {
@@ -54,6 +56,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         this.desc = desc;
         this.innerClassList = new LinkedList<ClassFileInnerClass>();
         this.instructionList = new ArrayList<Instruction>();
+        this.statementList = new LinkedList<AsmStatement>();
+        this.labelPtrByLabelMap = new HashMap<Label, Integer>();
         for (ClassFileInnerClass innerClass : classFile.getInnerClassList())
         {
             if (innerClass.isAnonymous() && name.equals(innerClass.getOuterName()) && desc.equals(innerClass.getOuterDesc()))
@@ -66,9 +70,31 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     }
 
     @Override
+    public void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes)
+    {
+        for (Instruction instruction : instructionList)
+        {
+            for (Opcode opcode : opcodes)
+            {
+                if  (instruction.getOpcode() == opcode)
+                {
+                    opcode.visit(instruction, instructionVisitor);
+                    break;
+                }
+            }
+        }
+    }
+
+    @Override
     public List<ClassFileInnerClass> getAnonymousClassList()
     {
         return innerClassList;
+    }
+
+    @Override
+    public List<Instruction> getInstructionList()
+    {
+        return instructionList;
     }
 
     @Override
@@ -172,57 +198,56 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final int nStack,
             final Object[] stack)
     {
-        buf.setLength(0);
-        switch (type)
-        {
-            case Opcodes.F_NEW:
-            case Opcodes.F_FULL:
-                declareFrameTypes(nLocal, local);
-                declareFrameTypes(nStack, stack);
-                if (type == Opcodes.F_NEW)
-                {
-                    buf.append("mv.visitFrame(Opcodes.F_NEW, ");
-                }
-                else
-                {
-                    buf.append("mv.visitFrame(Opcodes.F_FULL, ");
-                }
-                buf.append(nLocal).append(", new Object[] {");
-                appendFrameTypes(nLocal, local);
-                buf.append("}, ").append(nStack).append(", new Object[] {");
-                appendFrameTypes(nStack, stack);
-                buf.append('}');
-                break;
-            case Opcodes.F_APPEND:
-                declareFrameTypes(nLocal, local);
-                buf.append("mv.visitFrame(Opcodes.F_APPEND,")
-                        .append(nLocal)
-                        .append(", new Object[] {");
-                appendFrameTypes(nLocal, local);
-                buf.append("}, 0, null");
-                break;
-            case Opcodes.F_CHOP:
-                buf.append("mv.visitFrame(Opcodes.F_CHOP,")
-                        .append(nLocal)
-                        .append(", null, 0, null");
-                break;
-            case Opcodes.F_SAME:
-                buf.append("mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null");
-                break;
-            case Opcodes.F_SAME1:
-                declareFrameTypes(1, stack);
-                buf.append("mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {");
-                appendFrameTypes(1, stack);
-                buf.append('}');
-                break;
-        }
-        buf.append(");\n");
-        text.add(buf.toString());
+//        buf.setLength(0);
+//        switch (type)
+//        {
+//            case Opcodes.F_NEW:
+//            case Opcodes.F_FULL:
+//                declareFrameTypes(nLocal, local);
+//                declareFrameTypes(nStack, stack);
+//                if (type == Opcodes.F_NEW)
+//                {
+//                    buf.append("mv.visitFrame(Opcodes.F_NEW, ");
+//                }
+//                else
+//                {
+//                    buf.append("mv.visitFrame(Opcodes.F_FULL, ");
+//                }
+//                buf.append(nLocal).append(", new Object[] {");
+//                appendFrameTypes(nLocal, local);
+//                buf.append("}, ").append(nStack).append(", new Object[] {");
+//                appendFrameTypes(nStack, stack);
+//                buf.append('}');
+//                break;
+//            case Opcodes.F_APPEND:
+//                declareFrameTypes(nLocal, local);
+//                buf.append("mv.visitFrame(Opcodes.F_APPEND,")
+//                        .append(nLocal)
+//                        .append(", new Object[] {");
+//                appendFrameTypes(nLocal, local);
+//                buf.append("}, 0, null");
+//                break;
+//            case Opcodes.F_CHOP:
+//                buf.append("mv.visitFrame(Opcodes.F_CHOP,")
+//                        .append(nLocal)
+//                        .append(", null, 0, null");
+//                break;
+//            case Opcodes.F_SAME:
+//                buf.append("mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null");
+//                break;
+//            case Opcodes.F_SAME1:
+//                declareFrameTypes(1, stack);
+//                buf.append("mv.visitFrame(Opcodes.F_SAME1, 0, null, 1, new Object[] {");
+//                appendFrameTypes(1, stack);
+//                buf.append('}');
+//                break;
+//        }
+//        buf.append(");\n");
     }
 
     public void visitInsn(final int opcode)
     {
-        instructionList.add(AsmInstruction.getInstance(OPCODES_ARRAY[opcode], currentLineNumber));
+        instructionList.add(Instruction.create(OPCODES_ARRAY[opcode], currentLineNumber));
     }
 
     public void visitIntInsn(final int opcodeUsed, final int operand)
@@ -230,31 +255,23 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         if (opcode == Opcode.NEWARRAY)
         {
-            instructionList.add(AsmInstruction.getInstance(opcode, currentLineNumber, NEWARRAY_TYPES[operand], -1));
+            instructionList.add(Instruction.create(opcode, currentLineNumber, NEWARRAY_TYPES[operand]));
         }
         else
         {
-            instructionList.add(AsmInstruction.getInstance(opcode, currentLineNumber, operand, -1));
+            instructionList.add(Instruction.create(opcode, currentLineNumber, operand));
         }
     }
 
     public void visitVarInsn(final int opcode, final int var)
     {
-        instructionList.add(AsmInstruction.getInstance(OPCODES_ARRAY[opcode], currentLineNumber, -1, var));
+        instructionList.add(Instruction.createVarInstruction(OPCODES_ARRAY[opcode], currentLineNumber, var));
     }
 
     public void visitTypeInsn(final int opcodeUsed, final String type)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
-        final Class clazz = safeGetClassForType(type);
-        if (clazz != null)
-        {
-            instructionList.add(AsmInstruction.getInstance(opcode, currentLineNumber, clazz, -1));
-        }
-        else
-        {
-            instructionList.add(AsmInstruction.getInstance(opcode, currentLineNumber, type, -1));
-        }
+        instructionList.add(Instruction.create(opcode, currentLineNumber, type));
     }
 
     public void visitFieldInsn(
@@ -263,7 +280,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String name,
             final String desc)
     {
-        instructionList.add(AsmInstruction.getInstance(OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
+        instructionList.add(Instruction.createFieldInstruction(OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
     }
 
     public void visitMethodInsn(
@@ -272,46 +289,42 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String name,
             final String desc)
     {
-        instructionList.add(AsmInstruction.getInstance(OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
+        final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
+        if (matcher.matches())
+        {
+            String[] args = matcher.group(1).split(",");
+            String returnType = matcher.group(2);
+            instructionList.add(Instruction.createMethodInstruction(OPCODES_ARRAY[opcode], currentLineNumber,
+                    "L" + owner + ";", name, args, returnType));
+        }
     }
 
     public void visitJumpInsn(final int opcode, final Label label)
     {
-        buf.setLength(0);
-        declareLabel(label);
-        buf.append("mv.visitJumpInsn(").append(OPCODES[opcode]).append(", ");
-        appendLabel(label);
-        buf.append(");\n");
-        text.add(buf.toString());
+        instructionList.add(Instruction.create(OPCODES_ARRAY[opcode], currentLineNumber, -1));
+//        declareLabel(label);
+//        buf.append("mv.visitJumpInsn(").append(OPCODES[opcode]).append(", ");
+//        appendLabel(label);
     }
 
     public void visitLabel(final Label label)
     {
-        buf.setLength(0);
-        declareLabel(label);
-        buf.append("mv.visitLabel(");
-        appendLabel(label);
-        buf.append(");\n");
-        text.add(buf.toString());
+        Integer oldValue = labelPtrByLabelMap.put(label, instructionList.size());
+        if (oldValue != null)
+        {
+            throw new IllegalStateException("Same label visited twice");
+        }
     }
 
     public void visitLdcInsn(final Object cst)
     {
         String constantStr = cst.toString();
-        if (cst instanceof Type)
-        {
-            Class constantClass = safeGetClassForType(cst.toString());
-            if  (constantClass != null)
-            {
-                instructionList.add(AsmInstruction.getInstance(Opcode.LDC, currentLineNumber, constantClass, -1));
-            }
-        }
-        instructionList.add(AsmInstruction.getInstance(Opcode.LDC, currentLineNumber, constantStr, -1));
+        instructionList.add(Instruction.create(Opcode.LDC, currentLineNumber, constantStr));
     }
 
     public void visitIincInsn(final int var, final int increment)
     {
-        instructionList.add(AsmInstruction.getInstance(Opcode.IINC, currentLineNumber, increment, var));
+        instructionList.add(Instruction.create(Opcode.IINC, currentLineNumber, increment));
     }
 
     public void visitTableSwitchInsn(
@@ -320,27 +333,27 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final Label dflt,
             final Label[] labels)
     {
-        buf.setLength(0);
-        for (int i = 0; i < labels.length; ++i)
-        {
-            declareLabel(labels[i]);
-        }
-        declareLabel(dflt);
-
-        buf.append("mv.visitTableSwitchInsn(")
-                .append(min)
-                .append(", ")
-                .append(max)
-                .append(", ");
-        appendLabel(dflt);
-        buf.append(", new Label[] {");
-        for (int i = 0; i < labels.length; ++i)
-        {
-            buf.append(i == 0 ? " " : ", ");
-            appendLabel(labels[i]);
-        }
-        buf.append(" });\n");
-        text.add(buf.toString());
+//        buf.setLength(0);
+//        for (int i = 0; i < labels.length; ++i)
+//        {
+//            declareLabel(labels[i]);
+//        }
+//        declareLabel(dflt);
+//
+//        buf.append("mv.visitTableSwitchInsn(")
+//                .append(min)
+//                .append(", ")
+//                .append(max)
+//                .append(", ");
+//        appendLabel(dflt);
+//        buf.append(", new Label[] {");
+//        for (int i = 0; i < labels.length; ++i)
+//        {
+//            buf.append(i == 0 ? " " : ", ");
+//            appendLabel(labels[i]);
+//        }
+//        buf.append(" });\n");
+//        text.add(buf.toString());
     }
 
     public void visitLookupSwitchInsn(
@@ -348,60 +361,46 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final int[] keys,
             final Label[] labels)
     {
-        buf.setLength(0);
-        for (int i = 0; i < labels.length; ++i)
-        {
-            declareLabel(labels[i]);
-        }
-        declareLabel(dflt);
-
-        buf.append("mv.visitLookupSwitchInsn(");
-        appendLabel(dflt);
-        buf.append(", new int[] {");
-        for (int i = 0; i < keys.length; ++i)
-        {
-            buf.append(i == 0 ? " " : ", ").append(keys[i]);
-        }
-        buf.append(" }, new Label[] {");
-        for (int i = 0; i < labels.length; ++i)
-        {
-            buf.append(i == 0 ? " " : ", ");
-            appendLabel(labels[i]);
-        }
-        buf.append(" });\n");
-        text.add(buf.toString());
+//        buf.setLength(0);
+//        for (int i = 0; i < labels.length; ++i)
+//        {
+//            declareLabel(labels[i]);
+//        }
+//        declareLabel(dflt);
+//
+//        buf.append("mv.visitLookupSwitchInsn(");
+//        appendLabel(dflt);
+//        buf.append(", new int[] {");
+//        for (int i = 0; i < keys.length; ++i)
+//        {
+//            buf.append(i == 0 ? " " : ", ").append(keys[i]);
+//        }
+//        buf.append(" }, new Label[] {");
+//        for (int i = 0; i < labels.length; ++i)
+//        {
+//            buf.append(i == 0 ? " " : ", ");
+//            appendLabel(labels[i]);
+//        }
+//        buf.append(" });\n");
+//        text.add(buf.toString());
     }
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)
     {
-        Class type = safeGetClassForType(desc);
-        if (type != null)
-        {
-            instructionList.add(AsmInstruction.getInstance(Opcode.MULTIANEWARRAY, currentLineNumber, type, dims));
-        }
-        instructionList.add(AsmInstruction.getInstance(Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
+        instructionList.add(Instruction.create(Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
     }
 
+    @SuppressWarnings("unchecked")
     public void visitTryCatchBlock(
             final Label start,
             final Label end,
             final Label handler,
             final String type)
     {
-        buf.setLength(0);
-        declareLabel(start);
-        declareLabel(end);
-        declareLabel(handler);
-        buf.append("mv.visitTryCatchBlock(");
-        appendLabel(start);
-        buf.append(", ");
-        appendLabel(end);
-        buf.append(", ");
-        appendLabel(handler);
-        buf.append(", ");
-        appendConstant(type);
-        buf.append(");\n");
-        text.add(buf.toString());
+        if (start != handler)
+        {
+            statementList.add(new AsmTryCatchBlockDef(this, type, start, end, handler));
+        }
     }
 
     public void visitLocalVariable(
@@ -412,24 +411,27 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final Label end,
             final int index)
     {
-        buf.setLength(0);
-        buf.append("mv.visitLocalVariable(");
-        appendConstant(name);
-        buf.append(", ");
-        appendConstant(desc);
-        buf.append(", ");
-        appendConstant(signature);
-        buf.append(", ");
-        appendLabel(start);
-        buf.append(", ");
-        appendLabel(end);
-        buf.append(", ").append(index).append(");\n");
-        text.add(buf.toString());
+//        buf.setLength(0);
+//        buf.append("mv.visitLocalVariable(");
+//        appendConstant(name);
+//        buf.append(", ");
+//        appendConstant(desc);
+//        buf.append(", ");
+//        appendConstant(signature);
+//        buf.append(", ");
+//        appendLabel(start);
+//        buf.append(", ");
+//        appendLabel(end);
+//        buf.append(", ").append(index).append(");\n");
+//        text.add(buf.toString());
     }
 
     public void visitLineNumber(final int line, final Label start)
     {
-        currentLineNumber = line;
+        if (currentLineNumber < line)
+        {
+            currentLineNumber = line;
+        }
     }
 
     public void visitMaxs(final int maxStack, final int maxLocals)
@@ -440,18 +442,18 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
                 .append(", ")
                 .append(maxLocals)
                 .append(");\n");
-        text.add(buf.toString());
+//        text.add(buf.toString());
     }
 
     private void declareFrameTypes(final int n, final Object[] o)
     {
-        for (int i = 0; i < n; ++i)
-        {
-            if (o[i] instanceof Label)
-            {
-                declareLabel((Label) o[i]);
-            }
-        }
+//        for (int i = 0; i < n; ++i)
+//        {
+//            if (o[i] instanceof Label)
+//            {
+//                declareLabel((Label) o[i]);
+//            }
+//        }
     }
 
     private void appendFrameTypes(final int n, final Object[] o)
@@ -495,39 +497,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             }
             else
             {
-                appendLabel((Label) o[i]);
+//                appendLabel((Label) o[i]);
             }
         }
-    }
-
-    /**
-     * Appends a declaration of the given label to {@link #buf buf}. This
-     * declaration is of the form "Label lXXX = new Label();". Does nothing if
-     * the given label has already been declared.
-     *
-     * @param l a label.
-     */
-    private void declareLabel(final Label l)
-    {
-        String name = (String) labelNames.get(l);
-        if (name == null)
-        {
-            name = "l" + labelNames.size();
-            labelNames.put(l, name);
-            buf.append("Label ").append(name).append(" = new Label();\n");
-        }
-    }
-
-    /**
-     * Appends the name of the given label to {@link #buf buf}. The given label
-     * <i>must</i> already have a name. One way to ensure this is to always
-     * call {@link #declareLabel declared} before calling this method.
-     *
-     * @param l a label.
-     */
-    private void appendLabel(final Label l)
-    {
-        buf.append((String) labelNames.get(l));
     }
 
     /**
@@ -740,26 +712,18 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     @Override
     public void visitEnd()
     {
-        for (String s : text)
+        for (AsmStatement statement : statementList)
         {
-            System.out.print(s);
+            statement.assignLabelPtrs();
         }
     }
 
 
     ////////////////////////////////////////////////////////////////////////
 
-    private static Class safeGetClassForType(final String type)
+    int getPtrForLabel(final Label label)
     {
-        try
-        {
-            return Class.forName(type.replace('/', '.'));
-        }
-        // yep - throwable is what's needed here
-        catch (Throwable e)
-        {
-            return null;
-        }
+        final Integer integer = labelPtrByLabelMap.get(label);
+        return (integer == null) ? -1 : integer.intValue();
     }
-
 }

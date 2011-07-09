@@ -184,11 +184,52 @@ public enum Opcode
     PUTSTATIC, // -
     GETFIELD, // -
     PUTFIELD, // -
-    INVOKEVIRTUAL, // visitMethodInsn
-    INVOKESPECIAL, // -
-    INVOKESTATIC, // -
-    INVOKEINTERFACE, // -
-    INVOKEDYNAMIC, // -
+    INVOKEVIRTUAL
+            {
+                @Override
+                public void visit(final Instruction instruction, final InstructionVisitor visitor)
+                {
+                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                            instruction.getName(), instruction.getArgs());
+                }
+            },
+    INVOKESPECIAL
+            {
+                @Override
+                public void visit(final Instruction instruction, final InstructionVisitor visitor)
+                {
+                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                            instruction.getOperand(), instruction.getName());
+                }
+            },
+    INVOKESTATIC
+            {
+                @Override
+                public void visit(final Instruction instruction, final InstructionVisitor visitor)
+                {
+                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                            instruction.getOperand(), instruction.getName());
+                }
+            },
+
+    INVOKEINTERFACE
+            {
+                @Override
+                public void visit(final Instruction instruction, final InstructionVisitor visitor)
+                {
+                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                            instruction.getOperand(), instruction.getName());
+                }
+            },
+    INVOKEDYNAMIC
+            {
+                @Override
+                public void visit(final Instruction instruction, final InstructionVisitor visitor)
+                {
+                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                            instruction.getOperand(), instruction.getName());
+                }
+            },
     NEW, // visitTypeInsn
     NEWARRAY, // visitIntInsn
     ANEWARRAY, // visitTypeInsn
@@ -205,4 +246,8 @@ public enum Opcode
     GOTO_W, // -
     JSR_W; //
 
+    public void visit(Instruction thisInstruction, final InstructionVisitor visitor)
+    {
+        visitor.instruction(this);
+    }
 }

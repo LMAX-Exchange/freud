@@ -27,4 +27,8 @@ public interface ClassFileMethod extends ClassFileElement
     boolean isAbstract();
 
     List<ClassFileInnerClass> getAnonymousClassList();
+
+    List<Instruction> getInstructionList();
+
+    void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes);
 }

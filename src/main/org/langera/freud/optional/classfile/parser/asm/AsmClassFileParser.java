@@ -7,7 +7,7 @@ import org.langera.freud.core.iterator.resource.ResourceIterators;
 import org.langera.freud.core.iterator.resource.ResourceParser;
 import org.langera.freud.core.iterator.resource.ResourceParserException;
 import org.langera.freud.optional.classfile.ClassFile;
-import org.langera.freud.optional.classfile.parser.ResourceIdentifierFromNameGetter;
+import org.langera.freud.optional.classfile.parser.InnerClassFileResourceIdentifierGetter;
 import org.langera.freud.util.io.IoUtil;
 import org.objectweb.asm.ClassReader;
 
@@ -21,13 +21,13 @@ public final class AsmClassFileParser implements ResourceParser<ClassFile>, AsmC
 {
     private static final int CACHE_SIZE = 5;
     private final LinkedHashMap<String, AsmClassFile> classByNameCache;
-    private final ResourceIdentifierFromNameGetter resourceIdentifierFromNameGetter;
+    private final InnerClassFileResourceIdentifierGetter innerClassFileResourceIdentifierGetter;
     private Resource currentResource;
     private String currentResourceIdentifier;
 
-    private AsmClassFileParser(final ResourceIdentifierFromNameGetter resourceIdentifierFromNameGetter)
+    public AsmClassFileParser(final InnerClassFileResourceIdentifierGetter innerClassFileResourceIdentifierGetter)
     {
-        this.resourceIdentifierFromNameGetter = resourceIdentifierFromNameGetter;
+        this.innerClassFileResourceIdentifierGetter = innerClassFileResourceIdentifierGetter;
         classByNameCache = new LinkedHashMap<String, AsmClassFile>();
     }
 
@@ -55,7 +55,7 @@ public final class AsmClassFileParser implements ResourceParser<ClassFile>, AsmC
             if (asmClassFile == null)
             {
                 asmClassFile = parseClassFileInternal(
-                        resourceIdentifierFromNameGetter.getResourceIdentifier(name, currentClassFile, currentResourceIdentifier),
+                        innerClassFileResourceIdentifierGetter.getResourceIdentifier(name, currentClassFile, currentResourceIdentifier),
                         currentResource);
             }
         }
@@ -96,7 +96,7 @@ public final class AsmClassFileParser implements ResourceParser<ClassFile>, AsmC
     public static void main(String[] args) throws IOException, ResourceParserException
     {
         final AnalysedObjectIterator<ClassFile> iterator = ResourceIterators.filesByPathResourceIterator(
-                 new AsmClassFileParser(new ResourceIdentifierFromNameGetter()
+                 new AsmClassFileParser(new InnerClassFileResourceIdentifierGetter()
                  {
                      @Override
                      public String getResourceIdentifier(final String name, final ClassFile currentClassFile, final String currentResourceIdentifier)
@@ -120,7 +120,5 @@ public final class AsmClassFileParser implements ResourceParser<ClassFile>, AsmC
         {
             ClassFile classFile = iterator.next();
         }
-
-//        parser.parseResource("./build/main/classes/org/langera/freud/core/Freud.class", FileResource.getInstance());
     }
 }
