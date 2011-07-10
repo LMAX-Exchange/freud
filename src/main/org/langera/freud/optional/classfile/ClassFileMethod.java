@@ -28,6 +28,8 @@ public interface ClassFileMethod extends ClassFileElement
 
     List<ClassFileInnerClass> getAnonymousClassList();
 
+    LocalVariable getLocalVariable(String name);
+
     List<Instruction> getInstructionList();
 
     void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes);
