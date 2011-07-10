@@ -1,9 +1,7 @@
 package org.langera.freud.optional.classfile.parser.asm;
 
 import org.langera.freud.core.FreudBuilderException;
-import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.core.iterator.resource.Resource;
-import org.langera.freud.core.iterator.resource.ResourceIterators;
 import org.langera.freud.core.iterator.resource.ResourceParser;
 import org.langera.freud.core.iterator.resource.ResourceParserException;
 import org.langera.freud.optional.classfile.ClassFile;
@@ -11,8 +9,6 @@ import org.langera.freud.optional.classfile.parser.InnerClassFileResourceIdentif
 import org.langera.freud.util.io.IoUtil;
 import org.objectweb.asm.ClassReader;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.LinkedHashMap;
@@ -95,33 +91,33 @@ public final class AsmClassFileParser implements ResourceParser<ClassFile>, AsmC
         return classFile;
     }
 
-    public static void main(String[] args) throws IOException, ResourceParserException
-    {
-        final AnalysedObjectIterator<ClassFile> iterator = ResourceIterators.filesByPathResourceIterator(
-                 new AsmClassFileParser(new InnerClassFileResourceIdentifierGetter()
-                 {
-                     @Override
-                     public String getResourceIdentifier(final String name, final ClassFile currentClassFile, final String currentResourceIdentifier)
-                     {
-                         int indexOfClassesDir = currentResourceIdentifier.indexOf("classes/");
-                         return currentResourceIdentifier.substring(0, indexOfClassesDir + "classes/".length()) + name + ".class";
-                     }
-                 }),
-                new FilenameFilter()
-                {
-                    @Override
-                    public boolean accept(final File dir, final String name)
-                    {
-                        return name.endsWith(".class");
-                    }
-                }, true, "../../java/classes");
-//                }, true, "../trunk/build/classes/");
-//                }, true, "build");
-
-        while (iterator.hasNext())
-        {
-            ClassFile classFile = iterator.next();
-System.out.println(classFile.getName());
-        }
-    }
+//    public static void main(String[] args) throws IOException, ResourceParserException
+//    {
+//        final AnalysedObjectIterator<ClassFile> iterator = ResourceIterators.filesByPathResourceIterator(
+//                 new AsmClassFileParser(new InnerClassFileResourceIdentifierGetter()
+//                 {
+//                     @Override
+//                     public String getResourceIdentifier(final String name, final ClassFile currentClassFile, final String currentResourceIdentifier)
+//                     {
+//                         int indexOfClassesDir = currentResourceIdentifier.indexOf("classes/");
+//                         return currentResourceIdentifier.substring(0, indexOfClassesDir + "classes/".length()) + name + ".class";
+//                     }
+//                 }),
+//                new FilenameFilter()
+//                {
+//                    @Override
+//                    public boolean accept(final File dir, final String name)
+//                    {
+//                        return name.endsWith(".class");
+//                    }
+//                }, true, "../../java/classes");
+////                }, true, "../trunk/build/classes/");
+////                }, true, "build");
+//
+//        while (iterator.hasNext())
+//        {
+//            ClassFile classFile = iterator.next();
+//System.out.println(classFile.getName());
+//        }
+//    }
 }
