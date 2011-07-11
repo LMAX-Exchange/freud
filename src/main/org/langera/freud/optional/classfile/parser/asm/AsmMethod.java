@@ -14,6 +14,7 @@ import org.objectweb.asm.Opcodes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     private final String[] exceptions;
     private final List<ClassFileInnerClass> innerClassList;
     private final List<Instruction> instructionList;
-    private final Map<String, LocalVariable> variableByNameMap;
+    private final LinkedHashMap<String, LocalVariable> variableByNameMap;
     private final Map<org.objectweb.asm.Label, Label> labelByAsmLabelMap;
 
     private int currentLineNumber;
@@ -54,7 +55,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         this.innerClassList = new LinkedList<ClassFileInnerClass>();
         this.instructionList = new ArrayList<Instruction>();
         this.labelByAsmLabelMap = new HashMap<org.objectweb.asm.Label, Label>();
-        this.variableByNameMap = new HashMap<String, LocalVariable>();
+        this.variableByNameMap = new LinkedHashMap<String, LocalVariable>();
         for (ClassFileInnerClass innerClass : classFile.getInnerClassList())
         {
             if (innerClass.isAnonymous() && name.equals(innerClass.getOuterName()) && desc.equals(innerClass.getOuterDesc()))
@@ -92,6 +93,20 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public LocalVariable getLocalVariable(final String name)
     {
         return variableByNameMap.get(name);
+    }
+
+    @Override
+    public LocalVariable getLocalVariable(final int index)
+    {
+        int i = 0;
+        for (LocalVariable variable : variableByNameMap.values())
+        {
+            if (index == i++)
+            {
+                return variable;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -198,7 +213,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitInsn(final int opcode)
     {
-        instructionList.add(Instruction.create(OPCODES_ARRAY[opcode], currentLineNumber));
+        instructionList.add(Instruction.create(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber));
     }
 
     public void visitIntInsn(final int opcodeUsed, final int operand)
@@ -206,23 +221,23 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         if (opcode == Opcode.NEWARRAY)
         {
-            instructionList.add(Instruction.create(opcode, currentLineNumber, NEWARRAY_TYPES[operand]));
+            instructionList.add(Instruction.create(instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]));
         }
         else
         {
-            instructionList.add(Instruction.create(opcode, currentLineNumber, operand));
+            instructionList.add(Instruction.create(instructionList.size(), opcode, currentLineNumber, operand));
         }
     }
 
     public void visitVarInsn(final int opcode, final int var)
     {
-        instructionList.add(Instruction.createVarInstruction(OPCODES_ARRAY[opcode], currentLineNumber, var));
+        instructionList.add(Instruction.createVarInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, var));
     }
 
     public void visitTypeInsn(final int opcodeUsed, final String type)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
-        instructionList.add(Instruction.create(opcode, currentLineNumber, type));
+        instructionList.add(Instruction.create(instructionList.size(), opcode, currentLineNumber, type));
     }
 
     public void visitFieldInsn(
@@ -231,7 +246,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String name,
             final String desc)
     {
-        instructionList.add(Instruction.createFieldInstruction(OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
+        instructionList.add(Instruction.createFieldInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
     }
 
     public void visitMethodInsn(
@@ -245,7 +260,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         {
             String[] args = matcher.group(1).split(",");
             String returnType = matcher.group(2);
-            instructionList.add(Instruction.createMethodInstruction(OPCODES_ARRAY[opcode], currentLineNumber,
+            instructionList.add(Instruction.createMethodInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
                     "L" + owner + ";", name, args, returnType));
         }
     }
@@ -253,7 +268,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel)
     {
         Label label = declareLabel(asmLabel);
-        instructionList.add(Instruction.createJumpInstruction(OPCODES_ARRAY[opcode], currentLineNumber, label));
+        instructionList.add(Instruction.createJumpInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label));
     }
 
     public void visitLabel(final org.objectweb.asm.Label asmLabel)
@@ -265,12 +280,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitLdcInsn(final Object cst)
     {
         String constantStr = cst.toString();
-        instructionList.add(Instruction.create(Opcode.LDC, currentLineNumber, constantStr));
+        instructionList.add(Instruction.create(instructionList.size(), Opcode.LDC, currentLineNumber, constantStr));
     }
 
     public void visitIincInsn(final int var, final int increment)
     {
-        instructionList.add(Instruction.create(Opcode.IINC, currentLineNumber, increment));
+        instructionList.add(Instruction.create(instructionList.size(), Opcode.IINC, currentLineNumber, increment));
     }
 
     public void visitTableSwitchInsn(
@@ -322,7 +337,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)
     {
-        instructionList.add(Instruction.create(Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
+        instructionList.add(Instruction.create(instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
     }
 
     public void visitLocalVariable(

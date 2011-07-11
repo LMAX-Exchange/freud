@@ -11,6 +11,9 @@ import static org.langera.freud.optional.classfile.AbstractInstructionVisitor.ty
 
 public final class ClassFileDsl
 {
+
+    private static final String[] EMPTY_ARGS = new String[]{""};
+
     private ClassFileDsl()
     {
         // static utility
@@ -34,19 +37,19 @@ public final class ClassFileDsl
         });
     }
 
-    public static FreudMatcher<ClassFile> hasMethodInvocation(final Class expectedOwner, final String expectedMethodName, final Class... expectedArgs)
+    public static FreudMatcher<ClassFile> hasMethodInvocation(final Class expectedOwner, final String expectedMethodName, final Class... expectedParams)
     {
         return new FreudMatcher<ClassFile>()
         {
             private String expectedOwnerName;
-            private String[] expectedArgNames;
+            private String[] expectedParamNames;
 
             {
                 expectedOwnerName = typeEncoding(expectedOwner);
-                expectedArgNames = new String[expectedArgs.length];
-                for (int i = 0, size = expectedArgs.length; i < size; i++)
+                expectedParamNames = (expectedParams.length == 0) ? EMPTY_ARGS : new String[expectedParams.length];
+                for (int i = 0, size = expectedParams.length; i < size; i++)
                 {
-                    expectedArgNames[i] = typeEncoding(expectedArgs[i]);
+                    expectedParamNames[i] = typeEncoding(expectedParams[i]);
 
                 }
             }
@@ -64,7 +67,7 @@ public final class ClassFileDsl
                             {
                                 if (expectedOwnerName.equals(owner) &&
                                         expectedMethodName.equals(methodName) &&
-                                        Arrays.equals(expectedArgNames, args))
+                                        Arrays.equals(expectedParamNames, args))
                                 {
                                     found[0] = true;
                                 }

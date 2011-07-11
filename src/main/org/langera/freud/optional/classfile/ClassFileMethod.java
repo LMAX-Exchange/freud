@@ -30,6 +30,8 @@ public interface ClassFileMethod extends ClassFileElement
 
     LocalVariable getLocalVariable(String name);
 
+    LocalVariable getLocalVariable(int index);
+
     List<Instruction> getInstructionList();
 
     void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes);

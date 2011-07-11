@@ -19,7 +19,14 @@ final class AsmClassFileFactory implements ClassVisitor
     @Override
     public void visit(final int version, final int access, final String name, final String signature, final String superName, final String[] interfaces)
     {
-        currentClassFile = new AsmClassFile(version, access, name, signature, superName, interfaces);
+        final String className = name.replace('/', '.');
+        final String superclassName = (superName == null) ? null : superName.replace('/', '.');
+        for (int i = 0, size = interfaces.length; i < size; i++)
+        {
+            interfaces[i] = interfaces[i].replace('/', '.');
+
+        }
+        currentClassFile = new AsmClassFile(version, access, className, signature, superclassName, interfaces);
     }
 
     @Override

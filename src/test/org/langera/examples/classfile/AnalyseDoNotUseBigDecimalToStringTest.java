@@ -5,6 +5,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.langera.freud.core.FreudAnalyser;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
@@ -21,32 +22,44 @@ import java.math.BigDecimal;
  * Date: 28-Oct-2008
  * Time: 00:04:55
  */
-public class AnalyseDoNotUseBigDecimalEqualsTest
+public class AnalyseDoNotUseBigDecimalToStringTest
 {
     private AnalysisListenerStub listener;
     private AsmClassFileParser parser;
 
     @Test
-    public void shouldFailWhenBigDecimalEqualsIsUsed() throws Exception
+    public void shouldFailWhenBigDecimalToStringIsUsed() throws Exception
     {
-        FreudAnalyser analyser = ClassFileExamples.doNotUseBigDecimalEquals(
-                resource("org/langera/examples/classfile/AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalEquals"));
+        FreudAnalyser analyser = ClassFileExamples.doNotUseBigDecimalToString(
+                resource("org/langera/examples/classfile/AnalyseDoNotUseBigDecimalToStringTest$UseOfBigDecimalToString"));
         analyser.analyse(listener);
 
         Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
-        listener.assertFailed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalEquals"));
+        listener.assertFailed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalToStringTest$UseOfBigDecimalToString"));
     }
 
     @Test
-    public void shouldPassWhenBigDecimalEqualsIsNotUsed() throws Exception
+    @Ignore
+    public void shouldFailWhenBigDecimalToStringIsUsedImplicitely() throws Exception
     {
-        FreudAnalyser analyser = ClassFileExamples.doNotUseBigDecimalEquals(
-                resource("org/langera/examples/classfile/AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalCompareTo"));
+        FreudAnalyser analyser = ClassFileExamples.doNotUseBigDecimalToString(
+                resource("org/langera/examples/classfile/AnalyseDoNotUseBigDecimalToStringTest$UseOfBigDecimalToStringImplicitely"));
+        analyser.analyse(listener);
+
+        Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
+        listener.assertFailed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalToStringTest$UseOfBigDecimalToStringImplicitely"));
+    }
+
+    @Test
+    public void shouldPassWhenBigDecimalToStringIsNotUsed() throws Exception
+    {
+        FreudAnalyser analyser = ClassFileExamples.doNotUseBigDecimalToString(
+                resource("org/langera/examples/classfile/AnalyseDoNotUseBigDecimalToStringTest$UseOfBigDecimalToPlainString"));
 
         analyser.analyse(listener);
 
         Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
-        listener.assertPassed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalCompareTo"));
+        listener.assertPassed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalToStringTest$UseOfBigDecimalToPlainString"));
     }
 
     @Before
@@ -86,19 +99,27 @@ public class AnalyseDoNotUseBigDecimalEqualsTest
 
     ////////////////////////////////////////////////
 
-    private static final class UseOfBigDecimalEquals
+    private static final class UseOfBigDecimalToString
     {
-        public boolean useIt(final BigDecimal bigDecimal1, final BigDecimal bigDecimal2)
+        public String useIt(final BigDecimal bigDecimal)
         {
-            return bigDecimal1.equals(bigDecimal2);
+            return bigDecimal.toString();
         }
     }
 
-    private static final class UseOfBigDecimalCompareTo
+    private static final class UseOfBigDecimalToStringImplicitely
     {
-        public boolean useIt(final BigDecimal bigDecimal1, final BigDecimal bigDecimal2)
+        public String useIt(final BigDecimal bigDecimal)
         {
-            return bigDecimal1.compareTo(bigDecimal2) == 0;
+            return "" + bigDecimal;
+        }
+    }
+
+    private static final class UseOfBigDecimalToPlainString
+    {
+        public String useIt(final BigDecimal bigDecimal)
+        {
+            return bigDecimal.toPlainString();
         }
     }
 }

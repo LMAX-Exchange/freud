@@ -2,7 +2,7 @@ package org.langera.freud.optional.classfile;
 
 public final class Instruction
 {
-
+    private final int index;
     private final Opcode opcode;
     private final int lineNumber;
     private final int intOperand;
@@ -15,47 +15,48 @@ public final class Instruction
     private final String returnType;
     private final String[] args;
 
-    public static Instruction create(final Opcode opcode, final int currentLineNumber)
+    public static Instruction create(final int index, final Opcode opcode, final int currentLineNumber)
     {
-        return new Instruction(opcode, currentLineNumber, null, null, null, -1, null, -1, null, null, null);
+        return new Instruction(index, opcode, currentLineNumber, null, null, null, -1, null, -1, null, null, null);
     }
 
-    public static Instruction create(final Opcode opcode, final int currentLineNumber, final String operand)
+    public static Instruction create(final int index, final Opcode opcode, final int currentLineNumber, final String operand)
     {
-        return new Instruction(opcode, currentLineNumber, null, null, operand, -1, null, -1, null, null, null);
+        return new Instruction(index, opcode, currentLineNumber, null, null, operand, -1, null, -1, null, null, null);
     }
 
-    public static Instruction create(final Opcode opcode, final int currentLineNumber, final String operand, final int varIndex)
+    public static Instruction create(final int index, final Opcode opcode, final int currentLineNumber, final String operand, final int varIndex)
     {
-        return new Instruction(opcode, currentLineNumber, null, null, operand, -1, null, varIndex, null, null, null);
+        return new Instruction(index, opcode, currentLineNumber, null, null, operand, -1, null, varIndex, null, null, null);
     }
 
-    public static Instruction create(final Opcode opcode, final int currentLineNumber, final int intOperand)
+    public static Instruction create(final int index, final Opcode opcode, final int currentLineNumber, final int intOperand)
     {
-        return new Instruction(opcode, currentLineNumber, null, null, null, intOperand, null, -1, null, null, null);
+        return new Instruction(index, opcode, currentLineNumber, null, null, null, intOperand, null, -1, null, null, null);
     }
 
-    public static Instruction createJumpInstruction(final Opcode opcode, final int currentLineNumber, final Label label)
+    public static Instruction createJumpInstruction(final int index, final Opcode opcode, final int currentLineNumber, final Label label)
     {
-        return new Instruction(opcode, currentLineNumber, null, null, null, -1, null, -1, label, null, null);
+        return new Instruction(index, opcode, currentLineNumber, null, null, null, -1, null, -1, label, null, null);
     }
 
-    public static Instruction createVarInstruction(final Opcode opcode, final int currentLineNumber, final int varIndex)
+    public static Instruction createVarInstruction(final int index, final Opcode opcode, final int currentLineNumber, final int varIndex)
     {
-        return new Instruction(opcode, currentLineNumber, null, null, null, -1, null, varIndex, null, null, null);
+        return new Instruction(index, opcode, currentLineNumber, null, null, null, -1, null, varIndex, null, null, null);
     }
 
-    public static Instruction createFieldInstruction(final Opcode opcode, final int currentLineNumber, final String owner, final String name, final String desc)
+    public static Instruction createFieldInstruction(final int index, final Opcode opcode, final int currentLineNumber, final String owner, final String name, final String desc)
     {
-        return new Instruction(opcode, currentLineNumber, owner, name, null, -1, desc, -1, null, null, null);
+        return new Instruction(index, opcode, currentLineNumber, owner, name, null, -1, desc, -1, null, null, null);
     }
 
-    public static Instruction createMethodInstruction(final Opcode opcode, final int currentLineNumber, final String owner, final String name, final String[] args, final String returnType)
+    public static Instruction createMethodInstruction(final int index, final Opcode opcode, final int currentLineNumber, final String owner, final String name, final String[] args, final String returnType)
     {
-        return new Instruction(opcode, currentLineNumber, owner, name, null, -1, null, -1, null, args, returnType);
+        return new Instruction(index, opcode, currentLineNumber, owner, name, null, -1, null, -1, null, args, returnType);
     }
 
-    private Instruction(final Opcode opcode,
+    private Instruction(final int index,
+                        final Opcode opcode,
                         final int lineNumber,
                         final String owner,
                         final String name,
@@ -67,6 +68,7 @@ public final class Instruction
                         final String[] args,
                         final String returnType)
     {
+        this.index = index;
         this.opcode = opcode;
         this.lineNumber = lineNumber;
         this.owner = owner;
@@ -78,6 +80,11 @@ public final class Instruction
         this.label = label;
         this.args = args;
         this.returnType = returnType;
+    }
+
+    public int getIndex()
+    {
+        return index;
     }
 
     public String[] getArgs()

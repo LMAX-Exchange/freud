@@ -17,9 +17,16 @@ public final class ClassFileExamples
         // a class of static methods - should not be initialised
     }
 
+    public static FreudAnalyser doNotUseBigDecimalToString(final AnalysedObjectIterator<ClassFile> iterator)
+    {
+        return Freud.iterateOver(ClassFile.class).in(iterator).
+                assertThat(no(hasMethodInvocation(BigDecimal.class, "toString")));
+    }
+
     public static FreudAnalyser doNotUseBigDecimalEquals(final AnalysedObjectIterator<ClassFile> iterator)
     {
         return Freud.iterateOver(ClassFile.class).in(iterator).
                 assertThat(no(hasMethodInvocation(BigDecimal.class, "equals", Object.class)));
     }
 }
+
