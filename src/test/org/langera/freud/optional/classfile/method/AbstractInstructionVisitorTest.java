@@ -1,4 +1,4 @@
-package org.langera.freud.optional.classfile;
+package org.langera.freud.optional.classfile.method;
 
 import org.junit.Assert;
 import org.junit.Test;

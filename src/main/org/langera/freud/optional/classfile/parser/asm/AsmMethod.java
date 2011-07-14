@@ -1,12 +1,12 @@
 package org.langera.freud.optional.classfile.parser.asm;
 
 import org.langera.freud.optional.classfile.ClassFileInnerClass;
-import org.langera.freud.optional.classfile.ClassFileMethod;
-import org.langera.freud.optional.classfile.Instruction;
-import org.langera.freud.optional.classfile.InstructionVisitor;
-import org.langera.freud.optional.classfile.Label;
-import org.langera.freud.optional.classfile.LocalVariable;
-import org.langera.freud.optional.classfile.Opcode;
+import org.langera.freud.optional.classfile.method.ClassFileMethod;
+import org.langera.freud.optional.classfile.method.Instruction;
+import org.langera.freud.optional.classfile.method.InstructionVisitor;
+import org.langera.freud.optional.classfile.method.Label;
+import org.langera.freud.optional.classfile.method.LocalVariable;
+import org.langera.freud.optional.classfile.method.Opcode;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.MethodVisitor;
@@ -70,16 +70,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     @Override
     public void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes)
     {
-        for (Instruction instruction : instructionList)
+        for (final Instruction instruction : instructionList)
         {
-            for (Opcode opcode : opcodes)
-            {
-                if (instruction.getOpcode() == opcode)
-                {
-                    opcode.visit(instruction, instructionVisitor);
-                    break;
-                }
-            }
+            instruction.getOpcode().visit(instruction, instructionVisitor);
         }
     }
 
@@ -289,23 +282,25 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     }
 
     public void visitTableSwitchInsn(
-        final int min,
-        final int max,
-        final org.objectweb.asm.Label dflt,
-        final org.objectweb.asm.Label[] labels)
+            final int min,
+            final int max,
+            final org.objectweb.asm.Label dflt,
+            final org.objectweb.asm.Label[] labels)
     {
-        for (int i = 0; i < labels.length; ++i) {
+        for (int i = 0; i < labels.length; ++i)
+        {
             declareLookupLabel(labels[i], min + i);
         }
         declareDefaultLookupLabel(dflt);
     }
 
     public void visitLookupSwitchInsn(
-        final org.objectweb.asm.Label dflt,
-        final int[] keys,
-        final org.objectweb.asm.Label[] labels)
+            final org.objectweb.asm.Label dflt,
+            final int[] keys,
+            final org.objectweb.asm.Label[] labels)
     {
-        for (int i = 0; i < labels.length; ++i) {
+        for (int i = 0; i < labels.length; ++i)
+        {
             declareLookupLabel(labels[i], keys[i]);
         }
         declareDefaultLookupLabel(dflt);

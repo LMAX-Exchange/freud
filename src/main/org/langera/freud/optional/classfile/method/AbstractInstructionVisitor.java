@@ -1,14 +1,14 @@
-package org.langera.freud.optional.classfile;
+package org.langera.freud.optional.classfile.method;
 
 public abstract class AbstractInstructionVisitor implements InstructionVisitor
 {
     @Override
-    public void instruction(final Opcode opcode)
+    public void noArgInstruction(final Instruction instruction)
     {
     }
 
     @Override
-    public void methodInvocation(final Opcode opcode, final int lineNumber, final String owner, final String methodName, final String... args)
+    public void methodInvocation(final Instruction instruction, final String owner, final String methodName, final String... args)
     {
     }
 

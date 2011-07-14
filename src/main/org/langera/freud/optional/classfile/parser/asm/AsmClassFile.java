@@ -3,7 +3,7 @@ package org.langera.freud.optional.classfile.parser.asm;
 import org.langera.freud.optional.classfile.ClassFile;
 import org.langera.freud.optional.classfile.ClassFileField;
 import org.langera.freud.optional.classfile.ClassFileInnerClass;
-import org.langera.freud.optional.classfile.ClassFileMethod;
+import org.langera.freud.optional.classfile.method.ClassFileMethod;
 import org.objectweb.asm.Opcodes;
 
 import java.util.LinkedList;

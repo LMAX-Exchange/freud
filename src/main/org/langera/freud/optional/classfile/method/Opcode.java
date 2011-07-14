@@ -1,4 +1,4 @@
-package org.langera.freud.optional.classfile;
+package org.langera.freud.optional.classfile.method;
 
 public enum Opcode
 {
@@ -189,7 +189,7 @@ public enum Opcode
                 @Override
                 public void visit(final Instruction instruction, final InstructionVisitor visitor)
                 {
-                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                    visitor.methodInvocation(instruction, instruction.getOwner(),
                             instruction.getName(), instruction.getArgs());
                 }
             },
@@ -198,7 +198,7 @@ public enum Opcode
                 @Override
                 public void visit(final Instruction instruction, final InstructionVisitor visitor)
                 {
-                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                    visitor.methodInvocation(instruction, instruction.getOwner(),
                             instruction.getOperand(), instruction.getName());
                 }
             },
@@ -207,7 +207,7 @@ public enum Opcode
                 @Override
                 public void visit(final Instruction instruction, final InstructionVisitor visitor)
                 {
-                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                    visitor.methodInvocation(instruction, instruction.getOwner(),
                             instruction.getOperand(), instruction.getName());
                 }
             },
@@ -217,7 +217,7 @@ public enum Opcode
                 @Override
                 public void visit(final Instruction instruction, final InstructionVisitor visitor)
                 {
-                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                    visitor.methodInvocation(instruction, instruction.getOwner(),
                             instruction.getOperand(), instruction.getName());
                 }
             },
@@ -226,7 +226,7 @@ public enum Opcode
                 @Override
                 public void visit(final Instruction instruction, final InstructionVisitor visitor)
                 {
-                    visitor.methodInvocation(this, instruction.getLineNumber(), instruction.getOwner(),
+                    visitor.methodInvocation(instruction, instruction.getOwner(),
                             instruction.getOperand(), instruction.getName());
                 }
             },
@@ -246,8 +246,8 @@ public enum Opcode
     GOTO_W, // -
     JSR_W; //
 
-    public void visit(Instruction thisInstruction, final InstructionVisitor visitor)
+    public void visit(final Instruction thisInstruction, final InstructionVisitor visitor)
     {
-        visitor.instruction(this);
+        visitor.noArgInstruction(thisInstruction);
     }
 }

@@ -7,7 +7,7 @@ import org.langera.freud.core.iterator.resource.FileResource;
 import org.langera.freud.core.iterator.resource.ResourceParserException;
 import org.langera.freud.optional.classfile.ClassFile;
 import org.langera.freud.optional.classfile.ClassFileField;
-import org.langera.freud.optional.classfile.ClassFileMethod;
+import org.langera.freud.optional.classfile.method.ClassFileMethod;
 
 import java.io.IOException;
 import java.io.Serializable;

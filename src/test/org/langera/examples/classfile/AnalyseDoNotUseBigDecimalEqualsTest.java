@@ -1,8 +1,5 @@
 package org.langera.examples.classfile;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +11,8 @@ import org.langera.freud.optional.classfile.ClassFile;
 import org.langera.freud.optional.classfile.parser.asm.AsmClassFileParser;
 
 import java.math.BigDecimal;
+
+import static org.langera.examples.classfile.ClassFileTestMatchers.methodNamed;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,8 +32,9 @@ public class AnalyseDoNotUseBigDecimalEqualsTest
                 resource("org/langera/examples/classfile/AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalEquals"));
         analyser.analyse(listener);
 
-        Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
-        listener.assertFailed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalEquals"));
+        Assert.assertEquals(2, listener.getTotalObjectsAnalysed());
+        listener.assertPassed(methodNamed("<init>"));
+        listener.assertFailed(methodNamed("useIt"));
     }
 
     @Test
@@ -45,8 +45,9 @@ public class AnalyseDoNotUseBigDecimalEqualsTest
 
         analyser.analyse(listener);
 
-        Assert.assertEquals(1, listener.getTotalObjectsAnalysed());
-        listener.assertPassed(classFileNamed("org.langera.examples.classfile.AnalyseDoNotUseBigDecimalEqualsTest$UseOfBigDecimalCompareTo"));
+        Assert.assertEquals(2, listener.getTotalObjectsAnalysed());
+        listener.assertPassed(methodNamed("<init>"));
+        listener.assertPassed(methodNamed("useIt"));
     }
 
     @Before
@@ -61,27 +62,6 @@ public class AnalyseDoNotUseBigDecimalEqualsTest
         return ResourceIterators.<ClassFile>fileResourceIterator(
                 parser, ClassLoader.getSystemClassLoader().
                 getResource(className + ".class").toExternalForm().substring("file:".length()));
-    }
-
-    ////////////////////////////////////////////////
-
-    private Matcher<ClassFile> classFileNamed(final String name)
-    {
-        return new TypeSafeMatcher<ClassFile>()
-        {
-            @Override
-            protected boolean matchesSafely(final ClassFile item)
-            {
-                return item.getName().equals(name);
-            }
-
-            @Override
-            public void describeTo(final Description description)
-            {
-                description.appendText("class file [" + name + "]");
-            }
-        };
-
     }
 
     ////////////////////////////////////////////////

@@ -1,4 +1,7 @@
-package org.langera.freud.optional.classfile;
+package org.langera.freud.optional.classfile.method;
+
+import org.langera.freud.optional.classfile.ClassFileElement;
+import org.langera.freud.optional.classfile.ClassFileInnerClass;
 
 import java.util.List;
 

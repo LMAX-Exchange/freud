@@ -31,7 +31,12 @@ import java.util.List;
 
 public final class CodeBlockDsl
 {
-//    public static RegexMatcherBuilder<CodeBlock> codeBlock()
+    private CodeBlockDsl()
+    {
+        // static utility
+    }
+
+    //    public static RegexMatcherBuilder<CodeBlock> codeBlock()
 //    {
 //TODO
 //    }

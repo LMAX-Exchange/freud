@@ -1,4 +1,4 @@
-package org.langera.freud.optional.classfile;
+package org.langera.freud.optional.classfile.method;
 
 public final class LocalVariable
 {

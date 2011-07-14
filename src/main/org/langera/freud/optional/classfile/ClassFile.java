@@ -1,5 +1,7 @@
 package org.langera.freud.optional.classfile;
 
+import org.langera.freud.optional.classfile.method.ClassFileMethod;
+
 import java.util.List;
 
 public interface ClassFile extends ClassFileElement
