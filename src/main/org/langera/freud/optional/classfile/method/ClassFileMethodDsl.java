@@ -3,16 +3,20 @@ package org.langera.freud.optional.classfile.method;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.langera.freud.core.matcher.FreudMatcher;
+import org.langera.freud.optional.classfile.method.instruction.AbstractInstructionVisitor;
+import org.langera.freud.optional.classfile.method.instruction.Instruction;
+import org.langera.freud.optional.classfile.method.ref.CastLoadedReference;
+import org.langera.freud.optional.classfile.method.ref.StaticLoadedReference;
+import org.langera.freud.optional.classfile.method.ref.LoadedReference;
 
 import java.util.Arrays;
-import java.util.List;
 
-import static org.langera.freud.optional.classfile.method.AbstractInstructionVisitor.typeEncoding;
+import static org.langera.freud.optional.classfile.method.instruction.AbstractInstructionVisitor.typeEncoding;
 
-public final class MethodDsl
+public final class ClassFileMethodDsl
 {
 
-    private MethodDsl()
+    private ClassFileMethodDsl()
     {
         // static utility
     }
@@ -55,7 +59,7 @@ public final class MethodDsl
                         }
 
                     }
-                }, Opcode.INVOKEVIRTUAL, Opcode.INVOKEDYNAMIC, Opcode.INVOKEINTERFACE, Opcode.INVOKESTATIC, Opcode.INVOKESPECIAL);
+                });
                 return found[0];
             }
 
@@ -68,7 +72,7 @@ public final class MethodDsl
     }
 
     public static FreudMatcher<ClassFileMethod> methodInvokedWithParams
-            (final Class expectedOwner, final String expectedMethodName, final Matcher<LocalVariable>... expectedParamsPassed)
+            (final Class expectedOwner, final String expectedMethodName, final Matcher<LoadedReference>... expectedParamsPassed)
     {
         return new FreudMatcher<ClassFileMethod>()
         {
@@ -91,29 +95,23 @@ public final class MethodDsl
                         if (!found[0] && expectedOwnerName.equals(owner) &&
                                 expectedMethodName.equals(methodName))
                         {
-                            int paramIndex = expectedParamsPassed.length - 1;
-                            List<Instruction> instructionList = item.getInstructionList();
-                            for (int i = instruction.getIndex() - 1; i >= 0 && paramIndex >= 0; i--)
+                            int index = instruction.getInstructionIndex() - 1;
+                            found[0] = true;
+                            for (int i = expectedParamsPassed.length - 1; index >= 0 && i >= 0; i--)
                             {
-                                final Instruction prevInstruction = instructionList.get(i);
-                                if (prevInstruction.getOpcode() == Opcode.ALOAD)
+                                Matcher<LoadedReference> matcher = expectedParamsPassed[i];
+                                final Instruction prevInstruction = item.getInstruction(index);
+                                final LoadedReference loadedReference = prevInstruction.getLoadedReference();
+                                if (loadedReference == null || !matcher.matches(loadedReference))
                                 {
-                                    LocalVariable var = item.getLocalVariable(prevInstruction.getVarIndex());
-                                    if (var == null || !expectedParamsPassed[paramIndex].matches(var))
-                                    {
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        paramIndex--;
-                                    }
+                                    found[0] = false;
+                                    break;
                                 }
+                                index = loadedReference.getInstructionIndex() - 1;
                             }
-                            found[0] = paramIndex < 0;
                         }
-
                     }
-                }, Opcode.INVOKEVIRTUAL, Opcode.INVOKEDYNAMIC, Opcode.INVOKEINTERFACE, Opcode.INVOKESTATIC, Opcode.INVOKESPECIAL);
+                });
                 return found[0];
             }
 
@@ -125,22 +123,66 @@ public final class MethodDsl
         };
     }
 
-    public static FreudMatcher<LocalVariable> variableOfType(final Class<?> aClass)
+    public static FreudMatcher<LoadedReference> a(final Class<?> aClass)
     {
-        return new FreudMatcher<LocalVariable>()
+        return new FreudMatcher<LoadedReference>()
         {
             private final String expectedType = typeEncoding(aClass);
 
             @Override
-            protected boolean matchesSafely(final LocalVariable item)
+            protected boolean matchesSafely(final LoadedReference item)
             {
-                return expectedType.equals(item.getDesc());
+                return expectedType.equals(item.getTypeOfReference());
             }
 
             @Override
             public void describeTo(final Description description)
             {
-                description.appendText("variableOfType(" + aClass + ")");
+                description.appendText("a(" + aClass + ")");
+            }
+        };
+    }
+
+    public static FreudMatcher<LoadedReference> aConstantOf(final Class<?> aClass)
+    {
+        return new FreudMatcher<LoadedReference>()
+        {
+            private final String expectedType = typeEncoding(aClass);
+
+            @Override
+            protected boolean matchesSafely(final LoadedReference item)
+            {
+                return item instanceof StaticLoadedReference && expectedType.equals(item.getTypeOfReference());
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText("aConstantOf(" + aClass + ")");
+            }
+        };
+    }
+
+    public static FreudMatcher<LoadedReference> castOf(final Class<?> aClass)
+    {
+        return new FreudMatcher<LoadedReference>()
+        {
+            private final String expectedType = typeEncoding(aClass);
+
+            @Override
+            protected boolean matchesSafely(final LoadedReference item)
+            {
+                if (item instanceof CastLoadedReference)
+                {
+                    return expectedType.equals(((CastLoadedReference)item).getLoadedReference().getTypeOfReference());
+                }
+                return false;
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText("a(" + aClass + ")");
             }
         };
     }

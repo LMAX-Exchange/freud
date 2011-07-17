@@ -2,6 +2,8 @@ package org.langera.freud.optional.classfile.method;
 
 import org.langera.freud.optional.classfile.ClassFileElement;
 import org.langera.freud.optional.classfile.ClassFileInnerClass;
+import org.langera.freud.optional.classfile.method.instruction.Instruction;
+import org.langera.freud.optional.classfile.method.instruction.InstructionVisitor;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public interface ClassFileMethod extends ClassFileElement
 
     LocalVariable getLocalVariable(int index);
 
-    List<Instruction> getInstructionList();
+    void findInstruction(final InstructionVisitor instructionVisitor);
 
-    void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes);
+    Instruction getInstruction(int index);
 }

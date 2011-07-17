@@ -1,4 +1,4 @@
-package org.langera.freud.optional.classfile.method;
+package org.langera.freud.optional.classfile.method.instruction;
 
 public final class Label
 {

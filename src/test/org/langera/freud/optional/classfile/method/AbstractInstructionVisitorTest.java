@@ -2,6 +2,7 @@ package org.langera.freud.optional.classfile.method;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.langera.freud.optional.classfile.method.instruction.AbstractInstructionVisitor;
 
 public final class AbstractInstructionVisitorTest
 {

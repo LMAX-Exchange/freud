@@ -43,7 +43,7 @@ public final class AsmClassFileParserTest implements Serializable
         Assert.assertEquals("(Ljava/lang/String;)Ljava/lang/String;", method.getDesc());
     }
 
-    private String getFileResourceIdentifier(final String className)
+    public static String getFileResourceIdentifier(final String className)
     {
         return ClassLoader.getSystemClassLoader().
                 getResource(className.replace(".", "/") + ".class").toExternalForm().substring("file:".length());

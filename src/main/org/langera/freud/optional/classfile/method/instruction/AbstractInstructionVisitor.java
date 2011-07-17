@@ -1,4 +1,4 @@
-package org.langera.freud.optional.classfile.method;
+package org.langera.freud.optional.classfile.method.instruction;
 
 public abstract class AbstractInstructionVisitor implements InstructionVisitor
 {
@@ -12,7 +12,7 @@ public abstract class AbstractInstructionVisitor implements InstructionVisitor
     {
     }
 
-    static String typeEncoding(Class clazz)
+    public static String typeEncoding(Class clazz)
     {
         final StringBuilder sb = new StringBuilder();
         if (clazz.isArray())

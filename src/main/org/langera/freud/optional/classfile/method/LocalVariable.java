@@ -1,5 +1,7 @@
 package org.langera.freud.optional.classfile.method;
 
+import org.langera.freud.optional.classfile.method.instruction.Label;
+
 public final class LocalVariable
 {
     private final String name;

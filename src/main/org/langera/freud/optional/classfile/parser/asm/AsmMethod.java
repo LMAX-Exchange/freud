@@ -2,11 +2,17 @@ package org.langera.freud.optional.classfile.parser.asm;
 
 import org.langera.freud.optional.classfile.ClassFileInnerClass;
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
-import org.langera.freud.optional.classfile.method.Instruction;
-import org.langera.freud.optional.classfile.method.InstructionVisitor;
-import org.langera.freud.optional.classfile.method.Label;
 import org.langera.freud.optional.classfile.method.LocalVariable;
-import org.langera.freud.optional.classfile.method.Opcode;
+import org.langera.freud.optional.classfile.method.instruction.FieldInstruction;
+import org.langera.freud.optional.classfile.method.instruction.Instruction;
+import org.langera.freud.optional.classfile.method.instruction.InstructionVisitor;
+import org.langera.freud.optional.classfile.method.instruction.IntOperandInstruction;
+import org.langera.freud.optional.classfile.method.instruction.JumpInstruction;
+import org.langera.freud.optional.classfile.method.instruction.Label;
+import org.langera.freud.optional.classfile.method.instruction.MethodInvocationInstruction;
+import org.langera.freud.optional.classfile.method.instruction.Opcode;
+import org.langera.freud.optional.classfile.method.instruction.StringOperandInstruction;
+import org.langera.freud.optional.classfile.method.instruction.VarInstruction;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.MethodVisitor;
@@ -68,12 +74,18 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     }
 
     @Override
-    public void findInstruction(final InstructionVisitor instructionVisitor, final Opcode... opcodes)
+    public void findInstruction(final InstructionVisitor instructionVisitor)
     {
         for (final Instruction instruction : instructionList)
         {
-            instruction.getOpcode().visit(instruction, instructionVisitor);
+            instruction.visit(instructionVisitor);
         }
+    }
+
+    @Override
+    public Instruction getInstruction(final int index)
+    {
+        return instructionList.get(index);
     }
 
     @Override
@@ -100,12 +112,6 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             }
         }
         return null;
-    }
-
-    @Override
-    public List<Instruction> getInstructionList()
-    {
-        return instructionList;
     }
 
     @Override
@@ -206,7 +212,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitInsn(final int opcode)
     {
-        instructionList.add(Instruction.create(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber));
+        instructionList.add(new Instruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber));
     }
 
     public void visitIntInsn(final int opcodeUsed, final int operand)
@@ -214,23 +220,23 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         if (opcode == Opcode.NEWARRAY)
         {
-            instructionList.add(Instruction.create(instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]));
+            instructionList.add(new StringOperandInstruction(this, instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]));
         }
         else
         {
-            instructionList.add(Instruction.create(instructionList.size(), opcode, currentLineNumber, operand));
+            instructionList.add(new IntOperandInstruction(this, instructionList.size(), opcode, currentLineNumber, operand));
         }
     }
 
     public void visitVarInsn(final int opcode, final int var)
     {
-        instructionList.add(Instruction.createVarInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, var));
+        instructionList.add(new VarInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, var));
     }
 
     public void visitTypeInsn(final int opcodeUsed, final String type)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
-        instructionList.add(Instruction.create(instructionList.size(), opcode, currentLineNumber, type));
+        instructionList.add(new StringOperandInstruction(this, instructionList.size(), opcode, currentLineNumber, type));
     }
 
     public void visitFieldInsn(
@@ -239,7 +245,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String name,
             final String desc)
     {
-        instructionList.add(Instruction.createFieldInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
+        instructionList.add(new FieldInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
     }
 
     public void visitMethodInsn(
@@ -253,7 +259,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         {
             String[] args = matcher.group(1).split(",");
             String returnType = matcher.group(2);
-            instructionList.add(Instruction.createMethodInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
+            instructionList.add(new MethodInvocationInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
                     "L" + owner + ";", name, args, returnType));
         }
     }
@@ -261,7 +267,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel)
     {
         Label label = declareLabel(asmLabel);
-        instructionList.add(Instruction.createJumpInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label));
+        instructionList.add(new JumpInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label));
     }
 
     public void visitLabel(final org.objectweb.asm.Label asmLabel)
@@ -273,12 +279,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitLdcInsn(final Object cst)
     {
         String constantStr = cst.toString();
-        instructionList.add(Instruction.create(instructionList.size(), Opcode.LDC, currentLineNumber, constantStr));
+        instructionList.add(new StringOperandInstruction(this, instructionList.size(), Opcode.LDC, currentLineNumber, constantStr));
     }
 
     public void visitIincInsn(final int var, final int increment)
     {
-        instructionList.add(Instruction.create(instructionList.size(), Opcode.IINC, currentLineNumber, increment));
+        instructionList.add(new IntOperandInstruction(this, instructionList.size(), Opcode.IINC, currentLineNumber, increment));
     }
 
     public void visitTableSwitchInsn(
@@ -332,7 +338,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)
     {
-        instructionList.add(Instruction.create(instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
+        instructionList.add(new StringOperandInstruction(this, instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
     }
 
     public void visitLocalVariable(
@@ -364,6 +370,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitEnd()
     {
         // no op
+    }
+
+    @Override
+    public String toString()
+    {
+        return "AsmMethod[" + name + "]";
     }
 
     ////////////////////////////////////////////////////////////////////////
