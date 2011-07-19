@@ -3,6 +3,7 @@ package org.langera.freud.optional.classfile.parser.asm;
 import org.langera.freud.optional.classfile.ClassFileInnerClass;
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
 import org.langera.freud.optional.classfile.method.LocalVariable;
+import org.langera.freud.optional.classfile.method.instruction.AbstractOperandStack;
 import org.langera.freud.optional.classfile.method.instruction.FieldInstruction;
 import org.langera.freud.optional.classfile.method.instruction.Instruction;
 import org.langera.freud.optional.classfile.method.instruction.InstructionVisitor;
@@ -11,12 +12,15 @@ import org.langera.freud.optional.classfile.method.instruction.JumpInstruction;
 import org.langera.freud.optional.classfile.method.instruction.Label;
 import org.langera.freud.optional.classfile.method.instruction.MethodInvocationInstruction;
 import org.langera.freud.optional.classfile.method.instruction.Opcode;
-import org.langera.freud.optional.classfile.method.instruction.StringOperandInstruction;
+import org.langera.freud.optional.classfile.method.instruction.OperandStack;
+import org.langera.freud.optional.classfile.method.instruction.ReferenceOperandInstruction;
+import org.langera.freud.optional.classfile.method.instruction.ConstInstruction;
 import org.langera.freud.optional.classfile.method.instruction.VarInstruction;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.Type;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +54,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     private final Map<org.objectweb.asm.Label, Label> labelByAsmLabelMap;
 
     private int currentLineNumber;
+    private OperandStack currentOperandStack = AbstractOperandStack.EMPTY_STACK;
 
     public AsmMethod(final AsmClassFile classFile, final int access, final String name, final String desc, final String signature, final String... exceptions)
     {
@@ -212,31 +217,40 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitInsn(final int opcode)
     {
-        instructionList.add(new Instruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber));
+        final Instruction instruction = new Instruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber);
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitIntInsn(final int opcodeUsed, final int operand)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
+        final Instruction instruction;
         if (opcode == Opcode.NEWARRAY)
         {
-            instructionList.add(new StringOperandInstruction(this, instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]));
+            instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]);
         }
         else
         {
-            instructionList.add(new IntOperandInstruction(this, instructionList.size(), opcode, currentLineNumber, operand));
+            instruction = new IntOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, operand);
         }
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
-    public void visitVarInsn(final int opcode, final int var)
+    public void visitVarInsn(final int opcodeUsed, final int var)
     {
-        instructionList.add(new VarInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, var));
+        final Instruction instruction = new VarInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcodeUsed], currentLineNumber, var);
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitTypeInsn(final int opcodeUsed, final String type)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
-        instructionList.add(new StringOperandInstruction(this, instructionList.size(), opcode, currentLineNumber, type));
+        final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, type.toString());
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitFieldInsn(
@@ -245,7 +259,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String name,
             final String desc)
     {
-        instructionList.add(new FieldInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc));
+        final Instruction instruction = new FieldInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc);
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitMethodInsn(
@@ -259,15 +275,19 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         {
             String[] args = matcher.group(1).split(",");
             String returnType = matcher.group(2);
-            instructionList.add(new MethodInvocationInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
-                    "L" + owner + ";", name, args, returnType));
+            final Instruction instruction = new MethodInvocationInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
+                    "L" + owner + ";", name, args, returnType);
+            instructionList.add(instruction);
+            currentOperandStack = instruction.getOperandStack();
         }
     }
 
     public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel)
     {
         Label label = declareLabel(asmLabel);
-        instructionList.add(new JumpInstruction(this, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label));
+        final Instruction instruction = new JumpInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label);
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitLabel(final org.objectweb.asm.Label asmLabel)
@@ -276,15 +296,26 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         label.declare(instructionList.size());
     }
 
-    public void visitLdcInsn(final Object cst)
+    public void visitLdcInsn(final Object constant)
     {
-        String constantStr = cst.toString();
-        instructionList.add(new StringOperandInstruction(this, instructionList.size(), Opcode.LDC, currentLineNumber, constantStr));
+        final Instruction instruction;
+        if (constant instanceof Type)
+        {
+            instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), Opcode.LDC, currentLineNumber, constant.toString());
+        }
+        else
+        {
+            instruction = new ConstInstruction(this, currentOperandStack, instructionList.size(), Opcode.LDC, currentLineNumber, constant);
+        }
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitIincInsn(final int var, final int increment)
     {
-        instructionList.add(new IntOperandInstruction(this, instructionList.size(), Opcode.IINC, currentLineNumber, increment));
+        final Instruction instruction = new IntOperandInstruction(this, currentOperandStack, instructionList.size(), Opcode.IINC, currentLineNumber, increment);
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitTableSwitchInsn(
@@ -338,7 +369,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)
     {
-        instructionList.add(new StringOperandInstruction(this, instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims));
+        final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims);
+        instructionList.add(instruction);
+        currentOperandStack = instruction.getOperandStack();
     }
 
     public void visitLocalVariable(

@@ -1,393 +1,534 @@
 package org.langera.freud.optional.classfile.method.instruction;
 
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
-import org.langera.freud.optional.classfile.method.ref.CastLoadedReference;
-import org.langera.freud.optional.classfile.method.ref.LoadedReference;
-import org.langera.freud.optional.classfile.method.ref.StaticLoadedReference;
-import org.langera.freud.optional.classfile.method.ref.VariableArrayElementLoadedReference;
-import org.langera.freud.optional.classfile.method.ref.VariableLoadedReference;
-
-import static org.langera.freud.optional.classfile.method.ref.StaticLoadedReference.Type.ARRAY_ELEMENT;
-import static org.langera.freud.optional.classfile.method.ref.StaticLoadedReference.Type.CONSTANT;
-import static org.langera.freud.optional.classfile.method.ref.StaticLoadedReference.Type.ARRAY_LENGTH;
 
 public enum Opcode
 {
     NOP, // visitInsn
-    ACONST_NULL, // -
-    ICONST_M1, // -
+    ACONST_NULL
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack(null, stack, this);
+                }
+            }, // -
+    ICONST_M1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
+                }
+            }, // -
     ICONST_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     ICONST_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     ICONST_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     ICONST_3
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     ICONST_4
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     ICONST_5
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("I", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     LCONST_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("J", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("J", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     LCONST_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("J", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("J", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     FCONST_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("F", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("F", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     FCONST_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("F", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("F", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     FCONST_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("F", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("F", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     DCONST_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("D", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("D", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
     DCONST_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("D", instruction.getInstructionIndex(), CONSTANT);
+                    return new StaticOperandStack("D", stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
                 }
             }, // -
-    BIPUSH, // visitIntInsn
-    SIPUSH, // -
-    LDC, // visitLdcInsn
-    LDC_W, // -
-    LDC2_W, // -
+    BIPUSH
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack, this);
+                }
+            }, // visitIntInsn
+    SIPUSH
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack, this);
+                }
+            }, // -
+    LDC
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack(instruction.getOperandType(), stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
+                }
+            }, // visitLdcInsn
+    LDC_W
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack(instruction.getOperandType(), stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
+                }
+            }, // -
+    LDC2_W
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack(instruction.getOperandType(), stack, this);
+                }
+
+                @Override
+                public boolean isConstant()
+                {
+                    return true;
+                }
+            }, // -
     ILOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, instruction.getVarIndex(), instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, instruction.getVarIndex(), stack, this);
                 }
             }, // visitVarInsn
     LLOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, instruction.getVarIndex(), instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, instruction.getVarIndex(), stack, this);
                 }
             }, // -
     FLOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, instruction.getVarIndex(), instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, instruction.getVarIndex(), stack, this);
                 }
             }, // -
     DLOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, instruction.getVarIndex(), instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, instruction.getVarIndex(), stack, this);
                 }
             }, // -
     ALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, instruction.getVarIndex(), instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, instruction.getVarIndex(), stack, this);
                 }
             }, // -
     ILOAD_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 0, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 0, stack, this);
                 }
             }, // -
     ILOAD_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 1, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 1, stack, this);
                 }
             }, // -
     ILOAD_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 2, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 2, stack, this);
                 }
             }, // -
     ILOAD_3
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 3, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 3, stack, this);
                 }
             }, // -
     LLOAD_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 0, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 0, stack, this);
                 }
             }, // -
     LLOAD_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 1, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 1, stack, this);
                 }
             }, // -
     LLOAD_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 2, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 2, stack, this);
                 }
             }, // -
     LLOAD_3
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 3, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 3, stack, this);
                 }
             }, // -
     FLOAD_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 0, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 0, stack, this);
                 }
             }, // -
     FLOAD_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 1, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 1, stack, this);
                 }
             }, // -
     FLOAD_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 2, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 2, stack, this);
                 }
             }, // -
     FLOAD_3
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 3, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 3, stack, this);
                 }
             }, // -
     DLOAD_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 0, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 0, stack, this);
                 }
             }, // -
     DLOAD_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 1, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 1, stack, this);
                 }
             }, // -
     DLOAD_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 2, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 2, stack, this);
                 }
             }, // -
     DLOAD_3
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 3, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 3, stack, this);
                 }
             }, // -
     ALOAD_0
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 0, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 0, stack, this);
                 }
             }, // -
     ALOAD_1
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 1, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 1, stack, this);
                 }
             }, // -
     ALOAD_2
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 2, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 2, stack, this);
                 }
             }, // -
     ALOAD_3
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableLoadedReference(method, 3, instruction.getInstructionIndex());
+                    return new LocalVariableOperandStack(method, 3, stack, this);
                 }
             }, // -
     IALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("I", stack.next().next(), this);
                 }
             }, // visitInsn
     LALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("J", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("J", stack.next().next(), this);
                 }
             }, // -
     FALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("F", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("F", stack.next().next(), this);
                 }
             }, // -
     DALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("D", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("D", stack.next().next(), this);
                 }
             }, // -
     AALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new VariableArrayElementLoadedReference(method, instruction.getInstructionIndex()
-                    );
+                    return new VariableArrayElementOperandStack(stack.next(), stack.next().next(), this);
                 }
             }, // -
     BALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("B", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("B", stack.next().next(), this);
                 }
             }, // -
     CALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("C", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("C", stack.next().next(), this);
                 }
             }, // -
     SALOAD
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("S", instruction.getInstructionIndex(), ARRAY_ELEMENT);
+                    return new StaticOperandStack("S", stack.next().next(), this);
                 }
             }, // -
     ISTORE, // visitVarInsn
@@ -432,30 +573,170 @@ public enum Opcode
     DUP2_X1, // -
     DUP2_X2, // -
     SWAP, // -
-    IADD, // -
-    LADD, // -
-    FADD, // -
-    DADD, // -
-    ISUB, // -
-    LSUB, // -
-    FSUB, // -
-    DSUB, // -
-    IMUL, // -
-    LMUL, // -
-    FMUL, // -
-    DMUL, // -
-    IDIV, // -
-    LDIV, // -
-    FDIV, // -
-    DDIV, // -
+    IADD
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LADD
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    FADD
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("F", stack.next().next(), this);
+                }
+            }, // -
+    DADD
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("D", stack.next().next(), this);
+                }
+            }, // -
+    ISUB
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LSUB
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    FSUB
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("F", stack.next().next(), this);
+                }
+            }, // -
+    DSUB
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("D", stack.next().next(), this);
+                }
+            }, // -
+    IMUL
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LMUL
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    FMUL
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("F", stack.next().next(), this);
+                }
+            }, // -
+    DMUL
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("D", stack.next().next(), this);
+                }
+            }, // -
+    IDIV
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LDIV
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    FDIV
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("F", stack.next().next(), this);
+                }
+            }, // -
+    DDIV
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("D", stack.next().next(), this);
+                }
+            }, // -
     IREM, // -
     LREM, // -
     FREM, // -
     DREM, // -
-    INEG, // -
-    LNEG, // -
-    FNEG, // -
-    DNEG, // -
+    INEG
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next(), this);
+                }
+            }, // -
+    LNEG
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("L", stack.next(), this);
+                }
+            }, // -
+    FNEG
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("F", stack.next(), this);
+                }
+            }, // -
+    DNEG
+                {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("D", stack.next(), this);
+                }
+            }, // -
     ISHL, // -
     LSHL, // -
     ISHR, // -
@@ -472,136 +753,121 @@ public enum Opcode
     I2L
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("J", castRef);
+                    return new CastOperandStack("I", "J", stack.next(), this);
                 }
             }, // visitInsn
     I2F
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("F", castRef);
+                    return new CastOperandStack("I", "F", stack.next(), this);
                 }
             }, // -
     I2D
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("D", castRef);
+                    return new CastOperandStack("I", "D", stack.next(), this);
                 }
             }, // -
     L2I
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("I", castRef);
+                    return new CastOperandStack("J", "I", stack.next(), this);
                 }
             }, // -
     L2F
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("F", castRef);
+                    return new CastOperandStack("J", "F", stack.next(), this);
                 }
             }, // -
     L2D
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("D", castRef);
+                    return new CastOperandStack("J", "D", stack.next(), this);
                 }
             }, // -
     F2I
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("I", castRef);
+                    return new CastOperandStack("F", "I", stack.next(), this);
                 }
             }, // -
     F2L
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("J", castRef);
+                    return new CastOperandStack("F", "J", stack.next(), this);
                 }
             }, // -
     F2D
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("D", castRef);
+                    return new CastOperandStack("F", "D", stack.next(), this);
                 }
             }, // -
     D2I
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("I", castRef);
+                    return new CastOperandStack("D", "I", stack.next(), this);
                 }
             }, // -
     D2L
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("J", castRef);
+                    return new CastOperandStack("D", "J", stack.next(), this);
                 }
             }, // -
     D2F
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("F", castRef);
+                    return new CastOperandStack("D", "F", stack.next(), this);
                 }
             }, // -
     I2B
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("B", castRef);
+                    return new CastOperandStack("I", "B", stack.next(), this);
                 }
             }, // -
     I2C
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("C", castRef);
+                    return new CastOperandStack("I", "C", stack.next(), this);
                 }
             }, // -
     I2S
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    LoadedReference castRef = method.getInstruction(instruction.getInstructionIndex() - 1).getLoadedReference();
-                    return new CastLoadedReference("S", castRef);
+                    return new CastOperandStack("I", "S", stack.next(), this);
                 }
             }, // -
     LCMP, // -
@@ -649,9 +915,9 @@ public enum Opcode
     ARRAYLENGTH
             {
                 @Override
-                public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    return new StaticLoadedReference("I", instruction.getInstructionIndex(), ARRAY_LENGTH);
+                    return new StaticOperandStack("I", stack.next(), this);
                 }
             }, // visitInsn
 
@@ -667,8 +933,13 @@ public enum Opcode
     GOTO_W, // -
     JSR_W; //
 
-    public LoadedReference createLoadedReference(final ClassFileMethod method, final Instruction instruction)
+    public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
     {
-        return null;
+        return stack;
+    }
+
+    public boolean isConstant()
+    {
+        return false;
     }
 }

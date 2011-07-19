@@ -4,10 +4,9 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.optional.classfile.method.instruction.AbstractInstructionVisitor;
+import org.langera.freud.optional.classfile.method.instruction.CastOperandStack;
 import org.langera.freud.optional.classfile.method.instruction.Instruction;
-import org.langera.freud.optional.classfile.method.ref.CastLoadedReference;
-import org.langera.freud.optional.classfile.method.ref.StaticLoadedReference;
-import org.langera.freud.optional.classfile.method.ref.LoadedReference;
+import org.langera.freud.optional.classfile.method.instruction.OperandStack;
 
 import java.util.Arrays;
 
@@ -72,7 +71,7 @@ public final class ClassFileMethodDsl
     }
 
     public static FreudMatcher<ClassFileMethod> methodInvokedWithParams
-            (final Class expectedOwner, final String expectedMethodName, final Matcher<LoadedReference>... expectedParamsPassed)
+            (final Class expectedOwner, final String expectedMethodName, final Matcher<OperandStack>... expectedParamsPassed)
     {
         return new FreudMatcher<ClassFileMethod>()
         {
@@ -95,19 +94,17 @@ public final class ClassFileMethodDsl
                         if (!found[0] && expectedOwnerName.equals(owner) &&
                                 expectedMethodName.equals(methodName))
                         {
-                            int index = instruction.getInstructionIndex() - 1;
+                            OperandStack operandStack = instruction.getOperandStack();
                             found[0] = true;
-                            for (int i = expectedParamsPassed.length - 1; index >= 0 && i >= 0; i--)
+                            for (int i = expectedParamsPassed.length - 1; operandStack.next() != null && i >= 0; i--)
                             {
-                                Matcher<LoadedReference> matcher = expectedParamsPassed[i];
-                                final Instruction prevInstruction = item.getInstruction(index);
-                                final LoadedReference loadedReference = prevInstruction.getLoadedReference();
-                                if (loadedReference == null || !matcher.matches(loadedReference))
+                                Matcher<OperandStack> matcher = expectedParamsPassed[i];
+                                if (!matcher.matches(operandStack))
                                 {
                                     found[0] = false;
                                     break;
                                 }
-                                index = loadedReference.getInstructionIndex() - 1;
+                                operandStack = operandStack.next();
                             }
                         }
                     }
@@ -123,16 +120,16 @@ public final class ClassFileMethodDsl
         };
     }
 
-    public static FreudMatcher<LoadedReference> a(final Class<?> aClass)
+    public static FreudMatcher<OperandStack> a(final Class<?> aClass)
     {
-        return new FreudMatcher<LoadedReference>()
+        return new FreudMatcher<OperandStack>()
         {
             private final String expectedType = typeEncoding(aClass);
 
             @Override
-            protected boolean matchesSafely(final LoadedReference item)
+            protected boolean matchesSafely(final OperandStack item)
             {
-                return expectedType.equals(item.getTypeOfReference());
+                return expectedType.equals(item.getOperandType(0));
             }
 
             @Override
@@ -143,16 +140,17 @@ public final class ClassFileMethodDsl
         };
     }
 
-    public static FreudMatcher<LoadedReference> aConstantOf(final Class<?> aClass)
+    public static FreudMatcher<OperandStack> aConstantOf(final Class<?> aClass)
     {
-        return new FreudMatcher<LoadedReference>()
+        return new FreudMatcher<OperandStack>()
         {
             private final String expectedType = typeEncoding(aClass);
 
             @Override
-            protected boolean matchesSafely(final LoadedReference item)
+            protected boolean matchesSafely(final OperandStack item)
             {
-                return item instanceof StaticLoadedReference && expectedType.equals(item.getTypeOfReference());
+                return expectedType.equals(item.getOperandType(0)) &&
+                        item.generatingOpcode().isConstant();
             }
 
             @Override
@@ -163,18 +161,19 @@ public final class ClassFileMethodDsl
         };
     }
 
-    public static FreudMatcher<LoadedReference> castOf(final Class<?> aClass)
+    // TODO - follow prev instruction and use Static operand stack
+    public static FreudMatcher<OperandStack> castOf(final Class<?> aClass)
     {
-        return new FreudMatcher<LoadedReference>()
+        return new FreudMatcher<OperandStack>()
         {
             private final String expectedType = typeEncoding(aClass);
 
             @Override
-            protected boolean matchesSafely(final LoadedReference item)
+            protected boolean matchesSafely(final OperandStack item)
             {
-                if (item instanceof CastLoadedReference)
+                if (item instanceof CastOperandStack)
                 {
-                    return expectedType.equals(((CastLoadedReference)item).getLoadedReference().getTypeOfReference());
+                    return expectedType.equals(((CastOperandStack)item).getFromType());
                 }
                 return false;
             }

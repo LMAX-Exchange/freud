@@ -1,7 +1,6 @@
 package org.langera.freud.optional.classfile.method.instruction;
 
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
-import org.langera.freud.optional.classfile.method.ref.LoadedReference;
 
 public class Instruction
 {
@@ -10,28 +9,30 @@ public class Instruction
     private final int lineNumber;
     private final int intOperand;
     private final int varIndex;
-    private final String operand;
+    private final String operandType;
+    private final Object constant;
     private final String owner;
     private final String name;
     private final String desc;
     private final Label label;
     private final String returnType;
     private final String[] args;
-    private final ClassFileMethod method;
-    private final LoadedReference loadedReference;
+    private final OperandStack operandStack;
 
-    public Instruction(final ClassFileMethod method, final int index, final Opcode opcode, final int currentLineNumber)
+    public Instruction(final ClassFileMethod method, final OperandStack currentOperandStack, final int index, final Opcode opcode, final int currentLineNumber)
     {
-        this(method, index, opcode, currentLineNumber, null, null, null, -1, null, -1, null, null, null);
+        this(method, currentOperandStack, index, opcode, currentLineNumber, null, null, null, null, -1, null, -1, null, null, null);
     }
 
     protected Instruction(final ClassFileMethod method,
+                          final OperandStack currentOperandStack,
                           final int index,
                           final Opcode opcode,
                           final int lineNumber,
                           final String owner,
                           final String name,
-                          final String operand,
+                          final String operandType,
+                          final Object constant,
                           final int intOperand,
                           final String desc,
                           final int varIndex,
@@ -39,20 +40,20 @@ public class Instruction
                           final String[] args,
                           final String returnType)
     {
-        this.method = method;
         this.index = index;
         this.opcode = opcode;
         this.lineNumber = lineNumber;
         this.owner = owner;
         this.name = name;
-        this.operand = operand;
+        this.operandType = operandType;
+        this.constant = constant;
         this.intOperand = intOperand;
         this.desc = desc;
         this.varIndex = varIndex;
         this.label = label;
         this.args = args;
         this.returnType = returnType;
-        loadedReference = opcode.createLoadedReference(method, this);
+        operandStack = opcode.updateOperandStack(method, this, currentOperandStack);
     }
 
     public int getInstructionIndex()
@@ -60,9 +61,9 @@ public class Instruction
         return index;
     }
 
-    public LoadedReference getLoadedReference()
+    public OperandStack getOperandStack()
     {
-        return loadedReference;
+        return operandStack;
     }
 
     public String[] getArgs()
@@ -100,9 +101,14 @@ public class Instruction
         return opcode;
     }
 
-    public String getOperand()
+    public String getOperandType()
     {
-        return operand;
+        return operandType;
+    }
+
+    public Object getConstant()
+    {
+        return constant;
     }
 
     public String getOwner()
