@@ -1,0 +1,735 @@
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/MethodInvocationOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/MethodInvocationOperandStack.java	(revision )
++++ src/main/org/langera/freud/optional/classfile/method/instruction/MethodInvocationOperandStack.java	(revision )
+@@ -0,0 +1,29 @@
++package org.langera.freud.optional.classfile.method.instruction;
++
++public final class MethodInvocationOperandStack extends AbstractOperandStack
++{
++    private final MethodInvocationInstruction instruction;
++
++    public MethodInvocationOperandStack(final MethodInvocationInstruction instruction, final OperandStack next, final Opcode opcode)
++    {
++        super(popOwnerAndArgs(instruction, next), opcode);
++        this.instruction = instruction;
++    }
++
++    private static OperandStack popOwnerAndArgs(final MethodInvocationInstruction instruction, final OperandStack next)
++    {
++        OperandStack stack = next.next(); // pop owner
++        final int length = instruction.getArgs().length;
++        for (int i=0; i < length; i++)
++        {
++            stack = stack.next();
++        }
++        return stack;
++    }
++
++    @Override
++    protected String getTypeForCurrentOperandStackItem()
++    {
++        return instruction.getReturnType();
++    }
++}
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/AbstractOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/AbstractOperandStack.java	(revision 42)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/AbstractOperandStack.java	(revision )
+@@ -9,6 +9,19 @@
+         {
+             throw new IllegalStateException("cannot pop an empty stack");
+         }
++
++        @Override
++        public OperandStack next()
++        {
++            throw new IllegalStateException("cannot pop an empty stack");
++        }
++
++
++        @Override
++        public int depth()
++        {
++            return 0;
++        }
+     };
+ 
+     private final OperandStack next;
+@@ -24,14 +37,10 @@
+     protected abstract String getTypeForCurrentOperandStackItem();
+ 
+     @Override
+-    public String getOperandType(final int index)
++    public String getOperandType()
+     {
+-        if (index == 0)
+-        {
+-            return getTypeForCurrentOperandStackItem();
+-        }
++        return getTypeForCurrentOperandStackItem();
++    }
+-        return next.getOperandType(index - 1);
+-    }
+ 
+     @Override
+     public OperandStack next()
+@@ -44,4 +53,10 @@
+     {
+         return opcode;
+     }
++
++    @Override
++    public int depth()
++    {
++        return 1 + next.depth();
+-}
++    }
++}
+Index: src/main/org/langera/freud/optional/classfile/parser/asm/AsmMethod.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/parser/asm/AsmMethod.java	(revision 42)
++++ src/main/org/langera/freud/optional/classfile/parser/asm/AsmMethod.java	(revision )
+@@ -273,7 +273,8 @@
+         final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
+         if (matcher.matches())
+         {
+-            String[] args = matcher.group(1).split(",");
++            final String argsAsString = matcher.group(1);
++            String[] args = parseArgs(argsAsString);
+             String returnType = matcher.group(2);
+             final Instruction instruction = new MethodInvocationInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
+                     "L" + owner + ";", name, args, returnType);
+@@ -413,7 +414,24 @@
+ 
+     ////////////////////////////////////////////////////////////////////////
+ 
++    private String[] parseArgs(final String argsAsString)
++    {
++        List<String> args = new ArrayList<String>();
++        final int len = argsAsString.length();
++        int ptr = 0;
++        for (int i = 0; i < len; i++)
++        {
++            final char c = argsAsString.charAt(i);
++            if (c == ';')
++            {
++                args.add(argsAsString.substring(ptr, i + 1));
++                ptr = i + 1;
++            }
++        }
++        return args.toArray(new String[args.size()]);
++    }
+ 
++
+     private Label declareLabel(final org.objectweb.asm.Label asmLabel)
+     {
+         final Label label = Label.create(instructionList.size());
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/OperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/OperandStack.java	(revision 42)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/OperandStack.java	(revision )
+@@ -2,9 +2,11 @@
+ 
+ public interface OperandStack
+ {
+-    String getOperandType(int index);
++    String getOperandType();
+ 
+     OperandStack next();
+ 
+     Opcode generatingOpcode();
++
++    int depth();
+ }
+Index: src/main/org/langera/freud/optional/classfile/method/ClassFileMethodDsl.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/ClassFileMethodDsl.java	(revision 42)
++++ src/main/org/langera/freud/optional/classfile/method/ClassFileMethodDsl.java	(revision )
+@@ -94,7 +94,8 @@
+                         if (!found[0] && expectedOwnerName.equals(owner) &&
+                                 expectedMethodName.equals(methodName))
+                         {
+-                            OperandStack operandStack = instruction.getOperandStack();
++                            Instruction prevInstruction = item.getInstruction(instruction.getInstructionIndex() - 1);
++                            OperandStack operandStack = prevInstruction.getOperandStack();
+                             found[0] = true;
+                             for (int i = expectedParamsPassed.length - 1; operandStack.next() != null && i >= 0; i--)
+                             {
+@@ -129,7 +130,7 @@
+             @Override
+             protected boolean matchesSafely(final OperandStack item)
+             {
+-                return expectedType.equals(item.getOperandType(0));
++                return expectedType.equals(item.getOperandType());
+             }
+ 
+             @Override
+@@ -149,7 +150,7 @@
+             @Override
+             protected boolean matchesSafely(final OperandStack item)
+             {
+-                return expectedType.equals(item.getOperandType(0)) &&
++                return expectedType.equals(item.getOperandType()) &&
+                         item.generatingOpcode().isConstant();
+             }
+ 
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/VariableArrayElementOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/VariableArrayElementOperandStack.java	(revision 42)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/VariableArrayElementOperandStack.java	(revision )
+@@ -18,6 +18,6 @@
+ 
+     public String getArrayType()
+     {
+-        return arrayOperand.getOperandType(0);
++        return arrayOperand.getOperandType();
+     }
+ }
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/Opcode.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/Opcode.java	(revision 42)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/Opcode.java	(revision )
+@@ -531,42 +531,280 @@
+                     return new StaticOperandStack("S", stack.next().next(), this);
+                 }
+             }, // -
+-    ISTORE, // visitVarInsn
+-    LSTORE, // -
+-    FSTORE, // -
+-    DSTORE, // -
+-    ASTORE, // -
+-    ISTORE_0, // -
+-    ISTORE_1, // -
+-    ISTORE_2, // -
+-    ISTORE_3, // -
+-    LSTORE_0, // -
+-    LSTORE_1, // -
+-    LSTORE_2, // -
+-    LSTORE_3, // -
+-    FSTORE_0, // -
+-    FSTORE_1, // -
+-    FSTORE_2, // -
+-    FSTORE_3, // -
+-    DSTORE_0, // -
+-    DSTORE_1, // -
+-    DSTORE_2, // -
+-    DSTORE_3, // -
+-    ASTORE_0, // -
+-    ASTORE_1, // -
+-    ASTORE_2, // -
+-    ASTORE_3, // -
+-    IASTORE, // visitInsn
+-    LASTORE, // -
+-    FASTORE, // -
+-    DASTORE, // -
+-    AASTORE, // -
+-    BASTORE, // -
+-    CASTORE, // -
+-    SASTORE, // -
++    ISTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // visitVarInsn
++    LSTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    FSTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    DSTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ISTORE_0
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ISTORE_1
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ISTORE_2
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ISTORE_3
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    LSTORE_0
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    LSTORE_1
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    LSTORE_2
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    LSTORE_3
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    FSTORE_0
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    FSTORE_1
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    FSTORE_2
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    FSTORE_3
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    DSTORE_0
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    DSTORE_1
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    DSTORE_2
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    DSTORE_3
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ASTORE_0
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ASTORE_1
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ASTORE_2
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    ASTORE_3
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next();
++                }
++            }, // -
++    IASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // visitInsn
++    LASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
++    FASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
++    DASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
++    AASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
++    BASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
++    CASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
++    SASTORE
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return stack.next().next().next();
++                }
++            }, // -
+     POP, // -
+     POP2, // -
+-    DUP, // -
++    DUP
++            {
++                @Override
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return new StaticOperandStack(stack.getOperandType(), stack, this);
++                }
++            }, // -
+     DUP_X1, // -
+     DUP_X2, // -
+     DUP2, // -
+@@ -574,7 +812,7 @@
+     DUP2_X2, // -
+     SWAP, // -
+     IADD
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -582,7 +820,7 @@
+                 }
+             }, // -
+     LADD
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -590,7 +828,7 @@
+                 }
+             }, // -
+     FADD
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -598,7 +836,7 @@
+                 }
+             }, // -
+     DADD
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -614,7 +852,7 @@
+                 }
+             }, // -
+     LSUB
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -622,7 +860,7 @@
+                 }
+             }, // -
+     FSUB
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -630,7 +868,7 @@
+                 }
+             }, // -
+     DSUB
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -638,7 +876,7 @@
+                 }
+             }, // -
+     IMUL
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -646,7 +884,7 @@
+                 }
+             }, // -
+     LMUL
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -654,7 +892,7 @@
+                 }
+             }, // -
+     FMUL
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -662,7 +900,7 @@
+                 }
+             }, // -
+     DMUL
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -670,7 +908,7 @@
+                 }
+             }, // -
+     IDIV
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -678,7 +916,7 @@
+                 }
+             }, // -
+     LDIV
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -686,7 +924,7 @@
+                 }
+             }, // -
+     FDIV
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -694,7 +932,7 @@
+                 }
+             }, // -
+     DDIV
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -706,7 +944,7 @@
+     FREM, // -
+     DREM, // -
+     INEG
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -714,7 +952,7 @@
+                 }
+             }, // -
+     LNEG
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -722,7 +960,7 @@
+                 }
+             }, // -
+     FNEG
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -730,7 +968,7 @@
+                 }
+             }, // -
+     DNEG
+-                {
++            {
+                 @Override
+                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                 {
+@@ -904,11 +1142,51 @@
+     PUTSTATIC, // -
+     GETFIELD, // -
+     PUTFIELD, // -
+-    INVOKEVIRTUAL, // - visitMethod
+-    INVOKESPECIAL,
+-    INVOKESTATIC,
+-    INVOKEINTERFACE,
+-    INVOKEDYNAMIC,
++    INVOKEVIRTUAL
++            {
++                @Override
++                @SuppressWarnings("unchecked")
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return new MethodInvocationOperandStack((MethodInvocationInstruction) instruction, stack, this);
++                }
++            }, // - visitMethod
++    INVOKESPECIAL
++            {
++                @Override
++                @SuppressWarnings("unchecked")
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return new MethodInvocationOperandStack((MethodInvocationInstruction) instruction, stack, this);
++                }
++            },
++    INVOKESTATIC
++            {
++                @Override
++                @SuppressWarnings("unchecked")
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return new MethodInvocationOperandStack((MethodInvocationInstruction) instruction, stack, this);
++                }
++            },
++    INVOKEINTERFACE
++            {
++                @Override
++                @SuppressWarnings("unchecked")
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return new MethodInvocationOperandStack((MethodInvocationInstruction) instruction, stack, this);
++                }
++            },
++    INVOKEDYNAMIC
++            {
++                @Override
++                @SuppressWarnings("unchecked")
++                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
++                {
++                    return new MethodInvocationOperandStack((MethodInvocationInstruction) instruction, stack, this);
++                }
++            },
+     NEW, // visitTypeInsn
+     NEWARRAY, // visitIntInsn
+     ANEWARRAY, // visitTypeInsn
