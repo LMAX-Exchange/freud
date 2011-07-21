@@ -815,6 +815,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -841,6 +842,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -849,6 +851,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -857,6 +860,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -865,6 +869,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -1450,6 +1455,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -1458,6 +1464,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -1554,6 +1561,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -1703,6 +1711,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // NOT VISITED
@@ -1741,6 +1750,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -1749,6 +1759,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }; //

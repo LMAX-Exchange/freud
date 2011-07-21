@@ -70,6 +70,11 @@ public final class AsmClassFileParser implements ResourceParser<ClassFile>, AsmC
             final AsmClassFileFactory visitor = new AsmClassFileFactory(this);
             final ClassReader reader = new ClassReader(inputStream);
             visitor.clear();
+
+System.out.println("**********************************************************************");
+System.out.println(resourceIdentifier);
+System.out.println("**********************************************************************");
+
             reader.accept(visitor, 0);
             return addToCacheAndReturn(visitor.getClassFile());
         }
