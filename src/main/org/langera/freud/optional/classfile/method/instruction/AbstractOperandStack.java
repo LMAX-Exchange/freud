@@ -9,6 +9,24 @@ public abstract class AbstractOperandStack implements OperandStack
         {
             throw new IllegalStateException("cannot pop an empty stack");
         }
+
+        @Override
+        public OperandStack next()
+        {
+            throw new IllegalStateException("cannot pop an empty stack");
+        }
+
+        @Override
+        public OperandStack dup(final OperandStack next, final Opcode opcode)
+        {
+            throw new UnsupportedOperationException("Cannot duplicate empty stack");
+        }
+
+        @Override
+        public int depth()
+        {
+            return 0;
+        }
     };
 
     private final OperandStack next;
@@ -24,13 +42,9 @@ public abstract class AbstractOperandStack implements OperandStack
     protected abstract String getTypeForCurrentOperandStackItem();
 
     @Override
-    public String getOperandType(final int index)
+    public String getOperandType()
     {
-        if (index == 0)
-        {
-            return getTypeForCurrentOperandStackItem();
-        }
-        return next.getOperandType(index - 1);
+        return getTypeForCurrentOperandStackItem();
     }
 
     @Override
@@ -40,8 +54,14 @@ public abstract class AbstractOperandStack implements OperandStack
     }
 
     @Override
-    public Opcode generatingOpcode()
+    public Opcode getGeneratingOpcode()
     {
         return opcode;
+    }
+
+    @Override
+    public int depth()
+    {
+        return 1 + next.depth();
     }
 }

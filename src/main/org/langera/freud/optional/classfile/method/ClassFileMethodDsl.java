@@ -20,7 +20,7 @@ public final class ClassFileMethodDsl
         // static utility
     }
 
-    private static final String[] EMPTY_ARGS = new String[]{""};
+    private static final String[] EMPTY_ARGS = new String[0];
 
     public static FreudMatcher<ClassFileMethod> hasMethodInvocation
             (final Class expectedOwner, final String expectedMethodName, final Class... expectedParamsDeclared)
@@ -43,7 +43,7 @@ public final class ClassFileMethodDsl
             @Override
             protected boolean matchesSafely(final ClassFileMethod item)
             {
-                final boolean[] found = new boolean[1];
+                final boolean[] found = new boolean[] {false};
                 found[0] = false;
                 item.findInstruction(new AbstractInstructionVisitor()
                 {
@@ -94,9 +94,10 @@ public final class ClassFileMethodDsl
                         if (!found[0] && expectedOwnerName.equals(owner) &&
                                 expectedMethodName.equals(methodName))
                         {
-                            OperandStack operandStack = instruction.getOperandStack();
+                            Instruction prevInstruction = item.getInstruction(instruction.getInstructionIndex() - 1);
+                            OperandStack operandStack = prevInstruction.getOperandStack();
                             found[0] = true;
-                            for (int i = expectedParamsPassed.length - 1; operandStack.next() != null && i >= 0; i--)
+                            for (int i = expectedParamsPassed.length - 1; i >= 0; i--)
                             {
                                 Matcher<OperandStack> matcher = expectedParamsPassed[i];
                                 if (!matcher.matches(operandStack))
@@ -129,7 +130,7 @@ public final class ClassFileMethodDsl
             @Override
             protected boolean matchesSafely(final OperandStack item)
             {
-                return expectedType.equals(item.getOperandType(0));
+                return expectedType.equals(item.getOperandType());
             }
 
             @Override
@@ -149,8 +150,8 @@ public final class ClassFileMethodDsl
             @Override
             protected boolean matchesSafely(final OperandStack item)
             {
-                return expectedType.equals(item.getOperandType(0)) &&
-                        item.generatingOpcode().isConstant();
+                return expectedType.equals(item.getOperandType()) &&
+                        item.getGeneratingOpcode().isConstant();
             }
 
             @Override
@@ -161,7 +162,6 @@ public final class ClassFileMethodDsl
         };
     }
 
-    // TODO - follow prev instruction and use Static operand stack
     public static FreudMatcher<OperandStack> castOf(final Class<?> aClass)
     {
         return new FreudMatcher<OperandStack>()

@@ -1,6 +1,7 @@
 package org.langera.freud.core.iterator;
 
 import org.langera.freud.core.FreudException;
+import org.langera.freud.core.listener.AnalysisListener;
 
 public final class SubTypeAnalysedObjectIterator<S,T> extends AbstractAnalysedObjectIterator<T>
 {
@@ -18,6 +19,13 @@ public final class SubTypeAnalysedObjectIterator<S,T> extends AbstractAnalysedOb
         this.superTypeIterator = superTypeIterator;
         this.iteratorBuilder = iteratorBuilder;
         this.alertOnEmptyIterator = superTypeIterator.isAlertOnEmptyIterator();
+    }
+
+    @Override
+    public void setListener(final AnalysisListener listener)
+    {
+        super.setListener(listener);
+        superTypeIterator.setListener(listener);
     }
 
     @Override

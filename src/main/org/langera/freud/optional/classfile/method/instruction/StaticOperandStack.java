@@ -15,4 +15,10 @@ public final class StaticOperandStack extends AbstractOperandStack
     {
         return type;
     }
+
+    @Override
+    public OperandStack dup(final OperandStack next, final Opcode opcode)
+    {
+        return new StaticOperandStack(type, next, opcode);
+    }
 }

@@ -4,6 +4,7 @@ import org.langera.freud.optional.classfile.ClassFileInnerClass;
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
 import org.langera.freud.optional.classfile.method.LocalVariable;
 import org.langera.freud.optional.classfile.method.instruction.AbstractOperandStack;
+import org.langera.freud.optional.classfile.method.instruction.ConstInstruction;
 import org.langera.freud.optional.classfile.method.instruction.FieldInstruction;
 import org.langera.freud.optional.classfile.method.instruction.Instruction;
 import org.langera.freud.optional.classfile.method.instruction.InstructionVisitor;
@@ -14,7 +15,6 @@ import org.langera.freud.optional.classfile.method.instruction.MethodInvocationI
 import org.langera.freud.optional.classfile.method.instruction.Opcode;
 import org.langera.freud.optional.classfile.method.instruction.OperandStack;
 import org.langera.freud.optional.classfile.method.instruction.ReferenceOperandInstruction;
-import org.langera.freud.optional.classfile.method.instruction.ConstInstruction;
 import org.langera.freud.optional.classfile.method.instruction.VarInstruction;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
@@ -248,7 +248,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitTypeInsn(final int opcodeUsed, final String type)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
-        final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, type.toString());
+        final String operandType = "L" + type  + ";";
+        final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, operandType);
         instructionList.add(instruction);
         currentOperandStack = instruction.getOperandStack();
     }
@@ -273,7 +274,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
         if (matcher.matches())
         {
-            String[] args = matcher.group(1).split(",");
+            final String argsAsString = matcher.group(1);
+            String[] args = parseArgs(argsAsString);
             String returnType = matcher.group(2);
             final Instruction instruction = new MethodInvocationInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
                     "L" + owner + ";", name, args, returnType);
@@ -413,6 +415,22 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     ////////////////////////////////////////////////////////////////////////
 
+    private String[] parseArgs(final String argsAsString)
+    {
+        List<String> args = new ArrayList<String>();
+        final int len = argsAsString.length();
+        int ptr = 0;
+        for (int i = 0; i < len; i++)
+        {
+            final char c = argsAsString.charAt(i);
+            if (c == ';')
+            {
+                args.add(argsAsString.substring(ptr, i + 1));
+                ptr = i + 1;
+            }
+        }
+        return args.toArray(new String[args.size()]);
+    }
 
     private Label declareLabel(final org.objectweb.asm.Label asmLabel)
     {

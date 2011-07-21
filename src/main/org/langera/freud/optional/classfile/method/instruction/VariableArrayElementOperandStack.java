@@ -18,6 +18,12 @@ public final class VariableArrayElementOperandStack extends AbstractOperandStack
 
     public String getArrayType()
     {
-        return arrayOperand.getOperandType(0);
+        return arrayOperand.getOperandType();
+    }
+
+    @Override
+    public OperandStack dup(final OperandStack next, final Opcode opcode)
+    {
+        return new VariableArrayElementOperandStack(arrayOperand, next, opcode);
     }
 }

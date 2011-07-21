@@ -4,7 +4,14 @@ import org.langera.freud.optional.classfile.method.ClassFileMethod;
 
 public enum Opcode
 {
-    NOP, // visitInsn
+    NOP
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return stack;
+                }
+
+            }, // visitInsn
     ACONST_NULL
             {
                 @Override
@@ -531,50 +538,347 @@ public enum Opcode
                     return new StaticOperandStack("S", stack.next().next(), this);
                 }
             }, // -
-    ISTORE, // visitVarInsn
-    LSTORE, // -
-    FSTORE, // -
-    DSTORE, // -
-    ASTORE, // -
-    ISTORE_0, // -
-    ISTORE_1, // -
-    ISTORE_2, // -
-    ISTORE_3, // -
-    LSTORE_0, // -
-    LSTORE_1, // -
-    LSTORE_2, // -
-    LSTORE_3, // -
-    FSTORE_0, // -
-    FSTORE_1, // -
-    FSTORE_2, // -
-    FSTORE_3, // -
-    DSTORE_0, // -
-    DSTORE_1, // -
-    DSTORE_2, // -
-    DSTORE_3, // -
-    ASTORE_0, // -
-    ASTORE_1, // -
-    ASTORE_2, // -
-    ASTORE_3, // -
-    IASTORE, // visitInsn
-    LASTORE, // -
-    FASTORE, // -
-    DASTORE, // -
-    AASTORE, // -
-    BASTORE, // -
-    CASTORE, // -
-    SASTORE, // -
-    POP, // -
-    POP2, // -
-    DUP, // -
-    DUP_X1, // -
-    DUP_X2, // -
-    DUP2, // -
-    DUP2_X1, // -
-    DUP2_X2, // -
-    SWAP, // -
-    IADD
+    ISTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    return stack.next();
+                }
+            }, // visitVarInsn
+    LSTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    FSTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    DSTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ISTORE_0
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ISTORE_1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ISTORE_2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ISTORE_3
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    LSTORE_0
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    LSTORE_1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    LSTORE_2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    LSTORE_3
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    FSTORE_0
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    FSTORE_1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    FSTORE_2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    FSTORE_3
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    DSTORE_0
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    DSTORE_1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    DSTORE_2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    DSTORE_3
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ASTORE_0
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ASTORE_1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ASTORE_2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ASTORE_3
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    IASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // visitInsn
+    LASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    FASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    DASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    AASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    BASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    CASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    SASTORE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next().next();
+                }
+            }, // -
+    POP
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    POP2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    DUP
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.dup(stack, this);
+                }
+            }, // -
+    DUP_X1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final OperandStack x1 = stack.next();
+                    final OperandStack duplicatedOperand = stack.dup(x1.next(), this);
+                    return stack.dup(x1.dup(duplicatedOperand, x1.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                }
+            }, // -
+    DUP_X2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    DUP2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    DUP2_X1
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    DUP2_X2
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    SWAP
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final OperandStack x1 = stack.next();
+                    return x1.dup(stack.dup(x1.next(), stack.getGeneratingOpcode()), x1.getGeneratingOpcode());
+                }
+            }, // -
+    IADD
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -582,7 +886,7 @@ public enum Opcode
                 }
             }, // -
     LADD
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -590,7 +894,7 @@ public enum Opcode
                 }
             }, // -
     FADD
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -598,7 +902,7 @@ public enum Opcode
                 }
             }, // -
     DADD
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -614,7 +918,7 @@ public enum Opcode
                 }
             }, // -
     LSUB
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -622,7 +926,7 @@ public enum Opcode
                 }
             }, // -
     FSUB
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -630,7 +934,7 @@ public enum Opcode
                 }
             }, // -
     DSUB
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -638,7 +942,7 @@ public enum Opcode
                 }
             }, // -
     IMUL
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -646,7 +950,7 @@ public enum Opcode
                 }
             }, // -
     LMUL
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -654,7 +958,7 @@ public enum Opcode
                 }
             }, // -
     FMUL
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -662,7 +966,7 @@ public enum Opcode
                 }
             }, // -
     DMUL
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -670,7 +974,7 @@ public enum Opcode
                 }
             }, // -
     IDIV
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -678,7 +982,7 @@ public enum Opcode
                 }
             }, // -
     LDIV
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -686,7 +990,7 @@ public enum Opcode
                 }
             }, // -
     FDIV
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -694,19 +998,47 @@ public enum Opcode
                 }
             }, // -
     DDIV
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return new StaticOperandStack("D", stack.next().next(), this);
                 }
             }, // -
-    IREM, // -
-    LREM, // -
-    FREM, // -
-    DREM, // -
-    INEG
+    IREM
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LREM
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    FREM
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("F", stack.next().next(), this);
+                }
+            }, // -
+    DREM
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("D", stack.next().next(), this);
+                }
+            }, // -
+    INEG
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -714,7 +1046,7 @@ public enum Opcode
                 }
             }, // -
     LNEG
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -722,7 +1054,7 @@ public enum Opcode
                 }
             }, // -
     FNEG
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
@@ -730,26 +1062,117 @@ public enum Opcode
                 }
             }, // -
     DNEG
-                {
+            {
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return new StaticOperandStack("D", stack.next(), this);
                 }
             }, // -
-    ISHL, // -
-    LSHL, // -
-    ISHR, // -
-    LSHR, // -
-    IUSHR, // -
-    LUSHR, // -
-    IAND, // -
-    LAND, // -
-    IOR, // -
-    LOR, // -
-    IXOR, // -
-    LXOR, // -
-    IINC, // visitIincInsn
+    ISHL
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+
+            }, // -
+    LSHL
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+
+            }, // -
+    ISHR
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+
+            }, // -
+    LSHR
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+
+            }, // -
+    IUSHR
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+
+            }, // -
+    LUSHR
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+
+            }, // -
+    IAND
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+
+            }, // -
+    LAND
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+
+            }, // -
+    IOR
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LOR
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    IXOR
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this);
+                }
+            }, // -
+    LXOR
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("J", stack.next().next(), this);
+                }
+            }, // -
+    IINC
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return stack;
+                }
+
+            }, // visitIincInsn
     I2L
             {
                 @Override
@@ -870,48 +1293,362 @@ public enum Opcode
                     return new CastOperandStack("I", "S", stack.next(), this);
                 }
             }, // -
-    LCMP, // -
-    FCMPL, // -
-    FCMPG, // -
-    DCMPL, // -
-    DCMPG, // -
-    IFEQ, // visitJumpInsn
-    IFNE, // -
-    IFLT, // -
-    IFGE, // -
-    IFGT, // -
-    IFLE, // -
-    IF_ICMPEQ, // -
-    IF_ICMPNE, // -
-    IF_ICMPLT, // -
-    IF_ICMPGE, // -
-    IF_ICMPGT, // -
-    IF_ICMPLE, // -
-    IF_ACMPEQ, // -
-    IF_ACMPNE, // -
-    GOTO, // -
-    JSR, // -
-    RET, // visitVarInsn
-    TABLESWITCH, // visiTableSwitchInsn
-    LOOKUPSWITCH, // visitLookupSwitch
-    IRETURN, // visitInsn
-    LRETURN, // -
-    FRETURN, // -
-    DRETURN, // -
-    ARETURN, // -
-    RETURN, // -
-    GETSTATIC, // visitFieldInsn
-    PUTSTATIC, // -
-    GETFIELD, // -
-    PUTFIELD, // -
-    INVOKEVIRTUAL, // - visitMethod
-    INVOKESPECIAL,
-    INVOKESTATIC,
-    INVOKEINTERFACE,
-    INVOKEDYNAMIC,
-    NEW, // visitTypeInsn
-    NEWARRAY, // visitIntInsn
-    ANEWARRAY, // visitTypeInsn
+    LCMP
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this); // int is correct here
+                }
+
+            }, // -
+    FCMPL
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this); // int is correct here
+                }
+
+            }, // -
+    FCMPG
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this); // int is correct here
+                }
+
+            }, // -
+    DCMPL
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this); // int is correct here
+                }
+
+            }, // -
+    DCMPG
+            {
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next().next(), this); // int is correct here
+                }
+
+            }, // -
+    IFEQ
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // visitJumpInsn
+    IFNE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    IFLT
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    IFGE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    IFGT
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    IFLE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    IF_ICMPEQ
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ICMPNE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ICMPLT
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ICMPGE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ICMPGT
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ICMPLE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ACMPEQ
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    IF_ACMPNE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    GOTO
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    JSR
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    RET
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack;
+                }
+            }, // visitVarInsn
+    TABLESWITCH
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // visiTableSwitchInsn
+    LOOKUPSWITCH
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // visitLookupSwitch
+    IRETURN
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // visitInsn
+    LRETURN
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    FRETURN
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    DRETURN
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    ARETURN
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    RETURN
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return AbstractOperandStack.EMPTY_STACK;
+                }
+            }, // -
+    GETSTATIC
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack(instruction.getDesc(), stack, this);
+                }
+            }, // visitFieldInsn
+    PUTSTATIC
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    GETFIELD
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    PUTFIELD
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next().next();
+                }
+            }, // -
+    INVOKEVIRTUAL
+            {
+                @Override
+                @SuppressWarnings("unchecked")
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final MethodInvocationInstruction methodInstruction = (MethodInvocationInstruction) instruction;
+                    return ("V".equals(methodInstruction.getReturnType())) ?
+                            MethodInvocationOperandStack.popStack(methodInstruction, stack) :
+                            new MethodInvocationOperandStack(methodInstruction, stack, this);
+                }
+            }, // - visitMethod
+    INVOKESPECIAL
+            {
+                @Override
+                @SuppressWarnings("unchecked")
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final MethodInvocationInstruction methodInstruction = (MethodInvocationInstruction) instruction;
+                    return ("V".equals(methodInstruction.getReturnType())) ?
+                            MethodInvocationOperandStack.popStack(methodInstruction, stack) :
+                            new MethodInvocationOperandStack(methodInstruction, stack, this);
+                }
+            },
+    INVOKESTATIC
+            {
+                @Override
+                @SuppressWarnings("unchecked")
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final MethodInvocationInstruction methodInstruction = (MethodInvocationInstruction) instruction;
+                    return ("V".equals(methodInstruction.getReturnType())) ?
+                            MethodInvocationOperandStack.popStack(methodInstruction, stack) :
+                            new MethodInvocationOperandStack(methodInstruction, stack, this);
+                }
+            },
+    INVOKEINTERFACE
+            {
+                @Override
+                @SuppressWarnings("unchecked")
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final MethodInvocationInstruction methodInstruction = (MethodInvocationInstruction) instruction;
+                    return ("V".equals(methodInstruction.getReturnType())) ?
+                            MethodInvocationOperandStack.popStack(methodInstruction, stack) :
+                            new MethodInvocationOperandStack(methodInstruction, stack, this);
+                }
+            },
+    INVOKEDYNAMIC
+            {
+                @Override
+                @SuppressWarnings("unchecked")
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final MethodInvocationInstruction methodInstruction = (MethodInvocationInstruction) instruction;
+                    return ("V".equals(methodInstruction.getReturnType())) ?
+                            MethodInvocationOperandStack.popStack(methodInstruction, stack) :
+                            new MethodInvocationOperandStack(methodInstruction, stack, this);
+                }
+            },
+    NEW
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack(instruction.getOperandType(), stack, this);
+                }
+            }, // visitTypeInsn
+    NEWARRAY
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("[" + instruction.getOperandType(), stack.next(), this);
+                }
+            }, // visitIntInsn
+    ANEWARRAY
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("[" + instruction.getOperandType(), stack.next(), this);
+                }
+            }, // visitTypeInsn
     ARRAYLENGTH
             {
                 @Override
@@ -921,22 +1658,102 @@ public enum Opcode
                 }
             }, // visitInsn
 
-    ATHROW, // -
-    CHECKCAST, // visitTypeInsn
-    INSTANCEOF, // -
-    MONITORENTER, // visitInsn
-    MONITOREXIT, // -
-    WIDE, // NOT VISITED
-    MULTIANEWARRAY, // visitMultiANewArrayInsn
-    IFNULL, // visitJumpInsn
-    IFNONNULL, // -
-    GOTO_W, // -
-    JSR_W; //
+    ATHROW
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack;
+                }
+            }, // -
+    CHECKCAST
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack;
+                }
+            }, // visitTypeInsn
+    INSTANCEOF
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return new StaticOperandStack("I", stack.next(), this);
+                }
+            }, // -
+    MONITORENTER
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // visitInsn
+    MONITOREXIT
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    WIDE
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // NOT VISITED
+    MULTIANEWARRAY
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    final int dim = instruction.getIntOperand();
+                    OperandStack next = stack;
+                    for (int i = 0; i < dim; i++)
+                    {
+                        next = next.next();
+                    }
+                    return new StaticOperandStack(instruction.getOperandType(), next, this);  // TODO check whether getOperandType is array type or not
+                }
+            }, // visitMultiANewArrayInsn
+    IFNULL
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // visitJumpInsn
+    IFNONNULL
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack.next();
+                }
+            }, // -
+    GOTO_W
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }, // -
+    JSR_W
+            {
+                @Override
+                public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
+                {
+                    return stack; // TODO
+                }
+            }; //
 
-    public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack)
-    {
-        return stack;
-    }
+    public abstract OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack);
 
     public boolean isConstant()
     {

@@ -11,8 +11,8 @@ public final class ReferenceOperandInstruction extends Instruction
     }
 
     public ReferenceOperandInstruction(final ClassFileMethod method, final OperandStack currentOperandStack,
-                                       final int index, final Opcode opcode, final int currentLineNumber, final String operandType, final int varIndex)
+                                       final int index, final Opcode opcode, final int currentLineNumber, final String operandType, final int intOperand)
     {
-        super(method, currentOperandStack, index, opcode, currentLineNumber, null, null, operandType, null, -1, null, varIndex, null, null, null);
+        super(method, currentOperandStack, index, opcode, currentLineNumber, null, null, operandType, null, intOperand, null, -1, null, null, null);
     }
 }

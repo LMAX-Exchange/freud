@@ -26,5 +26,9 @@ public final class LocalVariableOperandStack extends AbstractOperandStack
         return method.getLocalVariable(varIndex);
     }
 
-
+    @Override
+    public OperandStack dup(final OperandStack next, final Opcode opcode)
+    {
+        return new LocalVariableOperandStack(method, varIndex, next, opcode);
+    }
 }

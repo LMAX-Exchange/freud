@@ -130,4 +130,10 @@ public class Instruction
     {
         instructionVisitor.noArgInstruction(this);
     }
+
+    @Override
+    public String toString()
+    {
+        return getClass().getName() + "[" + operandStack + ']';
+    }
 }

@@ -22,4 +22,10 @@ public final class CastOperandStack extends AbstractOperandStack
     {
         return fromType;
     }
+
+    @Override
+    public OperandStack dup(final OperandStack next, final Opcode opcode)
+    {
+        return new CastOperandStack(fromType, toType, next, opcode);
+    }
 }
