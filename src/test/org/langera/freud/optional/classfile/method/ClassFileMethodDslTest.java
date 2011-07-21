@@ -48,6 +48,15 @@ public final class ClassFileMethodDslTest
     }
 
     @Test
+    public void shouldMatchInvokedStaticMethodWithField()
+    {
+        final FreudMatcher<ClassFileMethod> matcher =
+                methodInvokedWithParams(String.class, "valueOf", a(String.class));
+
+        Assert.assertTrue(matcher.matches(getMethod("methodInvocationWithField")));
+    }
+
+    @Test
     public void shouldMatchInvokedStaticMethodWithObjectParam()
     {
         final FreudMatcher<ClassFileMethod> matcher =
@@ -137,5 +146,10 @@ public final class ClassFileMethodDslTest
     private String methodInvocationWithArrayElement(final String[][] array, final int i)
     {
         return String.valueOf(array[7-i][8]);
+    }
+
+    private String methodInvocationWithField()
+    {
+        return String.valueOf(testClass.getName());
     }
 }

@@ -53,7 +53,7 @@ public class Instruction
         this.label = label;
         this.args = args;
         this.returnType = returnType;
-System.out.println(method.getName() + ": " + opcode);
+System.out.println(method.getName() + ": " + opcode + " : " + currentOperandStack.depth());
         operandStack = opcode.updateOperandStack(method, this, currentOperandStack);
     }
 

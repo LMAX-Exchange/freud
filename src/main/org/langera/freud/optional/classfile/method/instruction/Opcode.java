@@ -1455,8 +1455,7 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    return stack;
                 }
             }, // -
     JSR
@@ -1561,8 +1560,7 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    return new StaticOperandStack(instruction.getDesc(), stack.next(), this);
                 }
             }, // -
     PUTFIELD
