@@ -27,6 +27,12 @@ public abstract class AbstractOperandStack implements OperandStack
         {
             return 0;
         }
+
+        @Override
+        protected String toStringInternal()
+        {
+            return "";
+        }
     };
 
     private final OperandStack next;
@@ -64,4 +70,12 @@ public abstract class AbstractOperandStack implements OperandStack
     {
         return 1 + next.depth();
     }
+
+    @Override
+    public final String toString()
+    {
+        return toStringInternal() + "|" + (next == null ? "" : next);
+    }
+
+    protected abstract String toStringInternal();
 }

@@ -17,6 +17,12 @@ public final class StaticOperandStack extends AbstractOperandStack
     }
 
     @Override
+    protected String toStringInternal()
+    {
+        return type;
+    }
+
+    @Override
     public OperandStack dup(final OperandStack next, final Opcode opcode)
     {
         return new StaticOperandStack(type, next, opcode);

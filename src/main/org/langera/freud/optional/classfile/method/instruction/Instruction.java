@@ -2,6 +2,8 @@ package org.langera.freud.optional.classfile.method.instruction;
 
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
 
+import java.util.Arrays;
+
 public class Instruction
 {
     private final int index;
@@ -53,8 +55,9 @@ public class Instruction
         this.label = label;
         this.args = args;
         this.returnType = returnType;
-System.out.println(method.getName() + ": " + opcode + " : " + currentOperandStack.depth());
+        System.out.println("BEFORE " + method.getName() + "#" + opcode + "#" + returnType + "#" + name + Arrays.toString(args) + " : " + currentOperandStack);
         operandStack = opcode.updateOperandStack(method, this, currentOperandStack);
+        System.out.println("AFTER " + method.getName() + "#" + opcode + " : " + operandStack);
     }
 
     public int getInstructionIndex()

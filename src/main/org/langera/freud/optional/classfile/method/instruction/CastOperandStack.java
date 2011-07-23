@@ -18,6 +18,12 @@ public final class CastOperandStack extends AbstractOperandStack
         return fromType;
     }
 
+    @Override
+    protected String toStringInternal()
+    {
+        return "cast to "+toType;
+    }
+
     public String getFromType()
     {
         return fromType;

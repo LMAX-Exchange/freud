@@ -1,5 +1,7 @@
 package org.langera.freud.optional.classfile.method.instruction;
 
+import java.util.Arrays;
+
 public final class MethodInvocationOperandStack extends AbstractOperandStack
 {
     private final MethodInvocationInstruction instruction;
@@ -38,8 +40,14 @@ public final class MethodInvocationOperandStack extends AbstractOperandStack
     }
 
     @Override
+    protected String toStringInternal()
+    {
+        return instruction.getReturnType() + " " + instruction.getName() + Arrays.toString(instruction.getArgs());
+    }
+
+    @Override
     public OperandStack dup(final OperandStack next, final Opcode opcode)
     {
-        return new MethodInvocationOperandStack(instruction, next, opcode);
+        return new StaticOperandStack(instruction.getReturnType(), next, opcode);
     }
 }

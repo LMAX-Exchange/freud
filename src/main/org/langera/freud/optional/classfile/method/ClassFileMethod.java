@@ -40,4 +40,5 @@ public interface ClassFileMethod extends ClassFileElement
     void findInstruction(final InstructionVisitor instructionVisitor);
 
     Instruction getInstruction(int index);
+
 }

@@ -21,9 +21,16 @@ public final class LocalVariableOperandStack extends AbstractOperandStack
         return getLocalVariable().getDesc();
     }
 
+
     public LocalVariable getLocalVariable()
     {
         return method.getLocalVariable(varIndex);
+    }
+
+    @Override
+    protected String toStringInternal()
+    {
+        return "local variable " + varIndex;
     }
 
     @Override

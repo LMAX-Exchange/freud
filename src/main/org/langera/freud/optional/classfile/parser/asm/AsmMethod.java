@@ -15,6 +15,7 @@ import org.langera.freud.optional.classfile.method.instruction.MethodInvocationI
 import org.langera.freud.optional.classfile.method.instruction.Opcode;
 import org.langera.freud.optional.classfile.method.instruction.OperandStack;
 import org.langera.freud.optional.classfile.method.instruction.ReferenceOperandInstruction;
+import org.langera.freud.optional.classfile.method.instruction.StaticOperandStack;
 import org.langera.freud.optional.classfile.method.instruction.VarInstruction;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
@@ -366,7 +367,21 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final int nStack,
             final Object[] stack)
     {
-        // TODO
+        currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+        for (int i = 0; i < nStack; i++)
+        {
+            currentOperandStack = new StaticOperandStack(getTypeForFrameStack(stack[i]), currentOperandStack, null);
+        }
+    }
+
+    private String getTypeForFrameStack(final Object stackItem)
+    {
+        if (stackItem instanceof String)
+        {
+            final String strItem = (String) stackItem;
+            return (strItem.indexOf('/') > -1) ? "L" + strItem + ";" : strItem;
+        }
+        return "L" + stackItem.getClass().getCanonicalName().replace('.', '/') + ";";
     }
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)

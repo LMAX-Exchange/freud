@@ -16,6 +16,12 @@ public final class VariableArrayElementOperandStack extends AbstractOperandStack
         return getArrayType().substring(1);
     }
 
+    @Override
+    protected String toStringInternal()
+    {
+        return "[" + arrayOperand.toString();
+    }
+
     public String getArrayType()
     {
         return arrayOperand.getOperandType();
