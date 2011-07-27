@@ -1,0 +1,189 @@
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/AbstractOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/AbstractOperandStack.java	(revision 49)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/AbstractOperandStack.java	(revision )
+@@ -29,6 +29,12 @@
+         }
+ 
+         @Override
++        public int getComputationalTypeCategory()
++        {
++            return 0;
++        }
++
++        @Override
+         protected String toStringInternal()
+         {
+             return "";
+@@ -45,6 +51,11 @@
+         this.opcode = opcode;
+     }
+ 
++    protected static int calculateComputationalTypeCategory(String type)
++    {
++        return ("J".equals(type) || "D".equals(type)) ? 2 : 1;
++    }
++
+     protected abstract String getTypeForCurrentOperandStackItem();
+ 
+     @Override
+Index: src/main/org/langera/freud/optional/classfile/parser/asm/AsmMethod.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/parser/asm/AsmMethod.java	(revision 49)
++++ src/main/org/langera/freud/optional/classfile/parser/asm/AsmMethod.java	(revision )
+@@ -56,6 +56,7 @@
+ 
+     private int currentLineNumber;
+     private OperandStack currentOperandStack = AbstractOperandStack.EMPTY_STACK;
++    private String[] currentLocals;
+ 
+     public AsmMethod(final AsmClassFile classFile, final int access, final String name, final String desc, final String signature, final String... exceptions)
+     {
+@@ -367,6 +368,12 @@
+             final int nStack,
+             final Object[] stack)
+     {
++        currentLocals = new String[nLocal];
++        for (int i = 0; i < nLocal; i++)
++        {
++            currentLocals[i] = getTypeForFrameStack(local[i]);
++
++        }
+         currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+         for (int i = 0; i < nStack; i++)
+         {
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/OperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/OperandStack.java	(revision 45)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/OperandStack.java	(revision )
+@@ -11,4 +11,6 @@
+     int depth();
+ 
+     OperandStack dup(OperandStack next, final Opcode opcode);
++
++    int getComputationalTypeCategory();
+ }
+Index: src/test/org/langera/examples/classfile/ClassFileExamples.java
+===================================================================
+--- src/test/org/langera/examples/classfile/ClassFileExamples.java	(revision 42)
++++ src/test/org/langera/examples/classfile/ClassFileExamples.java	(revision )
+@@ -64,8 +64,8 @@
+                     {
+                         return name.endsWith(".class");
+                     }
+-//                }, true, "../../java/classes");
+-                }, true, "../trunk/build/classes/");
++                }, true, "../../java/classes");
++//                }, true, "../trunk/build/classes/");
+ //                }, true, "build");
+ 
+         final FreudAnalyser analyser = doNotUseBigDecimalEquals(iterator);
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/MethodInvocationOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/MethodInvocationOperandStack.java	(revision 49)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/MethodInvocationOperandStack.java	(revision )
+@@ -5,11 +5,13 @@
+ public final class MethodInvocationOperandStack extends AbstractOperandStack
+ {
+     private final MethodInvocationInstruction instruction;
++    private final int category;
+ 
+     public MethodInvocationOperandStack(final MethodInvocationInstruction instruction, final OperandStack next, final Opcode opcode)
+     {
+         super(popStack(instruction, next), opcode);
+         this.instruction = instruction;
++        this.category = calculateComputationalTypeCategory(instruction.getReturnType());
+     }
+ 
+     public static OperandStack popStack(final MethodInvocationInstruction instruction, final OperandStack next)
+@@ -34,6 +36,12 @@
+     }
+ 
+     @Override
++    public int getComputationalTypeCategory()
++    {
++        return category;
++    }
++
++    @Override
+     protected String getTypeForCurrentOperandStackItem()
+     {
+         return instruction.getReturnType();
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/StaticOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/StaticOperandStack.java	(revision 49)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/StaticOperandStack.java	(revision )
+@@ -3,11 +3,13 @@
+ public final class StaticOperandStack extends AbstractOperandStack
+ {
+     private final String type;
++    private final int category;
+ 
+     public StaticOperandStack(final String type, final OperandStack next, final Opcode opcode)
+     {
+         super(next, opcode);
+         this.type = type;
++        this.category = calculateComputationalTypeCategory(type);
+     }
+ 
+     @Override
+@@ -27,4 +29,10 @@
+     {
+         return new StaticOperandStack(type, next, opcode);
+     }
++
++    @Override
++    public int getComputationalTypeCategory()
++    {
++        return category;
+-}
++    }
++}
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/VariableArrayElementOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/VariableArrayElementOperandStack.java	(revision 49)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/VariableArrayElementOperandStack.java	(revision )
+@@ -28,6 +28,12 @@
+     }
+ 
+     @Override
++    public int getComputationalTypeCategory()
++    {
++        return 1;
++    }
++
++    @Override
+     public OperandStack dup(final OperandStack next, final Opcode opcode)
+     {
+         return new VariableArrayElementOperandStack(arrayOperand, next, opcode);
+Index: src/main/org/langera/freud/optional/classfile/method/instruction/CastOperandStack.java
+===================================================================
+--- src/main/org/langera/freud/optional/classfile/method/instruction/CastOperandStack.java	(revision 49)
++++ src/main/org/langera/freud/optional/classfile/method/instruction/CastOperandStack.java	(revision )
+@@ -4,12 +4,14 @@
+ {
+     private final String fromType;
+     private final String toType;
++    private final int category;
+ 
+     public CastOperandStack(final String fromType, final String toType, final OperandStack next, final Opcode opcode)
+     {
+         super(next, opcode);
+         this.fromType = fromType;
+         this.toType = toType;
++        this.category = calculateComputationalTypeCategory(toType);
+     }
+ 
+     @Override
+@@ -34,4 +36,10 @@
+     {
+         return new CastOperandStack(fromType, toType, next, opcode);
+     }
++
++    @Override
++    public int getComputationalTypeCategory()
++    {
++        return category;
+-}
++    }
++}
