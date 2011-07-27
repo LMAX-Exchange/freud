@@ -7,12 +7,14 @@ public final class LocalVariableOperandStack extends AbstractOperandStack
 {
     private final ClassFileMethod method;
     private final int varIndex;
+    private final int category;
 
     public LocalVariableOperandStack(final ClassFileMethod method, final int varIndex, final OperandStack next, final Opcode opcode)
     {
         super(next, opcode);
         this.varIndex = varIndex;
         this.method = method;
+        this.category = calculateComputationalTypeCategory(method.getLocalVariableType(varIndex));
     }
 
     @Override
@@ -31,6 +33,12 @@ public final class LocalVariableOperandStack extends AbstractOperandStack
     protected String toStringInternal()
     {
         return "local variable " + varIndex;
+    }
+
+    @Override
+    public int getComputationalTypeCategory()
+    {
+        return category;
     }
 
     @Override

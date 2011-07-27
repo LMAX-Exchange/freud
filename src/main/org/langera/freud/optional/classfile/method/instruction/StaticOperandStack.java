@@ -3,11 +3,13 @@ package org.langera.freud.optional.classfile.method.instruction;
 public final class StaticOperandStack extends AbstractOperandStack
 {
     private final String type;
+    private final int category;
 
     public StaticOperandStack(final String type, final OperandStack next, final Opcode opcode)
     {
         super(next, opcode);
         this.type = type;
+        this.category = calculateComputationalTypeCategory(type);
     }
 
     @Override
@@ -26,5 +28,11 @@ public final class StaticOperandStack extends AbstractOperandStack
     public OperandStack dup(final OperandStack next, final Opcode opcode)
     {
         return new StaticOperandStack(type, next, opcode);
+    }
+
+    @Override
+    public int getComputationalTypeCategory()
+    {
+        return category;
     }
 }

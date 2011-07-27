@@ -28,6 +28,12 @@ public final class VariableArrayElementOperandStack extends AbstractOperandStack
     }
 
     @Override
+    public int getComputationalTypeCategory()
+    {
+        return 1;
+    }
+
+    @Override
     public OperandStack dup(final OperandStack next, final Opcode opcode)
     {
         return new VariableArrayElementOperandStack(arrayOperand, next, opcode);

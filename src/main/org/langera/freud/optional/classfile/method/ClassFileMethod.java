@@ -41,4 +41,7 @@ public interface ClassFileMethod extends ClassFileElement
 
     Instruction getInstruction(int index);
 
+    String getReturnType();
+
+    String getLocalVariableType(int index);
 }

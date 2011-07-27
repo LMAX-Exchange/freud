@@ -56,6 +56,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     private int currentLineNumber;
     private OperandStack currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+    private String[] currentLocals;
+    private String returnType;
 
     public AsmMethod(final AsmClassFile classFile, final int access, final String name, final String desc, final String signature, final String... exceptions)
     {
@@ -76,6 +78,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             }
         }
         classFile.addMethod(this);
+        initLocals(desc, "L" + classFile.getName() + ";");
         this.currentLineNumber = -1;
     }
 
@@ -86,6 +89,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         {
             instruction.visit(instructionVisitor);
         }
+    }
+
+    @Override
+    public String getReturnType()
+    {
+        return returnType;
     }
 
     @Override
@@ -118,6 +127,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             }
         }
         return null;
+    }
+
+    @Override
+    public String getLocalVariableType(final int index)
+    {
+        return "I"; //currentLocals[index];
     }
 
     @Override
@@ -249,7 +264,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitTypeInsn(final int opcodeUsed, final String type)
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
-        final String operandType = "L" + type  + ";";
+        final String operandType = "L" + type + ";";
         final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, operandType);
         instructionList.add(instruction);
         currentOperandStack = instruction.getOperandStack();
@@ -276,8 +291,10 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         if (matcher.matches())
         {
             final String argsAsString = matcher.group(1);
-            String[] args = parseArgs(argsAsString);
+            final ArrayList<String> argsContainer = new ArrayList<String>();
             String returnType = matcher.group(2);
+            parseArgs(argsAsString, argsContainer);
+            String[] args = argsContainer.toArray(new String[argsContainer.size()]);
             final Instruction instruction = new MethodInvocationInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
                     "L" + owner + ";", name, args, returnType);
             instructionList.add(instruction);
@@ -367,21 +384,49 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final int nStack,
             final Object[] stack)
     {
-        currentOperandStack = AbstractOperandStack.EMPTY_STACK;
-        for (int i = 0; i < nStack; i++)
+        final FrameType frameType = FrameType.getFrameType(type);
+        String[] temp;
+        switch (frameType)
         {
-            currentOperandStack = new StaticOperandStack(getTypeForFrameStack(stack[i]), currentOperandStack, null);
-        }
-    }
+            case F_SAME:
+                currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+                break;
+            case F_SAME1:
+                currentOperandStack = new StaticOperandStack(getTypeFromFrame(stack[0]), AbstractOperandStack.EMPTY_STACK, null);
+                break;
+            case F_APPEND:
+                currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+                final int ptr = currentLocals.length;
+                temp = new String[ptr + nLocal];
+                System.arraycopy(currentLocals, 0, temp, 0, currentLocals.length);
+                currentLocals = temp;
+                for (int i = 0; i < nLocal; i++)
+                {
+                    currentLocals[i + ptr] = getTypeFromFrame(local[i]);
+                }
+                break;
+            case F_CHOP:
+                currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+                temp = new String[currentLocals.length - nLocal];
+                System.arraycopy(currentLocals, 0, temp, 0, currentLocals.length - nLocal);
+                currentLocals = temp;
+                break;
+            case F_FULL:
+                currentLocals = new String[nLocal];
+                for (int i = 0; i < nLocal; i++)
+                {
+                    currentLocals[i] = getTypeFromFrame(local[i]);
 
-    private String getTypeForFrameStack(final Object stackItem)
-    {
-        if (stackItem instanceof String)
-        {
-            final String strItem = (String) stackItem;
-            return (strItem.indexOf('/') > -1) ? "L" + strItem + ";" : strItem;
+                }
+                currentOperandStack = AbstractOperandStack.EMPTY_STACK;
+                for (int i = 0; i < nStack; i++)
+                {
+                    currentOperandStack = new StaticOperandStack(getTypeFromFrame(stack[i]), currentOperandStack, null);
+                }
+                break;
+            case F_NEW:
+                break;
         }
-        return "L" + stackItem.getClass().getCanonicalName().replace('.', '/') + ";";
     }
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)
@@ -422,6 +467,62 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         // no op
     }
 
+    private String getTypeFromFrame(final Object item)
+    {
+        if (item instanceof String)
+        {
+            final String strItem = (String) item;
+            return (strItem.indexOf('/') > -1) ? "L" + strItem + ";" : strItem;
+        }
+        else if (item instanceof org.objectweb.asm.Label)
+        {
+            return "Ljava/lang/Object;";
+        }
+        else if (item instanceof Integer)
+        {
+            final FrameValueType valueType = FrameValueType.getFrameValueType((Integer) item);
+            switch (valueType)
+            {
+                case TOP:
+                case NULL:
+                case UNINITIALIZED_THIS:
+                    return "Ljava/lang/Object;";
+                case INTEGER:
+                    return "I";
+                case FLOAT:
+                    return "F";
+                case LONG:
+                    return "J";
+                case DOUBLE:
+                    return "D";
+                default:
+                    throw new IllegalArgumentException("frame item " + item);
+            }
+        }
+        else
+        {
+            throw new IllegalArgumentException("frame item " + item);
+        }
+    }
+
+    private void initLocals(final String desc, final String classType)
+    {
+        final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
+        if (matcher.matches())
+        {
+            final String paramsAsString = matcher.group(1);
+            final ArrayList<String> paramsContainer = new ArrayList<String>();
+            paramsContainer.add(classType);
+            parseArgs(paramsAsString, paramsContainer);
+            currentLocals = paramsContainer.toArray(new String[paramsContainer.size()]);
+            returnType = matcher.group(2);
+        }
+        else
+        {
+            throw new IllegalArgumentException("desc " + desc);
+        }
+    }
+
     @Override
     public String toString()
     {
@@ -430,21 +531,35 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     ////////////////////////////////////////////////////////////////////////
 
-    private String[] parseArgs(final String argsAsString)
+    private void parseArgs(final String argsAsString, final List<String> args)
     {
-        List<String> args = new ArrayList<String>();
         final int len = argsAsString.length();
         int ptr = 0;
         for (int i = 0; i < len; i++)
         {
             final char c = argsAsString.charAt(i);
-            if (c == ';')
+            switch (c)
             {
-                args.add(argsAsString.substring(ptr, i + 1));
-                ptr = i + 1;
+                case ';':
+                    args.add(argsAsString.substring(ptr, i + 1));
+                    ptr = i + 1;
+                    break;
+                case 'B':
+                case 'C':
+                case 'D':
+                case 'F':
+                case 'I':
+                case 'J':
+                case 'S':
+                case 'Z':
+                    if (ptr == i - 1)
+                    {
+                        args.add(String.valueOf(c));
+                        ptr = i + 1;
+                    }
+                    break;
             }
         }
-        return args.toArray(new String[args.size()]);
     }
 
     private Label declareLabel(final org.objectweb.asm.Label asmLabel)
@@ -474,5 +589,65 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Label label = Label.createDefaultLookupKey(instructionList.size());
         final Label oldLabel = labelByAsmLabelMap.put(asmLabel, label);
         return (oldLabel != null) ? oldLabel : label;
+    }
+
+    private enum FrameValueType
+    {
+        TOP(Opcodes.TOP),
+        INTEGER(Opcodes.INTEGER),
+        FLOAT(Opcodes.FLOAT),
+        LONG(Opcodes.LONG),
+        DOUBLE(Opcodes.DOUBLE),
+        NULL(Opcodes.NULL),
+        UNINITIALIZED_THIS(Opcodes.UNINITIALIZED_THIS);
+
+        private final int asmValue;
+
+        FrameValueType(final int asmValue)
+        {
+            this.asmValue = asmValue;
+        }
+
+        public static FrameValueType getFrameValueType(final int asmValue)
+        {
+            for (FrameValueType valueType : FrameValueType.values())
+            {
+                if (valueType.asmValue == asmValue)
+                {
+                    return valueType;
+                }
+            }
+            throw new IllegalArgumentException("Unknown frame value type " + asmValue);
+        }
+    }
+
+    private enum FrameType
+    {
+        F_NEW(Opcodes.F_NEW),
+        F_FULL(Opcodes.F_FULL),
+        F_APPEND(Opcodes.F_APPEND),
+        F_CHOP(Opcodes.F_CHOP),
+        F_SAME(Opcodes.F_SAME),
+        F_SAME1(Opcodes.F_SAME1);
+
+        private final int asmValue;
+
+        FrameType(final int asmValue)
+        {
+            this.asmValue = asmValue;
+        }
+
+        public static FrameType getFrameType(final int asmValue)
+        {
+            for (FrameType type : FrameType.values())
+            {
+                if (type.asmValue == asmValue)
+                {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Unknown frame type " + asmValue);
+        }
+
     }
 }

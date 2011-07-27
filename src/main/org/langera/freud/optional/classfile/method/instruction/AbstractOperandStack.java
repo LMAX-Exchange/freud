@@ -29,6 +29,12 @@ public abstract class AbstractOperandStack implements OperandStack
         }
 
         @Override
+        public int getComputationalTypeCategory()
+        {
+            return 0;
+        }
+
+        @Override
         protected String toStringInternal()
         {
             return "";
@@ -43,6 +49,11 @@ public abstract class AbstractOperandStack implements OperandStack
     {
         this.next = next;
         this.opcode = opcode;
+    }
+
+    protected static int calculateComputationalTypeCategory(String type)
+    {
+        return ("J".equals(type) || "D".equals(type)) ? 2 : 1;
     }
 
     protected abstract String getTypeForCurrentOperandStackItem();

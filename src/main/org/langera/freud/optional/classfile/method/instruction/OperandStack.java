@@ -11,4 +11,6 @@ public interface OperandStack
     int depth();
 
     OperandStack dup(OperandStack next, final Opcode opcode);
+
+    int getComputationalTypeCategory();
 }

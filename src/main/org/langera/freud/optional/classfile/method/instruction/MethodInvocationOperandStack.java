@@ -5,11 +5,13 @@ import java.util.Arrays;
 public final class MethodInvocationOperandStack extends AbstractOperandStack
 {
     private final MethodInvocationInstruction instruction;
+    private final int category;
 
     public MethodInvocationOperandStack(final MethodInvocationInstruction instruction, final OperandStack next, final Opcode opcode)
     {
         super(popStack(instruction, next), opcode);
         this.instruction = instruction;
+        this.category = calculateComputationalTypeCategory(instruction.getReturnType());
     }
 
     public static OperandStack popStack(final MethodInvocationInstruction instruction, final OperandStack next)
@@ -31,6 +33,12 @@ public final class MethodInvocationOperandStack extends AbstractOperandStack
             stack = stack.next();
         }
         return stack;
+    }
+
+    @Override
+    public int getComputationalTypeCategory()
+    {
+        return category;
     }
 
     @Override

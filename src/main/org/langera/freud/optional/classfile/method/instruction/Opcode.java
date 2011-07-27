@@ -575,7 +575,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                   return stack.next();
+                    return stack.next();
                 }
             }, // -
     ISTORE_0
@@ -815,7 +815,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-System.out.println("TODO");
+                    System.out.println("TODO");
                     return stack; // TODO
                 }
             }, // -
@@ -832,9 +832,9 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    final OperandStack x1 = stack.next();
-                    final OperandStack duplicatedOperand = stack.dup(x1.next(), this);
-                    return stack.dup(x1.dup(duplicatedOperand, x1.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                    final OperandStack second = stack.next();
+                    final OperandStack duplicatedOperand = stack.dup(second.next(), this);
+                    return stack.dup(second.dup(duplicatedOperand, second.getGeneratingOpcode()), stack.getGeneratingOpcode());
                 }
             }, // -
     DUP_X2
@@ -842,8 +842,18 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    final OperandStack second = stack.next();
+                    if (second.getComputationalTypeCategory() == 2)
+                    {
+                        final OperandStack duplicatedOperand = stack.dup(second.next(), this);
+                        return stack.dup(second.dup(duplicatedOperand, second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                    }
+                    else
+                    {
+                        final OperandStack third = second.next();
+                        final OperandStack duplicatedOperand = stack.dup(third.next(), this);
+                        return stack.dup(second.dup(third.dup(duplicatedOperand, third.getGeneratingOpcode()), second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                    }
                 }
             }, // -
     DUP2
@@ -851,8 +861,16 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    if (stack.getComputationalTypeCategory() == 2)
+                    {
+                        return stack.dup(stack, this);
+                    }
+                    else
+                    {
+                        final OperandStack second = stack.next();
+                        final OperandStack duplicatedOperand1 = second.dup(stack, this);
+                        return stack.dup(duplicatedOperand1, this);
+                    }
                 }
             }, // -
     DUP2_X1
@@ -860,8 +878,20 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    if (stack.getComputationalTypeCategory() == 2)
+                    {
+                        final OperandStack second = stack.next();
+                        final OperandStack duplicatedOperand = second.dup(second.next(), this);
+                        return stack.dup(second.dup(duplicatedOperand, second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                    }
+                    else
+                    {
+                        final OperandStack second = stack.next();
+                        final OperandStack third = second.next();
+                        final OperandStack duplicatedOperand1 = second.dup(third.next(), this);
+                        final OperandStack duplicatedOperand2 = stack.dup(duplicatedOperand1, this);
+                        return stack.dup(second.dup(third.dup(duplicatedOperand2, third.getGeneratingOpcode()), second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                    }
                 }
             }, // -
     DUP2_X2
@@ -869,8 +899,45 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    final int topCategory = stack.getComputationalTypeCategory();
+                    if (topCategory == 2)
+                    {
+                        final int secondCategory = stack.next().getComputationalTypeCategory();
+                        if (secondCategory == 2)
+                        {
+                            final OperandStack second = stack.next();
+                            final OperandStack duplicatedOperand = stack.dup(second.next(), this);
+                            return stack.dup(second.dup(duplicatedOperand, second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                        }
+                        else
+                        {
+                            final OperandStack second = stack.next();
+                            final OperandStack third = second.next();
+                            final OperandStack duplicatedOperand = stack.dup(third.next(), this);
+                            return stack.dup(second.dup(third.dup(duplicatedOperand, third.getGeneratingOpcode()), second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+                        }
+                    }
+                    else
+                    {
+                        final OperandStack second = stack.next();
+                        final OperandStack third = second.next();
+                        final int thirdCategory =third.getComputationalTypeCategory();
+                        if (thirdCategory == 2)
+                        {
+                            final OperandStack duplicatedOperand1 = second.dup(third.next(), this);
+                            final OperandStack duplicatedOperand2 = stack.dup(duplicatedOperand1, this);
+                            return stack.dup(second.dup(third.dup(duplicatedOperand2, third.getGeneratingOpcode()), second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+
+                        }
+                        else
+                        {
+                            final OperandStack fourth = second.next();
+                            final OperandStack duplicatedOperand1 = second.dup(fourth.next(), this);
+                            final OperandStack duplicatedOperand2 = stack.dup(duplicatedOperand1, this);
+                            return stack.dup(second.dup(third.dup(fourth.dup(duplicatedOperand2, fourth.getGeneratingOpcode()), third.getGeneratingOpcode()), second.getGeneratingOpcode()), stack.getGeneratingOpcode());
+
+                        }
+                    }
                 }
             }, // -
     SWAP
@@ -878,8 +945,8 @@ System.out.println("TODO");
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    final OperandStack x1 = stack.next();
-                    return x1.dup(stack.dup(x1.next(), stack.getGeneratingOpcode()), x1.getGeneratingOpcode());
+                    final OperandStack second = stack.next();
+                    return second.dup(stack.dup(second.next(), stack.getGeneratingOpcode()), second.getGeneratingOpcode());
                 }
             }, // -
     IADD
