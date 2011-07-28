@@ -24,6 +24,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -78,7 +79,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             }
         }
         classFile.addMethod(this);
-        initLocals(desc, "L" + classFile.getName() + ";");
+        final ArrayList<String> paramsContainer = new ArrayList<String>();
+        if (!isSynthetic())
+        {
+            paramsContainer.add("L" +  classFile.getName() + ";");
+        }
+        initLocals(desc, paramsContainer);
         this.currentLineNumber = -1;
     }
 
@@ -132,7 +138,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     @Override
     public String getLocalVariableType(final int index)
     {
-        return "I"; //currentLocals[index];
+        return currentLocals[index];
     }
 
     @Override
@@ -385,6 +391,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final Object[] stack)
     {
         final FrameType frameType = FrameType.getFrameType(type);
+System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) + " "  + Arrays.toString(stack));
         String[] temp;
         switch (frameType)
         {
@@ -505,14 +512,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         }
     }
 
-    private void initLocals(final String desc, final String classType)
+    private void initLocals(final String desc, final ArrayList<String> paramsContainer)
     {
         final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
         if (matcher.matches())
         {
             final String paramsAsString = matcher.group(1);
-            final ArrayList<String> paramsContainer = new ArrayList<String>();
-            paramsContainer.add(classType);
             parseArgs(paramsAsString, paramsContainer);
             currentLocals = paramsContainer.toArray(new String[paramsContainer.size()]);
             returnType = matcher.group(2);
@@ -559,6 +564,10 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
                     }
                     break;
             }
+        }
+        if (ptr < len)
+        {
+            args.add(argsAsString.substring(ptr));
         }
     }
 
