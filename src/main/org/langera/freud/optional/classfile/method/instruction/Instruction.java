@@ -1,9 +1,5 @@
 package org.langera.freud.optional.classfile.method.instruction;
 
-import org.langera.freud.optional.classfile.method.ClassFileMethod;
-
-import java.util.Arrays;
-
 public class Instruction
 {
     private final int index;
@@ -19,16 +15,14 @@ public class Instruction
     private final Label label;
     private final String returnType;
     private final String[] args;
-    private final OperandStack operandStack;
+    private OperandStack operandStack;
 
-    public Instruction(final ClassFileMethod method, final OperandStack currentOperandStack, final int index, final Opcode opcode, final int currentLineNumber)
+    public Instruction(final int index, final Opcode opcode, final int currentLineNumber)
     {
-        this(method, currentOperandStack, index, opcode, currentLineNumber, null, null, null, null, -1, null, -1, null, null, null);
+        this(index, opcode, currentLineNumber, null, null, null, null, -1, null, -1, null, null, null);
     }
 
-    protected Instruction(final ClassFileMethod method,
-                          final OperandStack currentOperandStack,
-                          final int index,
+    protected Instruction(final int index,
                           final Opcode opcode,
                           final int lineNumber,
                           final String owner,
@@ -55,9 +49,6 @@ public class Instruction
         this.label = label;
         this.args = args;
         this.returnType = returnType;
-        System.out.println("BEFORE " + method.getName() + "#" + opcode + "#" + returnType + "#" + name + Arrays.toString(args) + " : " + currentOperandStack);
-        operandStack = opcode.updateOperandStack(method, this, currentOperandStack);
-        System.out.println("AFTER " + method.getName() + "#" + opcode + " : " + operandStack);
     }
 
     public int getInstructionIndex()
@@ -68,6 +59,11 @@ public class Instruction
     public OperandStack getOperandStack()
     {
         return operandStack;
+    }
+
+    public void setOperandStack(final OperandStack operandStack)
+    {
+        this.operandStack = operandStack;
     }
 
     public String[] getArgs()

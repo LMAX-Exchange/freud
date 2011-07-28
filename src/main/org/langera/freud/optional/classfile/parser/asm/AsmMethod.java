@@ -57,7 +57,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     private int currentLineNumber;
     private OperandStack currentOperandStack = AbstractOperandStack.EMPTY_STACK;
-    private String[] currentLocals;
+    private List<String> currentLocals;
     private String returnType;
 
     public AsmMethod(final AsmClassFile classFile, final int access, final String name, final String desc, final String signature, final String... exceptions)
@@ -79,12 +79,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             }
         }
         classFile.addMethod(this);
-        final ArrayList<String> paramsContainer = new ArrayList<String>();
+        currentLocals = new ArrayList<String>();
         if (!isSynthetic())
         {
-            paramsContainer.add("L" +  classFile.getName() + ";");
+            currentLocals.add("L" +  classFile.getName() + ";");
         }
-        initLocals(desc, paramsContainer);
+        initLocals(desc);
         this.currentLineNumber = -1;
     }
 
@@ -138,7 +138,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     @Override
     public String getLocalVariableType(final int index)
     {
-        return currentLocals[index];
+        return currentLocals.get(index);
     }
 
     @Override
@@ -239,9 +239,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
 
     public void visitInsn(final int opcode)
     {
-        final Instruction instruction = new Instruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        final Instruction instruction = new Instruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber);
+        updateCurrentState(instruction);
     }
 
     public void visitIntInsn(final int opcodeUsed, final int operand)
@@ -254,17 +253,15 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         }
         else
         {
-            instruction = new IntOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, operand);
+            instruction = new IntOperandInstruction(instructionList.size(), opcode, currentLineNumber, operand);
         }
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        updateCurrentState(instruction);
     }
 
     public void visitVarInsn(final int opcodeUsed, final int var)
     {
-        final Instruction instruction = new VarInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcodeUsed], currentLineNumber, var);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        final Instruction instruction = new VarInstruction(instructionList.size(), OPCODES_ARRAY[opcodeUsed], currentLineNumber, var);
+        updateCurrentState(instruction);
     }
 
     public void visitTypeInsn(final int opcodeUsed, final String type)
@@ -272,8 +269,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         final String operandType = "L" + type + ";";
         final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, operandType);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        updateCurrentState(instruction);
     }
 
     public void visitFieldInsn(
@@ -282,9 +278,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String name,
             final String desc)
     {
-        final Instruction instruction = new FieldInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        final Instruction instruction = new FieldInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc);
+        updateCurrentState(instruction);
     }
 
     public void visitMethodInsn(
@@ -301,19 +296,17 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             String returnType = matcher.group(2);
             parseArgs(argsAsString, argsContainer);
             String[] args = argsContainer.toArray(new String[argsContainer.size()]);
-            final Instruction instruction = new MethodInvocationInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
+            final Instruction instruction = new MethodInvocationInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber,
                     "L" + owner + ";", name, args, returnType);
-            instructionList.add(instruction);
-            currentOperandStack = instruction.getOperandStack();
+            updateCurrentState(instruction);
         }
     }
 
     public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel)
     {
         Label label = declareLabel(asmLabel);
-        final Instruction instruction = new JumpInstruction(this, currentOperandStack, instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        final Instruction instruction = new JumpInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label);
+        updateCurrentState(instruction);
     }
 
     public void visitLabel(final org.objectweb.asm.Label asmLabel)
@@ -331,17 +324,15 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         }
         else
         {
-            instruction = new ConstInstruction(this, currentOperandStack, instructionList.size(), Opcode.LDC, currentLineNumber, constant);
+            instruction = new ConstInstruction(instructionList.size(), Opcode.LDC, currentLineNumber, constant);
         }
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        updateCurrentState(instruction);
     }
 
     public void visitIincInsn(final int var, final int increment)
     {
-        final Instruction instruction = new IntOperandInstruction(this, currentOperandStack, instructionList.size(), Opcode.IINC, currentLineNumber, increment);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        final Instruction instruction = new IntOperandInstruction(instructionList.size(), Opcode.IINC, currentLineNumber, increment);
+        updateCurrentState(instruction);
     }
 
     public void visitTableSwitchInsn(
@@ -403,26 +394,20 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
                 break;
             case F_APPEND:
                 currentOperandStack = AbstractOperandStack.EMPTY_STACK;
-                final int ptr = currentLocals.length;
-                temp = new String[ptr + nLocal];
-                System.arraycopy(currentLocals, 0, temp, 0, currentLocals.length);
-                currentLocals = temp;
                 for (int i = 0; i < nLocal; i++)
                 {
-                    currentLocals[i + ptr] = getTypeFromFrame(local[i]);
+                    currentLocals.add(getTypeFromFrame(local[i]));
                 }
                 break;
             case F_CHOP:
                 currentOperandStack = AbstractOperandStack.EMPTY_STACK;
-                temp = new String[currentLocals.length - nLocal];
-                System.arraycopy(currentLocals, 0, temp, 0, currentLocals.length - nLocal);
-                currentLocals = temp;
+                currentLocals = currentLocals.subList(0, currentLocals.size() - nLocal);
                 break;
             case F_FULL:
-                currentLocals = new String[nLocal];
+                currentLocals = new ArrayList<String>();
                 for (int i = 0; i < nLocal; i++)
                 {
-                    currentLocals[i] = getTypeFromFrame(local[i]);
+                    currentLocals.add(getTypeFromFrame(local[i]));
 
                 }
                 currentOperandStack = AbstractOperandStack.EMPTY_STACK;
@@ -438,9 +423,8 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
 
     public void visitMultiANewArrayInsn(final String desc, final int dims)
     {
-        final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims);
-        instructionList.add(instruction);
-        currentOperandStack = instruction.getOperandStack();
+        final Instruction instruction = new ReferenceOperandInstruction(instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims);
+        updateCurrentState(instruction);
     }
 
     public void visitLocalVariable(
@@ -512,14 +496,13 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
         }
     }
 
-    private void initLocals(final String desc, final ArrayList<String> paramsContainer)
+    private void initLocals(final String desc)
     {
         final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
         if (matcher.matches())
         {
             final String paramsAsString = matcher.group(1);
-            parseArgs(paramsAsString, paramsContainer);
-            currentLocals = paramsContainer.toArray(new String[paramsContainer.size()]);
+            parseArgs(paramsAsString, currentLocals);
             returnType = matcher.group(2);
         }
         else
@@ -598,6 +581,21 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
         final Label label = Label.createDefaultLookupKey(instructionList.size());
         final Label oldLabel = labelByAsmLabelMap.put(asmLabel, label);
         return (oldLabel != null) ? oldLabel : label;
+    }
+
+    private void updateCurrentState(final Instruction instruction)
+    {
+        instructionList.add(instruction);
+        final Opcode opcode = instruction.getOpcode();
+        System.out.println("BEFORE " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
+        currentOperandStack = opcode.updateOperandStack(this, instruction, currentOperandStack);
+        while (instruction.getVarIndex() >= currentLocals.size())
+        {
+            currentLocals.add("");
+        }
+        currentLocals =  opcode.updateLocals(currentLocals, instruction);
+        System.out.println("AFTER " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
+        instruction.setOperandStack(currentOperandStack);
     }
 
     private enum FrameValueType

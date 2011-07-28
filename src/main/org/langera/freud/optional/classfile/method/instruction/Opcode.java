@@ -2,6 +2,8 @@ package org.langera.freud.optional.classfile.method.instruction;
 
 import org.langera.freud.optional.classfile.method.ClassFileMethod;
 
+import java.util.List;
+
 public enum Opcode
 {
     NOP
@@ -545,6 +547,14 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+
+                    locals.set(instruction.getVarIndex(), "I");
+                    return locals;
+                }
             }, // visitVarInsn
     LSTORE
             {
@@ -552,6 +562,13 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(instruction.getVarIndex(), "J");
+                    return locals;
                 }
             }, // -
     FSTORE
@@ -561,6 +578,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(instruction.getVarIndex(), "F");
+                    return locals;
+                }
             }, // -
     DSTORE
             {
@@ -568,6 +592,13 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(instruction.getVarIndex(), "D");
+                    return locals;
                 }
             }, // -
     ASTORE
@@ -577,6 +608,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(instruction.getVarIndex(), "Ljava/lang/Object;");
+                    return locals;
+                }
             }, // -
     ISTORE_0
             {
@@ -584,6 +622,13 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(0, "I");
+                    return locals;
                 }
             }, // -
     ISTORE_1
@@ -593,6 +638,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(1, "I");
+                    return locals;
+                }
             }, // -
     ISTORE_2
             {
@@ -600,6 +652,13 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(2, "I");
+                    return locals;
                 }
             }, // -
     ISTORE_3
@@ -609,6 +668,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(3, "I");
+                    return locals;
+                }
             }, // -
     LSTORE_0
             {
@@ -616,6 +682,13 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(0, "J");
+                    return locals;
                 }
             }, // -
     LSTORE_1
@@ -625,6 +698,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(1, "J");
+                    return locals;
+                }
             }, // -
     LSTORE_2
             {
@@ -632,6 +712,13 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(2, "J");
+                    return locals;
                 }
             }, // -
     LSTORE_3
@@ -641,6 +728,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(3, "J");
+                    return locals;
+                }
             }, // -
     FSTORE_0
             {
@@ -648,6 +742,12 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(0, "F");
+                    return locals;
                 }
             }, // -
     FSTORE_1
@@ -657,6 +757,12 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(1, "F");
+                    return locals;
+                }
             }, // -
     FSTORE_2
             {
@@ -664,6 +770,12 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(2, "F");
+                    return locals;
                 }
             }, // -
     FSTORE_3
@@ -673,6 +785,12 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(3, "F");
+                    return locals;
+                }
             }, // -
     DSTORE_0
             {
@@ -680,6 +798,12 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(0, "D");
+                    return locals;
                 }
             }, // -
     DSTORE_1
@@ -689,6 +813,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(1, "D");
+                    return locals;
+                }
+
             }, // -
     DSTORE_2
             {
@@ -697,6 +828,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(2, "D");
+                    return locals;
+                }
+
             }, // -
     DSTORE_3
             {
@@ -704,6 +842,12 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(3, "D");
+                    return locals;
                 }
             }, // -
     ASTORE_0
@@ -713,6 +857,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(0, "Ljava/lang/Object;");
+                    return locals;
+                }
             }, // -
     ASTORE_1
             {
@@ -720,6 +871,12 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(1, "Ljava/lang/Object;");
+                    return locals;
                 }
             }, // -
     ASTORE_2
@@ -729,6 +886,13 @@ public enum Opcode
                 {
                     return stack.next();
                 }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(2, "Ljava/lang/Object;");
+                    return locals;
+                }
+
             }, // -
     ASTORE_3
             {
@@ -736,6 +900,12 @@ public enum Opcode
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
                     return stack.next();
+                }
+                @Override
+                public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+                {
+                    locals.set(3, "Ljava/lang/Object;");
+                    return locals;
                 }
             }, // -
     IASTORE
@@ -745,6 +915,7 @@ public enum Opcode
                 {
                     return stack.next().next().next();
                 }
+
             }, // visitInsn
     LASTORE
             {
@@ -921,7 +1092,7 @@ public enum Opcode
                     {
                         final OperandStack second = stack.next();
                         final OperandStack third = second.next();
-                        final int thirdCategory =third.getComputationalTypeCategory();
+                        final int thirdCategory = third.getComputationalTypeCategory();
                         if (thirdCategory == 2)
                         {
                             final OperandStack duplicatedOperand1 = second.dup(third.next(), this);
@@ -1830,6 +2001,11 @@ public enum Opcode
             }; //
 
     public abstract OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, OperandStack stack);
+
+    public List<String> updateLocals(final List<String> locals, final Instruction instruction)
+    {
+        return locals;
+    }
 
     public boolean isConstant()
     {

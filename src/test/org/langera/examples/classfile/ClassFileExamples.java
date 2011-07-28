@@ -65,8 +65,8 @@ public final class ClassFileExamples
                         return name.endsWith(".class");
                     }
 //                }, true, "../../java/classes");
-                }, true, "../trunk/build/classes/");
-//                }, true, "build");
+//                }, true, "../trunk/build/classes/");
+                }, true, "build");
 
         final FreudAnalyser analyser = doNotUseBigDecimalEquals(iterator);
 
