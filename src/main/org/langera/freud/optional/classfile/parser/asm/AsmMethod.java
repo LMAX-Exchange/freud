@@ -383,7 +383,6 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     {
         final FrameType frameType = FrameType.getFrameType(type);
 System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) + " "  + Arrays.toString(stack));
-        String[] temp;
         switch (frameType)
         {
             case F_SAME:
@@ -528,6 +527,13 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
             final char c = argsAsString.charAt(i);
             switch (c)
             {
+                case 'L':
+                    if (ptr == i - 1)
+                    {
+                        args.add(argsAsString.substring(ptr));
+                        ptr = i + 1;
+                    }
+                    break;
                 case ';':
                     args.add(argsAsString.substring(ptr, i + 1));
                     ptr = i + 1;
