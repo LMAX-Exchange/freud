@@ -520,6 +520,7 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
 
     private void parseArgs(final String argsAsString, final List<String> args)
     {
+        boolean start = true;
         final int len = argsAsString.length();
         int ptr = 0;
         for (int i = 0; i < len; i++)
@@ -527,16 +528,14 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
             final char c = argsAsString.charAt(i);
             switch (c)
             {
+                case '[':
                 case 'L':
-                    if (ptr == i - 1)
-                    {
-                        args.add(argsAsString.substring(ptr));
-                        ptr = i + 1;
-                    }
+                    start = false;
                     break;
                 case ';':
                     args.add(argsAsString.substring(ptr, i + 1));
                     ptr = i + 1;
+                    start = true;
                     break;
                 case 'B':
                 case 'C':
@@ -546,7 +545,7 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
                 case 'J':
                 case 'S':
                 case 'Z':
-                    if (ptr == i - 1)
+                    if (start)
                     {
                         args.add(String.valueOf(c));
                         ptr = i + 1;
@@ -594,14 +593,19 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
         instructionList.add(instruction);
         final Opcode opcode = instruction.getOpcode();
         System.out.println("BEFORE " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
+        ensureCurrentLocalsSize(instruction.getVarIndex());
+        currentLocals =  opcode.updateLocals(currentLocals, instruction);
         currentOperandStack = opcode.updateOperandStack(this, instruction, currentOperandStack);
-        while (instruction.getVarIndex() >= currentLocals.size())
+        System.out.println("AFTER " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
+        instruction.setOperandStack(currentOperandStack);
+    }
+
+    private void ensureCurrentLocalsSize(final int varIndex)
+    {
+        while (varIndex >= currentLocals.size())
         {
             currentLocals.add("");
         }
-        currentLocals =  opcode.updateLocals(currentLocals, instruction);
-        System.out.println("AFTER " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
-        instruction.setOperandStack(currentOperandStack);
     }
 
     private enum FrameValueType
