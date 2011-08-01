@@ -8,4 +8,16 @@ public final class VarInstruction extends Instruction
         super(index, opcode, currentLineNumber, null, null, null, null, -1, null, varIndex, null, null, null);
     }
 
+
+    @Override
+    public String toString()
+    {
+        return "Instruction{" +
+                "index=" + getInstructionIndex() +
+                ", opcode=" + getOpcode() +
+                ", lineNumber=" + getLineNumber() +
+                ", varIndex=" + getVarIndex() +
+                '}';
+    }
+
 }

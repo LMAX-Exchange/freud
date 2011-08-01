@@ -9,4 +9,17 @@ public final class FieldInstruction extends Instruction
     {
         super(index, opcode, currentLineNumber, owner, name, null, null, -1, desc, -1, null, null, null);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Instruction{" +
+                "index=" + getInstructionIndex() +
+                ", opcode=" + getOpcode() +
+                ", lineNumber=" + getLineNumber() +
+                ", owner='" + getOwner() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", desc='" + getDesc() + '\'' +
+                '}';
+    }
 }

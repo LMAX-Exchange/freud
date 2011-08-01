@@ -6,4 +6,16 @@ public final class JumpInstruction extends Instruction
     {
         super(index, opcode, currentLineNumber, null, null, null, null, -1, null, -1, label, null, null);
     }
+
+
+    @Override
+    public String toString()
+    {
+        return "Instruction{" +
+                "index=" + getInstructionIndex() +
+                ", opcode=" + getOpcode() +
+                ", lineNumber=" + getLineNumber() +
+                ", label=" + getLabel() +
+                '}';
+    }
 }

@@ -7,4 +7,15 @@ public final class IntOperandInstruction extends Instruction
     {
         super(index, opcode, currentLineNumber, null, null, null, null, intOperand, null, -1, null, null, null);
     }
+
+    @Override
+    public String toString()
+    {
+        return "Instruction{" +
+                "index=" + getInstructionIndex() +
+                ", opcode=" + getOpcode() +
+                ", lineNumber=" + getLineNumber() +
+                ", intOperand=" + getIntOperand() +
+                '}';
+    }
 }

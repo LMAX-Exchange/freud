@@ -8,4 +8,16 @@ public final class ConstInstruction extends Instruction
                 AbstractInstructionVisitor.typeEncoding(constant.getClass()), constant, -1, null, -1, null, null, null);
 
     }
+
+    @Override
+    public String toString()
+    {
+        return "ConstInstruction{" +
+                "index=" + getInstructionIndex() +
+                ", opcode=" + getOpcode() +
+                ", lineNumber=" + getLineNumber() +
+                ", operandType='" + getOperandType() + '\'' +
+                ", constant=" + getConstant() +
+                '}';
+    }
 }

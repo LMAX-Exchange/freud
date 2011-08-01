@@ -1,5 +1,7 @@
 package org.langera.freud.optional.classfile.method.instruction;
 
+import java.util.Arrays;
+
 public final class MethodInvocationInstruction extends Instruction
 {
     public MethodInvocationInstruction(final int index, final Opcode opcode, final int currentLineNumber,
@@ -11,5 +13,20 @@ public final class MethodInvocationInstruction extends Instruction
     public void visit(final InstructionVisitor instructionVisitor)
     {
         instructionVisitor.methodInvocation(this, getOwner(), getName(), getArgs());
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return "Instruction{" +
+                "index=" + getInstructionIndex() +
+                ", opcode=" + getOpcode() +
+                ", lineNumber=" + getLineNumber() +
+                ", owner='" + getOwner() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", returnType='" + getReturnType() + '\'' +
+                ", args=" + (getArgs() == null ? null : Arrays.asList(getArgs())) +
+                '}';
     }
 }

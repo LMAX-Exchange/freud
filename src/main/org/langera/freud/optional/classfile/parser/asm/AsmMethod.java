@@ -249,7 +249,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Instruction instruction;
         if (opcode == Opcode.NEWARRAY)
         {
-            instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]);
+            instruction = new ReferenceOperandInstruction(instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]);
         }
         else
         {
@@ -268,7 +268,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         final String operandType = "L" + type + ";";
-        final Instruction instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), opcode, currentLineNumber, operandType);
+        final Instruction instruction = new ReferenceOperandInstruction(instructionList.size(), opcode, currentLineNumber, operandType);
         updateCurrentState(instruction);
     }
 
@@ -320,7 +320,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         final Instruction instruction;
         if (constant instanceof Type)
         {
-            instruction = new ReferenceOperandInstruction(this, currentOperandStack, instructionList.size(), Opcode.LDC, currentLineNumber, constant.toString());
+            instruction = new ReferenceOperandInstruction(instructionList.size(), Opcode.LDC, currentLineNumber, constant.toString());
         }
         else
         {
@@ -592,11 +592,12 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
     {
         instructionList.add(instruction);
         final Opcode opcode = instruction.getOpcode();
-        System.out.println("BEFORE " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
         ensureCurrentLocalsSize(instruction.getVarIndex());
         currentLocals =  opcode.updateLocals(currentLocals, instruction);
+        System.out.println("BEFORE " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
         currentOperandStack = opcode.updateOperandStack(this, instruction, currentOperandStack);
-        System.out.println("AFTER " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
+        System.out.println(name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
+        System.out.println(instruction);
         instruction.setOperandStack(currentOperandStack);
     }
 

@@ -134,6 +134,10 @@ public class Instruction
     @Override
     public String toString()
     {
-        return getClass().getName() + "[" + operandStack + ']';
+        return "Instruction{" +
+                "index=" + index +
+                ", opcode=" + opcode +
+                ", lineNumber=" + lineNumber +
+                '}';
     }
 }
