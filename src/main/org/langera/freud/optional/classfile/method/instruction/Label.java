@@ -73,4 +73,17 @@ public final class Label
     {
         return lineNumber;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Label{" +
+                "createdInstructionIndex=" + createdInstructionIndex +
+                ", key=" + key +
+                ", defaultKey=" + defaultKey +
+                ", handledType='" + handledType + '\'' +
+                ", declaredInstructionIndex=" + declaredInstructionIndex +
+                ", lineNumber=" + lineNumber +
+                '}';
+    }
 }

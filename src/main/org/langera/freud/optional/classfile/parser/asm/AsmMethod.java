@@ -313,6 +313,11 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     {
         final Label label = declareLabel(asmLabel);
         label.declare(instructionList.size());
+        final String handledType = label.getHandledType();
+        if (handledType != null)
+        {
+            currentOperandStack = new StaticOperandStack(handledType, currentOperandStack, null);
+        }
     }
 
     public void visitLdcInsn(final Object constant)
@@ -370,7 +375,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         declareLabel(end);
         if (type != null)
         {
-            declareHandlerLabel(handler, type);
+            declareHandlerLabel(handler, "L" + type + ";");
         }
     }
 
@@ -561,31 +566,37 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
 
     private Label declareLabel(final org.objectweb.asm.Label asmLabel)
     {
-        final Label label = Label.create(instructionList.size());
-        final Label oldLabel = labelByAsmLabelMap.put(asmLabel, label);
-        return (oldLabel != null) ? oldLabel : label;
+        return storeLabel(asmLabel, Label.create(instructionList.size()));
     }
 
     private Label declareHandlerLabel(final org.objectweb.asm.Label asmLabel, final String type)
     {
-        final Label label = Label.createHandler(instructionList.size(), type);
-        final Label oldLabel = labelByAsmLabelMap.put(asmLabel, label);
-        return (oldLabel != null) ? oldLabel : label;
+        return storeLabel(asmLabel, Label.createHandler(instructionList.size(), type));
     }
-
 
     private Label declareLookupLabel(final org.objectweb.asm.Label asmLabel, final int key)
     {
-        final Label label = Label.createLookupKey(instructionList.size(), key);
-        final Label oldLabel = labelByAsmLabelMap.put(asmLabel, label);
-        return (oldLabel != null) ? oldLabel : label;
+        return storeLabel(asmLabel, Label.createLookupKey(instructionList.size(), key));
     }
+
 
     private Label declareDefaultLookupLabel(final org.objectweb.asm.Label asmLabel)
     {
-        final Label label = Label.createDefaultLookupKey(instructionList.size());
-        final Label oldLabel = labelByAsmLabelMap.put(asmLabel, label);
-        return (oldLabel != null) ? oldLabel : label;
+        return storeLabel(asmLabel, Label.createDefaultLookupKey(instructionList.size()));
+    }
+
+    private Label storeLabel(final org.objectweb.asm.Label asmLabel, final Label label)
+    {
+        final Label oldLabel = labelByAsmLabelMap.get(asmLabel);
+        if (oldLabel != null)
+        {
+            return oldLabel;
+        }
+        else
+        {
+            labelByAsmLabelMap.put(asmLabel, label);
+            return label;
+        }
     }
 
     private void updateCurrentState(final Instruction instruction)
