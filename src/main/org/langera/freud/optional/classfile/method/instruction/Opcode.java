@@ -1701,8 +1701,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    return new StaticOperandStack("Ljava/lang/Object;", stack, this);
                 }
             }, // -
     RET
@@ -1995,8 +1994,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    return new StaticOperandStack("Ljava/lang/Object;", stack, this);
                 }
             }; //
 
