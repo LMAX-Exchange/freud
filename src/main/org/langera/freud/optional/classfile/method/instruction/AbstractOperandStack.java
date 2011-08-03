@@ -13,6 +13,8 @@ public abstract class AbstractOperandStack implements OperandStack
         @Override
         public OperandStack next()
         {
+//System.out.println("+++++++++++++++++++++++++++ BOOM ++++++++++++++++++++++++++++++++++");
+//            return null;
             throw new IllegalStateException("cannot pop an empty stack");
         }
 

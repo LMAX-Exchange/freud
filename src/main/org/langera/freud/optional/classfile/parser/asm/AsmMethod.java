@@ -80,10 +80,6 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
         }
         classFile.addMethod(this);
         currentLocals = new ArrayList<String>();
-        if (!isSynthetic())
-        {
-            currentLocals.add("L" +  classFile.getName() + ";");
-        }
         initLocals(desc);
         this.currentLineNumber = -1;
     }
