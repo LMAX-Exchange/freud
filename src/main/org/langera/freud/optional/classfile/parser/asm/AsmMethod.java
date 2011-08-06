@@ -308,6 +308,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitLabel(final org.objectweb.asm.Label asmLabel)
     {
         final Label label = declareLabel(asmLabel);
+System.out.println("LABEL: " + asmLabel + " " + label);
         label.declare(instructionList.size());
         final String handledType = label.getHandledType();
         if (handledType != null)
@@ -367,11 +368,13 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final org.objectweb.asm.Label handler,
             final String type)
     {
-        declareLabel(start);
+System.out.println("Try catch block: " + start + ","  + end + "," + handler);
+
         if (type != null)
         {
             declareHandlerLabel(handler, "L" + type + ";");
         }
+        declareLabel(start);
         declareLabel(end);
     }
 
@@ -586,10 +589,12 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
         final Label oldLabel = labelByAsmLabelMap.get(asmLabel);
         if (oldLabel != null)
         {
+System.out.println("###LABEL 2nd " + asmLabel + oldLabel);
             return oldLabel;
         }
         else
         {
+System.out.println("###LABEL 1st " + asmLabel + label);
             labelByAsmLabelMap.put(asmLabel, label);
             return label;
         }
