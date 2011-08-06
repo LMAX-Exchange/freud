@@ -368,11 +368,11 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
             final String type)
     {
         declareLabel(start);
-        declareLabel(end);
         if (type != null)
         {
             declareHandlerLabel(handler, "L" + type + ";");
         }
+        declareLabel(end);
     }
 
     public void visitFrame(
@@ -601,7 +601,6 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
         final Opcode opcode = instruction.getOpcode();
         ensureCurrentLocalsSize(instruction.getVarIndex());
         currentLocals =  opcode.updateLocals(currentLocals, instruction);
-        System.out.println("BEFORE " + name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
         currentOperandStack = opcode.updateOperandStack(this, instruction, currentOperandStack);
         System.out.println(name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
         System.out.println(instruction);
