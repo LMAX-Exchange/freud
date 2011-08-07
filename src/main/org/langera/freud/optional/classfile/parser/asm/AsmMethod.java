@@ -24,7 +24,6 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -308,7 +307,6 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassFileMeth
     public void visitLabel(final org.objectweb.asm.Label asmLabel)
     {
         final Label label = declareLabel(asmLabel);
-System.out.println("LABEL: " + asmLabel + " " + label);
         label.declare(instructionList.size());
         final String handledType = label.getHandledType();
         if (handledType != null)
@@ -368,12 +366,7 @@ System.out.println("LABEL: " + asmLabel + " " + label);
             final org.objectweb.asm.Label handler,
             final String type)
     {
-System.out.println("Try catch block: " + start + ","  + end + "," + handler);
-
-        if (type != null)
-        {
-            declareHandlerLabel(handler, "L" + type + ";");
-        }
+        declareHandlerLabel(handler, (type != null) ? "L" + type + ";" : "Ljava/lang/Throwable;");
         declareLabel(start);
         declareLabel(end);
     }
@@ -386,7 +379,6 @@ System.out.println("Try catch block: " + start + ","  + end + "," + handler);
             final Object[] stack)
     {
         final FrameType frameType = FrameType.getFrameType(type);
-System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) + " "  + Arrays.toString(stack));
         switch (frameType)
         {
             case F_SAME:
@@ -589,12 +581,10 @@ System.out.println("FRAME: " + frameType.name() + " " + Arrays.toString(local) +
         final Label oldLabel = labelByAsmLabelMap.get(asmLabel);
         if (oldLabel != null)
         {
-System.out.println("###LABEL 2nd " + asmLabel + oldLabel);
             return oldLabel;
         }
         else
         {
-System.out.println("###LABEL 1st " + asmLabel + label);
             labelByAsmLabelMap.put(asmLabel, label);
             return label;
         }
@@ -605,10 +595,8 @@ System.out.println("###LABEL 1st " + asmLabel + label);
         instructionList.add(instruction);
         final Opcode opcode = instruction.getOpcode();
         ensureCurrentLocalsSize(instruction.getVarIndex());
-        currentLocals =  opcode.updateLocals(currentLocals, instruction);
+        currentLocals = opcode.updateLocals(currentLocals, instruction);
         currentOperandStack = opcode.updateOperandStack(this, instruction, currentOperandStack);
-        System.out.println(name + "#" + opcode + " : " + currentOperandStack + " $ " + currentLocals);
-        System.out.println(instruction);
         instruction.setOperandStack(currentOperandStack);
     }
 
