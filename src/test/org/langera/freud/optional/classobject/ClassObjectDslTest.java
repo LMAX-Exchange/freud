@@ -9,13 +9,54 @@ import java.lang.annotation.RetentionPolicy;
 
 import static org.langera.freud.core.matcher.FreudDsl.no;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.classAnnotation;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.className;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.classSimpleName;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.finalClass;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredFieldOfType;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredMethod;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.privateClass;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.protectedClass;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.publicClass;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.subTypeOf;
 
 public final class ClassObjectDslTest
 {
+    @Test
+    public void shouldReturnTrueToAFullNameMatchedRegex()
+    {
+        Assert.assertThat(ClassObjectDslTest.class, className().matches("org.langera.freud.optional.classobject.Class.+"));
+    }
+
+    @Test
+    public void shouldReturnFalseToAFullNameMatchedRegex()
+    {
+        Assert.assertThat(ClassObjectDslTest.class,no(className().matches("com.langera.freud.optional.classobject.Class.+")));
+    }
+
+    @Test
+    public void shouldReturnTrueToAPublicModifierMatcher()
+    {
+        Assert.assertThat(ClassObjectDslTest.class, publicClass());
+    }
+
+    @Test
+    public void shouldReturnTrueToAFinalModifierMatcher()
+    {
+        Assert.assertThat(ClassObjectDslTest.class, finalClass());
+    }
+
+    @Test
+    public void shouldReturnFalseToAProtectedModifierMatcher()
+    {
+        Assert.assertThat(ClassObjectDslTest.class, no(protectedClass()));
+    }
+
+    @Test
+    public void shouldReturnFalseToAPrivateModifierMatcher()
+    {
+        Assert.assertThat(ClassObjectDslTest.class, no(privateClass()));
+    }
+
     @Test
     public void shouldReturnTrueToAMatchedRegex()
     {
