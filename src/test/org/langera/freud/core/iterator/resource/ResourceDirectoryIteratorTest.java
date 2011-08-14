@@ -94,7 +94,9 @@ public class ResourceDirectoryIteratorTest
     {
         tmpDir = new File(System.getProperty("java.io.tmpdir"));
 
-        File dir = new File(tmpDir, "test " + System.currentTimeMillis());
+        cleanDirs();
+
+        File dir = new File(tmpDir, "test_" + System.currentTimeMillis());
         dir.mkdir();
         dir.deleteOnExit();
 
@@ -127,5 +129,31 @@ public class ResourceDirectoryIteratorTest
         listener = mockery.mock(AnalysisListener.class);
         iterator.setListener(listener);
 
+    }
+
+    private void cleanDirs()
+    {
+        File[] dirs = tmpDir.listFiles(new FilenameFilter()
+        {
+            @Override
+            public boolean accept(final File dir, final String name)
+            {
+                return name.startsWith("test_");
+            }
+        });
+
+        for (int i = 0, size = dirs.length; i < size; i++)
+        {
+            File dir = dirs[i];
+            if (dir.isDirectory())
+            {
+                File[] files = dir.listFiles();
+                for (int j = 0, size2 = files.length; j < size2; j++)
+                {
+                    files[j].delete();
+                }
+                dir.delete();
+            }
+        }
     }
 }
