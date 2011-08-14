@@ -6,6 +6,7 @@ import org.jmock.api.Invocation;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.action.CustomAction;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import java.io.FilenameFilter;
 @RunWith(JMock.class)
 public class ResourceDirectoryIteratorTest
 {
+    private static final String FILE_PREFIX = "Freud.ResourceDirectoryIteratorTest_";
     private final Mockery mockery = new JUnit4Mockery();
 
     private File tmpDir;
@@ -89,18 +91,24 @@ public class ResourceDirectoryIteratorTest
         Assert.assertFalse(iterator.hasNext());
     }
 
+    @After
+    public void tearDown()
+    {
+        clean();
+    }
+
     @Before
     public void setUp() throws Exception
     {
         tmpDir = new File(System.getProperty("java.io.tmpdir"));
 
-        cleanDirs();
+        clean();
 
-        File dir = new File(tmpDir, "test_" + System.currentTimeMillis());
+        File dir = new File(tmpDir, FILE_PREFIX + System.currentTimeMillis());
         dir.mkdir();
         dir.deleteOnExit();
 
-        final String tempFilename = "file" + System.currentTimeMillis() + ".tmp";
+        final String tempFilename = FILE_PREFIX + System.currentTimeMillis() + ".tmp";
 
         file1 = new File(tmpDir, tempFilename);
         file1.createNewFile();
@@ -131,29 +139,29 @@ public class ResourceDirectoryIteratorTest
 
     }
 
-    private void cleanDirs()
+    private void clean()
     {
-        File[] dirs = tmpDir.listFiles(new FilenameFilter()
+        File[] testFiles = tmpDir.listFiles(new FilenameFilter()
         {
             @Override
             public boolean accept(final File dir, final String name)
             {
-                return name.startsWith("test_");
+                return name.startsWith(FILE_PREFIX);
             }
         });
 
-        for (int i = 0, size = dirs.length; i < size; i++)
+        for (int i = 0, size = testFiles.length; i < size; i++)
         {
-            File dir = dirs[i];
-            if (dir.isDirectory())
+            File file = testFiles[i];
+            if (file.isDirectory())
             {
-                File[] files = dir.listFiles();
+                File[] files = file.listFiles();
                 for (int j = 0, size2 = files.length; j < size2; j++)
                 {
                     files[j].delete();
                 }
-                dir.delete();
             }
+            file.delete();
         }
     }
 }

@@ -1,7 +1,5 @@
 package org.langera.freud.core.listener;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hamcrest.Matcher;
 
 import java.io.PrintWriter;

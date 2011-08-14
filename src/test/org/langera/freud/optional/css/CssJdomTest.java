@@ -22,7 +22,7 @@ public final class CssJdomTest
 
         List<CssRule> cssRuleList = cssJdom.getCssRuleList();
 
-        System.out.println(cssJdom);
+//        System.out.println(cssJdom);
 
         Assert.assertEquals(11, cssRuleList.size());
     }

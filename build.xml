@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="freud" default="all" basedir=".">
 
-    <property name="version" value="0.9"/>
+    <property name="version" value="1.0"/>
     <property name="dir.main.src" value="src/main"/>
     <property name="dir.main.build" value="build/main/classes"/>
     <property name="dir.main.lib" value="lib"/>
@@ -49,7 +49,8 @@
             description="Build main source code">
         <javac destdir="${dir.main.build}"
                debug="true"
-               debuglevel="lines,vars,source">
+               debuglevel="lines,vars,source"
+               includeantruntime="false">
             <classpath refid="main.classpath"/>
             <src path="${dir.main.src}"/>
         </javac>
@@ -61,7 +62,9 @@
             description="Build test source code">
         <javac destdir="${dir.test.build}"
                debug="true"
-               nowarn="true">
+               debuglevel="lines,vars,source"
+               nowarn="true"
+               includeantruntime="false">
             <classpath refid="test.classpath"/>
             <src path="${dir.test.src}"/>
         </javac>
@@ -87,6 +90,13 @@
             depends="build"
             description="Build a jar">
         <mkdir dir="${dir.dist}"/>
+        <jar destfile="${dir.dist}/freud-${version}-binary.jar"
+             basedir="${dir.main.build}">
+        </jar>
+        <zip zipfile="${dir.dist}/freud-${version}-src.zip">
+            <zipfileset dir="${dir.main.src}">
+            </zipfileset>
+        </zip>
         <copy todir="${dir.main.build}">
             <fileset dir="${dir.main.src}"/>
         </copy>

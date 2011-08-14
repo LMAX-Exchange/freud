@@ -1,5 +1,0 @@
-1. Java source parsing - parse comments and keep them 
-2. lazy parsing of DOM to object model
-3. parse source directly to DOM
-4. Define an Analysis suite to allow us to reuse analysed objects (cache in iterator?)
- 
