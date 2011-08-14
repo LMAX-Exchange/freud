@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2011.
+ * This file is part of "Freud".
+ *
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
+
 package org.langera.freud.optional.classfile.method.instruction;
 
 public final class Label
@@ -21,12 +40,12 @@ public final class Label
 
     public static Label createLookupKey(final int createdInstructionIndex, final int key)
     {
-        return new Label(createdInstructionIndex,  null, key, false);
+        return new Label(createdInstructionIndex, null, key, false);
     }
 
     public static Label createDefaultLookupKey(final int createdInstructionIndex)
     {
-        return new Label(createdInstructionIndex,  null, -1, true);
+        return new Label(createdInstructionIndex, null, -1, true);
     }
 
     private Label(final int createdInstructionIndex, final String handledType, final int key, final boolean defaultKey)

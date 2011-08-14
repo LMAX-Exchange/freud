@@ -1,11 +1,30 @@
+/*
+ * Copyright (c) 2011.
+ * This file is part of "Freud".
+ *
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
+
 package org.langera.freud.core.iterator;
 
 import org.langera.freud.core.FreudException;
 import org.langera.freud.core.listener.AnalysisListener;
 
-public final class SubTypeAnalysedObjectIterator<S,T> extends AbstractAnalysedObjectIterator<T>
+public final class SubTypeAnalysedObjectIterator<S, T> extends AbstractAnalysedObjectIterator<T>
 {
-    private final SubTypeIteratorBuilder<S,T> iteratorBuilder;
+    private final SubTypeIteratorBuilder<S, T> iteratorBuilder;
     private final AnalysedObjectIterator<S> superTypeIterator;
     private final boolean alertOnEmptyIterator;
     private boolean empty = true;
@@ -56,7 +75,7 @@ public final class SubTypeAnalysedObjectIterator<S,T> extends AbstractAnalysedOb
             {
                 getListener().unexpected(
                         null, new FreudException(
-                                "Empty set of analysed objects alert. Make sure the configured iterator does actually iterates over elements."));
+                        "Empty set of analysed objects alert. Make sure the configured iterator does actually iterates over elements."));
             }
             return null;
         }

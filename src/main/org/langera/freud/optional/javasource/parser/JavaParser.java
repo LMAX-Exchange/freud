@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2011.
+ * This file is part of "Freud".
+ *
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
+
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/langera/dev/freud/trunk/src/grammar/Java.g 2010-02-19 14:59:01
 
 package org.langera.freud.optional.javasource.parser;
@@ -27,83 +46,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * An ANTLRv3 capable Java 1.5 grammar for building ASTs.
- * <p/>
- * Note that there's also the tree grammar 'JavaTreeParser.g' that can be fed
- * with this grammer's output.
- * <p/>
- * <p/>
- * Please report any detected errors or even suggestions regarding this grammar
- * to
- * <p/>
- * dieter [D O T] habelitz [A T] habelitz [D O T] com
- * <p/>
- * with the subject
- * <p/>
- * jsom grammar: [your subject note]
- * <p/>
- * To generate a parser based on this grammar you'll need ANTLRv3, which you
- * can get from 'http://www.antlr.org'.
- * <p/>
- * <p/>
- * Change and version log (year-month-day):
- * ----------------------------------------
- * <p/>
- * 2008-04-03	First release version published.
- * 2008-04-16   Bugfix (not grammar specific!): the flag 'mHasError' will be set
- * to 'true' now if an error occurs.
- * 2008-04-16   Some changes within the lexer grammar regarding comments;
- * furthermore, the flag 'preserveWhitespacesAndComments' has been
- * replaced by four flags: 'mPreserveWhitespaces',
- * 'mPreserveJavaDocComments', 'mPreserveBlockComments' and
- * 'mPreserveLineComments'. I.e., whitespaces and all kinds of
- * comments can be preserved or thrown away independantly.
- * 2008-05-13	Grammar rule 'enumScopeDeclarations' fixed; constants are
- * optional not obligatory.
- * 2008-06-11   Resolving of cast expressions fixed; very simple parenthesized
- * expressions have been recognized as type casts.
- * 2008-08-13	Rule 'switchBlockLabels' fixed.
- * <p/>
- * <p/>
- * ----------------------------------------------------------------------------
- * Licence agreement
- * ----------------------------------------------------------------------------
- * <p/>
- * This grammar is published under the ...
- * <p/>
- * BSD licence
- * <p/>
- * Copyright (c) 2007-2008 by HABELITZ Software Developments
- * <p/>
- * All rights reserved.
- * <p/>
- * http://www.habelitz.com
- * <p/>
- * <p/>
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * <p/>
- * 1. Redistributions of source code must retain the above copyright
- * notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- * notice, this list of conditions and the following disclaimer in the
- * documentation and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products
- * derived from this software without specific prior written permission.
- * <p/>
- * THIS SOFTWARE IS PROVIDED BY HABELITZ SOFTWARE DEVELOPMENTS ('HSD') ``AS IS''
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL 'HSD' BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
- * LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
- * OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
- * LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 public class JavaParser extends Parser
 {
     public static final String[] tokenNames = new String[]{
@@ -24880,13 +24822,13 @@ public class JavaParser extends Parser
             "\1\uffff\1\1\14\uffff\1\3\3\uffff\1\4\2\uffff\1\5\1\2";
     static final String DFA37_specialS =
             "\2\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\11" +
-            "\uffff}>";
+                    "\uffff}>";
     static final String[] DFA37_transitionS = {
             "\1\15\17\uffff\1\1\1\uffff\1\16\22\uffff\1\25\10\uffff\1\6\1" +
-            "\uffff\1\16\1\uffff\1\16\2\uffff\1\16\1\22\3\uffff\1\16\1\uffff" +
-            "\1\22\2\uffff\1\14\1\uffff\1\16\4\uffff\1\22\1\uffff\2\16\1" +
-            "\7\3\uffff\1\5\1\4\1\3\1\uffff\1\16\1\2\1\13\2\uffff\1\10\3" +
-            "\uffff\1\11\2\uffff\1\16\1\12\75\uffff\1\16",
+                    "\uffff\1\16\1\uffff\1\16\2\uffff\1\16\1\22\3\uffff\1\16\1\uffff" +
+                    "\1\22\2\uffff\1\14\1\uffff\1\16\4\uffff\1\22\1\uffff\2\16\1" +
+                    "\7\3\uffff\1\5\1\4\1\3\1\uffff\1\16\1\2\1\13\2\uffff\1\10\3" +
+                    "\uffff\1\11\2\uffff\1\16\1\12\75\uffff\1\16",
             "",
             "\1\uffff",
             "\1\uffff",
@@ -25238,13 +25180,13 @@ public class JavaParser extends Parser
             "\15\uffff\1\1\3\uffff\1\2\2\uffff\1\3";
     static final String DFA44_specialS =
             "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\10" +
-            "\uffff}>";
+                    "\uffff}>";
     static final String[] DFA44_transitionS = {
             "\1\14\21\uffff\1\15\22\uffff\1\24\10\uffff\1\5\1\uffff\1\15" +
-            "\1\uffff\1\15\2\uffff\1\15\1\21\3\uffff\1\15\1\uffff\1\21\2" +
-            "\uffff\1\13\1\uffff\1\15\4\uffff\1\21\1\uffff\2\15\1\6\3\uffff" +
-            "\1\3\1\2\1\1\1\uffff\1\15\1\4\1\12\2\uffff\1\7\3\uffff\1\10" +
-            "\2\uffff\1\15\1\11\75\uffff\1\15",
+                    "\1\uffff\1\15\2\uffff\1\15\1\21\3\uffff\1\15\1\uffff\1\21\2" +
+                    "\uffff\1\13\1\uffff\1\15\4\uffff\1\21\1\uffff\2\15\1\6\3\uffff" +
+                    "\1\3\1\2\1\1\1\uffff\1\15\1\4\1\12\2\uffff\1\7\3\uffff\1\10" +
+                    "\2\uffff\1\15\1\11\75\uffff\1\15",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -25591,9 +25533,9 @@ public class JavaParser extends Parser
             "\1\uffff\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\5\uffff}>";
     static final String[] DFA87_transitionS = {
             "\1\14\55\uffff\1\5\1\uffff\1\15\1\uffff\1\15\2\uffff\1\15\1" +
-            "\17\3\uffff\1\15\1\uffff\1\17\2\uffff\1\13\1\uffff\1\15\4\uffff" +
-            "\1\17\1\uffff\2\15\1\6\3\uffff\1\3\1\2\1\1\1\uffff\1\15\1\4" +
-            "\1\12\2\uffff\1\7\3\uffff\1\10\3\uffff\1\11\75\uffff\1\15",
+                    "\17\3\uffff\1\15\1\uffff\1\17\2\uffff\1\13\1\uffff\1\15\4\uffff" +
+                    "\1\17\1\uffff\2\15\1\6\3\uffff\1\3\1\2\1\1\1\uffff\1\15\1\4" +
+                    "\1\12\2\uffff\1\7\3\uffff\1\10\3\uffff\1\11\75\uffff\1\15",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -25937,11 +25879,11 @@ public class JavaParser extends Parser
             "\1\uffff\1\0\1\1\1\2\1\3\6\uffff\1\4\41\uffff}>";
     static final String[] DFA89_transitionS = {
             "\1\2\4\uffff\1\22\10\uffff\1\22\1\uffff\1\22\1\uffff\1\22\1" +
-            "\uffff\1\22\1\uffff\2\22\3\uffff\1\22\3\uffff\1\22\5\uffff\1" +
-            "\22\10\uffff\1\5\1\22\1\3\1\22\1\3\2\uffff\1\3\1\5\1\22\1\uffff" +
-            "\1\22\1\3\1\uffff\1\5\1\uffff\1\22\1\1\1\uffff\1\3\2\22\2\uffff" +
-            "\1\5\1\uffff\2\3\1\5\2\22\1\uffff\3\5\1\22\1\3\2\5\2\22\1\13" +
-            "\2\22\1\uffff\1\5\3\22\1\5\1\22\74\uffff\1\4\6\22",
+                    "\uffff\1\22\1\uffff\2\22\3\uffff\1\22\3\uffff\1\22\5\uffff\1" +
+                    "\22\10\uffff\1\5\1\22\1\3\1\22\1\3\2\uffff\1\3\1\5\1\22\1\uffff" +
+                    "\1\22\1\3\1\uffff\1\5\1\uffff\1\22\1\1\1\uffff\1\3\2\22\2\uffff" +
+                    "\1\5\1\uffff\2\3\1\5\2\22\1\uffff\3\5\1\22\1\3\2\5\2\22\1\13" +
+                    "\2\22\1\uffff\1\5\3\22\1\5\1\22\74\uffff\1\4\6\22",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -26161,16 +26103,16 @@ public class JavaParser extends Parser
             "\1\u00aa\15\uffff\1\114\3\uffff";
     static final String DFA98_acceptS =
             "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1" +
-            "\15\1\uffff\1\17\1\20\1\16";
+                    "\15\1\uffff\1\17\1\20\1\16";
     static final String DFA98_specialS =
             "\22\uffff}>";
     static final String[] DFA98_transitionS = {
             "\1\17\10\uffff\1\17\1\uffff\1\1\1\uffff\1\17\1\uffff\1\17\1" +
-            "\uffff\2\17\3\uffff\1\17\3\uffff\1\17\5\uffff\1\20\11\uffff" +
-            "\1\2\1\17\1\14\1\17\2\uffff\1\17\1\uffff\1\15\1\uffff\1\6\1" +
-            "\17\3\uffff\1\17\2\uffff\1\17\1\4\1\3\4\uffff\2\17\1\uffff\2" +
-            "\17\4\uffff\1\12\1\17\2\uffff\1\17\1\10\1\11\1\17\1\13\2\uffff" +
-            "\1\17\1\7\1\17\1\uffff\1\5\74\uffff\1\16\6\17",
+                    "\uffff\2\17\3\uffff\1\17\3\uffff\1\17\5\uffff\1\20\11\uffff" +
+                    "\1\2\1\17\1\14\1\17\2\uffff\1\17\1\uffff\1\15\1\uffff\1\6\1" +
+                    "\17\3\uffff\1\17\2\uffff\1\17\1\4\1\3\4\uffff\2\17\1\uffff\2" +
+                    "\17\4\uffff\1\12\1\17\2\uffff\1\17\1\10\1\11\1\17\1\13\2\uffff" +
+                    "\1\17\1\7\1\17\1\uffff\1\5\74\uffff\1\16\6\17",
             "",
             "",
             "",
@@ -26185,7 +26127,7 @@ public class JavaParser extends Parser
             "",
             "",
             "\3\17\1\uffff\2\17\1\21\1\uffff\4\17\2\uffff\5\17\1\uffff\3" +
-            "\17\1\uffff\6\17\1\uffff\6\17\3\uffff\11\17\27\uffff\1\17",
+                    "\17\1\uffff\6\17\1\uffff\6\17\3\uffff\11\17\27\uffff\1\17",
             "",
             "",
             ""
@@ -26245,10 +26187,10 @@ public class JavaParser extends Parser
             "\1\uffff\1\0\1\1\1\2\1\3\17\uffff}>";
     static final String[] DFA92_transitionS = {
             "\1\2\4\uffff\1\5\10\uffff\1\5\3\uffff\1\5\1\uffff\1\5\1\uffff" +
-            "\2\5\3\uffff\1\5\3\uffff\1\5\5\uffff\1\5\12\uffff\1\3\1\uffff" +
-            "\1\3\2\uffff\1\3\4\uffff\1\3\3\uffff\1\5\1\1\1\uffff\1\3\6\uffff" +
-            "\2\3\1\uffff\2\5\5\uffff\1\3\2\uffff\1\5\2\uffff\1\5\3\uffff" +
-            "\1\5\1\uffff\1\5\76\uffff\1\4\6\5",
+                    "\2\5\3\uffff\1\5\3\uffff\1\5\5\uffff\1\5\12\uffff\1\3\1\uffff" +
+                    "\1\3\2\uffff\1\3\4\uffff\1\3\3\uffff\1\5\1\1\1\uffff\1\3\6\uffff" +
+                    "\2\3\1\uffff\2\5\5\uffff\1\3\2\uffff\1\5\2\uffff\1\5\3\uffff" +
+                    "\1\5\1\uffff\1\5\76\uffff\1\4\6\5",
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
@@ -26426,10 +26368,10 @@ public class JavaParser extends Parser
             "\3\uffff\1\0\1\1\16\uffff}>";
     static final String[] DFA104_transitionS = {
             "\1\1\4\uffff\1\5\10\uffff\1\5\3\uffff\1\5\1\uffff\1\5\1\uffff" +
-            "\2\5\3\uffff\1\5\3\uffff\1\5\5\uffff\1\22\12\uffff\1\3\1\uffff" +
-            "\1\3\2\uffff\1\3\4\uffff\1\3\3\uffff\1\5\1\1\1\uffff\1\3\6\uffff" +
-            "\2\3\1\uffff\2\5\5\uffff\1\3\2\uffff\1\5\2\uffff\1\5\3\uffff" +
-            "\1\5\1\uffff\1\5\76\uffff\1\4\6\5",
+                    "\2\5\3\uffff\1\5\3\uffff\1\5\5\uffff\1\22\12\uffff\1\3\1\uffff" +
+                    "\1\3\2\uffff\1\3\4\uffff\1\3\3\uffff\1\5\1\1\1\uffff\1\3\6\uffff" +
+                    "\2\3\1\uffff\2\5\5\uffff\1\3\2\uffff\1\5\2\uffff\1\5\3\uffff" +
+                    "\1\5\1\uffff\1\5\76\uffff\1\4\6\5",
             "",
             "",
             "\1\uffff",
@@ -26564,9 +26506,9 @@ public class JavaParser extends Parser
             "\3\uffff\1\0\12\uffff}>";
     static final String[] DFA128_transitionS = {
             "\1\4\1\uffff\1\2\1\uffff\1\3\4\uffff\1\1\24\uffff\1\4\1\uffff" +
-            "\1\4\2\uffff\1\4\4\uffff\1\4\3\uffff\1\4\2\uffff\1\4\6\uffff" +
-            "\2\4\1\uffff\2\4\5\uffff\1\4\2\uffff\1\4\2\uffff\1\4\3\uffff" +
-            "\1\4\1\uffff\1\4\76\uffff\7\4",
+                    "\1\4\2\uffff\1\4\4\uffff\1\4\3\uffff\1\4\2\uffff\1\4\6\uffff" +
+                    "\2\4\1\uffff\2\4\5\uffff\1\4\2\uffff\1\4\2\uffff\1\4\3\uffff" +
+                    "\1\4\1\uffff\1\4\76\uffff\7\4",
             "",
             "",
             "\1\uffff",
@@ -26680,9 +26622,9 @@ public class JavaParser extends Parser
             "\14\uffff}>";
     static final String[] DFA140_transitionS = {
             "\1\5\3\uffff\1\1\31\uffff\1\10\1\uffff\1\10\2\uffff\1\10\4\uffff" +
-            "\1\10\3\uffff\1\2\2\uffff\1\10\6\uffff\2\10\1\uffff\1\3\1\2" +
-            "\5\uffff\1\10\2\uffff\1\7\2\uffff\1\6\3\uffff\1\2\1\uffff\1" +
-            "\11\76\uffff\1\4\6\2",
+                    "\1\10\3\uffff\1\2\2\uffff\1\10\6\uffff\2\10\1\uffff\1\3\1\2" +
+                    "\5\uffff\1\10\2\uffff\1\7\2\uffff\1\6\3\uffff\1\2\1\uffff\1" +
+                    "\11\76\uffff\1\4\6\2",
             "",
             "",
             "",
@@ -26750,7 +26692,7 @@ public class JavaParser extends Parser
             "\1\uffff\1\0\1\uffff\1\1\54\uffff}>";
     static final String[] DFA144_transitionS = {
             "\3\4\1\uffff\7\4\1\3\2\uffff\4\4\1\1\1\uffff\3\4\1\uffff\1\4" +
-            "\1\2\4\4\1\uffff\22\4\27\uffff\1\4",
+                    "\1\2\4\4\1\uffff\22\4\27\uffff\1\4",
             "\1\uffff",
             "",
             "\1\uffff",
@@ -26914,7 +26856,7 @@ public class JavaParser extends Parser
             "\1\uffff\1\0\54\uffff}>";
     static final String[] DFA151_transitionS = {
             "\3\2\1\uffff\10\2\2\uffff\4\2\1\1\1\uffff\3\2\1\uffff\1\2\1" +
-            "\uffff\4\2\1\uffff\22\2\27\uffff\1\2",
+                    "\uffff\4\2\1\uffff\22\2\27\uffff\1\2",
             "\1\uffff",
             "",
             "",

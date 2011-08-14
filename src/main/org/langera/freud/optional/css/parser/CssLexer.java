@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2011.
+ * This file is part of "Freud".
+ *
+ * Freud is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Freud is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Freud.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Amir Langer  langera_at_gmail_dot_com
+ */
+
 // $ANTLR 3.2 Sep 23, 2009 12:02:23 /home/langera/dev/freud/src/grammar/Css.g 2010-07-23 21:37:10
 
 package org.langera.freud.optional.css.parser;
@@ -80,7 +99,10 @@ public class CssLexer extends Lexer
     // delegates
     // delegators
 
-    public CssLexer() {;}
+    public CssLexer()
+    {
+        ;
+    }
 
     public CssLexer(CharStream input)
     {
@@ -93,7 +115,10 @@ public class CssLexer extends Lexer
 
     }
 
-    public String getGrammarFileName() { return "/home/langera/dev/freud/src/grammar/Css.g"; }
+    public String getGrammarFileName()
+    {
+        return "/home/langera/dev/freud/src/grammar/Css.g";
+    }
 
     // $ANTLR start "T__26"
     public final void mT__26() throws RecognitionException
@@ -1786,10 +1811,14 @@ public class CssLexer extends Lexer
 
                     s = -1;
                     if ((LA7_54 == '\"' || LA7_54 == '\'' || (LA7_54 >= '-' && LA7_54 <= '9') || LA7_54 == '=' || (LA7_54 >= 'A' && LA7_54 <= 'Z') || LA7_54 == '_' || (LA7_54 >= 'a' && LA7_54 <= 'z') || (LA7_54 >= '\u0100' && LA7_54 <= '\uFFFE')))
-                    {s = 72;}
+                    {
+                        s = 72;
+                    }
 
                     else if (((LA7_54 >= '\u0000' && LA7_54 <= '!') || (LA7_54 >= '#' && LA7_54 <= '&') || (LA7_54 >= '(' && LA7_54 <= ',') || (LA7_54 >= ':' && LA7_54 <= '<') || (LA7_54 >= '>' && LA7_54 <= '@') || (LA7_54 >= '[' && LA7_54 <= '^') || LA7_54 == '`' || (LA7_54 >= '{' && LA7_54 <= '\u00FF') || LA7_54 == '\uFFFF'))
-                    {s = 73;}
+                    {
+                        s = 73;
+                    }
 
                     else
                     {
@@ -1806,10 +1835,14 @@ public class CssLexer extends Lexer
 
                     s = -1;
                     if (((LA7_72 >= '\u0000' && LA7_72 <= '!') || (LA7_72 >= '#' && LA7_72 <= '&') || (LA7_72 >= '(' && LA7_72 <= ',') || (LA7_72 >= ':' && LA7_72 <= '<') || (LA7_72 >= '>' && LA7_72 <= '@') || (LA7_72 >= '[' && LA7_72 <= '^') || LA7_72 == '`' || (LA7_72 >= '{' && LA7_72 <= '\u00FF') || LA7_72 == '\uFFFF'))
-                    {s = 73;}
+                    {
+                        s = 73;
+                    }
 
                     else if ((LA7_72 == '\"' || LA7_72 == '\'' || (LA7_72 >= '-' && LA7_72 <= '9') || LA7_72 == '=' || (LA7_72 >= 'A' && LA7_72 <= 'Z') || LA7_72 == '_' || (LA7_72 >= 'a' && LA7_72 <= 'z') || (LA7_72 >= '\u0100' && LA7_72 <= '\uFFFE')))
-                    {s = 72;}
+                    {
+                        s = 72;
+                    }
 
                     else
                     {
