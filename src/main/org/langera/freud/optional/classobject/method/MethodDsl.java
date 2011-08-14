@@ -38,9 +38,61 @@ public final class MethodDsl
         });
     }
 
+    @SuppressWarnings("unchecked")
+    public static FreudMatcher<Method> withParams(final Class... params)
+    {
+        final Matcher<Class>[] matchers = new Matcher[params.length];
+        for (int i = 0, size = params.length; i < size; i++)
+        {
+            matchers[i] = (Matcher<Class>) Matchers.equalTo(params[i]);
+
+        }
+        return withParams(matchers);
+
+    }
+
+    public static FreudMatcher<Method> withParams(final Matcher<Class>... params)
+    {
+        return new FreudMatcher<Method>()
+        {
+            @Override
+            protected boolean matchesSafely(final Method item)
+            {
+                final Class[] itemParameterTypes = item.getParameterTypes();
+                if (params.length != itemParameterTypes.length)
+                {
+                    return false;
+                }
+                for (int i = 0, size = params.length; i < size; i++)
+                {
+                    if (!params[i].matches(itemParameterTypes[i]))
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText("withParams(");
+                for (int i = 0, size = params.length; i < size; i++)
+                {
+                    if (i > 0)
+                    {
+                        description.appendText(", ");
+                    }
+                    description.appendDescriptionOf(params[i]);
+                }
+                description.appendText(")");
+            }
+        };
+    }
+
     public static FreudMatcher<Method> methodAnnotation(final Class<? extends Annotation> annotationType)
     {
-        return methodAnnotation(annotationType, (Matcher) null);
+        return methodAnnotation(annotationType, null);
     }
 
     public static FreudMatcher<Method> methodAnnotation(final Class<? extends Annotation> annotationType, final Object value)
@@ -104,6 +156,16 @@ public final class MethodDsl
     public static FreudMatcher<Method> publicMethod()
     {
         return definedWithModifier(Modifier.PUBLIC);
+    }
+
+    public static FreudMatcher<Method> privateMethod()
+    {
+        return definedWithModifier(Modifier.PRIVATE);
+    }
+
+    public static FreudMatcher<Method> protectedMethod()
+    {
+        return definedWithModifier(Modifier.PROTECTED);
     }
 
     public static FreudMatcher<Method> staticMethod()

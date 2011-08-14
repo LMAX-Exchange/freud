@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.langera.freud.core.Freud;
 import org.langera.freud.core.iterator.resource.ResourceIterators;
 import org.langera.freud.core.listener.AnalysisListenerStub;
+import org.langera.freud.optional.classobject.ClassObjectDsl;
 
 import java.io.IOException;
 import java.lang.annotation.ElementType;
@@ -22,6 +23,7 @@ import static org.langera.freud.optional.classobject.method.MethodDsl.methodName
 import static org.langera.freud.optional.classobject.method.MethodDsl.publicMethod;
 import static org.langera.freud.optional.classobject.method.MethodDsl.staticMethod;
 import static org.langera.freud.optional.classobject.method.MethodDsl.throwsException;
+import static org.langera.freud.optional.classobject.method.MethodDsl.withParams;
 
 public final class MethodDslTest
 {
@@ -109,6 +111,25 @@ public final class MethodDslTest
     public void shouldReturnFalseToANonStaticModifier() throws Exception
     {
         Assert.assertThat(MethodDslTest.class.getMethod("shouldReturnFalseToANonStaticModifier"), no(staticMethod()));
+    }
+
+    @Test
+    public void shouldReturnTrueToMatchingParams() throws Exception
+    {
+        Assert.assertThat(String.class.getMethod("startsWith", String.class, int.class), withParams(String.class, int.class));
+    }
+
+
+    @Test
+    public void shouldReturnTrueToMatchingPrimitiveParams() throws Exception
+    {
+        Assert.assertThat(String.class.getMethod("charAt", int.class), withParams(int.class));
+    }
+
+    @Test
+    public void shouldReturnTrueToMatchingParamsUsingMatcher() throws Exception
+    {
+        Assert.assertThat(String.class.getMethod("charAt", int.class), withParams(ClassObjectDsl.primitive()));
     }
 
     @Test
