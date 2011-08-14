@@ -21,9 +21,13 @@ package org.langera.freud.core;
 
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 
+import java.util.Iterator;
+
 public interface FreudIteration<T>
 {
-    FreudRule<T> in(AnalysedObjectIterator<T> iterator);
+    FreudRule<T> in(Iterator<T> iterator);
 
     FreudRule<T> within(AnalysedObjectIterator<?> iterator);
+
+    <S> FreudRule<T> within(Iterator<S> iterator, Class<S> iteratedType);
 }

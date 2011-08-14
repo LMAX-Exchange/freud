@@ -22,10 +22,12 @@ package org.langera.freud.core;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
+import org.langera.freud.core.iterator.IteratorWrapperAnalysedObjectIterator;
 import org.langera.freud.core.listener.AnalysisListener;
 import org.langera.freud.core.matcher.FreudMatcher;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAssertionAndFilter<T>, FreudAnalyser
@@ -50,21 +52,28 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
     }
 
     @Override
-    public FreudRule<T> in(final AnalysedObjectIterator<T> iterator)
+    public FreudRule<T> in(final Iterator<T> iterator)
     {
-        this.iterator = iterator;
-        FreudRuntimeContext.register(iterator);
+        this.iterator = toAnalysedObjectIterator(iterator, type);
+        FreudRuntimeContext.register(this.iterator);
+        return this;
+    }
+
+    @Override
+    public FreudRule<T> within(final AnalysedObjectIterator<?> analysedObjectIterator)
+    {
+        FreudRuntimeContext.register(analysedObjectIterator);
+        this.iterator = adapter(analysedObjectIterator);
+        FreudRuntimeContext.register(this.iterator);
         return this;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public FreudRule<T> within(final AnalysedObjectIterator<?> iterator)
+    public <S> FreudRule<T> within(final Iterator<S> iterator, final Class<S> iteratedType)
     {
-        FreudRuntimeContext.register(iterator);
-        this.iterator = adapter(iterator);
-        FreudRuntimeContext.register(this.iterator);
-        return this;
+        final AnalysedObjectIterator<T> analysedObjectIterator = toAnalysedObjectIterator(iterator, iteratedType);
+        return within(analysedObjectIterator);
     }
 
     @Override
@@ -151,6 +160,26 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @SuppressWarnings("unchecked")
+    private AnalysedObjectIterator<T> toAnalysedObjectIterator(final Iterator<?> iterator, final Class iteratedType)
+    {
+        if (iterator instanceof AnalysedObjectIterator)
+        {
+            return (AnalysedObjectIterator<T>) iterator;
+        }
+        else
+        {
+            return new IteratorWrapperAnalysedObjectIterator<T>(new Iterable<T>()
+            {
+                @Override
+                public Iterator<T> iterator()
+                {
+                    return (Iterator<T>) iterator;
+                }
+            }, iteratedType, true);
+        }
+    }
 
     private Matcher<T> trueMatcher()
     {
