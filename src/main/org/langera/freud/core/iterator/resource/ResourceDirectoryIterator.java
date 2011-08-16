@@ -85,6 +85,7 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
 
     private T generateNextItemFromCurrentDir()
     {
+        T resourceToReturn = null;
         while (files != null && filesPtr < files.length)
         {
             File file = files[filesPtr++];
@@ -97,15 +98,15 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
             }
             else
             {
-                if (filenameFilter == null ||
-                        filenameFilter.accept(file.getParentFile(), file.getName()))
+                if (resourceToReturn == null &&
+                        (filenameFilter == null || filenameFilter.accept(file.getParentFile(), file.getName())))
                 {
                     try
                     {
                         T resource = resourceParser.parseResource(file.getAbsolutePath(), FileResource.getInstance());
                         if (resource != null)
                         {
-                            return resource;
+                            resourceToReturn = resource;
                         }
                     }
                     catch (IOException e)
@@ -119,6 +120,6 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
                 }
             }
         }
-        return null;
+        return resourceToReturn;
     }
 }

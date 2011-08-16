@@ -1976,8 +1976,7 @@ public enum Opcode
                 @Override
                 public OperandStack updateOperandStack(final ClassFileMethod method, final Instruction instruction, final OperandStack stack)
                 {
-                    System.out.println("TODO");
-                    return stack; // TODO
+                    return stack;
                 }
             }, // NOT VISITED
     MULTIANEWARRAY

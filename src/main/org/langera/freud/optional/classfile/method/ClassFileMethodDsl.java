@@ -25,6 +25,7 @@ import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.optional.classfile.method.instruction.AbstractInstructionVisitor;
 import org.langera.freud.optional.classfile.method.instruction.CastOperandStack;
 import org.langera.freud.optional.classfile.method.instruction.Instruction;
+import org.langera.freud.optional.classfile.method.instruction.Opcode;
 import org.langera.freud.optional.classfile.method.instruction.OperandStack;
 
 import java.util.Arrays;
@@ -136,6 +137,49 @@ public final class ClassFileMethodDsl
             public void describeTo(final Description description)
             {
                 description.appendText("methodInvokedWithParams(" + expectedOwner.getName() + ", " + expectedMethodName + ")");
+            }
+        };
+    }
+
+    public static FreudMatcher<ClassFileMethod> containsInstructions(final Opcode... opcodes)
+    {
+        return new FreudMatcher<ClassFileMethod>()
+        {
+            private Instruction found = null;
+            @Override
+            protected boolean matchesSafely(final ClassFileMethod item)
+            {
+                item.findInstruction(new AbstractInstructionVisitor()
+                {
+                    @Override
+                    public void noArgInstruction(final Instruction instruction)
+                    {
+                        for (int i = 0; i < opcodes.length; i++)
+                        {
+                            Opcode opcode = opcodes[i];
+                            if (instruction.getOpcode() == opcode)
+                            {
+                                found = instruction;
+                                break;
+                            }
+                        }
+                    }
+                });
+                return found != null;
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText("containsInstructions(");
+                for (int i = 0; i < opcodes.length; i++)
+                {
+                    Opcode opcode = opcodes[i];
+                    description.appendText(opcode.name());
+                    description.appendText(", ");
+
+                }
+                description.appendText(") found");
             }
         };
     }
