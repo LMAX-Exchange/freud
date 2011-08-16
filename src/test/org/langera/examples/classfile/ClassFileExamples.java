@@ -33,6 +33,7 @@ import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.a;
 import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.containsInstructions;
 import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.hasMethodInvocation;
 import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.methodInvokedWithParams;
+import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.methodName;
 
 public final class ClassFileExamples
 {
@@ -61,38 +62,32 @@ public final class ClassFileExamples
                 assertThat(no(containsInstructions(Opcode.ATHROW)));
     }
 
-
-
-
-
-
-//    public static void main(String[] args) throws IOException, ResourceParserException
-//    {
-//        final AnalysedObjectIterator<ClassFile> iterator = ResourceIterators.filesByPathResourceIterator(
-//                new AsmClassFileParser(new InnerClassFileResourceIdentifierGetter()
-//                {
-//                    @Override
-//                    public String getResourceIdentifier(final String name, final ClassFile currentClassFile, final String currentResourceIdentifier)
-//                    {
-//                        int indexOfClassesDir = currentResourceIdentifier.indexOf("classes/");
-//                        return currentResourceIdentifier.substring(0, indexOfClassesDir + "classes/".length()) + name + ".class";
-//                    }
-//                }),
-//                new FilenameFilter()
-//                {
-//                    @Override
-//                    public boolean accept(final File dir, final String name)
-//                    {
-//                        return name.endsWith(".class");
-//                    }
-////                }, true, "../java/classes");
-////                }, true, "../trunk/build/classes/");
-//                }, true, "build");
-//
-//        final FreudAnalyser analyser = doNotUseBigDecimalEquals(iterator);
-//
-//        analyser.analyse(new PrintAnalysisListener(new PrintWriter(System.out)));
-//    }
-
+    public static FreudAnalyser specificMethodsShouldNotHaveBranchLogic(final AnalysedObjectIterator<ClassFile> iterator)
+    {
+        return Freud.iterateOver(ClassFileMethod.class).within(iterator).
+                assertThat(no(methodName().matches("criticalPath")).
+                            or(no(containsInstructions(Opcode.IFEQ,
+                                                       Opcode.IFLT,
+                                                       Opcode.IFLE,
+                                                       Opcode.IFNE,
+                                                       Opcode.IFGT,
+                                                       Opcode.IFGE,
+                                                       Opcode.IFNULL,
+                                                       Opcode.IFNONNULL,
+                                                       Opcode.IF_ICMPEQ,
+                                                       Opcode.IF_ICMPGE,
+                                                       Opcode.IF_ICMPGT,
+                                                       Opcode.IF_ICMPLE,
+                                                       Opcode.IF_ICMPLT,
+                                                       Opcode.IF_ICMPNE,
+                                                       Opcode.IF_ACMPEQ,
+                                                       Opcode.IF_ACMPNE,
+                                                       Opcode.TABLESWITCH,
+                                                       Opcode.LOOKUPSWITCH,
+                                                       Opcode.GOTO,
+                                                       Opcode.GOTO_W,
+                                                       Opcode.JSR,
+                                                       Opcode.JSR_W))));
+    }
 }
 

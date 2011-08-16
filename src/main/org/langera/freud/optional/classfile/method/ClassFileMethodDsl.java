@@ -22,6 +22,8 @@ package org.langera.freud.optional.classfile.method;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.langera.freud.core.matcher.FreudMatcher;
+import org.langera.freud.core.matcher.RegexMatcherAdapter;
+import org.langera.freud.core.matcher.RegexMatcherBuilder;
 import org.langera.freud.optional.classfile.method.instruction.AbstractInstructionVisitor;
 import org.langera.freud.optional.classfile.method.instruction.CastOperandStack;
 import org.langera.freud.optional.classfile.method.instruction.Instruction;
@@ -38,6 +40,24 @@ public final class ClassFileMethodDsl
     private ClassFileMethodDsl()
     {
         // static utility
+    }
+
+    public static RegexMatcherBuilder<ClassFileMethod> methodName()
+    {
+        return new RegexMatcherBuilder<ClassFileMethod>(new RegexMatcherAdapter<ClassFileMethod>()
+        {
+            @Override
+            public String getStringToMatch(final ClassFileMethod toBeAnalysed)
+            {
+                return toBeAnalysed.getName();
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "MethodName";
+            }
+        });
     }
 
     private static final String[] EMPTY_ARGS = new String[0];
