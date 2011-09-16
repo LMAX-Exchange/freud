@@ -19,6 +19,7 @@
 
 package org.langera.freud.core.iterator.resource;
 
+import org.hamcrest.Matchers;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.api.Invocation;
@@ -34,6 +35,9 @@ import org.langera.freud.optional.text.Text;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RunWith(JMock.class)
 public class ResourceDirectoryIteratorTest
@@ -43,8 +47,10 @@ public class ResourceDirectoryIteratorTest
 
     private File tmpDir;
     private ResourceDirectoryIterator<Text> iterator;
+    private File file3;
     private File file2;
     private File file1;
+    private File file0;
     private ResourceParser parser;
     private AnalysisListener listener;
 
@@ -52,6 +58,7 @@ public class ResourceDirectoryIteratorTest
     @Test
     public void shouldIterateOverFilesInDirectories() throws Exception
     {
+        List<String> resourcesIterated = new ArrayList<String>();
         mockery.checking(new Expectations()
         {
             {
@@ -66,47 +73,52 @@ public class ResourceDirectoryIteratorTest
                 });
             }
         });
-        Assert.assertTrue(iterator.hasNext());
-        Text text1 = iterator.next();
 
-        Assert.assertEquals(file1.getAbsolutePath(), text1.getResourceIdentifier());
 
-        Assert.assertTrue(iterator.hasNext());
-        Text text2 = iterator.next();
+        while (iterator.hasNext())
+        {
+            resourcesIterated.add(iterator.next().getResourceIdentifier());
+        }
 
-        Assert.assertEquals(file2.getAbsolutePath(), text2.getResourceIdentifier());
 
-        Assert.assertFalse(iterator.hasNext());
+        Assert.assertEquals(4, resourcesIterated.size());
+        Assert.assertThat(resourcesIterated, Matchers.hasItems(file0.getAbsolutePath(),
+                                                               file1.getAbsolutePath(),
+                                                               file2.getAbsolutePath(),
+                                                               file3.getAbsolutePath()));
     }
 
     @Test
     public void shouldIterateOverFilesEvenIfParserBlowsUp() throws Exception
     {
+        List<String> resourcesIterated = new ArrayList<String>();
+
+        expectParsing(file1);
+        expectParsing(file2);
+        expectParsing(file3);
+
         mockery.checking(new Expectations()
         {
             {
                 one(listener).unexpected(with(aNull(Object.class)), with(any(RuntimeException.class)));
 
-                one(parser).parseResource(with(file1.getAbsolutePath()), with((any(Resource.class))));
+                one(parser).parseResource(with(file0.getAbsolutePath()), with((any(Resource.class))));
                 will(throwException(new ResourceParserException("boom", null)));
-                one(parser).parseResource(with(file2.getAbsolutePath()), with((any(Resource.class))));
-                will(new CustomAction("fake parsing")
-                {
-                    @Override
-                    public Object invoke(final Invocation invocation) throws Throwable
-                    {
-                        return new Text("", (String) invocation.getParameter(0));
-                    }
-                });
+
             }
         });
 
-        Assert.assertTrue(iterator.hasNext());
-        Text text2 = iterator.next();
 
-        Assert.assertEquals(file2.getAbsolutePath(), text2.getResourceIdentifier());
+        while (iterator.hasNext())
+        {
+            resourcesIterated.add(iterator.next().getResourceIdentifier());
+        }
 
-        Assert.assertFalse(iterator.hasNext());
+
+        Assert.assertEquals(3, resourcesIterated.size());
+        Assert.assertThat(resourcesIterated, Matchers.hasItems(file1.getAbsolutePath(),
+                                                               file2.getAbsolutePath(),
+                                                               file3.getAbsolutePath()));
     }
 
     @Before
@@ -122,12 +134,18 @@ public class ResourceDirectoryIteratorTest
 
         final String tempFilename = FILE_PREFIX + System.currentTimeMillis() + ".tmp";
 
-        file1 = new File(tmpDir, tempFilename);
+        file0 = new File(tmpDir, tempFilename);
+        file0.createNewFile();
+        file0.deleteOnExit();
+        file1 = new File(dir, tempFilename + ".1");
         file1.createNewFile();
         file1.deleteOnExit();
-        file2 = new File(dir, tempFilename);
+        file2 = new File(dir, tempFilename + ".2");
         file2.createNewFile();
         file2.deleteOnExit();
+        file3 = new File(dir, tempFilename + ".3");
+        file3.createNewFile();
+        file3.deleteOnExit();
 
         parser = mockery.mock(ResourceParser.class);
 
@@ -139,16 +157,34 @@ public class ResourceDirectoryIteratorTest
             }
         });
         iterator = new ResourceDirectoryIterator<Text>(parser,
-                true, new FilenameFilter()
+                                                       true, new FilenameFilter()
         {
             public boolean accept(File dir, String name)
             {
-                return name.equals(tempFilename);
+                return name.startsWith(tempFilename);
             }
         }, true, System.getProperty("java.io.tmpdir"));
         listener = mockery.mock(AnalysisListener.class);
         iterator.setListener(listener);
 
+    }
+
+    private void expectParsing(final File file) throws IOException, ResourceParserException
+    {
+        mockery.checking(new Expectations()
+        {
+            {
+                one(parser).parseResource(with(file.getAbsolutePath()), with((any(Resource.class))));
+                will(new CustomAction("fake parsing")
+                {
+                    @Override
+                    public Object invoke(final Invocation invocation) throws Throwable
+                    {
+                        return new Text("", (String) invocation.getParameter(0));
+                    }
+                });
+            }
+        });
     }
 
     private void clean()

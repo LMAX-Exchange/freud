@@ -66,6 +66,11 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
     @Override
     protected T generateNextItem()
     {
+        T item = generateNextItemFromCurrentDir();
+        if (item != null)
+        {
+            return item;
+        }
         while (!resourcePathList.isEmpty())
         {
             final File resourceDir = new File(resourcePathList.removeFirst());
@@ -74,7 +79,7 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
                 files = resourceDir.listFiles();
                 filesPtr = 0;
             }
-            T item = generateNextItemFromCurrentDir();
+            item = generateNextItemFromCurrentDir();
             if (item != null)
             {
                 return item;
@@ -85,7 +90,6 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
 
     private T generateNextItemFromCurrentDir()
     {
-        T resourceToReturn = null;
         while (files != null && filesPtr < files.length)
         {
             File file = files[filesPtr++];
@@ -98,15 +102,14 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
             }
             else
             {
-                if (resourceToReturn == null &&
-                        (filenameFilter == null || filenameFilter.accept(file.getParentFile(), file.getName())))
+                if (filenameFilter == null || filenameFilter.accept(file.getParentFile(), file.getName()))
                 {
                     try
                     {
                         T resource = resourceParser.parseResource(file.getAbsolutePath(), FileResource.getInstance());
                         if (resource != null)
                         {
-                            resourceToReturn = resource;
+                            return resource;
                         }
                     }
                     catch (IOException e)
@@ -120,6 +123,6 @@ public final class ResourceDirectoryIterator<T> extends AbstractAnalysedObjectIt
                 }
             }
         }
-        return resourceToReturn;
+        return null;
     }
 }
