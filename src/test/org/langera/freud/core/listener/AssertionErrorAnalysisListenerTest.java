@@ -22,6 +22,8 @@ package org.langera.freud.core.listener;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.Matchers.startsWith;
+
 @SuppressWarnings({"ThrowableInstanceNeverThrown"})
 public class AssertionErrorAnalysisListenerTest
 {
@@ -41,7 +43,7 @@ public class AssertionErrorAnalysisListenerTest
             Assert.fail();
         } catch (AssertionError e)
         {
-            Assert.assertEquals("Analysis on [null] failed.", e.getMessage());
+            Assert.assertThat(e.getMessage(), startsWith("Analysis on [null] failed."));
         }
 
         try

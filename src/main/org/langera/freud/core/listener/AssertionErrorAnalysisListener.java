@@ -25,19 +25,20 @@ import org.hamcrest.Matcher;
 public final class AssertionErrorAnalysisListener implements AnalysisListener
 {
     @Override
-    public void failed(Object analysedObject, Matcher typeSafeMatcher)
+    public void failed(Object analysedObject, Matcher matcher)
     {
-        throw new AssertionError("Analysis on [" + analysedObject + "] failed.");
+        throw new AssertionError("Analysis on [" + analysedObject + "] failed." +
+                ((matcher == null) ? "" : matcher.toString()));
     }
 
     @Override
-    public void filtered(Object analysedObject, Matcher typeSafeMatcher)
+    public void filtered(Object analysedObject, Matcher matcher)
     {
         // do nothing
     }
 
     @Override
-    public void passed(Object analysedObject, Matcher typeSafeMatcher)
+    public void passed(Object analysedObject, Matcher matcher)
     {
         // do nothing
     }
