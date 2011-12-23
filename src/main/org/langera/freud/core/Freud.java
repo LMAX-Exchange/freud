@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAssertionAndFilter<T>, FreudAnalyser
+public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAssertionAndFilter<T>, SingleFreudAnalyser<T>, FreudAnalyser
 {
     public static final String FREUD_CONFIG_SUFFIX = "FreudConfig";
     private Class<T> type;
@@ -124,6 +124,13 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public SingleFreudAnalyser<T> singleAssertThat(final Matcher<T> matcher)
+    {
+        return (SingleFreudAnalyser<T>) assertThat(matcher);
+    }
+
+    @Override
     public void analyse(final AnalysisListener listener)
     {
         if (listener == null)
@@ -133,30 +140,42 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
         iterator.setListener(listener);
         for (T currentlyAnalysed : iterator)
         {
-            try
+            analyse(listener, currentlyAnalysed);
+        }
+        listener.done();
+    }
+
+    @Override
+    public void analyse(final AnalysisListener listener, final T currentlyAnalysed)
+    {
+        try
+        {
+            if (filter == null || filter.matches(currentlyAnalysed))
             {
-                if (filter == null || filter.matches(currentlyAnalysed))
+                if (assertion.matches(currentlyAnalysed))
                 {
-                    if (assertion.matches(currentlyAnalysed))
-                    {
-                        listener.passed(currentlyAnalysed, assertion);
-                    }
-                    else
-                    {
-                        listener.failed(currentlyAnalysed, assertion);
-                    }
+                    listener.passed(currentlyAnalysed, assertion);
                 }
                 else
                 {
-                    listener.filtered(currentlyAnalysed, filter);
+                    listener.failed(currentlyAnalysed, assertion);
                 }
             }
-            catch (Exception e)
+            else
             {
-                listener.unexpected(currentlyAnalysed, e);
+                listener.filtered(currentlyAnalysed, filter);
             }
         }
-        listener.done();
+        catch (Exception e)
+        {
+            listener.unexpected(currentlyAnalysed, e);
+        }
+    }
+
+    @Override
+    public Class<T> getType()
+    {
+        return type;
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////

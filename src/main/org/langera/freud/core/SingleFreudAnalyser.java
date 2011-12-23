@@ -19,11 +19,12 @@
 
 package org.langera.freud.core;
 
-import org.hamcrest.Matcher;
 
-public interface FreudAssertion<T>
+import org.langera.freud.core.listener.AnalysisListener;
+
+public interface SingleFreudAnalyser<T>
 {
-    FreudAnalyser assertThat(Matcher<T> matcher);
+    void analyse(AnalysisListener listener, T currentlyAnalysed);
 
-    SingleFreudAnalyser<T> singleAssertThat(Matcher<T> matcher);
+    Class<T> getType();
 }

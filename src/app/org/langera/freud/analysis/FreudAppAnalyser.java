@@ -17,13 +17,11 @@
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-package org.langera.freud.core;
+package org.langera.freud.analysis;
 
-import org.hamcrest.Matcher;
+import org.langera.freud.core.SingleFreudAnalyser;
 
-public interface FreudAssertion<T>
+public interface FreudAppAnalyser<T> extends SingleFreudAnalyser<T>
 {
-    FreudAnalyser assertThat(Matcher<T> matcher);
-
-    SingleFreudAnalyser<T> singleAssertThat(Matcher<T> matcher);
+    String classification();
 }
