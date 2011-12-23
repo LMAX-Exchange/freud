@@ -19,11 +19,12 @@
 
 package org.langera.freud.core;
 
-import org.hamcrest.Matcher;
 
-public interface FreudRule<T> extends FreudAssertion<T>
+import org.langera.freud.core.listener.AnalysisListener;
+
+public interface EmbeddedFreudAnalyser<T>
 {
-    FreudAssertionAndFilter<T> forEach();
+    void analyse(AnalysisListener listener, T toBeAnalysed);
 
-    FreudAssertionAndFilter<T> forEach(Matcher<T> matcher);
+    Class<T> getType();
 }

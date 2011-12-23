@@ -21,7 +21,7 @@ package org.langera.freud.core;
 
 import org.hamcrest.Matcher;
 
-public interface FreudAssertionAndFilter<T> extends FreudAssertion<T>
+public interface FreudAssertionAndFilterBuilder<T> extends FreudAssertionBuilder<T>
 {
-    <S> FreudAssertionAndFilter<T> of(Matcher<S> superTypeMatcher, Class<S> superType);
+    <S> FreudAssertionAndFilterBuilder<T> of(Matcher<S> superTypeMatcher, Class<S> superType);
 }

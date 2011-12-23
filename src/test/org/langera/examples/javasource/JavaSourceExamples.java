@@ -43,27 +43,27 @@ public final class JavaSourceExamples
 
     public static FreudAnalyser packageDepthMustBeBetween3And7(final AnalysedObjectIterator<JavaSource> iterator)
     {
-        return Freud.iterateOver(PackageDeclaration.class).within(iterator).
+        return Freud.iterateOver(PackageDeclaration.class).
                 assertThat(packageDepth().lessThanOrEqualTo(7).and(
-                        packageDepth().greaterThanOrEqualTo(3)));
+                        packageDepth().greaterThanOrEqualTo(3))).within(iterator);
     }
 
     public static FreudAnalyser noSystemOutPrintInCode(final AnalysedObjectIterator<JavaSource> iterator)
     {
-        return Freud.iterateOver(CodeBlock.class).within(iterator).
-                assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println"))));
+        return Freud.iterateOver(CodeBlock.class).
+                assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println")))).within(iterator);
     }
 
     public static FreudAnalyser codeBlockSizeIsLimitedTo30Lines(final AnalysedObjectIterator<JavaSource> iterator)
     {
-        return Freud.iterateOver(CodeBlock.class).within(iterator).
-                assertThat(codeBlockLines().lessThanOrEqualTo(30));
+        return Freud.iterateOver(CodeBlock.class).
+                assertThat(codeBlockLines().lessThanOrEqualTo(30)).within(iterator);
     }
 
     public static FreudAnalyser codeBlockSizeIsLimitedToOneLineIfFreudNotSuppressed(final AnalysedObjectIterator<JavaSource> iterator)
     {
-        return Freud.iterateOver(CodeBlock.class).within(iterator).
+        return Freud.iterateOver(CodeBlock.class).
                 forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("\"freud:"))))).
-                assertThat(codeBlockLines().lessThanOrEqualTo(1));
+                assertThat(codeBlockLines().lessThanOrEqualTo(1)).within(iterator);
     }
 }

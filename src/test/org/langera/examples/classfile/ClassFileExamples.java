@@ -44,27 +44,27 @@ public final class ClassFileExamples
 
     public static FreudAnalyser doNotUseBigDecimalToString(final AnalysedObjectIterator<ClassFile> iterator)
     {
-        return Freud.iterateOver(ClassFileMethod.class).within(iterator).
+        return Freud.iterateOver(ClassFileMethod.class).
                 assertThat(no(hasMethodInvocation(BigDecimal.class, "toString")).
-                        and(no(methodInvokedWithParams(StringBuilder.class, "append", a(BigDecimal.class)))));
+                        and(no(methodInvokedWithParams(StringBuilder.class, "append", a(BigDecimal.class))))).within(iterator);
     }
 
     public static FreudAnalyser doNotUseBigDecimalEquals(final AnalysedObjectIterator<ClassFile> iterator)
     {
-        return Freud.iterateOver(ClassFileMethod.class).within(iterator).
-                assertThat(no(hasMethodInvocation(BigDecimal.class, "equals", Object.class)));
+        return Freud.iterateOver(ClassFileMethod.class).
+                assertThat(no(hasMethodInvocation(BigDecimal.class, "equals", Object.class))).within(iterator);
     }
 
 
     public static FreudAnalyser doNotThrowAnyExceptions(final AnalysedObjectIterator<ClassFile> iterator)
     {
-        return Freud.iterateOver(ClassFileMethod.class).within(iterator).
-                assertThat(no(containsInstructions(Opcode.ATHROW)));
+        return Freud.iterateOver(ClassFileMethod.class).
+                assertThat(no(containsInstructions(Opcode.ATHROW))).within(iterator);
     }
 
     public static FreudAnalyser specificMethodsShouldNotHaveBranchLogic(final AnalysedObjectIterator<ClassFile> iterator)
     {
-        return Freud.iterateOver(ClassFileMethod.class).within(iterator).
+        return Freud.iterateOver(ClassFileMethod.class).
                 assertThat(no(methodName().matches("criticalPath")).
                             or(no(containsInstructions(Opcode.IFEQ,
                                                        Opcode.IFLT,
@@ -87,7 +87,7 @@ public final class ClassFileExamples
                                                        Opcode.GOTO,
                                                        Opcode.GOTO_W,
                                                        Opcode.JSR,
-                                                       Opcode.JSR_W))));
+                                                       Opcode.JSR_W)))).within(iterator);
     }
 }
 

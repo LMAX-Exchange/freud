@@ -30,7 +30,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAssertionAndFilter<T>, SingleFreudAnalyser<T>, FreudAnalyser
+public final class Freud<T> implements
+        FreudAnalyserBuilder<T>, FreudRuleBuilder<T>,
+        FreudAssertionAndFilterBuilder<T>, EmbeddedFreudAnalyser<T>, FreudAnalyser
 {
     public static final String FREUD_CONFIG_SUFFIX = "FreudConfig";
     private Class<T> type;
@@ -45,14 +47,19 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
         FreudRuntimeContext.clear();
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> FreudIteration<T> iterateOver(Class<T> type)
+    public static <T> FreudRuleBuilder<T> iterateOver(Class<T> type)
     {
         return new Freud<T>(type);
     }
 
     @Override
-    public FreudRule<T> in(final Iterator<T> iterator)
+    public EmbeddedFreudAnalyser<T> embedded()
+    {
+        return this;
+    }
+
+    @Override
+    public FreudAnalyser in(final Iterator<T> iterator)
     {
         this.iterator = toAnalysedObjectIterator(iterator, type);
         FreudRuntimeContext.register(this.iterator);
@@ -60,7 +67,7 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
     }
 
     @Override
-    public FreudRule<T> within(final AnalysedObjectIterator<?> analysedObjectIterator)
+    public FreudAnalyser within(final AnalysedObjectIterator<?> analysedObjectIterator)
     {
         FreudRuntimeContext.register(analysedObjectIterator);
         this.iterator = adapter(analysedObjectIterator);
@@ -70,14 +77,14 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
 
     @Override
     @SuppressWarnings("unchecked")
-    public <S> FreudRule<T> within(final Iterator<S> iterator, final Class<S> iteratedType)
+    public <S> FreudAnalyser within(final Iterator<S> iterator, final Class<S> iteratedType)
     {
         final AnalysedObjectIterator<T> analysedObjectIterator = toAnalysedObjectIterator(iterator, iteratedType);
         return within(analysedObjectIterator);
     }
 
     @Override
-    public <S> FreudAssertionAndFilter<T> of(final Matcher<S> superTypeMatcher, final Class<S> superType)
+    public <S> FreudAssertionAndFilterBuilder<T> of(final Matcher<S> superTypeMatcher, final Class<S> superType)
     {
         FreudMatcher<T> superTypeFilterWrapper = new FreudMatcher<T>()
         {
@@ -103,31 +110,25 @@ public final class Freud<T> implements FreudIteration<T>, FreudRule<T>, FreudAss
     }
 
     @Override
-    public FreudAssertionAndFilter<T> forEach()
+    public FreudAssertionAndFilterBuilder<T> forEach()
     {
         filter = trueMatcher();
         return this;
     }
 
     @Override
-    public FreudAssertionAndFilter<T> forEach(final Matcher<T> matcher)
+    public FreudAssertionAndFilterBuilder<T> forEach(final Matcher<T> matcher)
     {
         filter = matcher;
         return this;
     }
 
     @Override
-    public FreudAnalyser assertThat(final Matcher<T> matcher)
+    @SuppressWarnings("unchecked")
+    public FreudAnalyserBuilder<T> assertThat(final Matcher<T> matcher)
     {
         assertion = matcher;
         return this;
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public SingleFreudAnalyser<T> singleAssertThat(final Matcher<T> matcher)
-    {
-        return (SingleFreudAnalyser<T>) assertThat(matcher);
     }
 
     @Override

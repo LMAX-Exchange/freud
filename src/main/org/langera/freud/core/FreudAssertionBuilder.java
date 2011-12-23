@@ -21,9 +21,7 @@ package org.langera.freud.core;
 
 import org.hamcrest.Matcher;
 
-public interface FreudAssertion<T>
+public interface FreudAssertionBuilder<T>
 {
-    FreudAnalyser assertThat(Matcher<T> matcher);
-
-    SingleFreudAnalyser<T> singleAssertThat(Matcher<T> matcher);
+    FreudAnalyserBuilder<T> assertThat(Matcher<T> matcher);
 }

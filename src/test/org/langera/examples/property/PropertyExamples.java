@@ -36,8 +36,8 @@ public final class PropertyExamples
 
     public static FreudAnalyser propertiesThatContainMaxOrMinInTheirNameMustHaveAnIntegerValue(final AnalysedObjectIterator<Property> iterator)
     {
-        return Freud.iterateOver(Property.class).in(iterator).
+        return Freud.iterateOver(Property.class).
                 forEach(propertyKey().contains("\\.min").or(propertyKey().contains("\\.max"))).
-                assertThat(propertyValue().matches("\\d+"));
+                assertThat(propertyValue().matches("\\d+")).in(iterator);
     }
 }

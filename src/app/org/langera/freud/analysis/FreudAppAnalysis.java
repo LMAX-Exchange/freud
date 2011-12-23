@@ -19,9 +19,7 @@
 
 package org.langera.freud.analysis;
 
-import org.langera.freud.core.SingleFreudAnalyser;
-
-public interface FreudAppAnalyser<T> extends SingleFreudAnalyser<T>
+public interface FreudAppAnalysis<T> //extends FreudAnalysis<T>
 {
     String classification();
 }

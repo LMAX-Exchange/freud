@@ -46,8 +46,8 @@ public final class MethodExamples
 
     public static FreudAnalyser allTestMethodsMustStartWithShould(final AnalysedObjectIterator<Class> iterator)
     {
-        return Freud.iterateOver(Method.class).within(iterator).
-                assertThat(methodName().matches("should.+").or(no(methodAnnotation(Test.class))));
+        return Freud.iterateOver(Method.class).
+                assertThat(methodName().matches("should.+").or(no(methodAnnotation(Test.class)))).within(iterator);
     }
 
 }

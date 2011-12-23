@@ -47,25 +47,25 @@ public final class ClassExamples
 
     public static FreudAnalyser equalsAlwaysGoesTogetherWithHashCode(final AnalysedObjectIterator<Class> iterator)
     {
-        return Freud.iterateOver(Class.class).in(iterator).
+        return Freud.iterateOver(Class.class).
                 assertThat(hasDeclaredMethod("equals", Object.class).and(hasDeclaredMethod("hashCode")).
-                        or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode")))));
+                        or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode"))))).in(iterator);
     }
 
     public static FreudAnalyser testClassWithMockeryMustContainRunWithAnnotation(final AnalysedObjectIterator<Class> iterator)
     {
-        return Freud.iterateOver(Class.class).in(iterator).
+        return Freud.iterateOver(Class.class).
                 forEach(classSimpleName().matches(".+Test")).
                 assertThat(no(hasDeclaredFieldOfType(Mockery.class)).
-                        or(classAnnotation(RunWith.class, JMock.class)));
+                        or(classAnnotation(RunWith.class, JMock.class))).in(iterator);
     }
 
     // + example of use of Custom hamcrest Matcher
 
     public static FreudAnalyser allImplementorsOfComparatorMustNotContainFields(final AnalysedObjectIterator<Class> iterator)
     {
-        return Freud.iterateOver(Class.class).in(iterator).
-                assertThat(no(subTypeOf(Comparator.class)).or(no(withFields())));
+        return Freud.iterateOver(Class.class).
+                assertThat(no(subTypeOf(Comparator.class)).or(no(withFields()))).in(iterator);
     }
 
     private static Matcher<Class> withFields()

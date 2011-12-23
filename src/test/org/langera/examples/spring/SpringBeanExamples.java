@@ -55,11 +55,11 @@ public final class SpringBeanExamples
 
     public static FreudAnalyser allPublicMethodsOfDaoBeansMustHaveTransactionalAnnotation(final AnalysedObjectIterator<SpringBean> iterator)
     {
-        return Freud.iterateOver(Method.class).within(iterator).
+        return Freud.iterateOver(Method.class).
                 forEach(declaredMethod().and(publicMethod())).
                 of(subTypeOf(JdbcDaoSupport.class), Class.class).
                 of(springBeanName().matches(".*?Dao"), SpringBean.class).
-                assertThat(methodAnnotation(Transactional.class));
+                assertThat(methodAnnotation(Transactional.class)).within(iterator);
 
     }
 }

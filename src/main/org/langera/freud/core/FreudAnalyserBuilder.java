@@ -23,11 +23,13 @@ import org.langera.freud.core.iterator.AnalysedObjectIterator;
 
 import java.util.Iterator;
 
-public interface FreudIteration<T>
+public interface FreudAnalyserBuilder<T>
 {
-    FreudRule<T> in(Iterator<T> iterator);
+    EmbeddedFreudAnalyser<T> embedded();
 
-    FreudRule<T> within(AnalysedObjectIterator<?> iterator);
+    FreudAnalyser in(Iterator<T> iterator);
 
-    <S> FreudRule<T> within(Iterator<S> iterator, Class<S> iteratedType);
+    FreudAnalyser within(AnalysedObjectIterator<?> iterator);
+
+    <S> FreudAnalyser within(Iterator<S> iterator, Class<S> iteratedType);
 }

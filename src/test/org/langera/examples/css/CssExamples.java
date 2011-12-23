@@ -46,16 +46,16 @@ public final class CssExamples
 
     public static FreudAnalyser classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters(final AnalysedObjectIterator<Css> iterator)
     {
-        return Freud.iterateOver(CssSelector.class).within(iterator).
+        return Freud.iterateOver(CssSelector.class).
                 forEach(classSelector().or(idSelector())).
-                assertThat(no(selector().contains("[A-Z]")));
+                assertThat(no(selector().contains("[A-Z]"))).within(iterator);
     }
 
     public static FreudAnalyser cssDisplayDeclarationIsAlwaysNone(final AnalysedObjectIterator<Css> iterator)
     {
-        return Freud.iterateOver(CssDeclaration.class).within(iterator).
+        return Freud.iterateOver(CssDeclaration.class).
                 forEach(declarationKey().matches("display")).
-                assertThat(declarationValue().matches("none"));
+                assertThat(declarationValue().matches("none")).within(iterator);
     }
 
     /**
@@ -63,9 +63,9 @@ public final class CssExamples
      */
     public static FreudAnalyser doNotQualifyIdRuleWithTagName(final AnalysedObjectIterator<Css> iterator)
     {
-        return Freud.iterateOver(CssRule.class).within(iterator).
+        return Freud.iterateOver(CssRule.class).
         assertThat(no(containsSelector(CssSelector.Type.TAG).and(
-                lastIndexOfSelector(CssSelector.Type.TAG).lessThan(lastIndexOfSelector(CssSelector.Type.ID)))));
+                lastIndexOfSelector(CssSelector.Type.TAG).lessThan(lastIndexOfSelector(CssSelector.Type.ID))))).within(iterator);
     }
 
     /**
@@ -73,9 +73,9 @@ public final class CssExamples
      */
     public static FreudAnalyser doNotQualifyIdRuleWithClassName(final AnalysedObjectIterator<Css> iterator)
     {
-        return Freud.iterateOver(CssRule.class).within(iterator).
+        return Freud.iterateOver(CssRule.class).
         assertThat(no(containsSelector(CssSelector.Type.CLASS).and(
-                lastIndexOfSelector(CssSelector.Type.CLASS).lessThan(lastIndexOfSelector(CssSelector.Type.ID)))));
+                lastIndexOfSelector(CssSelector.Type.CLASS).lessThan(lastIndexOfSelector(CssSelector.Type.ID))))).within(iterator);
     }
 
     /**
@@ -83,7 +83,7 @@ public final class CssExamples
      */
     public static FreudAnalyser descendantSelectorsAreTheWorst(final AnalysedObjectIterator<Css> iterator)
     {
-        return Freud.iterateOver(CssRule.class).within(iterator).
-        assertThat(selectors(CssSelector.Type.TAG).lessThanOrEqualTo(1));
+        return Freud.iterateOver(CssRule.class).
+        assertThat(selectors(CssSelector.Type.TAG).lessThanOrEqualTo(1)).within(iterator);
     }
 }

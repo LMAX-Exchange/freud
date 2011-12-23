@@ -54,9 +54,9 @@ public final class FreudTest
         final boolean[] isDone = {false};
         final List<String> expected = A_B_C;
 
-        Freud.iterateOver(String.class).in(iterator(A_B_C, String.class)).
+        Freud.iterateOver(String.class).
                 forEach(filter).
-                assertThat(assertion).analyse(new AnalysisListener()
+                assertThat(assertion).in(iterator(A_B_C, String.class)).analyse(new AnalysisListener()
         {
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
@@ -104,24 +104,24 @@ public final class FreudTest
     {
         System.setProperty(String.class.getName() + Freud.FREUD_CONFIG_SUFFIX, StringTestFreudConfig.class.getName());
 
-        Freud.iterateOver(String.class).within(iterator(
-                        Arrays.<Integer>asList((int)'a', (int)'b', (int)'c'), Integer.class)).
+        Freud.iterateOver(String.class).
                 forEach().of(filterOut_cInteger(), Integer.class).
-                assertThat(assert_a()).analyse(new NoOpAnalysisListener()
-        {
-            @Override
-            public void filtered(final Object analysedObject, final Matcher matcher)
-            {
-                Assert.assertEquals("c", analysedObject);
-                Assert.assertEquals("(java.lang.Integer Of (Filter C by hashCode)) AND (TRUE)", matcher.toString());
-            }
+                assertThat(assert_a()).within(iterator(Arrays.<Integer>asList((int) 'a', (int) 'b', (int) 'c'), Integer.class)).
+                analyse(new NoOpAnalysisListener()
+                {
+                    @Override
+                    public void filtered(final Object analysedObject, final Matcher matcher)
+                    {
+                        Assert.assertEquals("c", analysedObject);
+                        Assert.assertEquals("(java.lang.Integer Of (Filter C by hashCode)) AND (TRUE)", matcher.toString());
+                    }
 
-            @Override
-            public void unexpected(final Object analysedObject, final Exception exception)
-            {
-                Assert.fail();
-            }
-        });
+                    @Override
+                    public void unexpected(final Object analysedObject, final Exception exception)
+                    {
+                        Assert.fail();
+                    }
+                });
     }
 
 
@@ -131,9 +131,10 @@ public final class FreudTest
         final TypeSafeMatcher<String> filter = filterOut_c();
         final TypeSafeMatcher<String> assertion = assert_a();
 
-        Freud.iterateOver(String.class).in(iterator(A_B_C, String.class)).
+        Freud.iterateOver(String.class).
                 forEach(filter).
-                assertThat(assertion).analyse(new NoOpAnalysisListener()
+                assertThat(assertion).in(iterator(A_B_C, String.class)).
+                analyse(new NoOpAnalysisListener()
         {
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
@@ -153,8 +154,10 @@ public final class FreudTest
     @Test
     public void shouldKeepCurrentlyIteratedSuperTypesInMemoryAsWellAsType() throws Exception
     {
-        Freud.iterateOver(TextLine.class).within(ResourceIterators.selfResourceIterator(TextResourceParser.getInstance(), "text")).
-                assertThat(lineLength().lessThan(17)).analyse(new NoOpAnalysisListener()
+        Freud.iterateOver(TextLine.class).
+                assertThat(lineLength().lessThan(17)).
+                within(ResourceIterators.selfResourceIterator(TextResourceParser.getInstance(), "text")).
+                analyse(new NoOpAnalysisListener()
         {
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)
@@ -181,9 +184,9 @@ public final class FreudTest
         final TypeSafeMatcher<String> filter = filterOut_c();
         final TypeSafeMatcher<String> assertion = assert_a();
 
-        Freud.iterateOver(String.class).in(iterator(A_B_C, String.class)).
+        Freud.iterateOver(String.class).
                 forEach(filter).
-                assertThat(assertion).analyse(new NoOpAnalysisListener()
+                assertThat(assertion).in(iterator(A_B_C, String.class)).analyse(new NoOpAnalysisListener()
         {
             @Override
             public void passed(final Object analysedObject, final Matcher matcher)

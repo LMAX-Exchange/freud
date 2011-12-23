@@ -154,8 +154,8 @@ public final class MethodDslTest
     @Test
     public void shouldReturnTrueToADeclaredMethod() throws Exception
     {
-        Freud.iterateOver(Method.class).within(ResourceIterators.selfResourceIterator(MethodDslTest.class)).
-                assertThat(declaredMethod()).
+        Freud.iterateOver(Method.class).
+                assertThat(declaredMethod()).within(ResourceIterators.selfResourceIterator(MethodDslTest.class)).
                 analyse(listenerStub);
 
         listenerStub.assertPassed(MethodDslTest.class.getDeclaredMethod("dummyMethod"));
@@ -164,8 +164,8 @@ public final class MethodDslTest
     @Test
     public void shouldReturnFalseToANonDeclaredMethod() throws Exception
     {
-        Freud.iterateOver(Method.class).within(ResourceIterators.selfResourceIterator(MethodDslTest.class)).
-                assertThat(declaredMethod()).
+        Freud.iterateOver(Method.class).
+                assertThat(declaredMethod()).within(ResourceIterators.selfResourceIterator(MethodDslTest.class)).
                 analyse(listenerStub);
 
         listenerStub.assertFailed(MethodDslTest.class.getMethod("hashCode"));

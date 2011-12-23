@@ -37,8 +37,8 @@ public final class TextExamples
     public static FreudAnalyser lineLengthDoesNotExceed(final int value,
                                                    final AnalysedObjectIterator<Text> iterator)
     {
-        return Freud.iterateOver(TextLine.class).within(iterator).
-                assertThat(lineLength().lessThan(value));
+        return Freud.iterateOver(TextLine.class).
+                assertThat(lineLength().lessThan(value)).within(iterator);
     }
 
 }
