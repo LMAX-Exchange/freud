@@ -19,23 +19,37 @@
 
 package org.langera.freud.analysis;
 
-import org.langera.freud.core.EmbeddedFreudAnalyser;
+import org.hamcrest.Matcher;
 import org.langera.freud.core.Freud;
+import org.langera.freud.core.FreudRule;
+import org.langera.freud.optional.text.textline.TextLine;
 
+import java.lang.reflect.Method;
+
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.equalTo;
 import static org.langera.freud.core.matcher.FreudDsl.no;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.abstractClass;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.classAnnotation;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.className;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredMethod;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.numberOfDeclaredMethods;
+import static org.langera.freud.optional.classobject.method.MethodDsl.methodAnnotation;
+import static org.langera.freud.optional.classobject.method.MethodDsl.methodName;
+import static org.langera.freud.optional.classobject.method.MethodDsl.numberOfParams;
+import static org.langera.freud.optional.text.textline.TextLineDsl.lineLength;
 
-public final class StyleAnalysers
+public final class JavaStyleRules
 {
     //AbstractClassName	 Ensures that the names of abstract classes conforming to some regular expression.
-    public static EmbeddedFreudAnalyser<Class> abstractClassNamePattern(final String regexPattern)
+    public static FreudRule<Class> abstractClassNameConformsTo(final String regex)
     {
         return Freud.iterateOver(Class.class).
-                assertThat(no(abstractClass()).or(className().matches(regexPattern))).embedded();
+                assertThat(abstractClass().and(className().matches(regex)).
+                        or(no(abstractClass()).and(no(className().matches(regex)))));
     }
 
-//AnnotationUseStyle	This check controls the style with the usage of annotations.
+    //AnnotationUseStyle	This check controls the style with the usage of annotations.
 //AnonInnerLength	Checks for long anonymous inner classes.
 //ArrayTrailingComma	Checks if array initialization contains optional trailing comma.
 //ArrayTypeStyle	Checks the style of array type definitions.
@@ -60,8 +74,14 @@ public final class StyleAnalysers
 //EmptyForIteratorPad	Checks the padding of an empty for iterator; that is whether a space is required at an empty for iterator, or such spaces are forbidden.
 //EmptyStatement	 Detects empty statements (standalone ';').
 //EqualsAvoidNull	 Checks that any combination of String literals with optional assignment is on the left side of an equals() comparison.
-//EqualsHashCode	 Checks that classes that override equals() also override hashCode().
-//ExecutableStatementCount	 Restricts the number of executable statements to a specified limit (default = 30).
+    //EqualsHashCode	 Checks that classes that override equals() also override hashCode().
+    public static FreudRule<Class> equalsAndHashCodeMustBeDeclaredTogether()
+    {
+        return Freud.iterateOver(Class.class).
+                assertThat(hasDeclaredMethod("equals", Object.class).and(hasDeclaredMethod("hashCode")).
+                        or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode")))));
+    }
+    //ExecutableStatementCount	 Restricts the number of executable statements to a specified limit (default = 30).
 //ExplicitInitialization	 Checks if any class or object member explicitly initialized to default for its type value (null for object references, zero for numeric types and char and false for boolean.
 //FallThrough	Checks for fall through in switch statements Finds locations where a case contains Java code - but lacks a break, return, throw or continue statement.
 //FileLength	 Checks for long source files.
@@ -95,16 +115,40 @@ public final class StyleAnalysers
 //JavadocVariable	Checks that a variable has Javadoc comment.
 //LeftCurly	 Checks the placement of left curly braces on types, methods and other blocks:
 //LineLength	Checks for long lines.
+    public static FreudRule<TextLine> lineLengthLessThan(final int value)
+    {
+        return Freud.iterateOver(TextLine.class).
+                assertThat(lineLength().lessThan(value));
+    }
+
 //LocalFinalVariableName	 Checks that local final variable names conform to a format specified by the format property.
 //LocalVariableName	 Checks that local, non-final variable names conform to a format specified by the format property.
 //MagicNumber	 Checks for magic numbers.
 //MemberName	 Checks that instance variable names conform to a format specified by the format property.
-//MethodCount	Checks the number of methods declared in each type.
+
+    //MethodCount	Checks the number of methods declared in each type.
+    public static FreudRule<Class> numberOfMethodsLessThan(final int value)
+    {
+        return Freud.iterateOver(Class.class).
+                assertThat(numberOfDeclaredMethods().lessThan(value));
+    }
 //MethodLength	 Checks for long methods.
-//MethodName	 Checks that method names conform to a format specified by the format property.
+
+    //MethodName	 Checks that method names conform to a format specified by the format property.
+    public static FreudRule<Method> methodNameConformsTo(final String regex)
+    {
+        return Freud.iterateOver(Method.class).assertThat(methodName().matches(regex));
+    }
+
+    public static FreudRule<Method> methodNameConformsToStandard()
+    {
+        return methodNameConformsTo("[a-z][a-zA-Z0-9]*");
+    }
+
 //MethodParamPad	 Checks the padding between the identifier of a method definition, constructor definition, method call, or constructor invocation; and the left parenthesis of the parameter list.
 //MethodTypeParameterName	 Checks that class type parameter names conform to a format specified by the format property.
-//MissingCtor	 Checks that classes (except abstract one) define a ctor and don't rely on the default one.
+
+    //MissingCtor	 Checks that classes (except abstract one) define a ctor and don't rely on the default one.
 //MissingDeprecated	 This class is used to verify that both the
 //MissingOverride	 This class is used to verify that the
 //MissingSwitchDefault	 Checks that switch statement has "default" clause.
@@ -121,7 +165,12 @@ public final class StyleAnalysers
 //NewlineAtEndOfFile	 Checks that there is a newline at the end of each file.
 //NoClone	 Checks that the clone method is not overridden from the Object class.
 //NoFinalizer	Checks that no method having zero parameters is defined using the name finalize.
-//NoWhitespaceAfter	 Checks that there is no whitespace after a token.
+    public static FreudRule<Class> noFinalizerDeclared()
+    {
+        return Freud.iterateOver(Class.class).assertThat(no(hasDeclaredMethod("finalize")));
+    }
+
+    //NoWhitespaceAfter	 Checks that there is no whitespace after a token.
 //NoWhitespaceBefore	 Checks that there is no whitespace before a token.
 //OneStatementPerLine	Checks there is only one statement per line.
 //OperatorWrap	 Checks line wrapping for operators.
@@ -133,6 +182,12 @@ public final class StyleAnalysers
 //ParameterAssignment	 Disallow assignment of parameters.
 //ParameterName	 Checks that parameter names conform to a format specified by the format property.
 //ParameterNumber	 Checks the number of parameters that a method or constructor has.
+    public static FreudRule<Method> numberOfParametersLessThan(final int value)
+    {
+        return Freud.iterateOver(Method.class).
+                assertThat(numberOfParams().lessThan(value));
+    }
+
 //ParenPad	Checks the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden, with the exception that it does not check for padding of the right parenthesis at an empty for iterator.
 //RedundantImport	 Checks for imports that are redundant.
 //RedundantModifier	Checks for redundant modifiers in interface and annotation definitions.
@@ -152,7 +207,42 @@ public final class StyleAnalysers
 //StringLiteralEquality	Checks that string literals are not used with == or !=.
 //SuperClone	 Checks that an overriding clone() method invokes super.clone().
 //SuperFinalize	 Checks that an overriding finalize() method invokes super.finalize().
+
 //SuppressWarnings	 This check allows you to specify what warnings that
+
+    @SuppressWarnings("unchecked")
+    public static FreudRule<Method> warningsThatCannotBeSuppressedForMethods(final String... warnings)
+    {
+        final Matcher[] warningMatchers = new Matcher[warnings.length];
+        for (int i = 0, size = warnings.length; i < size; i++)
+        {
+            warningMatchers[i] = equalTo(warnings[i]);
+        }
+        return warningsThatCannotBeSuppressedForMethods(warningMatchers);
+    }
+
+    public static FreudRule<Method> warningsThatCannotBeSuppressedForMethods(final Matcher<String>... warningMatchers)
+    {
+        return Freud.iterateOver(Method.class).
+                assertThat(no(methodAnnotation(SuppressWarnings.class, allOf(warningMatchers))));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static FreudRule<Class> warningsThatCannotBeSuppressedForClasses(final String... warnings)
+    {
+        final Matcher[] warningMatchers = new Matcher[warnings.length];
+        for (int i = 0, size = warnings.length; i < size; i++)
+        {
+            warningMatchers[i] = equalTo(warnings[i]);
+        }
+        return warningsThatCannotBeSuppressedForClasses(warningMatchers);
+    }
+
+    public static FreudRule<Class> warningsThatCannotBeSuppressedForClasses(final Matcher<String>... warningMatchers)
+    {
+        return Freud.iterateOver(Class.class).
+                assertThat(no(classAnnotation(SuppressWarnings.class, allOf(warningMatchers))));
+    }
 //ThrowsCount	 Restricts throws statements to a specified count (default = 1).
 //TodoComment	 A check for TODO comments.
 //TrailingComment	 The check to ensure that requires that comments be the only thing on a line.

@@ -23,5 +23,5 @@ import org.hamcrest.Matcher;
 
 public interface FreudAssertionBuilder<T>
 {
-    FreudAnalyserBuilder<T> assertThat(Matcher<T> matcher);
+    FreudRule<T> assertThat(Matcher<T> matcher);
 }

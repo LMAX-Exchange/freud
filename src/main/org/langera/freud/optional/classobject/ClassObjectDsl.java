@@ -23,6 +23,8 @@ import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.langera.freud.core.matcher.FreudMatcher;
+import org.langera.freud.core.matcher.IntOperatorMatcherAdapter;
+import org.langera.freud.core.matcher.IntOperatorMatcherBuilder;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
 import org.langera.freud.core.matcher.RegexMatcherBuilder;
 
@@ -268,6 +270,24 @@ public final class ClassObjectDsl
                 description.appendText("subTypeOf(" + superType.getName() + ")");
             }
         };
+    }
+
+    public static IntOperatorMatcherBuilder<Class> numberOfDeclaredMethods()
+    {
+        return new IntOperatorMatcherBuilder<Class>(new IntOperatorMatcherAdapter<Class>()
+        {
+            @Override
+            public int valueOf(final Class matched)
+            {
+                return matched.getDeclaredMethods().length;
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "numbderOfDeclaredMethods()";
+            }
+        });
     }
 
     public static FreudMatcher<Class> hasDeclaredMethod(final String methodName, final Class... parameterTypes)

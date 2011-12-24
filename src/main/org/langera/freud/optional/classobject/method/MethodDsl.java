@@ -24,6 +24,8 @@ import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.langera.freud.core.FreudRuntimeContext;
 import org.langera.freud.core.matcher.FreudMatcher;
+import org.langera.freud.core.matcher.IntOperatorMatcherAdapter;
+import org.langera.freud.core.matcher.IntOperatorMatcherBuilder;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
 import org.langera.freud.core.matcher.RegexMatcherBuilder;
 import org.langera.freud.optional.classobject.AnnotationFreudMatcher;
@@ -107,6 +109,24 @@ public final class MethodDsl
                 description.appendText(")");
             }
         };
+    }
+
+    public static IntOperatorMatcherBuilder<Method> numberOfParams()
+    {
+        return new IntOperatorMatcherBuilder<Method>(new IntOperatorMatcherAdapter<Method>()
+        {
+            @Override
+            public int valueOf(final Method matched)
+            {
+                return matched.getParameterTypes().length;
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "numberOfParams()";
+            }
+        });
     }
 
     public static FreudMatcher<Method> methodAnnotation(final Class<? extends Annotation> annotationType)

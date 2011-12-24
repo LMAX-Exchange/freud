@@ -31,7 +31,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public final class Freud<T> implements
-        FreudAnalyserBuilder<T>, FreudRuleBuilder<T>,
+        FreudRule<T>, FreudRuleBuilder<T>,
         FreudAssertionAndFilterBuilder<T>, EmbeddedFreudAnalyser<T>, FreudAnalyser
 {
     public static final String FREUD_CONFIG_SUFFIX = "FreudConfig";
@@ -125,7 +125,7 @@ public final class Freud<T> implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public FreudAnalyserBuilder<T> assertThat(final Matcher<T> matcher)
+    public FreudRule<T> assertThat(final Matcher<T> matcher)
     {
         assertion = matcher;
         return this;

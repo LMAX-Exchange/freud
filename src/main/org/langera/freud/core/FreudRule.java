@@ -17,9 +17,19 @@
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-package org.langera.freud.analysis;
+package org.langera.freud.core;
 
-public interface FreudAppAnalysis<T> //extends FreudAnalysis<T>
+import org.langera.freud.core.iterator.AnalysedObjectIterator;
+
+import java.util.Iterator;
+
+public interface FreudRule<T>
 {
-    String classification();
+    EmbeddedFreudAnalyser<T> embedded();
+
+    FreudAnalyser in(Iterator<T> iterator);
+
+    FreudAnalyser within(AnalysedObjectIterator<?> iterator);
+
+    <S> FreudAnalyser within(Iterator<S> iterator, Class<S> iteratedType);
 }
