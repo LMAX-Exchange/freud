@@ -24,6 +24,7 @@ import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudRule;
 import org.langera.freud.optional.text.textline.TextLine;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static org.hamcrest.Matchers.allOf;
@@ -34,6 +35,8 @@ import static org.langera.freud.optional.classobject.ClassObjectDsl.classAnnotat
 import static org.langera.freud.optional.classobject.ClassObjectDsl.className;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredMethod;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.numberOfDeclaredMethods;
+import static org.langera.freud.optional.classobject.field.FieldDsl.fieldName;
+import static org.langera.freud.optional.classobject.field.FieldDsl.staticField;
 import static org.langera.freud.optional.classobject.method.MethodDsl.methodAnnotation;
 import static org.langera.freud.optional.classobject.method.MethodDsl.methodName;
 import static org.langera.freud.optional.classobject.method.MethodDsl.numberOfParams;
@@ -81,6 +84,7 @@ public final class JavaStyleRules
                 assertThat(hasDeclaredMethod("equals", Object.class).and(hasDeclaredMethod("hashCode")).
                         or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode")))));
     }
+
     //ExecutableStatementCount	 Restricts the number of executable statements to a specified limit (default = 30).
 //ExplicitInitialization	 Checks if any class or object member explicitly initialized to default for its type value (null for object references, zero for numeric types and char and false for boolean.
 //FallThrough	Checks for fall through in switch statements Finds locations where a case contains Java code - but lacks a break, return, throw or continue statement.
@@ -121,10 +125,19 @@ public final class JavaStyleRules
                 assertThat(lineLength().lessThan(value));
     }
 
-//LocalFinalVariableName	 Checks that local final variable names conform to a format specified by the format property.
+    //LocalFinalVariableName	 Checks that local final variable names conform to a format specified by the format property.
 //LocalVariableName	 Checks that local, non-final variable names conform to a format specified by the format property.
 //MagicNumber	 Checks for magic numbers.
 //MemberName	 Checks that instance variable names conform to a format specified by the format property.
+    public static FreudRule<Field> memberNameConformsTo(final String regex)
+    {
+        return Freud.iterateOver(Field.class).forEach(no(staticField())).assertThat(fieldName().matches(regex));
+    }
+
+    public static FreudRule<Field> memberNameConformsToStandard()
+    {
+        return memberNameConformsTo("[a-z][a-zA-Z0-9]*");
+    }
 
     //MethodCount	Checks the number of methods declared in each type.
     public static FreudRule<Class> numberOfMethodsLessThan(final int value)

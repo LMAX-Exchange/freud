@@ -147,12 +147,14 @@ public final class MethodDslTest
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void shouldReturnTrueToMatchingParamsUsingMatcher() throws Exception
     {
         assertThat(String.class.getMethod("charAt", int.class), withParams(ClassObjectDsl.primitive()));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void shouldReturnTrueToADeclaredMethod() throws Exception
     {
         Freud.iterateOver(Method.class).
@@ -163,6 +165,7 @@ public final class MethodDslTest
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void shouldReturnFalseToANonDeclaredMethod() throws Exception
     {
         Freud.iterateOver(Method.class).

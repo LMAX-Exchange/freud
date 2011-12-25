@@ -213,6 +213,13 @@ public final class MethodDsl
 
     }
 
+    public static FreudMatcher<Method> abstractMethod()
+    {
+        return definedWithModifier(Modifier.ABSTRACT);
+
+    }
+
+
     public static FreudMatcher<Method> declaredMethod()
     {
         return new FreudMatcher<Method>()
