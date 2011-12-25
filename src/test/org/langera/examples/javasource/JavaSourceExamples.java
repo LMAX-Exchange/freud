@@ -24,15 +24,15 @@ import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudAnalyser;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.optional.javasource.JavaSource;
-import org.langera.freud.optional.javasource.apackage.PackageDeclaration;
 import org.langera.freud.optional.javasource.block.CodeBlock;
+import org.langera.freud.optional.javasource.packagedecl.PackageDeclaration;
 
 import static org.langera.freud.core.matcher.FreudDsl.no;
-import static org.langera.freud.optional.javasource.apackage.PackageDeclarationDsl.packageDepth;
 import static org.langera.freud.optional.javasource.block.CodeBlockDsl.codeBlockLines;
 import static org.langera.freud.optional.javasource.block.CodeBlockDsl.hasMethodCall;
 import static org.langera.freud.optional.javasource.block.CodeBlockDsl.method;
 import static org.langera.freud.optional.javasource.methoddecl.MethodDeclarationDsl.hasDeclaredAnnotation;
+import static org.langera.freud.optional.javasource.packagedecl.PackageDeclarationDsl.packageDepth;
 
 public final class JavaSourceExamples
 {

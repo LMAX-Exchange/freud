@@ -17,7 +17,7 @@
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-package org.langera.freud.optional.javasource.apackage;
+package org.langera.freud.optional.javasource.packagedecl;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,8 +27,8 @@ import org.langera.freud.optional.javasource.JavaSourceJdom;
 import java.io.StringReader;
 
 import static org.langera.freud.core.matcher.FreudDsl.no;
-import static org.langera.freud.optional.javasource.apackage.PackageDeclarationDsl.packageDeclaration;
-import static org.langera.freud.optional.javasource.apackage.PackageDeclarationDsl.packageDepth;
+import static org.langera.freud.optional.javasource.packagedecl.PackageDeclarationDsl.packageDeclaration;
+import static org.langera.freud.optional.javasource.packagedecl.PackageDeclarationDsl.packageDepth;
 
 public final class PackageDeclarationDslTest
 {

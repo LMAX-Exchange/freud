@@ -137,7 +137,7 @@ public final class ClassDeclarationJdom implements ClassDeclaration
         return name;
     }
 
-    public String getSuperclassName()
+    public String getSuperClassName()
     {
         // TODO        
         return null;

@@ -19,8 +19,9 @@
 
 package org.langera.freud.optional.javasource;
 
-import org.langera.freud.optional.javasource.apackage.PackageDeclaration;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
+import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
+import org.langera.freud.optional.javasource.packagedecl.PackageDeclaration;
 
 /**
  * This file is part of "Freud".
@@ -45,7 +46,7 @@ public interface JavaSource
 {
     PackageDeclaration getPackageDeclaration();
 
-    //    ImportDeclaration[] getImportDeclarations();
+    ImportDeclaration[] getImportDeclarations();
 
     ClassDeclaration getClassDeclaration();
 //    InterfaceDeclaration getInterfaceDeclaration();

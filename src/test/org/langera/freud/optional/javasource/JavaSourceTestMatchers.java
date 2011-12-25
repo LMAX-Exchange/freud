@@ -22,9 +22,9 @@ package org.langera.freud.optional.javasource;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
-import org.langera.freud.optional.javasource.apackage.PackageDeclaration;
 import org.langera.freud.optional.javasource.block.CodeBlock;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
+import org.langera.freud.optional.javasource.packagedecl.PackageDeclaration;
 
 public final class JavaSourceTestMatchers
 {

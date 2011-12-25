@@ -17,7 +17,7 @@
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-package org.langera.freud.optional.javasource.apackage;
+package org.langera.freud.optional.javasource.packagedecl;
 
 import org.langera.freud.core.FreudBuilderException;
 import org.langera.freud.core.FreudConfig;

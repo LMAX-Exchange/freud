@@ -27,10 +27,11 @@ import org.apache.commons.jxpath.JXPathException;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.langera.freud.core.iterator.resource.ResourceParser;
-import org.langera.freud.optional.javasource.apackage.PackageDeclaration;
-import org.langera.freud.optional.javasource.apackage.PackageDeclarationJdom;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclarationJdom;
+import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
+import org.langera.freud.optional.javasource.packagedecl.PackageDeclaration;
+import org.langera.freud.optional.javasource.packagedecl.PackageDeclarationJdom;
 import org.langera.freud.optional.javasource.parser.JavaLexer;
 import org.langera.freud.optional.javasource.parser.JavaParser;
 import org.langera.freud.optional.javasource.parser.JavaSourceTokenType;
@@ -176,6 +177,12 @@ public final class JavaSourceJdom implements JavaSource
     public PackageDeclaration getPackageDeclaration()
     {
         return (packageDeclaration == null) ? parsePackageDeclaration() : packageDeclaration;
+    }
+
+    @Override
+    public ImportDeclaration[] getImportDeclarations()
+    {
+        throw new UnsupportedOperationException("not implemented yet");
     }
 
     public ClassDeclaration getClassDeclaration()

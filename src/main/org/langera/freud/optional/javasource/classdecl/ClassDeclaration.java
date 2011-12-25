@@ -39,7 +39,7 @@ public interface ClassDeclaration
 
     String getName();
 
-    String getSuperclassName();
+    String getSuperClassName();
 
     String[] getDeclaredImplementedInterfaceNames();
 
