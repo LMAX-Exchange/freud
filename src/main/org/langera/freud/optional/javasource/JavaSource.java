@@ -56,6 +56,4 @@ public interface JavaSource
     String getFullClassName();
 
     String getSimpleClassName();
-
-    Class loadClass();
 }

@@ -150,21 +150,6 @@ public final class JavaSourceJdom implements JavaSource
     }
 
     @Override
-    public Class loadClass()
-    {
-        final String fullClassName = getFullClassName();
-        try
-        {
-            return Class.forName(fullClassName);
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw new RuntimeException("Failed to load class [" + fullClassName + "]", e);
-        }
-    }
-
-
-    @Override
     public String toString()
     {
         return JdomTreeAdaptor.documentToString(root);

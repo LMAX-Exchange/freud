@@ -72,6 +72,7 @@ public final class ClassDeclarationJdom implements ClassDeclaration
         if (innerClassDeclarationByNameMap == null)
         {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
+            innerClassDeclarationByNameMap = new HashMap<String, ClassDeclaration>();
             for (JavaSourceTokenType tokenType : JavaSourceJdom.POSSIBLE_CLASS_DECLARATION_TYPES)
             {
                 final String tokenName = tokenType.getName();
