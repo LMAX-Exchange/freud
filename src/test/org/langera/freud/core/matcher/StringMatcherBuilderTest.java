@@ -23,7 +23,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public final class RegexMatcherBuilderTest
+public final class StringMatcherBuilderTest
 {
     private FreudMatcher<String> matchesRegexMatcher;
     private FreudMatcher<String> containsRegexMatcher;
@@ -56,8 +56,8 @@ public final class RegexMatcherBuilderTest
     public void setUp()
     {
         RegexMatcherAdapter<String> adapter = new IdentityRegexMatcherAdapter();
-        matchesRegexMatcher = new RegexMatcherBuilder<String>(adapter).matches("abc\\d+");
-        containsRegexMatcher = new RegexMatcherBuilder<String>(adapter).contains("\\d+");
+        matchesRegexMatcher = new StringMatcherBuilder<String>(adapter).matches("abc\\d+");
+        containsRegexMatcher = new StringMatcherBuilder<String>(adapter).contains("\\d+");
     }
 
     private static class IdentityRegexMatcherAdapter implements RegexMatcherAdapter<String>

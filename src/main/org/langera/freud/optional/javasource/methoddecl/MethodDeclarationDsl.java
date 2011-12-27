@@ -22,15 +22,15 @@ package org.langera.freud.optional.javasource.methoddecl;
 import org.hamcrest.Matcher;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 import org.langera.freud.optional.javasource.annotation.AnnotatedElementDeclarationMatchers;
 
 
 public final class MethodDeclarationDsl
 {
-    public static RegexMatcherBuilder<MethodDeclaration> methodName()
+    public static StringMatcherBuilder<MethodDeclaration> methodName()
     {
-        return new RegexMatcherBuilder<MethodDeclaration>(new RegexMatcherAdapter<MethodDeclaration>()
+        return new StringMatcherBuilder<MethodDeclaration>(new RegexMatcherAdapter<MethodDeclaration>()
         {
             @Override
             public String getStringToMatch(final MethodDeclaration toBeAnalysed)

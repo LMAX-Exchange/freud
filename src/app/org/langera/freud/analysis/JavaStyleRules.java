@@ -22,6 +22,8 @@ package org.langera.freud.analysis;
 import org.hamcrest.Matcher;
 import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudRule;
+import org.langera.freud.core.matcher.FreudMatcher;
+import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
 import org.langera.freud.optional.text.textline.TextLine;
 
 import java.lang.reflect.Field;
@@ -33,13 +35,21 @@ import static org.langera.freud.core.matcher.FreudDsl.no;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.abstractClass;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.classAnnotation;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.className;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.classSimpleName;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredMethod;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.numberOfDeclaredMethods;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.packageName;
 import static org.langera.freud.optional.classobject.field.FieldDsl.fieldName;
+import static org.langera.freud.optional.classobject.field.FieldDsl.finalField;
+import static org.langera.freud.optional.classobject.field.FieldDsl.packageProtectedField;
+import static org.langera.freud.optional.classobject.field.FieldDsl.privateField;
+import static org.langera.freud.optional.classobject.field.FieldDsl.protectedField;
 import static org.langera.freud.optional.classobject.field.FieldDsl.staticField;
 import static org.langera.freud.optional.classobject.method.MethodDsl.methodAnnotation;
 import static org.langera.freud.optional.classobject.method.MethodDsl.methodName;
 import static org.langera.freud.optional.classobject.method.MethodDsl.numberOfParams;
+import static org.langera.freud.optional.javasource.importdecl.ImportDeclarationDsl.importDeclarationLastElement;
+import static org.langera.freud.optional.javasource.importdecl.ImportDeclarationDsl.staticImport;
 import static org.langera.freud.optional.text.textline.TextLineDsl.lineLength;
 
 public final class JavaStyleRules
@@ -59,13 +69,36 @@ public final class JavaStyleRules
 //AvoidInlineConditionals	Detects inline conditionals.
 //AvoidNestedBlocks	Finds nested blocks.
 //AvoidStarImport	Check that finds import statements that use the * notation.
+    public static FreudRule<ImportDeclaration> avoidStarImport()
+    {
+        return Freud.iterateOver(ImportDeclaration.class).
+                assertThat(no(importDeclarationLastElement().is(equalTo("*"))));
+    }
+
 //AvoidStaticImport	Check that finds static imports.
+public static FreudRule<ImportDeclaration> avoidStaticImport()
+{
+    return Freud.iterateOver(ImportDeclaration.class).assertThat(no(staticImport()));
+}
+
 //BooleanExpressionComplexity	 Restricts nested boolean operators (&&, ||, &, | and ^) to a specified depth (default = 3).
 //ClassDataAbstractionCoupling	This metric measures the number of instantiations of other classes within the given class.
 //ClassFanOutComplexity	The number of other classes a given class relies on.
 //ClassTypeParameterName	 Checks that class type parameter names conform to a format specified by the format property.
 //ConstantName	Checks that constant names conform to a format specified by the format property.
-//CovariantEquals	 Checks that if a class defines a covariant method equals, then it defines method equals(java.lang.Object).
+    public static FreudRule<Field> constantNameConformsTo(final String regex)
+    {
+        return Freud.iterateOver(Field.class).forEach(staticField().and(finalField())).
+                assertThat(fieldName().matches(regex));
+    }
+
+    public static FreudRule<Field> constantNameConformsToStandard()
+    {
+        return constantNameConformsTo("[A-Z][A-Z0-9]*(_[A-Z0-9]+)*");
+    }
+
+
+    //CovariantEquals	 Checks that if a class defines a covariant method equals, then it defines method equals(java.lang.Object).
 //CyclomaticComplexity	Checks cyclomatic complexity against a specified limit.
 //DeclarationOrder	 Checks that the parts of a class or interface declaration appear in the order suggested by the Code Conventions for the Java Programming Language.
 //DefaultComesLast	 Check that the default is after all the cases in a switch statement.
@@ -191,7 +224,18 @@ public final class JavaStyleRules
 //OuterTypeNumber	Checks for the number of defined types at the "outer" level.
 //PackageAnnotation	This check makes sure that all package annotations are in the package-info.java file.
 //PackageDeclaration	Ensures there is a package declaration and (optionally) in the correct directory.
+
 //PackageName	 Checks that package names conform to a format specified by the format property.
+    public static FreudRule<Class> packageNameConformsTo(final String regex)
+    {
+        return Freud.iterateOver(Class.class).
+                assertThat(packageName().matches(regex));
+    }
+
+    public static FreudRule<Class> packageNameConformsToStandard()
+    {
+        return packageNameConformsTo("[a-z]+(\\.[a-zA-Z_][a-zA-Z0-9_]*)*");
+    }
 //ParameterAssignment	 Disallow assignment of parameters.
 //ParameterName	 Checks that parameter names conform to a format specified by the format property.
 //ParameterNumber	 Checks the number of parameters that a method or constructor has.
@@ -201,7 +245,7 @@ public final class JavaStyleRules
                 assertThat(numberOfParams().lessThan(value));
     }
 
-//ParenPad	Checks the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden, with the exception that it does not check for padding of the right parenthesis at an empty for iterator.
+    //ParenPad	Checks the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden, with the exception that it does not check for padding of the right parenthesis at an empty for iterator.
 //RedundantImport	 Checks for imports that are redundant.
 //RedundantModifier	Checks for redundant modifiers in interface and annotation definitions.
 //RedundantThrows	Checks for redundant exceptions declared in throws clause such as duplicates, unchecked exceptions or subclasses of another declared exception.
@@ -216,6 +260,16 @@ public final class JavaStyleRules
 //SimplifyBooleanExpression	 Checks for overly complicated boolean expressions.
 //SimplifyBooleanReturn	 Checks for overly complicated boolean return statements.
 //StaticVariableName	 Checks that static, non-final variable names conform to a format specified by the format property.
+    public static FreudRule<Field> staticVariableNameConformsTo(final String regex)
+    {
+        return Freud.iterateOver(Field.class).forEach(staticField().and(no(finalField()))).
+                assertThat(fieldName().matches(regex));
+    }
+
+    public static FreudRule<Field> staticVariableNameConformsToStandard()
+    {
+        return staticVariableNameConformsTo("[a-z][a-zA-Z0-9]*");
+    }
 //StrictDuplicateCode	Performs a line-by-line comparison of all code lines and reports duplicate code if a sequence of lines differs only in indentation.
 //StringLiteralEquality	Checks that string literals are not used with == or !=.
 //SuperClone	 Checks that an overriding clone() method invokes super.clone().
@@ -256,17 +310,49 @@ public final class JavaStyleRules
         return Freud.iterateOver(Class.class).
                 assertThat(no(classAnnotation(SuppressWarnings.class, allOf(warningMatchers))));
     }
-//ThrowsCount	 Restricts throws statements to a specified count (default = 1).
+
+    //ThrowsCount	 Restricts throws statements to a specified count (default = 1).
 //TodoComment	 A check for TODO comments.
 //TrailingComment	 The check to ensure that requires that comments be the only thing on a line.
 //Translation	 The TranslationCheck class helps to ensure the correct translation of code by checking property files for consistency regarding their keys.
 //TypeName	 Checks that type names conform to a format specified by the format property.
-//TypecastParenPad	Checks the padding of parentheses for typecasts.
+    public static FreudRule<Class> typeNameConformsTo(final String regex)
+    {
+        return Freud.iterateOver(Class.class).assertThat(classSimpleName().matches(regex));
+    }
+
+    public static FreudRule<Class> typeNameConformsToStandard()
+    {
+        return typeNameConformsTo("[A-Z][a-zA-Z0-9]*");
+    }
+
+    //TypecastParenPad	Checks the padding of parentheses for typecasts.
 //UncommentedMain	Detects uncommented main methods.
 //UnnecessaryParentheses	 Checks if unnecessary parentheses are used in a statement or expression.
 //UnusedImports	 Checks for unused import statements.
 //UpperEll	Checks that long constants are defined with an upper ell.
 //VisibilityModifier	Checks visibility of class members.
+    public static FreudRule<Field> limitMemberVisibilityToPrivate(Matcher<Field> exclusions)
+    {
+        return limitMemberVisibilityInternal(exclusions, privateField());
+    }
+
+    public static FreudRule<Field> limitMemberVisibilityToProtected(Matcher<Field> exclusions)
+    {
+        return limitMemberVisibilityInternal(exclusions, privateField().or(protectedField()));
+    }
+
+    public static FreudRule<Field> limitMemberVisibilityToPackageProtected(Matcher<Field> exclusions)
+    {
+        return limitMemberVisibilityInternal(exclusions, privateField().or(protectedField()).or(packageProtectedField()));
+    }
+
+    private static FreudRule<Field> limitMemberVisibilityInternal(final Matcher<Field> exclusions, final FreudMatcher<Field> limit)
+    {
+        return Freud.iterateOver(Field.class).forEach(no(exclusions).and(no(staticField().and(finalField())))).
+                assertThat(limit);
+    }
+
 //WhitespaceAfter	 Checks that a token is followed by whitespace, with the exception that it does not check for whitespace after the semicolon of an empty for iterator.
 //WhitespaceAround	 Checks that a token is surrounded by whitespace.
 //WriteTag	 Outputs a JavaDoc tag as information.

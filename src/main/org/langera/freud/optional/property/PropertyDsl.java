@@ -20,7 +20,7 @@
 package org.langera.freud.optional.property;
 
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 public final class PropertyDsl
 {
@@ -29,9 +29,9 @@ public final class PropertyDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<Property> propertyKey()
+    public static StringMatcherBuilder<Property> propertyKey()
     {
-        return new RegexMatcherBuilder<Property>(new RegexMatcherAdapter<Property>()
+        return new StringMatcherBuilder<Property>(new RegexMatcherAdapter<Property>()
         {
             @Override
             public String getStringToMatch(final Property toBeAnalysed)
@@ -48,9 +48,9 @@ public final class PropertyDsl
     }
 
 
-    public static RegexMatcherBuilder<Property> propertyValue()
+    public static StringMatcherBuilder<Property> propertyValue()
     {
-        return new RegexMatcherBuilder<Property>(new RegexMatcherAdapter<Property>()
+        return new StringMatcherBuilder<Property>(new RegexMatcherAdapter<Property>()
         {
             @Override
             public String getStringToMatch(final Property toBeAnalysed)

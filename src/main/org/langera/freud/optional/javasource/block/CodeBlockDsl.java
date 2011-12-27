@@ -37,7 +37,7 @@ public final class CodeBlockDsl
         // static utility
     }
 
-    //    public static RegexMatcherBuilder<CodeBlock> codeBlock()
+    //    public static StringMatcherBuilder<CodeBlock> codeBlock()
 //    {
 //TODO
 //    }

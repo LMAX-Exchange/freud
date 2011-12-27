@@ -19,16 +19,25 @@
 
 package org.langera.freud.optional.javasource;
 
-import org.junit.Assert;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
+import org.hamcrest.TypeSafeMatcher;
+import org.junit.Before;
 import org.junit.Test;
+import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
 
 import java.io.StringReader;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class JavaSourceJdomTest
 {
 
     private static final String CLASS_EXAMPLE =
-            "package org.langera.examples;" +
+                    "package org.langera.examples;" +
+                    "import org.langera.something.*;" +
+                    "import static org.langera.something.Or.Other;" +
                     " " +
                     "public class SimpleClass " +
                     "{ " +
@@ -37,23 +46,45 @@ public class JavaSourceJdomTest
                     "  {" +
                     "       return \"\";" +
                     "  }" +
-                    "}";
+                            "}";
+
+    private JavaSourceJdom javaSourceJdom;
+
+    @Before
+    public void setUp() throws Exception
+    {
+        javaSourceJdom = new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name");
+
+//        System.out.println(javaSourceJdom);
+    }
 
     @Test
     public void shouldCreateJavaSourceJdom() throws Exception
     {
-        JavaSourceJdom javaSourceJdom = new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name");
 
-        Assert.assertEquals("Name", javaSourceJdom.getFileName());
-        Assert.assertEquals("SimpleClass", javaSourceJdom.getClassDeclaration().getName());
+        assertEquals("Name", javaSourceJdom.getFileName());
+        assertEquals("SimpleClass", javaSourceJdom.getClassDeclaration().getName());
     }
 
     @Test
     public void shouldReturnFullClassName() throws Exception
     {
-        JavaSourceJdom javaSourceJdom = new JavaSourceJdom(new StringReader(CLASS_EXAMPLE), "Name");
+        assertEquals("org.langera.examples.SimpleClass", javaSourceJdom.getFullClassName());
+    }
 
-        Assert.assertEquals("org.langera.examples.SimpleClass", javaSourceJdom.getFullClassName());
+    @Test
+    public void shouldReturnPackageDeclaration() throws Exception
+    {
+        assertEquals("org.langera.examples", javaSourceJdom.getPackageDeclaration().getPackagePathAsString());
+    }
+
+    @Test
+    public void shouldReturnImportDeclarations() throws Exception
+    {
+        final ImportDeclaration[] importDeclarations = javaSourceJdom.getImportDeclarations();
+        assertEquals(2, importDeclarations.length);
+        assertThat(importDeclarations[0], importOf("org.langera.something.*"));
+        assertThat(importDeclarations[1], staticImportOf("org.langera.something.Or.Other"));
     }
 
     @Test
@@ -69,7 +100,7 @@ public class JavaSourceJdomTest
                         "  }" +
                         "}"), "Name");
 
-        Assert.assertEquals("SimpleClass", javaSourceJdom.getFullClassName());
+        assertEquals("SimpleClass", javaSourceJdom.getFullClassName());
     }
 
 
@@ -96,7 +127,48 @@ public class JavaSourceJdomTest
                         "    } " +
                         "}"), "org.langera.test.TestShouldParseJavaSource");
 
-        Assert.assertEquals("org.langera.test.TestShouldParseJavaSource", javaSource.getFileName());
+        assertEquals("org.langera.test.TestShouldParseJavaSource", javaSource.getFileName());
 
+    }
+
+
+    private Matcher<ImportDeclaration> staticImportOf(final String importStmt)
+    {
+        return new ImportDeclarationMatcher(importStmt, true);
+    }
+
+    private Matcher<ImportDeclaration> importOf(final String importStmt)
+    {
+        return new ImportDeclarationMatcher(importStmt, false);
+    }
+
+    private static class ImportDeclarationMatcher extends TypeSafeMatcher<ImportDeclaration>
+    {
+        private final String expectedImportAsString;
+        private final boolean expectStaticImport;
+
+        private ImportDeclarationMatcher(final String expectedImportAsString, final boolean expectStaticImport)
+        {
+            this.expectedImportAsString = expectedImportAsString;
+            this.expectStaticImport = expectStaticImport;
+        }
+
+        @Override
+        protected boolean matchesSafely(final ImportDeclaration importDeclaration)
+        {
+            return importDeclaration.isStaticDecalaration() == expectStaticImport &&
+                    expectedImportAsString.equals(importDeclaration.getImportDeclarationPathAsString());
+        }
+
+        @Override
+        public void describeTo(final Description description)
+        {
+            description.appendText("import ");
+            if (expectStaticImport)
+            {
+                description.appendText("static ");
+            }
+            description.appendText(expectedImportAsString);
+        }
     }
 }

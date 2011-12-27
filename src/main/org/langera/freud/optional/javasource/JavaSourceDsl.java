@@ -20,7 +20,7 @@
 package org.langera.freud.optional.javasource;
 
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 
 public final class JavaSourceDsl
@@ -30,9 +30,9 @@ public final class JavaSourceDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<JavaSource> fullClassName()
+    public static StringMatcherBuilder<JavaSource> fullClassName()
     {
-        return new RegexMatcherBuilder<JavaSource>(new RegexMatcherAdapter<JavaSource>()
+        return new StringMatcherBuilder<JavaSource>(new RegexMatcherAdapter<JavaSource>()
         {
             @Override
             public String getStringToMatch(final JavaSource toBeAnalysed)
@@ -48,9 +48,9 @@ public final class JavaSourceDsl
         });
     }
 
-    public static RegexMatcherBuilder<JavaSource> simpleClassName()
+    public static StringMatcherBuilder<JavaSource> simpleClassName()
     {
-        return new RegexMatcherBuilder<JavaSource>(new RegexMatcherAdapter<JavaSource>()
+        return new StringMatcherBuilder<JavaSource>(new RegexMatcherAdapter<JavaSource>()
         {
             @Override
             public String getStringToMatch(final JavaSource toBeAnalysed)

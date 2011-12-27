@@ -20,7 +20,7 @@
 package org.langera.freud.optional.spring;
 
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 
 public final class SpringBeanDsl
@@ -30,9 +30,9 @@ public final class SpringBeanDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<SpringBean> springBeanName()
+    public static StringMatcherBuilder<SpringBean> springBeanName()
     {
-        return new RegexMatcherBuilder<SpringBean>(new RegexMatcherAdapter<SpringBean>()
+        return new StringMatcherBuilder<SpringBean>(new RegexMatcherAdapter<SpringBean>()
         {
             @Override
             public String getStringToMatch(final SpringBean toBeAnalysed)

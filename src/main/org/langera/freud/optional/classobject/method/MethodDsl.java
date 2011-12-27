@@ -27,7 +27,7 @@ import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.IntOperatorMatcherAdapter;
 import org.langera.freud.core.matcher.IntOperatorMatcherBuilder;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 import org.langera.freud.optional.classobject.AnnotationFreudMatcher;
 
 import java.lang.annotation.Annotation;
@@ -41,9 +41,9 @@ public final class MethodDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<Method> methodName()
+    public static StringMatcherBuilder<Method> methodName()
     {
-        return new RegexMatcherBuilder<Method>(new RegexMatcherAdapter<Method>()
+        return new StringMatcherBuilder<Method>(new RegexMatcherAdapter<Method>()
         {
             @Override
             public String getStringToMatch(final Method toBeAnalysed)

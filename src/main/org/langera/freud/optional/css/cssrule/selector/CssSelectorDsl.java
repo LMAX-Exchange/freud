@@ -22,7 +22,7 @@ package org.langera.freud.optional.css.cssrule.selector;
 import org.hamcrest.Description;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 
 public final class CssSelectorDsl
@@ -32,9 +32,9 @@ public final class CssSelectorDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<CssSelector> selector()
+    public static StringMatcherBuilder<CssSelector> selector()
     {
-        return new RegexMatcherBuilder<CssSelector>(new RegexMatcherAdapter<CssSelector>()
+        return new StringMatcherBuilder<CssSelector>(new RegexMatcherAdapter<CssSelector>()
         {
             @Override
             public String getStringToMatch(final CssSelector toBeAnalysed)

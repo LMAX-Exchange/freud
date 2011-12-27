@@ -26,7 +26,7 @@ import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.IntOperatorMatcherAdapter;
 import org.langera.freud.core.matcher.IntOperatorMatcherBuilder;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -41,9 +41,9 @@ public final class ClassObjectDsl
     }
 
 
-    public static RegexMatcherBuilder<Class> className()
+    public static StringMatcherBuilder<Class> className()
     {
-        return new RegexMatcherBuilder<Class>(new RegexMatcherAdapter<Class>()
+        return new StringMatcherBuilder<Class>(new RegexMatcherAdapter<Class>()
         {
             @Override
             public String getStringToMatch(final Class toBeAnalysed)
@@ -57,12 +57,11 @@ public final class ClassObjectDsl
                 return "ClassObjectName";
             }
         });
-
     }
 
-    public static RegexMatcherBuilder<Class> classSimpleName()
+    public static StringMatcherBuilder<Class> classSimpleName()
     {
-        return new RegexMatcherBuilder<Class>(new RegexMatcherAdapter<Class>()
+        return new StringMatcherBuilder<Class>(new RegexMatcherAdapter<Class>()
         {
             @Override
             public String getStringToMatch(final Class toBeAnalysed)
@@ -77,6 +76,24 @@ public final class ClassObjectDsl
             }
         });
 
+    }
+
+    public static StringMatcherBuilder<Class> packageName()
+    {
+        return new StringMatcherBuilder<Class>(new RegexMatcherAdapter<Class>()
+        {
+            @Override
+            public String getStringToMatch(final Class toBeAnalysed)
+            {
+                return toBeAnalysed.getPackage().getName();
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "PackageName";
+            }
+        });
     }
 
     public static FreudMatcher<Class> array()

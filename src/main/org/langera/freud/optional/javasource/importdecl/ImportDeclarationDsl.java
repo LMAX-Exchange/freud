@@ -17,72 +17,74 @@
  * @author Amir Langer  langera_at_gmail_dot_com
  */
 
-package org.langera.freud.optional.javasource.packagedecl;
+package org.langera.freud.optional.javasource.importdecl;
 
-import org.langera.freud.core.matcher.IntOperatorMatcherAdapter;
-import org.langera.freud.core.matcher.IntOperatorMatcherBuilder;
+import org.hamcrest.Description;
+import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
 import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 
-public final class PackageDeclarationDsl
+public final class ImportDeclarationDsl
 {
-    private PackageDeclarationDsl()
+    private ImportDeclarationDsl()
     {
         // static utility
     }
 
-    public static StringMatcherBuilder<PackageDeclaration> packageDeclaration()
+    public static StringMatcherBuilder<ImportDeclaration> importDeclaration()
     {
-        return new StringMatcherBuilder<PackageDeclaration>(new RegexMatcherAdapter<PackageDeclaration>()
+        return new StringMatcherBuilder<ImportDeclaration>(new RegexMatcherAdapter<ImportDeclaration>()
         {
             @Override
-            public String getStringToMatch(final PackageDeclaration toBeAnalysed)
+            public String getStringToMatch(final ImportDeclaration toBeAnalysed)
             {
-                return toBeAnalysed.getPackagePathAsString();
+                return toBeAnalysed.getImportDeclarationPathAsString();
             }
 
             @Override
             public String matcherDisplayName()
             {
-                return "PackageDeclaration";
+                return "ImportDeclaration";
             }
         });
     }
 
-    public static StringMatcherBuilder<PackageDeclaration> packageDeclarationLastElement()
+
+    public static StringMatcherBuilder<ImportDeclaration> importDeclarationLastElement()
     {
-        return new StringMatcherBuilder<PackageDeclaration>(new RegexMatcherAdapter<PackageDeclaration>()
+        return new StringMatcherBuilder<ImportDeclaration>(new RegexMatcherAdapter<ImportDeclaration>()
         {
             @Override
-            public String getStringToMatch(final PackageDeclaration toBeAnalysed)
+            public String getStringToMatch(final ImportDeclaration toBeAnalysed)
             {
-                final String[] path = toBeAnalysed.getPackagePath();
+                final String[] path = toBeAnalysed.getImportDeclarationPath();
                 return (path.length == 0) ? null : path[path.length  - 1];
             }
 
             @Override
             public String matcherDisplayName()
             {
-                return "PackageDeclarationLastElement";
+                return "ImportDeclaration";
             }
         });
     }
-    public static IntOperatorMatcherBuilder<PackageDeclaration> packageDepth()
+
+    public static FreudMatcher<ImportDeclaration> staticImport()
     {
-        return new IntOperatorMatcherBuilder<PackageDeclaration>(new IntOperatorMatcherAdapter<PackageDeclaration>()
+        return new FreudMatcher<ImportDeclaration>()
         {
             @Override
-            public int valueOf(final PackageDeclaration matched)
+            protected boolean matchesSafely(final ImportDeclaration importDeclaration)
             {
-                return matched.getPackagePath().length;
+                return importDeclaration.isStaticDecalaration();
             }
 
             @Override
-            public String matcherDisplayName()
+            public void describeTo(final Description description)
             {
-                return "PackageDepth";
+                description.appendText("staticImport");
             }
-        });
+        };
     }
 }

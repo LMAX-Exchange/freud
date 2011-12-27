@@ -24,11 +24,11 @@ import org.hamcrest.Description;
 import java.util.regex.Pattern;
 
 
-public final class RegexMatcherBuilder<T>
+public final class StringMatcherBuilder<T>
 {
     private final RegexMatcherAdapter<T> adapter;
 
-    public RegexMatcherBuilder(final RegexMatcherAdapter<T> adapter)
+    public StringMatcherBuilder(final RegexMatcherAdapter<T> adapter)
     {
         this.adapter = adapter;
     }
@@ -41,6 +41,27 @@ public final class RegexMatcherBuilder<T>
     public FreudMatcher<T> contains(final String regex)
     {
         return new RegexMatcher<T>(regex, false, adapter);
+    }
+
+    public FreudMatcher<T> is(final org.hamcrest.Matcher<? super String> realMatcher)
+    {
+        return new FreudMatcher<T>()
+        {
+            @Override
+            protected boolean matchesSafely(final T object)
+            {
+                return realMatcher.matches(adapter.getStringToMatch(object));
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText(adapter.matcherDisplayName());
+                description.appendText("(");
+                realMatcher.describeTo(description);
+                description.appendText(")");
+            }
+        };
     }
 
     private static final class RegexMatcher<T> extends FreudMatcher<T>

@@ -26,10 +26,12 @@ import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathException;
 import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.filter.ElementFilter;
 import org.langera.freud.core.iterator.resource.ResourceParser;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclarationJdom;
 import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
+import org.langera.freud.optional.javasource.importdecl.ImportDeclarationJdom;
 import org.langera.freud.optional.javasource.packagedecl.PackageDeclaration;
 import org.langera.freud.optional.javasource.packagedecl.PackageDeclarationJdom;
 import org.langera.freud.optional.javasource.parser.JavaLexer;
@@ -37,9 +39,14 @@ import org.langera.freud.optional.javasource.parser.JavaParser;
 import org.langera.freud.optional.javasource.parser.JavaSourceTokenType;
 import org.langera.freud.util.parser.JdomResourceParser;
 import org.langera.freud.util.parser.JdomTreeAdaptor;
+import org.langera.freud.util.parser.JdomTreePositionComparator;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Iterator;
+import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * This file is part of "Freud".
@@ -79,6 +86,7 @@ public final class JavaSourceJdom implements JavaSource
     private final Document root;
     private ClassDeclaration classDeclaration;
     private PackageDeclaration packageDeclaration;
+    private ImportDeclaration[] importDeclarations;
 
     public JavaSourceJdom(final Document root, final String fileName)
     {
@@ -93,6 +101,118 @@ public final class JavaSourceJdom implements JavaSource
     {
         this(parseJavaSourceToDocument(javaSourceReader), fileName);
     }
+
+    public Document getDocument()
+    {
+        return root;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public PackageDeclaration getPackageDeclaration()
+    {
+        return (packageDeclaration == null) ? parsePackageDeclaration() : packageDeclaration;
+    }
+
+    @Override
+    public ImportDeclaration[] getImportDeclarations()
+    {
+        return (importDeclarations == null) ? parseImportDeclaration() : importDeclarations;
+    }
+
+    @Override
+    public ClassDeclaration getClassDeclaration()
+    {
+        return (classDeclaration == null) ? parseClassDeclaration() : classDeclaration;
+    }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+    public String getFileName()
+    {
+        return fileName;
+    }
+
+    @Override
+    public String getFullClassName()
+    {
+
+        final String packagePath = getPackageDeclaration().getPackagePathAsString();
+        final String className = getClassDeclaration().getName();
+        return (packagePath.length() > 0) ? packagePath + "." + className : className;
+    }
+
+    @Override
+    public String getSimpleClassName()
+    {
+        return getClassDeclaration().getName();
+    }
+
+    @Override
+    public Class loadClass()
+    {
+        final String fullClassName = getFullClassName();
+        try
+        {
+            return Class.forName(fullClassName);
+        }
+        catch (ClassNotFoundException e)
+        {
+            throw new RuntimeException("Failed to load class [" + fullClassName + "]", e);
+        }
+    }
+
+
+    @Override
+    public String toString()
+    {
+        return JdomTreeAdaptor.documentToString(root);
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static String[] parsePackagePath(final Element element)
+    {
+        SortedSet<Element> packagePathElementSortedSet = new TreeSet<Element>(JdomTreePositionComparator.getInstance());
+
+        for (Iterator iterator = element.getDescendants(new ElementFilter(JavaSourceTokenType.IDENT.getName()));
+             iterator.hasNext(); )
+        {
+            packagePathElementSortedSet.add((Element) iterator.next());
+
+        }
+
+        boolean endsWithDotStar =  (element.getChild(JavaSourceTokenType.DOTSTAR.getName()) != null);
+        final String[] packagePath = new String[(endsWithDotStar) ? packagePathElementSortedSet.size()  + 1 :
+                                                                    packagePathElementSortedSet.size()];
+        int i = 0;
+        for (Element pathElement : packagePathElementSortedSet)
+        {
+            packagePath[i++] = pathElement.getTextTrim();
+        }
+        if (endsWithDotStar)
+        {
+            packagePath[i] = "*";
+        }
+        return packagePath;
+    }
+
+    public static String buildPackagePath(final String[] packagePath)
+    {
+        StringBuilder packagePathStrBuilder = new StringBuilder();
+        for (int i = 0, size = packagePath.length; i < size; i++)
+        {
+            if (i > 0)
+            {
+                packagePathStrBuilder.append('.');
+            }
+            packagePathStrBuilder.append(packagePath[i]);
+        }
+        return packagePathStrBuilder.toString();
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private ClassDeclaration parseClassDeclaration()
     {
@@ -150,15 +270,31 @@ public final class JavaSourceJdom implements JavaSource
         }
         catch (JXPathException e)
         {
-            return new PackageDeclarationJdom();
+            packageDeclaration = new PackageDeclarationJdom();
         }
 
         return packageDeclaration;
     }
 
-    public Document getDocument()
+    private ImportDeclaration[] parseImportDeclaration()
     {
-        return root;
+        try
+        {
+            final JXPathContext context = JXPathContext.newContext(root);
+            final List importNodes = context.selectNodes("/" + JAVA_SOURCE_ROOT_ELEMENT_NAME + "/" +
+                    JavaSourceTokenType.IMPORT.name());
+            importDeclarations = new ImportDeclaration[importNodes.size()];
+            int i = 0;
+            for (Object importNode : importNodes)
+            {
+                importDeclarations[i++] = new ImportDeclarationJdom((Element) importNode);
+            }
+        }
+        catch (JXPathException e)
+        {
+            importDeclarations = new ImportDeclaration[0];
+        }
+        return importDeclarations;
     }
 
     private static Document parseJavaSourceToDocument(final Reader javaSourceReader) throws RecognitionException, IOException
@@ -169,66 +305,4 @@ public final class JavaSourceJdom implements JavaSource
         parser.compilationUnit();
         return treeAdaptor.getDocument();
     }
-
-    /////////////////////////////////////////////////////////////////////////////////////
-
-    //    ImportDeclaration[] getImportDeclarations();
-
-    public PackageDeclaration getPackageDeclaration()
-    {
-        return (packageDeclaration == null) ? parsePackageDeclaration() : packageDeclaration;
-    }
-
-    @Override
-    public ImportDeclaration[] getImportDeclarations()
-    {
-        throw new UnsupportedOperationException("not implemented yet");
-    }
-
-    public ClassDeclaration getClassDeclaration()
-    {
-        return (classDeclaration == null) ? parseClassDeclaration() : classDeclaration;
-    }
-
-/////////////////////////////////////////////////////////////////////////////////////
-
-    public String getFileName()
-    {
-        return fileName;
-    }
-
-    public String getFullClassName()
-    {
-
-        final String packagePath = getPackageDeclaration().getPackagePathAsString();
-        final String className = getClassDeclaration().getName();
-        return (packagePath.length() > 0) ? packagePath + "." + className : className;
-    }
-
-    @Override
-    public String getSimpleClassName()
-    {
-        return getClassDeclaration().getName();
-    }
-
-    public Class loadClass()
-    {
-        final String fullClassName = getFullClassName();
-        try
-        {
-            return Class.forName(fullClassName);
-        }
-        catch (ClassNotFoundException e)
-        {
-            throw new RuntimeException("Failed to load class [" + fullClassName + "]", e);
-        }
-    }
-
-
-    @Override
-    public String toString()
-    {
-        return JdomTreeAdaptor.documentToString(root);
-    }
-
 }

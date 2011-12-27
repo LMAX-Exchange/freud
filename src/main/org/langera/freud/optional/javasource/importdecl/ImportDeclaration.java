@@ -20,9 +20,9 @@ package org.langera.freud.optional.javasource.importdecl;
 
 public interface ImportDeclaration
 {
-    String[] getImportDeclaration();
+    String[] getImportDeclarationPath();
 
-    String getImportDeclarationAsString();
+    String getImportDeclarationPathAsString();
 
     boolean isStaticDecalaration();
 }

@@ -20,7 +20,7 @@
 package org.langera.freud.optional.text;
 
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 public final class TextDsl
 {
@@ -29,9 +29,9 @@ public final class TextDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<Text> text()
+    public static StringMatcherBuilder<Text> text()
     {
-        return new RegexMatcherBuilder<Text>(new RegexMatcherAdapter<Text>()
+        return new StringMatcherBuilder<Text>(new RegexMatcherAdapter<Text>()
         {
             @Override
             public String getStringToMatch(final Text toBeAnalysed)

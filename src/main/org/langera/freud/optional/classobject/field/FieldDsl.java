@@ -25,7 +25,7 @@ import org.hamcrest.Matchers;
 import org.langera.freud.core.FreudRuntimeContext;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 import org.langera.freud.optional.classobject.AnnotationFreudMatcher;
 
 import java.lang.annotation.Annotation;
@@ -41,9 +41,9 @@ public final class FieldDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<Field> fieldName()
+    public static StringMatcherBuilder<Field> fieldName()
     {
-        return new RegexMatcherBuilder<Field>(new RegexMatcherAdapter<Field>()
+        return new StringMatcherBuilder<Field>(new RegexMatcherAdapter<Field>()
         {
             @Override
             public String getStringToMatch(final Field toBeAnalysed)
@@ -62,7 +62,7 @@ public final class FieldDsl
     @SuppressWarnings("unchecked")
     public static FreudMatcher<Field> fieldType(final Class type)
     {
-        return fieldTypeMatches((Matcher<Class>) Matchers.<Class>equalTo(type));
+        return fieldTypeMatches(Matchers.<Class>equalTo(type));
     }
 
     public static FreudMatcher<Field> fieldTypeIsSubTypeOf(final Class superType)
@@ -83,7 +83,7 @@ public final class FieldDsl
         };
     }
 
-    public static FreudMatcher<Field> fieldTypeMatches(final Matcher<Class> classMatcher)
+    public static FreudMatcher<Field> fieldTypeMatches(final Matcher<? super Class> classMatcher)
     {
         return new FreudMatcher<Field>()
         {

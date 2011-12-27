@@ -20,7 +20,7 @@
 package org.langera.freud.optional.classfile;
 
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 public final class ClassFileDsl
 {
@@ -31,9 +31,9 @@ public final class ClassFileDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<ClassFile> classSimpleName()
+    public static StringMatcherBuilder<ClassFile> classSimpleName()
     {
-        return new RegexMatcherBuilder<ClassFile>(new RegexMatcherAdapter<ClassFile>()
+        return new StringMatcherBuilder<ClassFile>(new RegexMatcherAdapter<ClassFile>()
         {
             @Override
             public String getStringToMatch(final ClassFile toBeAnalysed)

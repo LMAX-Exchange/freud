@@ -28,6 +28,7 @@ import org.langera.freud.optional.classfile.method.instruction.Opcode;
 
 import java.math.BigDecimal;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.langera.freud.core.matcher.FreudDsl.no;
 import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.a;
 import static org.langera.freud.optional.classfile.method.ClassFileMethodDsl.containsInstructions;
@@ -46,7 +47,8 @@ public final class ClassFileExamples
     {
         return Freud.iterateOver(ClassFileMethod.class).
                 assertThat(no(hasMethodInvocation(BigDecimal.class, "toString")).
-                        and(no(methodInvokedWithParams(StringBuilder.class, "append", a(BigDecimal.class))))).within(iterator);
+                        and(no(methodInvokedWithParams(StringBuilder.class, "append", a(BigDecimal.class))))).
+                within(iterator);
     }
 
     public static FreudAnalyser doNotUseBigDecimalEquals(final AnalysedObjectIterator<ClassFile> iterator)
@@ -65,29 +67,29 @@ public final class ClassFileExamples
     public static FreudAnalyser specificMethodsShouldNotHaveBranchLogic(final AnalysedObjectIterator<ClassFile> iterator)
     {
         return Freud.iterateOver(ClassFileMethod.class).
-                assertThat(no(methodName().matches("criticalPath")).
-                            or(no(containsInstructions(Opcode.IFEQ,
-                                                       Opcode.IFLT,
-                                                       Opcode.IFLE,
-                                                       Opcode.IFNE,
-                                                       Opcode.IFGT,
-                                                       Opcode.IFGE,
-                                                       Opcode.IFNULL,
-                                                       Opcode.IFNONNULL,
-                                                       Opcode.IF_ICMPEQ,
-                                                       Opcode.IF_ICMPGE,
-                                                       Opcode.IF_ICMPGT,
-                                                       Opcode.IF_ICMPLE,
-                                                       Opcode.IF_ICMPLT,
-                                                       Opcode.IF_ICMPNE,
-                                                       Opcode.IF_ACMPEQ,
-                                                       Opcode.IF_ACMPNE,
-                                                       Opcode.TABLESWITCH,
-                                                       Opcode.LOOKUPSWITCH,
-                                                       Opcode.GOTO,
-                                                       Opcode.GOTO_W,
-                                                       Opcode.JSR,
-                                                       Opcode.JSR_W)))).within(iterator);
+                assertThat(no(methodName().is(equalTo("criticalPath"))).
+                        or(no(containsInstructions(Opcode.IFEQ,
+                                Opcode.IFLT,
+                                Opcode.IFLE,
+                                Opcode.IFNE,
+                                Opcode.IFGT,
+                                Opcode.IFGE,
+                                Opcode.IFNULL,
+                                Opcode.IFNONNULL,
+                                Opcode.IF_ICMPEQ,
+                                Opcode.IF_ICMPGE,
+                                Opcode.IF_ICMPGT,
+                                Opcode.IF_ICMPLE,
+                                Opcode.IF_ICMPLT,
+                                Opcode.IF_ICMPNE,
+                                Opcode.IF_ACMPEQ,
+                                Opcode.IF_ACMPNE,
+                                Opcode.TABLESWITCH,
+                                Opcode.LOOKUPSWITCH,
+                                Opcode.GOTO,
+                                Opcode.GOTO_W,
+                                Opcode.JSR,
+                                Opcode.JSR_W)))).within(iterator);
     }
 }
 

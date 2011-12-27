@@ -22,7 +22,7 @@ package org.langera.freud.optional.javasource.classdecl;
 import org.hamcrest.Description;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 
 public final class ClassDeclarationDsl
@@ -32,9 +32,9 @@ public final class ClassDeclarationDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<ClassDeclaration> className()
+    public static StringMatcherBuilder<ClassDeclaration> className()
     {
-        return new RegexMatcherBuilder<ClassDeclaration>(new RegexMatcherAdapter<ClassDeclaration>()
+        return new StringMatcherBuilder<ClassDeclaration>(new RegexMatcherAdapter<ClassDeclaration>()
         {
             @Override
             public String getStringToMatch(final ClassDeclaration toBeAnalysed)

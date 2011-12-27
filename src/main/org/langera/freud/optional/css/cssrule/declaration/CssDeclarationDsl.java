@@ -20,7 +20,7 @@
 package org.langera.freud.optional.css.cssrule.declaration;
 
 import org.langera.freud.core.matcher.RegexMatcherAdapter;
-import org.langera.freud.core.matcher.RegexMatcherBuilder;
+import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 
 public final class CssDeclarationDsl
@@ -30,9 +30,9 @@ public final class CssDeclarationDsl
         // static utility
     }
 
-    public static RegexMatcherBuilder<CssDeclaration> declarationKey()
+    public static StringMatcherBuilder<CssDeclaration> declarationKey()
     {
-        return new RegexMatcherBuilder<CssDeclaration>(new RegexMatcherAdapter<CssDeclaration>()
+        return new StringMatcherBuilder<CssDeclaration>(new RegexMatcherAdapter<CssDeclaration>()
         {
             @Override
             public String getStringToMatch(final CssDeclaration toBeAnalysed)
@@ -48,9 +48,9 @@ public final class CssDeclarationDsl
         });
     }
 
-    public static RegexMatcherBuilder<CssDeclaration> declarationValue()
+    public static StringMatcherBuilder<CssDeclaration> declarationValue()
     {
-        return new RegexMatcherBuilder<CssDeclaration>(new RegexMatcherAdapter<CssDeclaration>()
+        return new StringMatcherBuilder<CssDeclaration>(new RegexMatcherAdapter<CssDeclaration>()
         {
             @Override
             public String getStringToMatch(final CssDeclaration toBeAnalysed)

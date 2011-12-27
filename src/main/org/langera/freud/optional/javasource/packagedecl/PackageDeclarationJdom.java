@@ -20,13 +20,9 @@
 package org.langera.freud.optional.javasource.packagedecl;
 
 import org.jdom.Element;
-import org.jdom.filter.ElementFilter;
-import org.langera.freud.optional.javasource.parser.JavaSourceTokenType;
-import org.langera.freud.util.parser.JdomTreePositionComparator;
 
-import java.util.Iterator;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import static org.langera.freud.optional.javasource.JavaSourceJdom.buildPackagePath;
+import static org.langera.freud.optional.javasource.JavaSourceJdom.parsePackagePath;
 
 /**
  * This file is part of "Freud".
@@ -49,7 +45,7 @@ import java.util.TreeSet;
 
 public final class PackageDeclarationJdom implements PackageDeclaration
 {
-    private String[] packagePath;
+    private final String[] packagePath;
     private String packagePathAsStr;
 
     public PackageDeclarationJdom()
@@ -59,20 +55,7 @@ public final class PackageDeclarationJdom implements PackageDeclaration
 
     public PackageDeclarationJdom(Element element)
     {
-        SortedSet<Element> packagePathElementSortedSet = new TreeSet<Element>(JdomTreePositionComparator.getInstance());
-
-        for (Iterator iterator = element.getDescendants(new ElementFilter(JavaSourceTokenType.IDENT.getName()));
-             iterator.hasNext(); )
-        {
-            packagePathElementSortedSet.add((Element) iterator.next());
-
-        }
-        packagePath = new String[packagePathElementSortedSet.size()];
-        int i = 0;
-        for (Element pathElement : packagePathElementSortedSet)
-        {
-            packagePath[i++] = pathElement.getTextTrim();
-        }
+        packagePath = parsePackagePath(element);
     }
 
     public String[] getPackagePath()
@@ -84,17 +67,9 @@ public final class PackageDeclarationJdom implements PackageDeclaration
     {
         if (packagePathAsStr == null)
         {
-            StringBuilder packagePathStrBuilder = new StringBuilder();
-            for (int i = 0, size = packagePath.length; i < size; i++)
-            {
-                if (i > 0)
-                {
-                    packagePathStrBuilder.append('.');
-                }
-                packagePathStrBuilder.append(packagePath[i]);
-            }
-            packagePathAsStr = packagePathStrBuilder.toString();
+            packagePathAsStr = buildPackagePath(packagePath);
         }
         return packagePathAsStr;
     }
+
 }
