@@ -24,6 +24,7 @@ import org.langera.freud.core.iterator.IteratorWrapperAnalysedObjectIterator;
 
 import java.io.FilenameFilter;
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  * This file is part of "Freud".
@@ -74,6 +75,10 @@ public final class ResourceIterators
         return new IteratorWrapperAnalysedObjectIterator<T>(Arrays.asList(contents), (Class<T>) contents[0].getClass(), false);
     }
 
+    public static <T> AnalysedObjectIterator<T> analysedObjectIterator(Iterator<T> iterator, Class<T> type)
+    {
+        return new IteratorWrapperAnalysedObjectIterator<T>(iterator, type, false);
+    }
 
     public static <T> AnalysedObjectIterator<T> classpathResourceIterator(ResourceParser<T> parser, String... names)
     {

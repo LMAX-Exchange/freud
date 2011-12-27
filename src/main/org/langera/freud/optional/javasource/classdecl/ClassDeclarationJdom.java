@@ -21,16 +21,20 @@ package org.langera.freud.optional.javasource.classdecl;
 
 import org.apache.commons.jxpath.JXPathContext;
 import org.jdom.Element;
-import org.langera.freud.optional.javasource.JavaSourceJdom;
 import org.langera.freud.optional.javasource.methoddecl.MethodDeclaration;
 import org.langera.freud.optional.javasource.methoddecl.MethodDeclarationJdom;
 import org.langera.freud.optional.javasource.parser.JavaSourceTokenType;
-import org.langera.freud.util.parser.JdomTreeAdaptor;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static org.langera.freud.optional.javasource.JavaSourceJdom.POSSIBLE_CLASS_DECLARATION_TYPES;
+import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.CLASS_TOP_LEVEL_SCOPE;
+import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.FUNCTION_METHOD_DECL;
+import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.VOID_METHOD_DECL;
+import static org.langera.freud.util.parser.JdomTreeAdaptor.ID_ATTR;
 
 
 public final class ClassDeclarationJdom implements ClassDeclaration
@@ -73,11 +77,11 @@ public final class ClassDeclarationJdom implements ClassDeclaration
         {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
             innerClassDeclarationByNameMap = new HashMap<String, ClassDeclaration>();
-            for (JavaSourceTokenType tokenType : JavaSourceJdom.POSSIBLE_CLASS_DECLARATION_TYPES)
+            for (JavaSourceTokenType tokenType : POSSIBLE_CLASS_DECLARATION_TYPES)
             {
                 final String tokenName = tokenType.getName();
                 List<Element> innerClassElementList =
-                        context.selectNodes("/" + JavaSourceTokenType.CLASS.getName() + "/" + tokenName);
+                        context.selectNodes("/" + CLASS_TOP_LEVEL_SCOPE.getName() + "/" + tokenName);
                 innerClassDeclarationByNameMap = new HashMap<String, ClassDeclaration>();
                 for (Element innerClassElement : innerClassElementList)
                 {
@@ -98,8 +102,8 @@ public final class ClassDeclarationJdom implements ClassDeclaration
         {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
             methodDeclarationListByNameMap = new HashMap<String, List<MethodDeclaration>>();
-            getMethodDeclarationListByNameMap(context, JavaSourceTokenType.FUNCTION_METHOD_DECL);
-            getMethodDeclarationListByNameMap(context, JavaSourceTokenType.VOID_METHOD_DECL);
+            getMethodDeclarationListByNameMap(context, FUNCTION_METHOD_DECL);
+            getMethodDeclarationListByNameMap(context, VOID_METHOD_DECL);
         }
         return methodDeclarationListByNameMap;
     }
@@ -133,7 +137,7 @@ public final class ClassDeclarationJdom implements ClassDeclaration
     {
         if (name == null)
         {
-            name = classDeclElement.getAttribute(JdomTreeAdaptor.ID_ATTR).getValue();
+            name = classDeclElement.getAttribute(ID_ATTR).getValue();
         }
         return name;
     }

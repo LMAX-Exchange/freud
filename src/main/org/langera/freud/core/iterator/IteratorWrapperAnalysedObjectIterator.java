@@ -50,6 +50,12 @@ public final class IteratorWrapperAnalysedObjectIterator<T> extends AbstractAnal
         this.iterator = iterable.iterator();
     }
 
+    public IteratorWrapperAnalysedObjectIterator(final Iterator<T> iterator, final Class<T> type, final boolean alertOnEmptyIterator)
+    {
+        super(type, alertOnEmptyIterator);
+        this.iterator = iterator;
+    }
+
     @Override
     protected T generateNextItem()
     {

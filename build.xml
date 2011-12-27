@@ -22,6 +22,7 @@
 
     <property name="version" value="1.0.2"/>
     <property name="dir.main.src" value="src/main"/>
+    <property name="dir.app.src" value="src/app"/>
     <property name="dir.main.build" value="build/main/classes"/>
     <property name="dir.main.lib" value="lib"/>
     <property name="dir.optional.lib" value="lib/optional"/>
@@ -72,6 +73,7 @@
                includeantruntime="false">
             <classpath refid="main.classpath"/>
             <src path="${dir.main.src}"/>
+            <src path="${dir.app.src}"/>
         </javac>
 
     </target>
@@ -86,6 +88,7 @@
                includeantruntime="false">
             <classpath refid="test.classpath"/>
             <src path="${dir.test.src}"/>
+            <src path="${dir.test.resource}"/>
         </javac>
     </target>
 
