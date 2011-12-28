@@ -211,7 +211,7 @@ public final class JavaSourceJdom implements JavaSource
                 final Element element = (Element) context.selectSingleNode("/" + JAVA_SOURCE_ROOT_ELEMENT_NAME + "/" + tokenName);
                 if (element != null)
                 {
-                    classDeclaration = new ClassDeclarationJdom(element, getDeclarationType(tokenType));
+                    classDeclaration = new ClassDeclarationJdom(element, getDeclarationType(tokenType), null);
                 }
             }
             catch (JXPathException e)

@@ -52,5 +52,7 @@ public interface ClassDeclaration
     //    VarDeclaration[] getFieldDeclarations();
 
     Map<String, ClassDeclaration> getInnerClassDeclarationByNameMap();
+
+    ClassDeclaration getOuterClassDeclaration();
 //    AnnotationDeclaration[] getInnerAnnotationDeclarations();    
 }

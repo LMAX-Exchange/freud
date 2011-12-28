@@ -40,15 +40,19 @@ import static org.langera.freud.util.parser.JdomTreeAdaptor.ID_ATTR;
 public final class ClassDeclarationJdom implements ClassDeclaration
 {
     private final Element classDeclElement;
+    private final ClassDeclaration outerClassDeclaration;
     private String name;
     private Map<String, List<MethodDeclaration>> methodDeclarationListByNameMap;
     private Map<String, ClassDeclaration> innerClassDeclarationByNameMap;
     private DeclarationType declarationType;
 
-    public ClassDeclarationJdom(Element classDeclElement, DeclarationType declarationType)
+    public ClassDeclarationJdom(final Element classDeclElement,
+                                final DeclarationType declarationType,
+                                final ClassDeclaration outerClassDeclaration)
     {
         this.classDeclElement = classDeclElement;
         this.declarationType = declarationType;
+        this.outerClassDeclaration = outerClassDeclaration;
     }
 
     public String[] getDeclaredClassAnnotations()
@@ -82,15 +86,20 @@ public final class ClassDeclarationJdom implements ClassDeclaration
                 final String tokenName = tokenType.getName();
                 List<Element> innerClassElementList =
                         context.selectNodes("/" + CLASS_TOP_LEVEL_SCOPE.getName() + "/" + tokenName);
-                innerClassDeclarationByNameMap = new HashMap<String, ClassDeclaration>();
                 for (Element innerClassElement : innerClassElementList)
                 {
-                    ClassDeclaration innerClass = new ClassDeclarationJdom(innerClassElement, DeclarationType.valueOf(tokenName));
+                    ClassDeclaration innerClass = new ClassDeclarationJdom(innerClassElement, DeclarationType.valueOf(tokenName), this);
                     innerClassDeclarationByNameMap.put(innerClass.getName(), innerClass);
                 }
             }
         }
         return innerClassDeclarationByNameMap;
+    }
+
+    @Override
+    public ClassDeclaration getOuterClassDeclaration()
+    {
+        return outerClassDeclaration;
     }
 
     // TODO   Block getStaticBlock();

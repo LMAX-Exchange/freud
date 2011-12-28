@@ -30,6 +30,7 @@ import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public final class ClassObjectOfJavaSourceFreudConfig implements FreudConfig<Class>
 {
@@ -59,16 +60,35 @@ public final class ClassObjectOfJavaSourceFreudConfig implements FreudConfig<Cla
                         while (collectIndex < collector.size())
                         {
                             ClassDeclaration classDeclaration = collector.get(collectIndex++);
-                            collector.addAll(classDeclaration.getInnerClassDeclarationByNameMap().values());
+                            final Map<String,ClassDeclaration> innerClassDeclarationByNameMap = classDeclaration.getInnerClassDeclarationByNameMap();
+                            collector.addAll(innerClassDeclarationByNameMap.values());
                         }
                         final List<Class> classes = new LinkedList<Class>();
                         for (ClassDeclaration classDeclaration : collector)
                         {
-                            classes.add(loadClass(packageName + classDeclaration.getName()));
+                            final String fullClassName = getFullClassName(packageName, classDeclaration);
+                            classes.add(loadClass(fullClassName));
                         }
                         return classes;
                     }
                 }, Class.class);
+    }
+
+    private String getFullClassName(final String packageName, final ClassDeclaration classDeclaration)
+    {
+        return (classDeclaration.getOuterClassDeclaration() == null)
+                    ? topLevelClassName(packageName, classDeclaration) : innerClassName(packageName, classDeclaration);
+    }
+
+    private String innerClassName(final String packageName, final ClassDeclaration classDeclaration)
+    {
+        final String outerClassName = getFullClassName(packageName, classDeclaration.getOuterClassDeclaration());
+        return outerClassName + "$" + classDeclaration.getName();
+    }
+
+    private String topLevelClassName(final String packageName, final ClassDeclaration classDeclaration)
+    {
+        return packageName + classDeclaration.getName();
     }
 
     private static Class loadClass(final String fullClassName)

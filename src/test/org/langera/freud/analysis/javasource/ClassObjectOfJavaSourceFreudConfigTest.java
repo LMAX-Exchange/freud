@@ -5,7 +5,6 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.langera.DummyClass;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
@@ -33,7 +32,6 @@ public final class ClassObjectOfJavaSourceFreudConfigTest
     }
 
     @Test
-    @Ignore
     public void shouldReturnAllClassesReferencedByInputJavaSource()
     {
         ClassObjectOfJavaSourceFreudConfig freudConfig = new ClassObjectOfJavaSourceFreudConfig();
@@ -41,12 +39,13 @@ public final class ClassObjectOfJavaSourceFreudConfigTest
         final AnalysedObjectIterator<Class> classAnalysedObjectIterator =
                 freudConfig.iteratorAdapter(analysedObjectIterator(Collections.singleton(javaSource).iterator(), JavaSource.class));
 
-        System.out.println(javaSource);
-
-        Assert.assertThat(classAnalysedObjectIterator, collectionOf(DummyClass.class,  DummyClass.class));
+        Assert.assertThat(classAnalysedObjectIterator, collectionOf(
+                                    DummyClass.class.getName(),
+                                    DummyClass.class.getName() + "$InnerDummyClass",
+                                    DummyClass.class.getName() + "$InnerDummyClass$InnerInnerDummyClass"));
     }
 
-    private Matcher<AnalysedObjectIterator<Class>> collectionOf(final Class... classes)
+    private Matcher<AnalysedObjectIterator<Class>> collectionOf(final String... classNames)
     {
         return new TypeSafeMatcher<AnalysedObjectIterator<Class>>()
         {
@@ -55,18 +54,18 @@ public final class ClassObjectOfJavaSourceFreudConfigTest
             @Override
             protected boolean matchesSafely(final AnalysedObjectIterator<Class> iterator)
             {
-                final List<Class> collector = new LinkedList<Class>();
+                final List<String> collector = new LinkedList<String>();
                 while (iterator.hasNext())
                 {
-                    collector.add(iterator.next());
+                    collector.add(iterator.next().getName());
                 }
 
 
-                if (collector.size() == classes.length)
+                if (collector.size() == classNames.length)
                 {
-                    for (Class expectedClass : classes)
+                    for (String name : classNames)
                     {
-                        if (!collector.contains(expectedClass))
+                        if (!collector.contains(name))
                         {
                             errorMsg = "Got " + collector;
                             return false;
@@ -82,7 +81,7 @@ public final class ClassObjectOfJavaSourceFreudConfigTest
             public void describeTo(final Description description)
             {
                 description.appendText("expected ");
-                description.appendText(Arrays.toString(classes));
+                description.appendText(Arrays.toString(classNames));
                 description.appendText(" ");
                 description.appendText(errorMsg);
             }
