@@ -19,9 +19,11 @@
 
 package org.langera.freud.optional.text;
 
+import org.langera.freud.optional.text.textline.TextLine;
 import org.langera.freud.util.io.IoUtil;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,31 +49,44 @@ import java.util.List;
 
 public final class Text
 {
-    private String text;
-    private String resourceIdentifier;
+    private Reader text;
+    private final String resourceIdentifier;
+    private String textAsString;
+    private List<TextLine> textLineList;
 
-    public Text(String text, String resourceIdentifier)
+    public Text(final Reader text, final String resourceIdentifier)
     {
         this.text = text;
         this.resourceIdentifier = resourceIdentifier;
     }
 
-    public List<org.langera.freud.optional.text.textline.TextLine> getTextLines()
+    public Text(final String textAsString, final String resourceIdentifier)
     {
-        try
+        this(new StringReader(textAsString), resourceIdentifier);
+        this.textAsString = textAsString;
+    }
+
+
+    public List<TextLine> getTextLines()
+    {
+        if (textLineList == null)
         {
-            String[] lines = IoUtil.readLines(new StringReader(text));
-            List<org.langera.freud.optional.text.textline.TextLine> textLineList = new ArrayList<org.langera.freud.optional.text.textline.TextLine>(lines.length);
-            for (int i = 0, size = lines.length; i < size; i++)
+            try
             {
-                textLineList.add(new org.langera.freud.optional.text.textline.TextLine(lines[i], i, resourceIdentifier));
+                String[] lines = IoUtil.readLines(new StringReader(getText()));
+                textLineList = new ArrayList<TextLine>(lines.length);
+                for (int i = 0, size = lines.length; i < size; i++)
+                {
+                    textLineList.add(new TextLine(lines[i], i, resourceIdentifier));
+                }
+                text = new StringReader(textAsString);
             }
-            return textLineList;
+            catch (IOException e)
+            {
+                throw new IllegalStateException("Failed to parse text [" + resourceIdentifier + "] into lines");
+            }
         }
-        catch (IOException e)
-        {
-            throw new IllegalStateException("Failed to parse text [" + text + "] into lines");
-        }
+        return textLineList;
     }
 
     public String getResourceIdentifier()
@@ -81,7 +96,19 @@ public final class Text
 
     public String getText()
     {
-        return text;
+        if (textAsString == null)
+        {
+            try
+            {
+                textAsString = IoUtil.readFully(text);
+                text = new StringReader(textAsString);
+            }
+            catch (IOException e)
+            {
+                throw new IllegalStateException("Failed to parse text [" + resourceIdentifier + "] into a string");
+            }
+        }
+        return textAsString;
     }
 
     @Override

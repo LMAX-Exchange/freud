@@ -21,6 +21,7 @@ public final class JavaSourceFileFreudSessionContext implements FreudSessionCont
     @Override
     public void sessionRuntimeContextSetUp()
     {
+        System.setProperty(Class.class.getName() + Freud.FREUD_CONFIG_SUFFIX, ClassObjectOfJavaSourceFreudConfig.class.getName());
         System.setProperty(Method.class.getName() + Freud.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
         System.setProperty(Field.class.getName() + Freud.FREUD_CONFIG_SUFFIX, FieldFreudConfig.class.getName());
     }
