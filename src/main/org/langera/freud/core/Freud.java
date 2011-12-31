@@ -26,20 +26,17 @@ import org.langera.freud.core.iterator.IteratorWrapperAnalysedObjectIterator;
 import org.langera.freud.core.listener.AnalysisListener;
 import org.langera.freud.core.matcher.FreudMatcher;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 public final class Freud<T> implements
         FreudRule<T>, FreudRuleBuilder<T>,
         FreudAssertionAndFilterBuilder<T>, EmbeddedFreudAnalyser<T>, FreudAnalyser
 {
-    public static final String FREUD_CONFIG_SUFFIX = "FreudConfig";
     private Class<T> type;
     private AnalysedObjectIterator<T> iterator;
     private Matcher<T> filter;
     private Matcher<T> assertion;
-    private Map<Class, FreudConfig> configByTypeMap = new HashMap<Class, FreudConfig>();
+    private final FreudConfigRegistry freudConfigRegistry = new FreudConfigRegistry();
 
     public Freud(final Class<T> type)
     {
@@ -225,7 +222,7 @@ public final class Freud<T> implements
 
     private AnalysedObjectIterator<T> adapter(final AnalysedObjectIterator<?> iterator)
     {
-        FreudConfig<T> config = configOf(type);
+        FreudConfig<T> config = freudConfigRegistry.configOf(type);
         final Class<?> superTypeForT = config.supports();
         if (superTypeForT == null || iterator.analysedObjectType().equals(superTypeForT))
         {
@@ -233,53 +230,9 @@ public final class Freud<T> implements
         }
         else
         {
-            final AnalysedObjectIterator<?> superTypeIterator = configOf(superTypeForT).iteratorAdapter(iterator);
+            final AnalysedObjectIterator<?> superTypeIterator = freudConfigRegistry.configOf(superTypeForT).iteratorAdapter(iterator);
             FreudRuntimeContext.register(superTypeIterator);
             return config.iteratorAdapter(superTypeIterator);
         }
     }
-
-    @SuppressWarnings("unchecked")
-    private <TT> FreudConfig<TT> configOf(Class<TT> type)
-    {
-        FreudConfig<TT> config = configByTypeMap.get(type);
-        if (config == null)
-        {
-            config = loadConfig(type);
-            configByTypeMap.put(type, config);
-        }
-        return config;
-    }
-
-    @SuppressWarnings("unchecked")
-    private static <T> FreudConfig<T> loadConfig(final Class<T> type)
-    {
-        try
-        {
-            final String name = type.getName() + FREUD_CONFIG_SUFFIX;
-            String classname = System.getProperty(name);
-            if (classname == null)
-            {
-                classname = name;
-            }
-            Class configClass = Thread.currentThread().getContextClassLoader().loadClass(classname);
-
-            return (FreudConfig<T>) configClass.newInstance();
-        }
-        catch (ClassNotFoundException e)
-        {
-            return DefaultFreudConfig.getInstance();
-        }
-        catch (InstantiationException e)
-        {
-            throw new FreudBuilderException("Could not load config class for " + type, e);
-
-        }
-        catch (IllegalAccessException e)
-        {
-            throw new FreudBuilderException("Could not load config class for " + type, e);
-        }
-    }
-
-
 }

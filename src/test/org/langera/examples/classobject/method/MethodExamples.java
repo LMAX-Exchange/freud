@@ -22,6 +22,7 @@ package org.langera.examples.classobject.method;
 import org.junit.Test;
 import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudAnalyser;
+import org.langera.freud.core.FreudConfigRegistry;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.optional.classobject.method.MethodFreudConfig;
 
@@ -36,7 +37,7 @@ public final class MethodExamples
     static
     {
         // Method is a third party class that needs a config - point ot it using a System property
-        System.setProperty(Method.class.getName() + Freud.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
+        System.setProperty(Method.class.getName() + FreudConfigRegistry.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
     }
 
     private MethodExamples()

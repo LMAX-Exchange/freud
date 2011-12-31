@@ -23,6 +23,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.langera.freud.core.Freud;
+import org.langera.freud.core.FreudConfigRegistry;
 import org.langera.freud.core.listener.AnalysisListenerStub;
 
 import java.lang.annotation.ElementType;
@@ -51,7 +52,7 @@ public final class FieldDslTest
     static
     {
         // Field is a third party class that needs a config - point ot it using a System property
-        System.setProperty(Field.class.getName() + Freud.FREUD_CONFIG_SUFFIX, FieldFreudConfig.class.getName());
+        System.setProperty(Field.class.getName() + FreudConfigRegistry.FREUD_CONFIG_SUFFIX, FieldFreudConfig.class.getName());
     }
 
     static String dummyField;

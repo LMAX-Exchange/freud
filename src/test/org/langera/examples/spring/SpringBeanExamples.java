@@ -21,6 +21,7 @@ package org.langera.examples.spring;
 
 import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudAnalyser;
+import org.langera.freud.core.FreudConfigRegistry;
 import org.langera.freud.core.iterator.AnalysedObjectIterator;
 import org.langera.freud.optional.classobject.method.MethodFreudConfig;
 import org.langera.freud.optional.spring.ClassObjectOfSpringBeanFreudConfig;
@@ -41,10 +42,10 @@ public final class SpringBeanExamples
     static
     {
         // Class is a third party class that needs a config as SpringBean being its super type - point ot it using a System property
-        System.setProperty(Class.class.getName() + Freud.FREUD_CONFIG_SUFFIX, ClassObjectOfSpringBeanFreudConfig.class.getName());
+        System.setProperty(Class.class.getName() + FreudConfigRegistry.FREUD_CONFIG_SUFFIX, ClassObjectOfSpringBeanFreudConfig.class.getName());
 
         // Method is a third party class that needs a config - point ot it using a System property
-        System.setProperty(Method.class.getName() + Freud.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
+        System.setProperty(Method.class.getName() + FreudConfigRegistry.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
     }
 
     private SpringBeanExamples()

@@ -102,7 +102,7 @@ public final class FreudTest
     @Test
     public void shouldBuildTestWithSuperTypeFilters()
     {
-        System.setProperty(String.class.getName() + Freud.FREUD_CONFIG_SUFFIX, StringTestFreudConfig.class.getName());
+        System.setProperty(String.class.getName() + FreudConfigRegistry.FREUD_CONFIG_SUFFIX, StringTestFreudConfig.class.getName());
 
         Freud.iterateOver(String.class).
                 forEach().of(filterOut_cInteger(), Integer.class).

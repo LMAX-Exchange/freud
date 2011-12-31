@@ -27,6 +27,11 @@ import org.langera.freud.core.iterator.SubTypeIteratorBuilder;
 import org.langera.freud.optional.javasource.JavaSource;
 import org.langera.freud.optional.text.Text;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Collections;
+
 public final class TextOfJavaSourceFreudConfig implements FreudConfig<Text>
 {
     @Override
@@ -35,8 +40,6 @@ public final class TextOfJavaSourceFreudConfig implements FreudConfig<Text>
         return JavaSource.class;
     }
 
-
-    // inner / anonymous classes?????? test
 
     @Override
     @SuppressWarnings("unchecked")
@@ -48,8 +51,15 @@ public final class TextOfJavaSourceFreudConfig implements FreudConfig<Text>
                     @Override
                     public Iterable<Text> buildIterable(final JavaSource javaSource)
                     {
-                         return null;
-                        // TODO
+                        final String fileName = javaSource.getFileName();
+                        try
+                        {
+                            return Collections.singleton(new Text(new BufferedReader(new FileReader(fileName)), fileName));
+                        }
+                        catch (FileNotFoundException e)
+                        {
+                            throw new IllegalStateException("Could not find file " + fileName, e);
+                        }
                     }
                 }, Text.class);
     }

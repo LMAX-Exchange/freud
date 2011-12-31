@@ -23,6 +23,7 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.langera.freud.core.Freud;
+import org.langera.freud.core.FreudConfigRegistry;
 import org.langera.freud.core.listener.AnalysisListenerStub;
 import org.langera.freud.optional.classobject.ClassObjectDsl;
 
@@ -50,7 +51,7 @@ public final class MethodDslTest
     static
     {
         // Method is a third party class that needs a config - point ot it using a System property
-        System.setProperty(Method.class.getName() + Freud.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
+        System.setProperty(Method.class.getName() + FreudConfigRegistry.FREUD_CONFIG_SUFFIX, MethodFreudConfig.class.getName());
     }
 
     private AnalysisListenerStub listenerStub;
