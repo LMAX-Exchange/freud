@@ -29,6 +29,7 @@ import org.langera.freud.core.matcher.RegexMatcherAdapter;
 import org.langera.freud.core.matcher.StringMatcherBuilder;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -289,6 +290,50 @@ public final class ClassObjectDsl
         };
     }
 
+    public static IntOperatorMatcherBuilder<Class> numberOfConstructors()
+    {
+        return new IntOperatorMatcherBuilder<Class>(new IntOperatorMatcherAdapter<Class>()
+        {
+            @Override
+            public int valueOf(final Class matched)
+            {
+                return matched.getConstructors().length;
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "numberOfConstructors()";
+            }
+        });
+    }
+
+    public static IntOperatorMatcherBuilder<Class> numberOfConstructorWithModifier(final int modifierMask)
+    {
+        return new IntOperatorMatcherBuilder<Class>(new IntOperatorMatcherAdapter<Class>()
+        {
+            @Override
+            public int valueOf(final Class item)
+            {
+                int counter = 0;
+                for (Constructor constructor : item.getConstructors())
+                {
+                    if ((constructor.getModifiers() & modifierMask) != 0)
+                    {
+                        counter++;
+                    }
+                }
+                return counter;
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "numberOfConstructorsWithModifier(" + modifierMask + ")";
+            }
+        });
+    }
+
     public static IntOperatorMatcherBuilder<Class> numberOfDeclaredMethods()
     {
         return new IntOperatorMatcherBuilder<Class>(new IntOperatorMatcherAdapter<Class>()
@@ -305,6 +350,43 @@ public final class ClassObjectDsl
                 return "numbderOfDeclaredMethods()";
             }
         });
+    }
+
+    public static FreudMatcher<Class> hasDefaultConstructor()
+    {
+        return hasConstructor();
+    }
+
+
+    public static FreudMatcher<Class> hasConstructor(final Class... parameterTypes)
+    {
+        return new FreudMatcher<Class>()
+        {
+            @Override
+            protected boolean matchesSafely(final Class item)
+            {
+                try
+                {
+                    item.getConstructor(parameterTypes);
+                }
+                catch (NoSuchMethodException e)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public void describeTo(final Description description)
+            {
+                description.appendText("hasConstructor(" + Arrays.toString(parameterTypes) + ")");
+            }
+        };
+    }
+
+    public static FreudMatcher<Class> hasConstructorWithModifier(final int modifierMask)
+    {
+        return numberOfConstructorWithModifier(modifierMask).greaterThanOrEqualTo(1);
     }
 
     public static FreudMatcher<Class> hasDeclaredMethod(final String methodName, final Class... parameterTypes)
@@ -386,7 +468,7 @@ public final class ClassObjectDsl
             @Override
             public void describeTo(final Description description)
             {
-                description.appendText("anonymous");
+                description.appendText("byModifierMask(" + modifierMask + ")");
             }
         };
     }

@@ -24,19 +24,24 @@ import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudRule;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
+import org.langera.freud.optional.text.Text;
 import org.langera.freud.optional.text.textline.TextLine;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
-import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.equalTo;
 import static org.langera.freud.core.matcher.FreudDsl.no;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.abstractClass;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.classAnnotation;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.className;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.classSimpleName;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.finalClass;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.hasDeclaredMethod;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.numberOfConstructorWithModifier;
+import static org.langera.freud.optional.classobject.ClassObjectDsl.numberOfConstructors;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.numberOfDeclaredMethods;
 import static org.langera.freud.optional.classobject.ClassObjectDsl.packageName;
 import static org.langera.freud.optional.classobject.field.FieldDsl.fieldName;
@@ -48,8 +53,12 @@ import static org.langera.freud.optional.classobject.field.FieldDsl.staticField;
 import static org.langera.freud.optional.classobject.method.MethodDsl.methodAnnotation;
 import static org.langera.freud.optional.classobject.method.MethodDsl.methodName;
 import static org.langera.freud.optional.classobject.method.MethodDsl.numberOfParams;
+import static org.langera.freud.optional.classobject.method.MethodDsl.publicMethod;
+import static org.langera.freud.optional.classobject.method.MethodDsl.staticMethod;
+import static org.langera.freud.optional.classobject.method.MethodDsl.withParams;
 import static org.langera.freud.optional.javasource.importdecl.ImportDeclarationDsl.importDeclarationLastElement;
 import static org.langera.freud.optional.javasource.importdecl.ImportDeclarationDsl.staticImport;
+import static org.langera.freud.optional.text.TextDsl.text;
 import static org.langera.freud.optional.text.textline.TextLineDsl.lineLength;
 
 public final class JavaStyleRules
@@ -123,7 +132,16 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
 //FallThrough	Checks for fall through in switch statements Finds locations where a case contains Java code - but lacks a break, return, throw or continue statement.
 //FileLength	 Checks for long source files.
 //FileTabCharacter	Checks to see if a file contains a tab character.
+
 //FinalClass	 Checks that class which has only private ctors is declared as final.
+    public static FreudRule<Class> classWithPrivateConstructorsIsDeclaredAsFinal()
+    {
+        return Freud.iterateOver(Class.class).
+                forEach(numberOfConstructorWithModifier(Modifier.PRIVATE).equalTo(numberOfConstructors())).
+                assertThat(finalClass());
+    }
+
+
 //FinalLocalVariable	 Ensures that local variables that never get their values changed, must be declared final.
 //FinalParameters	Check that method/constructor/catch/foreach parameters are final.
 //GenericWhitespace	Checks that the whitespace around the Generic tokens < and > are correct to the typical convention.
@@ -245,15 +263,29 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
                 assertThat(numberOfParams().lessThan(value));
     }
 
-    //ParenPad	Checks the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden, with the exception that it does not check for padding of the right parenthesis at an empty for iterator.
+//ParenPad	Checks the padding of parentheses; that is whether a space is required after a left parenthesis and before a right parenthesis, or such spaces are forbidden, with the exception that it does not check for padding of the right parenthesis at an empty for iterator.
 //RedundantImport	 Checks for imports that are redundant.
 //RedundantModifier	Checks for redundant modifiers in interface and annotation definitions.
 //RedundantThrows	Checks for redundant exceptions declared in throws clause such as duplicates, unchecked exceptions or subclasses of another declared exception.
+
 //Regexp	 A check that makes sure that a specified pattern exists (or not) in the file.
-//RegexpHeader	Checks the header of the source against a header file that contains a
 //RegexpMultiline	Implementation of a check that looks that matches across multiple lines in any file type.
 //RegexpSingleline	Implementation of a check that looks for a single line in any file type.
 //RegexpSinglelineJava	Implementation of a check that looks for a single line in Java files.
+    public static FreudRule<Text> textContainsRegex(final String regex)
+    {
+        return Freud.iterateOver(Text.class).
+                assertThat(text().contains(regex));
+    }
+
+    public static FreudRule<Text> textContainsRegex(final String regex, final int regexFlags)
+    {
+        return Freud.iterateOver(Text.class).
+                assertThat(text().contains(regex, regexFlags));
+    }
+
+//RegexpHeader	Checks the header of the source against a header file that contains a
+
 //RequireThis	Checks that code doesn't rely on the "this" default.
 //ReturnCount	 Restricts return statements to a specified count (default = 2).
 //RightCurly	 Checks the placement of right curly braces.
@@ -276,7 +308,6 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
 //SuperFinalize	 Checks that an overriding finalize() method invokes super.finalize().
 
 //SuppressWarnings	 This check allows you to specify what warnings that
-
     @SuppressWarnings("unchecked")
     public static FreudRule<Method> warningsThatCannotBeSuppressedForMethods(final String... warnings)
     {
@@ -291,7 +322,7 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
     public static FreudRule<Method> warningsThatCannotBeSuppressedForMethods(final Matcher<String>... warningMatchers)
     {
         return Freud.iterateOver(Method.class).
-                assertThat(no(methodAnnotation(SuppressWarnings.class, allOf(warningMatchers))));
+                assertThat(no(methodAnnotation(SuppressWarnings.class, anyOf(warningMatchers))));
     }
 
     @SuppressWarnings("unchecked")
@@ -308,7 +339,7 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
     public static FreudRule<Class> warningsThatCannotBeSuppressedForClasses(final Matcher<String>... warningMatchers)
     {
         return Freud.iterateOver(Class.class).
-                assertThat(no(classAnnotation(SuppressWarnings.class, allOf(warningMatchers))));
+                assertThat(no(classAnnotation(SuppressWarnings.class, anyOf(warningMatchers))));
     }
 
     //ThrowsCount	 Restricts throws statements to a specified count (default = 1).
@@ -327,7 +358,16 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
     }
 
     //TypecastParenPad	Checks the padding of parentheses for typecasts.
+
 //UncommentedMain	Detects uncommented main methods.
+public static FreudRule<Method> noMainMethod()
+{
+    return Freud.iterateOver(Method.class).
+            assertThat(no(methodName().is(equalTo("main")).
+                                and(withParams(String[].class)).and(publicMethod()).and(staticMethod())));
+}
+
+
 //UnnecessaryParentheses	 Checks if unnecessary parentheses are used in a statement or expression.
 //UnusedImports	 Checks for unused import statements.
 //UpperEll	Checks that long constants are defined with an upper ell.

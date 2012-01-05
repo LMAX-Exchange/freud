@@ -43,6 +43,17 @@ public final class StringMatcherBuilder<T>
         return new RegexMatcher<T>(regex, false, adapter);
     }
 
+    public FreudMatcher<T> matches(final String regex, final int regexFlags)
+    {
+        return new RegexMatcher<T>(regex, true, regexFlags, adapter);
+    }
+
+    public FreudMatcher<T> contains(final String regex, final int regexFlags)
+    {
+        return new RegexMatcher<T>(regex, false, regexFlags, adapter);
+    }
+
+
     public FreudMatcher<T> is(final org.hamcrest.Matcher<? super String> realMatcher)
     {
         return new FreudMatcher<T>()
@@ -73,9 +84,16 @@ public final class StringMatcherBuilder<T>
         public RegexMatcher(final String regex, final boolean completeMatch,
                             final RegexMatcherAdapter<T> adapter)
         {
+            this(regex, completeMatch, 0, adapter);
+        }
+
+        public RegexMatcher(final String regex, final boolean completeMatch,
+                            final int regexFlags,
+                            final RegexMatcherAdapter<T> adapter)
+        {
             this.adapter = adapter;
             this.completeMatch = completeMatch;
-            this.regex = Pattern.compile(regex);
+            this.regex = Pattern.compile(regex, regexFlags);
         }
 
         public final boolean matchesSafely(final T toBeAnalysed)
