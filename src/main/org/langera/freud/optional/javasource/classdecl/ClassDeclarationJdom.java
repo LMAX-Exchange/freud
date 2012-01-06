@@ -32,19 +32,23 @@ import java.util.Map;
 
 import static org.langera.freud.optional.javasource.JavaSourceJdom.POSSIBLE_CLASS_DECLARATION_TYPES;
 import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.CLASS_TOP_LEVEL_SCOPE;
+import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.EXTENDS_CLAUSE;
 import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.FUNCTION_METHOD_DECL;
+import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.IDENT;
 import static org.langera.freud.optional.javasource.parser.JavaSourceTokenType.VOID_METHOD_DECL;
 import static org.langera.freud.util.parser.JdomTreeAdaptor.ID_ATTR;
 
 
 public final class ClassDeclarationJdom implements ClassDeclaration
 {
+    private static final String NOT_RETRIEVED = "";
     private final Element classDeclElement;
     private final ClassDeclaration outerClassDeclaration;
     private String name;
     private Map<String, List<MethodDeclaration>> methodDeclarationListByNameMap;
     private Map<String, ClassDeclaration> innerClassDeclarationByNameMap;
     private DeclarationType declarationType;
+    private String superClassName = NOT_RETRIEVED;
 
     public ClassDeclarationJdom(final Element classDeclElement,
                                 final DeclarationType declarationType,
@@ -153,8 +157,15 @@ public final class ClassDeclarationJdom implements ClassDeclaration
 
     public String getSuperClassName()
     {
-        // TODO        
-        return null;
+        if (superClassName == NOT_RETRIEVED)
+        {
+            JXPathContext context = JXPathContext.newContext(classDeclElement);
+
+            final Element superClassElement = (Element)
+                    context.selectSingleNode("/" + EXTENDS_CLAUSE.getName() + "//" + IDENT.getName());
+            superClassName = (null == superClassElement) ? null : superClassElement.getValue();
+        }
+        return superClassName;
     }
 
     @Override
