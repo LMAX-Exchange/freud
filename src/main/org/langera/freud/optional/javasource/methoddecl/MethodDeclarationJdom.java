@@ -22,8 +22,8 @@ package org.langera.freud.optional.javasource.methoddecl;
 import org.apache.commons.jxpath.JXPathContext;
 import org.apache.commons.jxpath.JXPathException;
 import org.jdom.Element;
+import org.langera.freud.optional.javasource.JavaSourceJdom;
 import org.langera.freud.optional.javasource.annotation.Annotation;
-import org.langera.freud.optional.javasource.annotation.AnnotationJdom;
 import org.langera.freud.optional.javasource.block.CodeBlock;
 import org.langera.freud.optional.javasource.block.CodeBlockJdom;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
@@ -35,16 +35,25 @@ import java.util.List;
 public final class MethodDeclarationJdom implements MethodDeclaration
 {
     private final Element methodDeclElement;
-    private String name;
+    private final String name;
     private CodeBlock methodCodeBlock;
     private Annotation[] annotations;
     private ClassDeclaration classDeclaration;
+    private final String returnType;
+    private ParamDeclaration[] paramDeclarations;
 
     public MethodDeclarationJdom(Element methodDeclElement, ClassDeclaration classDeclaration)
     {
         this.methodDeclElement = methodDeclElement;
-        this.name = methodDeclElement.getChildText(JavaSourceTokenType.IDENT.getName());
+        this.name = JavaSourceJdom.parseName(methodDeclElement);
+        this.returnType = JavaSourceJdom.parseType(methodDeclElement);
         this.classDeclaration = classDeclaration;
+    }
+
+    @Override
+    public String getReturnType()
+    {
+        return returnType;
     }
 
     public String getName()
@@ -70,21 +79,29 @@ public final class MethodDeclarationJdom implements MethodDeclaration
         return methodCodeBlock;
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public ParamDeclaration[] getParametersDeclarations()
+    {
+        if (paramDeclarations == null)
+        {
+            final List<Element> paramListChildren =
+                    methodDeclElement.getChild(JavaSourceTokenType.FORMAL_PARAM_LIST.getName()).getChildren();
+            paramDeclarations = new ParamDeclaration[paramListChildren.size()];
+            int i = 0;
+            for (Element paramDecl : paramListChildren)
+            {
+                paramDeclarations[i++] = new ParamDeclarationJdom(paramDecl);
+            }
+        }
+        return paramDeclarations;
+    }
+
     public Annotation[] getDeclaredAnnotations()
     {
         if (annotations == null)
         {
-            JXPathContext context = JXPathContext.newContext(methodDeclElement);
-            List annotationList = context.selectNodes("/" + JavaSourceTokenType.MODIFIER_LIST.getName() +
-                    "/" + JavaSourceTokenType.AT.getName());
-            annotations = new Annotation[annotationList.size()];
-            int i = 0;
-            for (Object annotationElement : annotationList)
-            {
-                annotations[i++] = new AnnotationJdom((Element) annotationElement);
-
-
-            }
+            annotations = JavaSourceJdom.parseAnnotations(methodDeclElement);
         }
         return annotations;
 

@@ -21,7 +21,6 @@ package org.langera.freud.optional.javasource.methoddecl;
 
 import org.jdom.Element;
 import org.jdom.filter.ElementFilter;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.langera.freud.optional.javasource.JavaSourceJdom;
@@ -29,6 +28,9 @@ import org.langera.freud.optional.javasource.block.CodeBlock;
 import org.langera.freud.optional.javasource.parser.JavaSourceTokenType;
 
 import java.io.StringReader;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class MethodDeclarationJdomTest
 {
@@ -51,9 +53,12 @@ public class MethodDeclarationJdomTest
     {
         MethodDeclarationJdom methodDeclarationJdom = new MethodDeclarationJdom(methodDecl, null);
 
+        assertEquals("toString", methodDeclarationJdom.getName());
+        assertEquals("String", methodDeclarationJdom.getReturnType());
+
         final CodeBlock impl = methodDeclarationJdom.getImplementation();
-        Assert.assertNotNull(impl);
-        Assert.assertEquals(1, impl.getMethodCallListByMethodName("getClass").size());
+        assertNotNull(impl);
+        assertEquals(1, impl.getMethodCallListByMethodName("getClass").size());
     }
 
     @Before

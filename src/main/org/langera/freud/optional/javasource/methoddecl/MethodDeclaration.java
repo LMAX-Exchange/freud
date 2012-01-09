@@ -25,11 +25,13 @@ import org.langera.freud.optional.javasource.block.CodeBlock;
 
 public interface MethodDeclaration extends AnnotatedElementDeclaration
 {
+    String getReturnType();
+
     String getName();
 
     CodeBlock getImplementation();
 
-
 //    long getModifierMask();
-//    VarDeclaration[] getParametersDeclarations();
+
+    ParamDeclaration[] getParametersDeclarations();
 }

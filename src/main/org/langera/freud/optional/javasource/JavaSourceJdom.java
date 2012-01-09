@@ -28,6 +28,8 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.filter.ElementFilter;
 import org.langera.freud.core.iterator.resource.ResourceParser;
+import org.langera.freud.optional.javasource.annotation.Annotation;
+import org.langera.freud.optional.javasource.annotation.AnnotationJdom;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclaration;
 import org.langera.freud.optional.javasource.classdecl.ClassDeclarationJdom;
 import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
@@ -290,5 +292,34 @@ public final class JavaSourceJdom implements JavaSource
         parser.setTreeAdaptor(treeAdaptor);
         parser.compilationUnit();
         return treeAdaptor.getDocument();
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static Annotation[] parseAnnotations(final Element element)
+    {
+        final Annotation[] annotations;
+        JXPathContext context = JXPathContext.newContext(element);
+        List annotationList = context.selectNodes("/" + JavaSourceTokenType.MODIFIER_LIST.getName() +
+                "/" + JavaSourceTokenType.AT.getName());
+        annotations = new Annotation[annotationList.size()];
+        int i = 0;
+        for (Object annotationElement : annotationList)
+        {
+            annotations[i++] = new AnnotationJdom((Element) annotationElement);
+        }
+        return annotations;
+    }
+
+    public static String parseName(final Element element)
+    {
+        return element.getChildText(JavaSourceTokenType.IDENT.getName());
+    }
+
+    public static String parseType(final Element element)
+    {
+        final Element typeElement = element.getChild(JavaSourceTokenType.TYPE.getName());
+        return (typeElement == null) ? null :
+                typeElement.getChild(JavaSourceTokenType.QUALIFIED_TYPE_IDENT.getName()).getChildText(JavaSourceTokenType.IDENT.getName());
     }
 }

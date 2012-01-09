@@ -24,6 +24,7 @@ import org.langera.freud.core.Freud;
 import org.langera.freud.core.FreudRule;
 import org.langera.freud.core.matcher.FreudMatcher;
 import org.langera.freud.optional.javasource.importdecl.ImportDeclaration;
+import org.langera.freud.optional.javasource.methoddecl.MethodDeclaration;
 import org.langera.freud.optional.text.Text;
 import org.langera.freud.optional.text.textline.TextLine;
 
@@ -144,6 +145,12 @@ public static FreudRule<ImportDeclaration> avoidStaticImport()
 
 //FinalLocalVariable	 Ensures that local variables that never get their values changed, must be declared final.
 //FinalParameters	Check that method/constructor/catch/foreach parameters are final.
+    public static FreudRule<MethodDeclaration> methodParametersAreDeclaredAsFinal()
+    {
+        return null; // TODO
+//        return Freud.iterateOver(MethodDe7claration.class).
+//                assertThat()
+    }
 //GenericWhitespace	Checks that the whitespace around the Generic tokens < and > are correct to the typical convention.
 //Header	Checks the header of the source against a fixed header file.
 //HiddenField	Checks that a local variable or a parameter does not shadow a field that is defined in the same class.

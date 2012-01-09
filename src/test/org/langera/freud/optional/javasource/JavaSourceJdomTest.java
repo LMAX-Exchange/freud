@@ -112,7 +112,7 @@ public class JavaSourceJdomTest
                         " " +
                         "public class TestShouldParseJavaSource " +
                         "{ " +
-                        "    public boolean equals(Object o) " +
+                        "    public boolean equals(final Object o) " +
                         "    { " +
                         " System.out.print(17);" +
                         "        if (this == o) return true; " +
@@ -126,6 +126,8 @@ public class JavaSourceJdomTest
                         "        return 17; " +
                         "    } " +
                         "}"), "org.langera.test.TestShouldParseJavaSource");
+
+        System.out.println(javaSource);
 
         assertEquals("org.langera.test.TestShouldParseJavaSource", javaSource.getFileName());
 
