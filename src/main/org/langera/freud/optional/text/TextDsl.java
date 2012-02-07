@@ -46,4 +46,22 @@ public final class TextDsl
             }
         });
     }
+
+    public static StringMatcherBuilder<Text> resourceIdentifier()
+    {
+        return new StringMatcherBuilder<Text>(new RegexMatcherAdapter<Text>()
+        {
+            @Override
+            public String getStringToMatch(final Text toBeAnalysed)
+            {
+                return toBeAnalysed.getResourceIdentifier();
+            }
+
+            @Override
+            public String matcherDisplayName()
+            {
+                return "ResourceIdentifier";
+            }
+        });
+    }
 }
