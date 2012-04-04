@@ -20,7 +20,7 @@
 
 <project name="freud" default="all" basedir=".">
 
-    <property name="version" value="1.0.2"/>
+    <property name="version" value="1.5"/>
     <property name="dir.main.src" value="src/main"/>
     <property name="dir.app.src" value="src/app"/>
     <property name="dir.main.build" value="build/main/classes"/>
