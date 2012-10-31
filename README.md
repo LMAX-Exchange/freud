@@ -44,23 +44,23 @@ Then all is left is to write Matchers for that object representation.
 Examples
 ========
 
-## Every class that implements "equals(Object)" should also implement "hashcode()" 
+### Every class that implements `equals(Object)` should also implement `hashcode()`
 
-   Freud.iterateOver(Class.class).
-	assertThat(
-		hasDeclaredMethod("equals", Object.class).and(hasDeclaredMethod("hashCode")).
-		or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode")))));
+   Freud.iterateOver(Class.class).  
+	assertThat(  
+		hasDeclaredMethod("equals", Object.class).and(hasDeclaredMethod("hashCode")).  
+		or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode")))));  
+		  
+### Descendant tag selectors are the most expansive in CSS 
 
-## Descendant tag selectors are the most expansive in CSS 
+   Freud.iterateOver(CssRule.class).  
+	assertThat(selectors(CssSelector.Type.TAG).lessThanOrEqualTo(1))  
 
-   Freud.iterateOver(CssRule.class).
-	assertThat(selectors(CssSelector.Type.TAG).lessThanOrEqualTo(1))
+### Code block should not contain a call to System.out.print(ln) unless a specific SuppressWarnings annotation exists (an example of how a easy it is to put a spin on a rule. Something that in the real world is badly needed).
 
-## Code block should not contain a call to System.out.print(ln) unless a specific SuppressWarnings annotation exists (an example of how a easy it is to put a spin on a rule. Something that in the real world is badly needed).
-
-   Freud.iterateOver(CodeBlock.class).
-	forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("printing to System.out here is OK. Honest."))))).
-	assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println"))))
+   Freud.iterateOver(CodeBlock.class).  
+	forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("printing to System.out here is OK. Honest."))))).  
+	assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println"))))  
                 
 
 More Examples
