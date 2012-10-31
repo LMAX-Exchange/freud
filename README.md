@@ -58,12 +58,12 @@ Examples
 
 ## Code block should not contain a call to System.out.print(ln) unless a specific SuppressWarnings annotation exists (an example of how a easy it is to put a spin on a rule. Something that in the real world is badly needed).
 
-Freud.iterateOver(CodeBlock.class).
-                forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("printing to System.out here is OK. Honest."))))).
-		assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println"))))
+   Freud.iterateOver(CodeBlock.class).
+	forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("printing to System.out here is OK. Honest."))))).
+	assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println"))))
                 
 
 More Examples
 =============
 
-[https://github.com/LMAX-Exchange/freud/tree/master/src/test/org/langera/examples] Here
+[Here] (https://github.com/LMAX-Exchange/freud/tree/master/src/test/org/langera/examples)
