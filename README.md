@@ -17,6 +17,8 @@ Unlike other common analysis tools such as checkstyle, PMD or findbugs, it does 
 
 Using a DSL for every supported type of analysed entity, Freud allows users to define their own targeted test. What you get is the ability to write a test specifically tailored to your code and asserts your conventions.
 
+The usage of a DSL also means the rules are concise and readable.
+
 Freud is completely pluggable meaning you can easily write your own hamcrest matcher and assert anything you like. Freud will accept any matcher - not just its own pre-defined set of matchers.
 
 Although written in Java and initially targeted towards analysing Java sources, Freud is also not restricted to any specific source or content type.
@@ -38,3 +40,30 @@ Freud was desiged to be content type neutral and currently contains DSL and pars
 Analysing another type of content means writing a parser for that content that will convert a resource such as a file to an object representation of the content.
 
 Then all is left is to write Matchers for that object representation.
+
+Examples
+========
+
+## Every class that implements "equals(Object)" should also implement "hashcode()" 
+
+   Freud.iterateOver(Class.class).
+	assertThat(
+		hasDeclaredMethod("equals", Object.class).and(hasDeclaredMethod("hashCode")).
+		or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode")))));
+
+## Descendant tag selectors are the most expansive in CSS 
+
+   Freud.iterateOver(CssRule.class).
+	assertThat(selectors(CssSelector.Type.TAG).lessThanOrEqualTo(1))
+
+## Code block should not contain a call to System.out.print(ln) unless a specific SuppressWarnings annotation exists (an example of how a easy it is to put a spin on a rule. Something that in the real world is badly needed).
+
+Freud.iterateOver(CodeBlock.class).
+                forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("printing to System.out here is OK. Honest."))))).
+		assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println"))))
+                
+
+More Examples
+=============
+
+[https://github.com/LMAX-Exchange/freud/tree/master/src/test/org/langera/examples] Here
