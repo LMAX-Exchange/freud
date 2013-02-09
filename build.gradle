@@ -1,0 +1,28 @@
+subprojects {
+    apply plugin: "groovy"
+    apply plugin: "idea"
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://oss.sonatype.org/content/repositories/snapshots/' }
+    }
+
+    dependencies {
+        groovy "org.codehaus.groovy:groovy-all:2.+"
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+    }
+
+    version = '0.1'
+    jar {
+        manifest {
+            attributes 'Implementation-Title': 'spock-freud', 'Implementation-Version': version
+        }
+    }
+}
+
+project(':freud-groovy') {
+    dependencies {
+        compile project(':core')
+    }
+}
+
