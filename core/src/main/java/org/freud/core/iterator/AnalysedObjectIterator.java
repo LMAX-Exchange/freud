@@ -15,21 +15,15 @@ public final class AnalysedObjectIterator<S, A> extends SupportsBreadcrumbs<S, A
         this.sourcesIterator = sources.iterator();
     }
 
-    public boolean hasNext() {
+    @Override
+    protected boolean calculateHasNext() {
         return sourcesIterator.hasNext();
     }
 
+    @Override
     public A next() {
         final S source = sourcesIterator.next();
         handleBreadcrumbs(source);
         return creator.create(source);
-    }
-
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
-
-    public Iterator<A> iterator() {
-        return this;
     }
 }

@@ -21,7 +21,7 @@ public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrum
     }
 
     @Override
-    public boolean hasNext() {
+    protected boolean calculateHasNext() {
         iterate();
         return currentSubTypes.hasNext();
     }
@@ -34,16 +34,6 @@ public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrum
         }
         handleBreadcrumbs(currentSuperType);
         return currentSubTypes.next();
-    }
-
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Iterator<A> iterator() {
-        return this;
     }
 
     private void iterate() {

@@ -1,6 +1,7 @@
 package org.freud.analysed.text;
 
 import org.freud.core.Creator;
+import org.freud.core.iterator.OneShotNonThreadSafeIterable;
 import org.freud.core.util.IoUtil;
 
 import java.io.BufferedReader;
@@ -8,9 +9,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+
+import static org.freud.core.util.IoUtil.safeClose;
 
 public final class TextToLinesCreator implements Creator<Text, Iterable<TextLine>> {
 
@@ -37,7 +39,7 @@ public final class TextToLinesCreator implements Creator<Text, Iterable<TextLine
         return textLineList;
     }
 
-    private static class TextLines implements Iterable<TextLine>, Iterator<TextLine> {
+    private static class TextLines extends OneShotNonThreadSafeIterable<TextLine> {
 
         private final BufferedReader text;
         private TextLine currentLine = null;
@@ -49,7 +51,7 @@ public final class TextToLinesCreator implements Creator<Text, Iterable<TextLine
         }
 
         @Override
-        public boolean hasNext() {
+        protected boolean calculateHasNext() {
             return currentLine != null || readNextLine();
         }
 
@@ -76,24 +78,16 @@ public final class TextToLinesCreator implements Creator<Text, Iterable<TextLine
             try {
                 String line = text.readLine();
                 if (line == null) {
+                    safeClose(text);
                     return false;
                 }
                 currentLine = new TextLine(line, lineCounter++);
                 return true;
             }
             catch (IOException e) {
+                safeClose(text);
                 throw new IllegalStateException("Failed to parse stream into lines", e);
             }
-        }
-
-        @Override
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public Iterator<TextLine> iterator() {
-            return this;
         }
     }
 }

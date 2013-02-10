@@ -18,7 +18,7 @@ public final class FilteredAnalysedObjectIterator<A> extends SupportsBreadcrumbs
     }
 
     @Override
-    public boolean hasNext() {
+    protected boolean calculateHasNext() {
         if (current != null) {
             return true;
         }
@@ -46,15 +46,5 @@ public final class FilteredAnalysedObjectIterator<A> extends SupportsBreadcrumbs
             }
         }
         throw new NoSuchElementException();
-    }
-
-    @Override
-    public Iterator<A> iterator() {
-        return this;
-    }
-
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
     }
 }

@@ -3,13 +3,12 @@ package org.freud.core.iterator;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Deque;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import static java.util.Collections.addAll;
 
-public final class FileIterator implements Iterable<File>, Iterator<File> {
+public final class FileIterator extends OneShotNonThreadSafeIterable<File> {
 
     private boolean recursive;
     private FilenameFilter filenameFilter;
@@ -24,7 +23,6 @@ public final class FileIterator implements Iterable<File>, Iterator<File> {
             this.paths.add(new File(path));
         }
     }
-
 
     public FileIterator(final boolean recursive, final File... paths) {
         this.recursive = recursive;
@@ -47,7 +45,7 @@ public final class FileIterator implements Iterable<File>, Iterator<File> {
     }
 
     @Override
-    public boolean hasNext() {
+    protected boolean calculateHasNext() {
         return (nextFile != null || ((nextFile = nextFile()) != null));
     }
 
@@ -103,16 +101,5 @@ public final class FileIterator implements Iterable<File>, Iterator<File> {
             }
         }
         return null;
-    }
-
-
-    @Override
-    public Iterator<File> iterator() {
-        return this;
-    }
-
-    @Override
-    public void remove() {
-        throw new UnsupportedOperationException();
     }
 }
