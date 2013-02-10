@@ -37,13 +37,11 @@ public final class FilteredAnalysedObjectIterator<A> extends SupportsBreadcrumbs
         if (current != null) {
             A nextToReturn = current;
             current = null;
-            handleBreadcrumbs(nextToReturn);
             return nextToReturn;
         }
         while (unfiltered.hasNext()) {
             A nextToReturn = unfiltered.next();
             if (!filter.filter(nextToReturn)) {
-                handleBreadcrumbs(nextToReturn);
                 return nextToReturn;
             }
         }

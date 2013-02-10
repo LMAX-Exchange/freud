@@ -1,11 +1,11 @@
 package org.freud.core.iterator
 
+import org.freud.core.Creator
 import org.freud.core.Filter
 import spock.lang.Specification
 import spock.lang.Subject
 
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS
-import org.freud.core.Creator
 
 class FilteredAnalysedObjectIteratorSpec extends Specification {
 
@@ -78,26 +78,7 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
         results == []
     }
 
-    def 'stores items as breadcrumbs if not filtered'() {
-    given:
-        filter.filter('a') >> true
-        filter.filter('b') >> false
-        filter.filter('c') >> true
-        filter.filter('d') >> false
-    when:
-        iterator.next();
-    then:
-        BREADCRUMBS.size() == 1
-        BREADCRUMBS.get(0) == 'b'
-    when:
-        iterator.next();
-    then:
-        BREADCRUMBS.size() == 1
-        BREADCRUMBS.get(0) == 'd'
-    }
-
-
-    def 'do not store twice items as breadcrumbs when previous iterator supports breadcrumbs as well'() {
+    def 'does not store items as breadcrumbs - only a filter'() {
     given:
         iterator = new FilteredAnalysedObjectIterator(new AnalysedObjectIterator({ it } as Creator, ['a', 'b', 'c', 'd']), filter)
         filter.filter('a') >> true

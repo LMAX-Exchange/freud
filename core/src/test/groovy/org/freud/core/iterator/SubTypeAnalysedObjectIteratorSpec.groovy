@@ -15,8 +15,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def setup() {
         creator = Mock()
-        AnalysedObjectIterator superTypeIterator = new AnalysedObjectIterator({ it } as Creator, ['a', 'b', 'c', 'd'])
-        iterator = new SubTypeAnalysedObjectIterator(superTypeIterator, creator)
+        iterator = new SubTypeAnalysedObjectIterator(creator, ['a', 'b', 'c', 'd'])
     }
 
     def 'element contains several sub types'() {
@@ -82,20 +81,45 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
     when:
         iterator.next()
     then:
-        BREADCRUMBS.size() == 2
+        BREADCRUMBS.size() == 1
         BREADCRUMBS.get(0) == 'b'
-        BREADCRUMBS.get(1) == 'b'
+    when:
+        iterator.next()
+    then:
+        BREADCRUMBS.size() == 1
+        BREADCRUMBS.get(0) == 'b'
+    when:
+        iterator.next()
+    then:
+        BREADCRUMBS.size() == 1
+        BREADCRUMBS.get(0) == 'c'
+    }
+
+    def 'analysed object appended to breadcrumbs'() {
+    given:
+        iterator = new SubTypeAnalysedObjectIterator(creator,
+                        new AnalysedObjectIterator({ "X$it" } as Creator, ['a', 'b', 'c', 'd']))
+        creator.create('Xa', _)
+        creator.create('Xb', _) >> { _, list -> list.addAll(['b1', 'b2']) }
+        creator.create('Xc', _) >> { _, list -> list.addAll(['c1', 'c2']) }
+        creator.create('Xd', _) >> { _, list -> list.add('d') }
     when:
         iterator.next()
     then:
         BREADCRUMBS.size() == 2
         BREADCRUMBS.get(0) == 'b'
-        BREADCRUMBS.get(1) == 'b'
+        BREADCRUMBS.get(1) == 'Xb'
     when:
+        iterator.next()
+    then:
+        BREADCRUMBS.size() == 2
+        BREADCRUMBS.get(0) == 'b'
+        BREADCRUMBS.get(1) == 'Xb'
+        when:
         iterator.next()
     then:
         BREADCRUMBS.size() == 2
         BREADCRUMBS.get(0) == 'c'
-        BREADCRUMBS.get(1) == 'c'
+        BREADCRUMBS.get(1) == 'Xc'
     }
 }

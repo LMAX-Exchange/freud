@@ -6,17 +6,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public final class SubTypeAnalysedObjectIterator<A, S, T> extends SupportsBreadcrumbs<T, A> {
+public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrumbs<T, A> {
 
-    private final AnalysedObjectIterator<S, T> superTypeIterator;
+    private final Iterator<T> superTypeIterator;
     private final SubTypesCreator<T, A> creator;
     private final LinkedList<A> currentSubTypes = new LinkedList<A>();
     private T currentSuperType;
 
-    public SubTypeAnalysedObjectIterator(final AnalysedObjectIterator<S, T> superTypeIterator,
-                                         final SubTypesCreator<T, A> creator) {
-        super(getDepth(superTypeIterator) + 1);
-        this.superTypeIterator = superTypeIterator;
+    public SubTypeAnalysedObjectIterator(final SubTypesCreator<T, A> creator,
+                                         final Iterable<T> superTypeIterable) {
+        super(getDepth(superTypeIterable) + 1);
+        this.superTypeIterator = superTypeIterable.iterator();
         this.creator = creator;
     }
 
