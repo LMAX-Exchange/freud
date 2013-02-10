@@ -10,6 +10,16 @@ import spock.lang.Specification
 
 class FreudSpec extends Specification {
 
+    def 'usage example with spock data drive test'() {
+    expect:
+        Freud.analyse(analysed) { it.startsWith('Z') }
+    where:
+        analysed << new AnalysedObjectIterator({ "Z$it" } as Creator,
+                new SubTypeAnalysedObjectIterator({ a, collector -> collector.addAll(["X$a", "Y$a"]) } as SubTypesCreator,
+                        new FilteredAnalysedObjectIterator(
+                                new AnalysedObjectIterator({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
+    }
+
     def 'returns the return value from assertion'() {
     expect:
         Freud.analyse('', { true })
@@ -26,7 +36,7 @@ class FreudSpec extends Specification {
     expect:
         Freud.analyse(iterator.next(), { a -> a == 'ZX_1' })
         Freud.analyse(iterator.next(), { a, b -> a == 'ZY_1' && b == 'Y_1' })
-        Freud.analyse(iterator.next(), { a, b, c -> println(c); a == 'ZX_2' && b == 'X_2' && c == '_2' })
+        Freud.analyse(iterator.next(), { a, b, c -> a == 'ZX_2' && b == 'X_2' && c == '_2' })
         Freud.analyse(iterator.next(), { a, b, c, d -> a == 'ZY_2' && b == 'Y_2' && c == '_2' && d == '2' })
     }
 

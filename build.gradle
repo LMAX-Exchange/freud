@@ -26,3 +26,10 @@ project(':freud-groovy') {
     }
 }
 
+
+project(':freud-java') {
+    dependencies {
+        compile project(':core')
+        compile "org.hamcrest:hamcrest-core:1.+"
+    }
+}
