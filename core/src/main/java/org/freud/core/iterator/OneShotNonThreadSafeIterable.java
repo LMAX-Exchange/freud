@@ -14,7 +14,7 @@ public abstract class OneShotNonThreadSafeIterable<T> implements Iterable<T>, It
     @Override
     public final boolean hasNext() {
         if (!hasNext) {
-            throw new IllegalStateException("This iterator can only be iterated through once");
+            throw new IllegalStateException("This iterable can only be iterated through once");
         }
         hasNext = calculateHasNext();
         return hasNext;
