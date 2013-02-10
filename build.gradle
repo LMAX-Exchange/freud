@@ -23,6 +23,15 @@ project(':core') {
     }
 }
 
+project(':text') {
+    dependencies {
+        groovy "org.codehaus.groovy:groovy-all:2.+"
+        compile project(':core')
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+        testCompile fileTree('resources')
+    }
+}
+
 project(':api-groovy') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"

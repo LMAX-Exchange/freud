@@ -2,7 +2,6 @@ package org.freud.java;
 
 import org.freud.core.Creator;
 import org.freud.core.Filter;
-import org.freud.core.SubTypeCreator;
 import org.freud.core.iterator.AnalysedObjectIterator;
 import org.freud.core.iterator.FilteredAnalysedObjectIterator;
 import org.freud.core.iterator.SubTypeAnalysedObjectIterator;
@@ -14,7 +13,6 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -58,11 +56,10 @@ public final class FreudTest {
             return "_" + source;
         }
     }
-    private static class XYCreator implements SubTypeCreator<String, String> {
+    private static class XYCreator implements Creator<String, Iterable<String>> {
         @Override
-        public void create(final String source, final List<String> collector) {
-            collector.add("X" + source);
-            collector.add("Y" + source);
+        public Iterable<String> create(final String source) {
+            return Arrays.asList("X" + source,"Y" + source);
         }
     }
     private static class ThreeFilter implements Filter<String> {

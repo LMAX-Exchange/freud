@@ -1,19 +1,19 @@
 package org.freud.core.iterator;
 
-import org.freud.core.SubTypeCreator;
+import org.freud.core.Creator;
 
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrumbs<T, A> {
 
     private final Iterator<T> superTypeIterator;
-    private final SubTypeCreator<T, A> creator;
-    private final LinkedList<A> currentSubTypes = new LinkedList<A>();
+    private final Creator<T, Iterable<A>> creator;
+    private Iterator<A> currentSubTypes = Collections.<A>emptyList().iterator();
     private T currentSuperType;
 
-    public SubTypeAnalysedObjectIterator(final SubTypeCreator<T, A> creator,
+    public SubTypeAnalysedObjectIterator(final Creator<T, Iterable<A>> creator,
                                          final Iterable<T> superTypeIterable) {
         super(getDepth(superTypeIterable) + 1);
         this.superTypeIterator = superTypeIterable.iterator();
@@ -23,17 +23,17 @@ public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrum
     @Override
     public boolean hasNext() {
         iterate();
-        return !currentSubTypes.isEmpty();
+        return currentSubTypes.hasNext();
     }
 
     @Override
     public A next() {
         iterate();
-        if (currentSubTypes.isEmpty()) {
+        if (!currentSubTypes.hasNext()) {
             throw new NoSuchElementException();
         }
         handleBreadcrumbs(currentSuperType);
-        return currentSubTypes.removeFirst();
+        return currentSubTypes.next();
     }
 
     @Override
@@ -47,9 +47,9 @@ public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrum
     }
 
     private void iterate() {
-        while (currentSubTypes.isEmpty() && superTypeIterator.hasNext()) {
+        while (!currentSubTypes.hasNext() && superTypeIterator.hasNext()) {
             currentSuperType = superTypeIterator.next();
-            creator.create(currentSuperType, currentSubTypes);
+            currentSubTypes = creator.create(currentSuperType).iterator();
         }
     }
 }

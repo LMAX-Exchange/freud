@@ -2,7 +2,6 @@ package org.freud.java
 
 import org.freud.core.Creator
 import org.freud.core.Filter
-import org.freud.core.SubTypeCreator
 import org.freud.core.iterator.AnalysedObjectIterator
 import org.freud.core.iterator.FilteredAnalysedObjectIterator
 import org.freud.core.iterator.SubTypeAnalysedObjectIterator
@@ -24,7 +23,7 @@ class FreudSpec extends Specification {
     def 'has access to breadcrumbs'() {
     given:
         Iterator<String> iterator = new AnalysedObjectIterator({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjectIterator({ a, collector -> collector.addAll(["X$a", "Y$a"]) } as SubTypeCreator,
+                new SubTypeAnalysedObjectIterator({ ["X$it", "Y$it"] } as Creator,
                         new FilteredAnalysedObjectIterator(
                                 new AnalysedObjectIterator({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
 

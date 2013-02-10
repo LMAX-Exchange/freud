@@ -1,7 +1,6 @@
 package org.freud.core.iterator
 
 import org.freud.core.Creator
-import org.freud.core.SubTypeCreator
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -11,7 +10,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     @Subject
     SubTypeAnalysedObjectIterator iterator
-    SubTypeCreator creator
+    Creator creator
 
     def setup() {
         creator = Mock()
@@ -20,8 +19,8 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def 'element contains several sub types'() {
     given:
-        creator.create('a', _) >> { _, list -> list.addAll(['a1', 'a2', 'a3']) }
-        creator.create(!'a', _) >> { _, list -> list.add('x') }
+        creator.create('a') >> ['a1', 'a2', 'a3']
+        creator.create(!'a') >> ['x']
     when:
         List results = []
         for (Object o : iterator) {
@@ -33,8 +32,8 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def 'element contains no sub types'() {
     given:
-        creator.create('a', _)
-        creator.create(!'a', _) >> { _, list -> list.add('x') }
+        creator.create('a') >> []
+        creator.create(!'a') >> ['x']
     when:
         List results = []
         for (Object o : iterator) {
@@ -46,8 +45,8 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def 'element contains one sub types'() {
     given:
-        creator.create('a', _) >> { _, list -> list.add('a') }
-        creator.create(!'a', _) >> { _, list -> list.add('x') }
+        creator.create('a') >> ['a']
+        creator.create(!'a') >> ['x']
     when:
         List results = []
         for (Object o : iterator) {
@@ -59,10 +58,10 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def 'elements contains variations of sub types'() {
     given:
-        creator.create('a', _)
-        creator.create('b', _) >> { _, list -> list.addAll(['b1', 'b2', 'b3']) }
-        creator.create('c', _) >> { _, list -> list.addAll(['c1', 'c2']) }
-        creator.create('d', _) >> { _, list -> list.add('d') }
+        creator.create('a') >> []
+        creator.create('b') >> ['b1', 'b2', 'b3']
+        creator.create('c') >> ['c1', 'c2']
+        creator.create('d') >> ['d']
     when:
         List results = []
         for (Object o : iterator) {
@@ -74,10 +73,10 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def 'analysed object saved in breadcrumbs'() {
     given:
-        creator.create('a', _)
-        creator.create('b', _) >> { _, list -> list.addAll(['b1', 'b2']) }
-        creator.create('c', _) >> { _, list -> list.addAll(['c1', 'c2']) }
-        creator.create('d', _) >> { _, list -> list.add('d') }
+        creator.create('a') >> []
+        creator.create('b') >> ['b1', 'b2']
+        creator.create('c') >> ['c1', 'c2']
+        creator.create('d') >> ['d']
     when:
         iterator.next()
     then:
@@ -99,10 +98,10 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
     given:
         iterator = new SubTypeAnalysedObjectIterator(creator,
                         new AnalysedObjectIterator({ "X$it" } as Creator, ['a', 'b', 'c', 'd']))
-        creator.create('Xa', _)
-        creator.create('Xb', _) >> { _, list -> list.addAll(['b1', 'b2']) }
-        creator.create('Xc', _) >> { _, list -> list.addAll(['c1', 'c2']) }
-        creator.create('Xd', _) >> { _, list -> list.add('d') }
+        creator.create('Xa') >> []
+        creator.create('Xb') >> ['b1', 'b2']
+        creator.create('Xc') >> ['c1', 'c2']
+        creator.create('Xd') >> ['d']
     when:
         iterator.next()
     then:
