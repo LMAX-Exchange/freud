@@ -1,6 +1,6 @@
 package org.freud.core.iterator;
 
-import org.freud.core.SubTypesCreator;
+import org.freud.core.SubTypeCreator;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,11 +9,11 @@ import java.util.NoSuchElementException;
 public final class SubTypeAnalysedObjectIterator<T, A> extends SupportsBreadcrumbs<T, A> {
 
     private final Iterator<T> superTypeIterator;
-    private final SubTypesCreator<T, A> creator;
+    private final SubTypeCreator<T, A> creator;
     private final LinkedList<A> currentSubTypes = new LinkedList<A>();
     private T currentSuperType;
 
-    public SubTypeAnalysedObjectIterator(final SubTypesCreator<T, A> creator,
+    public SubTypeAnalysedObjectIterator(final SubTypeCreator<T, A> creator,
                                          final Iterable<T> superTypeIterable) {
         super(getDepth(superTypeIterable) + 1);
         this.superTypeIterator = superTypeIterable.iterator();

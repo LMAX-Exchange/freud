@@ -5,6 +5,7 @@ import org.hamcrest.Matcher;
 public final class Freud {
 
     static <A> boolean analyse(A analysedObject, Matcher assertion) {
+        return assertion.matches(analysedObject);
 //        int numberOfParameters = assertion.maximumNumberOfParameters
 //        int ptr = BREADCRUMBS.size()
 //        if (numberOfParameters > ptr + 1) {
@@ -14,6 +15,5 @@ public final class Freud {
 //            curriedAssertion = curriedAssertion.curry(BREADCRUMBS.get(--ptr))
 //        }
 //        return curriedAssertion.call();
-        return false;
     }
 }

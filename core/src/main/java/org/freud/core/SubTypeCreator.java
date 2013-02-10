@@ -2,7 +2,7 @@ package org.freud.core;
 
 import java.util.List;
 
-public interface SubTypesCreator<S, A> {
+public interface SubTypeCreator<S, A> {
 
     void create(S source, List<A> collector);
 }

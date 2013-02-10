@@ -1,7 +1,7 @@
 package org.freud.core.iterator
 
 import org.freud.core.Creator
-import org.freud.core.SubTypesCreator
+import org.freud.core.SubTypeCreator
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -11,7 +11,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     @Subject
     SubTypeAnalysedObjectIterator iterator
-    SubTypesCreator creator
+    SubTypeCreator creator
 
     def setup() {
         creator = Mock()

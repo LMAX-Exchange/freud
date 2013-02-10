@@ -21,6 +21,13 @@ public final class AnalysedObjectBreadcrumbs {
     }
 
     @SuppressWarnings("unchecked")
+    public Object[] copy() {
+        final List list = breadcrumbs.get();
+        Object[] copy = new Object[list.size()];
+        return list.toArray(copy);
+    }
+
+    @SuppressWarnings("unchecked")
     public void add(Object obj) {
         breadcrumbs.get().add(obj);
 
