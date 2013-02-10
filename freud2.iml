@@ -10,6 +10,7 @@
       <sourceFolder url="file://$MODULE_DIR$/core/src/test/groovy" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/freud-groovy/src/main/groovy" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/freud-groovy/src/test/groovy" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/core/src/test/resources" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
     </content>
@@ -57,6 +58,15 @@
         <SOURCES>
           <root url="jar://$USER_HOME$/.gradle/caches/artifacts-15/filestore/junit/junit-dep/4.10/source/2c7dad0a5eb1602c6fe6b43abec8ea35805b3ae4/junit-dep-4.10-sources.jar!/" />
         </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/core/src/test/resources" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
       </library>
     </orderEntry>
   </component>
