@@ -1,3 +1,3 @@
-include 'core', 'freud-groovy', 'freud-java'
+include 'core', 'freud-api-groovy', 'freud-api-java'
 
 //        , 'analyse-java-class', 'analyse-java-source', 'analyse-css'

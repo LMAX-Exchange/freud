@@ -7,11 +7,6 @@ subprojects {
         maven { url 'http://oss.sonatype.org/content/repositories/snapshots/' }
     }
 
-    dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
-        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
-    }
-
     version = '0.1'
     jar {
         manifest {
@@ -20,16 +15,29 @@ subprojects {
     }
 }
 
-project(':freud-groovy') {
+project(':core') {
     dependencies {
+        groovy "org.codehaus.groovy:groovy-all:2.+"
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+        testCompile fileTree('resources')
+    }
+}
+
+project(':freud-api-groovy') {
+    dependencies {
+        groovy "org.codehaus.groovy:groovy-all:2.+"
         compile project(':core')
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
     }
 }
 
 
-project(':freud-java') {
+project(':freud-api-java') {
     dependencies {
+        groovy "org.codehaus.groovy:groovy-all:2.+"
         compile project(':core')
         compile "org.hamcrest:hamcrest-core:1.+"
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+        testCompile "junit:junit:4.+"
     }
 }
