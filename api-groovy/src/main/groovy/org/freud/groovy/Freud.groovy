@@ -2,7 +2,7 @@ package org.freud.groovy
 
 import org.freud.core.Filter
 import org.freud.core.FreudSource
-import org.freud.core.iterator.FileIterator
+import org.freud.core.iterator.Files
 import org.freud.core.iterator.FilteredAnalysedObjects
 
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS
@@ -27,11 +27,11 @@ class Freud {
     }
 
     static FreudSource<File> filesIn(Collection filesOrPaths, Closure<Boolean> filenameFilter = { false }) {
-        new FreudSource<File>(new FileIterator(filesOrPaths, true, toFilenameFilter(filenameFilter)), File)
+        new FreudSource<File>(new Files(filesOrPaths, true, toFilenameFilter(filenameFilter)), File)
     }
 
     static FreudSource<File> nonRecursivelyFilesIn(Collection filesOrPaths, Closure<Boolean> filenameFilter = { false }) {
-        new FreudSource<File>(new FileIterator(filesOrPaths, false, toFilenameFilter(filenameFilter)), File)
+        new FreudSource<File>(new Files(filesOrPaths, false, toFilenameFilter(filenameFilter)), File)
     }
 
     private static FilenameFilter toFilenameFilter(Closure<Boolean> suppliedClosure) {

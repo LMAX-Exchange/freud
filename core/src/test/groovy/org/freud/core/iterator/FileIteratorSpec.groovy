@@ -6,13 +6,13 @@ import spock.lang.Subject
 class FileIteratorSpec extends Specification {
 
     @Subject
-    FileIterator fileIterator
+    Files fileIterator
     File root = ClassLoader.getSystemResource('FileIteratorSpec/src').file as File
 
 
     def 'iterates over files'() {
     given:
-        fileIterator = new FileIterator([root], false, null)
+        fileIterator = new Files([root], false, null)
     when:
         List files = fileIterator.collect { it }
     then:
@@ -23,7 +23,7 @@ class FileIteratorSpec extends Specification {
 
     def 'iterates over files recursively'() {
     given:
-        fileIterator = new FileIterator([root], true, null)
+        fileIterator = new Files([root], true, null)
     when:
         List files = fileIterator.collect { it }
     then:
@@ -38,7 +38,7 @@ class FileIteratorSpec extends Specification {
 
     def 'iterates over files using filter'() {
     given:
-        fileIterator = new FileIterator([root], true, { dir, name -> name.endsWith('test') } as FilenameFilter)
+        fileIterator = new Files([root], true, { dir, name -> name.endsWith('test') } as FilenameFilter)
     when:
         List files = fileIterator.collect { it }
     then:
@@ -52,7 +52,7 @@ class FileIteratorSpec extends Specification {
 
     def 'iterates over files in several roots'() {
     given:
-        fileIterator = new FileIterator([new File(root, 'a'), new File(root, 'b')], true, { dir, name -> name.endsWith('test') } as FilenameFilter)
+        fileIterator = new Files([new File(root, 'a'), new File(root, 'b')], true, { dir, name -> name.endsWith('test') } as FilenameFilter)
     when:
         List files = fileIterator.collect { it }
     then:

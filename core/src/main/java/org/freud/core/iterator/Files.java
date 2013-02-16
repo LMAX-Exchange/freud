@@ -8,14 +8,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-public final class FileIterator implements Iterable<File> {
+public final class Files implements Iterable<File> {
 
     private boolean recursive;
     private final FilenameFilter filenameFilter;
     private final Deque<File> files = new LinkedList<File>();
 
 
-    public FileIterator(final Collection filesOrPaths, final boolean recursive, final FilenameFilter filter) {
+    public Files(final Collection filesOrPaths, final boolean recursive, final FilenameFilter filter) {
         this.recursive = recursive;
         this.filenameFilter = filter;
         for (Object fileOrPath : filesOrPaths) {
