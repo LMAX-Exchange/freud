@@ -1,0 +1,29 @@
+package org.freud.analysed.text;
+
+import org.freud.core.FreudSource;
+import org.freud.core.iterator.AnalysedObjects;
+import org.freud.core.iterator.SubTypeAnalysedObjects;
+
+import java.io.File;
+
+public final class TextDsl {
+
+    private TextDsl() {
+        // static utility
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Iterable<Text> textOf(FreudSource source) {
+        if (File.class.equals(source.getType())) {
+            return new AnalysedObjects<File, Text>(new TextFromFileCreator(), source.getSources());
+        }
+        if (String.class.equals(source.getType())) {
+            return new AnalysedObjects<String, Text>(new TextFromStringCreator(), source.getSources());
+        }
+        throw new UnsupportedOperationException("Unsupported conversion " + source.getType() + " to Text");
+    }
+
+    public static Iterable<TextLine> textLineWithin(Iterable<Text> texts) {
+        return new SubTypeAnalysedObjects<Text, TextLine>(new TextToLinesCreator(), texts);
+    }
+}

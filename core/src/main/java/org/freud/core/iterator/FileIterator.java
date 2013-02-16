@@ -2,104 +2,110 @@ package org.freud.core.iterator;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Collection;
 import java.util.Deque;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
-import static java.util.Collections.addAll;
-
-public final class FileIterator extends OneShotNonThreadSafeIterable<File> {
+public final class FileIterator implements Iterable<File> {
 
     private boolean recursive;
-    private FilenameFilter filenameFilter;
-    private final Deque<File> paths = new LinkedList<File>();
-    private File[] currentFiles;
-    private int filesPtr;
-    private File nextFile;
+    private final FilenameFilter filenameFilter;
+    private final Deque<File> files = new LinkedList<File>();
 
-    public FileIterator(final boolean recursive, final String... paths) {
-        this.recursive = recursive;
-        for (String path : paths) {
-            this.paths.add(new File(path));
-        }
-    }
 
-    public FileIterator(final boolean recursive, final File... paths) {
-        this.recursive = recursive;
-        addAll(this.paths, paths);
-    }
-
-    public FileIterator(final boolean recursive, final FilenameFilter filter, final String... paths) {
+    public FileIterator(final Collection filesOrPaths, final boolean recursive, final FilenameFilter filter) {
         this.recursive = recursive;
         this.filenameFilter = filter;
-        for (String path : paths) {
-            this.paths.add(new File(path));
+        for (Object fileOrPath : filesOrPaths) {
+            this.files.add(toFile(fileOrPath));
         }
-    }
-
-
-    public FileIterator(final boolean recursive, final FilenameFilter filter, final File... paths) {
-        this.recursive = recursive;
-        this.filenameFilter = filter;
-        addAll(this.paths, paths);
     }
 
     @Override
-    protected boolean calculateHasNext() {
-        return (nextFile != null || ((nextFile = nextFile()) != null));
+    public Iterator<File> iterator() {
+        return new InternalIterator();
     }
 
-    @Override
-    public File next() {
-        if (nextFile != null) {
-            return returnNextFile();
-        }
-        nextFile = nextFile();
-        if (nextFile != null) {
-            return returnNextFile();
-        }
-        else {
-            throw new NoSuchElementException();
-        }
-    }
+    private class InternalIterator implements Iterator<File> {
+        private File[] currentFiles;
+        private int filesPtr;
+        private File nextFile;
 
-    private File returnNextFile() {
-        File toReturn = nextFile;
-        nextFile = null;
-        return toReturn;
-    }
-
-    private File nextFile() {
-        File next = nextFileFromCurrentDir();
-        if (next != null) {
-            return next;
+        @Override
+        public boolean hasNext() {
+            return (nextFile != null || ((nextFile = nextFile()) != null));
         }
-        while (!paths.isEmpty()) {
-            final File file = paths.removeFirst();
-            if (file.isDirectory()) {
-                currentFiles = file.listFiles();
-                filesPtr = 0;
+
+        @Override
+        public File next() {
+            if (nextFile != null) {
+                return returnNextFile();
             }
-            next = nextFileFromCurrentDir();
+            nextFile = nextFile();
+            if (nextFile != null) {
+                return returnNextFile();
+            }
+            else {
+                throw new NoSuchElementException();
+            }
+        }
+
+        @Override
+        public final void remove() {
+            throw new UnsupportedOperationException();
+        }
+
+        private File returnNextFile() {
+            File toReturn = nextFile;
+            nextFile = null;
+            return toReturn;
+        }
+
+        private File nextFile() {
+            File next = nextFileFromCurrentDir();
             if (next != null) {
                 return next;
             }
-        }
-        return null;
-    }
-
-    private File nextFileFromCurrentDir() {
-        while (currentFiles != null && filesPtr < currentFiles.length) {
-            File file = currentFiles[filesPtr++];
-            if (file.isDirectory()) {
-                if (recursive) {
-                    paths.addFirst(file);
+            while (!files.isEmpty()) {
+                final File file = files.removeFirst();
+                if (file.isDirectory()) {
+                    currentFiles = file.listFiles();
+                    filesPtr = 0;
+                }
+                next = nextFileFromCurrentDir();
+                if (next != null) {
+                    return next;
                 }
             }
-            else if (filenameFilter == null || filenameFilter.accept(file.getParentFile(), file.getName())) {
-                return file;
-            }
+            return null;
         }
-        return null;
+
+        private File nextFileFromCurrentDir() {
+            while (currentFiles != null && filesPtr < currentFiles.length) {
+                File file = currentFiles[filesPtr++];
+                if (file.isDirectory()) {
+                    if (recursive) {
+                        files.addFirst(file);
+                    }
+                }
+                else if (filenameFilter == null || filenameFilter.accept(file.getParentFile(), file.getName())) {
+                    return file;
+                }
+            }
+            return null;
+        }
+    }
+
+
+    private File toFile(final Object fileOrPath) {
+        if (fileOrPath instanceof File) {
+            return (File) fileOrPath;
+        }
+        else if (fileOrPath instanceof String) {
+            return new File((String) fileOrPath);
+        }
+        throw new UnsupportedOperationException("Cannot convert [" + fileOrPath + "] to File");
     }
 }

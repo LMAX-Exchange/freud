@@ -10,12 +10,12 @@ import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS
 class FilteredAnalysedObjectIteratorSpec extends Specification {
 
     @Subject
-    FilteredAnalysedObjectIterator iterator
+    FilteredAnalysedObjects filtered
     Filter filter
 
     def setup() {
         filter = Mock()
-        iterator = new FilteredAnalysedObjectIterator(['a', 'b', 'c', 'd'], filter)
+        filtered = new FilteredAnalysedObjects(['a', 'b', 'c', 'd'], filter)
     }
 
     def 'first item is filtered'() {
@@ -26,7 +26,7 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
         filter.filter('d') >> false
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : filtered) {
             results.add(o)
         }
     then:
@@ -41,7 +41,7 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
         filter.filter('d') >> false
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : filtered) {
             results.add(o)
         }
     then:
@@ -56,7 +56,7 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
         filter.filter('d') >> true
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : filtered) {
             results.add(o)
         }
     then:
@@ -71,7 +71,7 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
         filter.filter('d') >> true
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : filtered) {
             results.add(o)
         }
     then:
@@ -80,18 +80,19 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
 
     def 'does not store items as breadcrumbs - only a filter'() {
     given:
-        iterator = new FilteredAnalysedObjectIterator(new AnalysedObjectIterator({ it } as Creator, ['a', 'b', 'c', 'd']), filter)
+        Iterator filteredIterator =
+            new FilteredAnalysedObjects(new AnalysedObjects({ it } as Creator, ['a', 'b', 'c', 'd']), filter).iterator()
         filter.filter('a') >> true
         filter.filter('b') >> false
         filter.filter('c') >> true
         filter.filter('d') >> false
     when:
-        iterator.next();
+        filteredIterator.next();
     then:
         BREADCRUMBS.size() == 1
         BREADCRUMBS.get(0) == 'b'
     when:
-        iterator.next();
+        filteredIterator.next();
     then:
         BREADCRUMBS.size() == 1
         BREADCRUMBS.get(0) == 'd'

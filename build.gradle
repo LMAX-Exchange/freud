@@ -1,3 +1,6 @@
+
+apply plugin: "idea"
+
 subprojects {
     apply plugin: "groovy"
     apply plugin: "idea"
@@ -15,11 +18,24 @@ subprojects {
     }
 }
 
+idea.project.ipr {
+    withXml { provider ->
+        provider.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = 'Git'
+    }
+}
+
 project(':core') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile fileTree('resources')
+    }
+
+    idea.module.iml {
+        whenMerged { project -> project.dependencies.add(
+                        new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+                                [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
+        }
     }
 }
 
@@ -30,6 +46,13 @@ project(':text') {
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile fileTree('resources')
     }
+
+    idea.module.iml {
+	whenMerged { project -> project.dependencies.add(
+			new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+				[new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST')) 
+	}
+    }	
 }
 
 project(':api-groovy') {
@@ -48,5 +71,17 @@ project(':api-java') {
         compile "org.hamcrest:hamcrest-core:1.+"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile "junit:junit:4.+"
+    }
+}
+
+
+project(':examples') {
+    dependencies {
+        groovy "org.codehaus.groovy:groovy-all:2.+"
+        compile project(':api-groovy')
+        compile project(':api-java')
+        compile project(':text')
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+        testCompile fileTree('resources')
     }
 }

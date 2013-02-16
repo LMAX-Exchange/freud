@@ -1,7 +1,6 @@
 package org.freud.analysed.text;
 
 import org.freud.core.Creator;
-import org.freud.core.iterator.OneShotNonThreadSafeIterable;
 import org.freud.core.util.IoUtil;
 
 import java.io.BufferedReader;
@@ -9,6 +8,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -39,11 +39,9 @@ public final class TextToLinesCreator implements Creator<Text, Iterable<TextLine
         return textLineList;
     }
 
-    private static class TextLines extends OneShotNonThreadSafeIterable<TextLine> {
+    private static class TextLines implements Iterable<TextLine> {
 
         private final BufferedReader text;
-        private TextLine currentLine = null;
-        private int lineCounter = 0;
 
         private TextLines(final Reader text) {
             this.text = (BufferedReader)
@@ -51,42 +49,55 @@ public final class TextToLinesCreator implements Creator<Text, Iterable<TextLine
         }
 
         @Override
-        protected boolean calculateHasNext() {
-            return currentLine != null || readNextLine();
+        public Iterator<TextLine> iterator() {
+            return new InternalIterator();
         }
 
-        @Override
-        public TextLine next() {
-            if (currentLine != null) {
-                return returnCurrentLine();
+        private class InternalIterator implements Iterator<TextLine> {
+
+            private List<TextLine> currentLine = new ArrayList<TextLine>();
+            private int lineCounter = 0;
+            private int linesIterated = 0;
+
+            @Override
+            public boolean hasNext() {
+                return lineCounter > linesIterated || readNextLine() != null;
             }
-            readNextLine();
-            if (currentLine != null) {
-                return returnCurrentLine();
-            }
-            throw new NoSuchElementException();
-        }
 
-        private TextLine returnCurrentLine() {
-            TextLine lineToReturn = currentLine;
-            currentLine = null;
-            return lineToReturn;
-        }
-
-
-        private boolean readNextLine() {
-            try {
-                String line = text.readLine();
-                if (line == null) {
-                    safeClose(text);
-                    return false;
+            @Override
+            public TextLine next() {
+                if (lineCounter > linesIterated) {
+                    return currentLine.get(linesIterated++);
                 }
-                currentLine = new TextLine(line, lineCounter++);
-                return true;
+                TextLine nextLine = readNextLine();
+                if (nextLine != null) {
+                    linesIterated++;
+                    return nextLine;
+                }
+                throw new NoSuchElementException();
             }
-            catch (IOException e) {
-                safeClose(text);
-                throw new IllegalStateException("Failed to parse stream into lines", e);
+
+            @Override
+            public final void remove() {
+                throw new UnsupportedOperationException();
+            }
+
+
+            private TextLine readNextLine() {
+                try {
+                    String line = text.readLine();
+                    if (line == null) {
+                        safeClose(text);
+                        return null;
+                    }
+                    final TextLine nextLine = new TextLine(line, lineCounter++);
+                    currentLine.add(nextLine);
+                    return nextLine;
+                }
+                catch (IOException e) {
+                    safeClose(text);
+                    return null;
+                }
             }
         }
     }

@@ -12,7 +12,7 @@ class FileIteratorSpec extends Specification {
 
     def 'iterates over files'() {
     given:
-        fileIterator = new FileIterator(false, root)
+        fileIterator = new FileIterator([root], false, null)
     when:
         List files = fileIterator.collect { it }
     then:
@@ -23,30 +23,43 @@ class FileIteratorSpec extends Specification {
 
     def 'iterates over files recursively'() {
     given:
-        fileIterator = new FileIterator(true, root)
+        fileIterator = new FileIterator([root], true, null)
     when:
         List files = fileIterator.collect { it }
     then:
-        files == [
-                new File(root, 'test'),
+        files.sort() == [
+                new File(root, 'a/a.other'),
+                new File(root, 'a/atest'),
                 new File(root, 'b/btest'),
                 new File(root, 'b/c/ctest'),
-                new File(root, 'a/atest'),
-                new File(root, 'a/a.other'),
+                new File(root, 'test'),
         ]
     }
 
     def 'iterates over files using filter'() {
     given:
-        fileIterator = new FileIterator(true, { dir, name -> name.endsWith('test') } as FilenameFilter, root)
+        fileIterator = new FileIterator([root], true, { dir, name -> name.endsWith('test') } as FilenameFilter)
     when:
         List files = fileIterator.collect { it }
     then:
-        files == [
-                new File(root, 'test'),
+        files.sort() == [
+                new File(root, 'a/atest'),
                 new File(root, 'b/btest'),
                 new File(root, 'b/c/ctest'),
+                new File(root, 'test'),
+        ]
+    }
+
+    def 'iterates over files in several roots'() {
+    given:
+        fileIterator = new FileIterator([new File(root, 'a'), new File(root, 'b')], true, { dir, name -> name.endsWith('test') } as FilenameFilter)
+    when:
+        List files = fileIterator.collect { it }
+    then:
+        files.sort() == [
                 new File(root, 'a/atest'),
+                new File(root, 'b/btest'),
+                new File(root, 'b/c/ctest'),
         ]
     }
 }

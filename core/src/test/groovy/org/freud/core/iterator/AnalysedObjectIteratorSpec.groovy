@@ -11,12 +11,12 @@ class AnalysedObjectIteratorSpec extends Specification {
     Creator creator = Mock()
     Iterator sourcesIterator = Mock()
     @Subject
-    AnalysedObjectIterator iterator
+    AnalysedObjects analysedObjects
 
     def setup() {
        Iterable sources = Mock()
        sources.iterator() >> sourcesIterator
-       iterator = new AnalysedObjectIterator(creator, sources)
+       analysedObjects = new AnalysedObjects(creator, sources)
     }
 
     def 'returns no next item when there is not one'() {
@@ -24,7 +24,7 @@ class AnalysedObjectIteratorSpec extends Specification {
             sourcesIterator.hasNext() >> false
             0 * creator._
         expect:
-            ! iterator.hasNext()
+            ! analysedObjects.iterator().hasNext()
     }
 
     def 'returns true for next item when there is one'() {
@@ -32,7 +32,7 @@ class AnalysedObjectIteratorSpec extends Specification {
             sourcesIterator.hasNext() >> true
             0 * creator._
         expect:
-            iterator.hasNext()
+            analysedObjects.iterator().hasNext()
     }
 
     def 'returns next items when called in order'() {
@@ -43,7 +43,7 @@ class AnalysedObjectIteratorSpec extends Specification {
             creator.create('b') >> '2'
         when:
             List results = []
-            for (Object o : iterator) {
+            for (Object o : analysedObjects) {
                 results.add(o)
             }
         then:
@@ -57,6 +57,7 @@ class AnalysedObjectIteratorSpec extends Specification {
         sourcesIterator.next() >>> [ 'a', 'b' ]
         creator.create('a') >> '1'
         creator.create('b') >> '2'
+        Iterator iterator = analysedObjects.iterator()
     when:
         iterator.next()
     then:
@@ -76,10 +77,11 @@ class AnalysedObjectIteratorSpec extends Specification {
         sourcesIterator.next() >>> [ 'a', 'b' ]
         creator.create('a') >> '1'
         creator.create('b') >> '2'
-        AnalysedObjectIterator<String, String> otherIterator =
-                new AnalysedObjectIterator<String, String>({ it } as Creator,
-                new AnalysedObjectIterator<String, String>({ it } as Creator,
-                new AnalysedObjectIterator<String, String>({ it } as Creator, ['x', 'y', 'z'])))
+        Iterator iterator = analysedObjects.iterator()
+        Iterator otherIterator =
+                new AnalysedObjects<String, String>({ it } as Creator,
+                new AnalysedObjects<String, String>({ it } as Creator,
+                new AnalysedObjects<String, String>({ it } as Creator, ['x', 'y', 'z']))).iterator()
     when:
         otherIterator.next()
         iterator.next()
@@ -90,10 +92,10 @@ class AnalysedObjectIteratorSpec extends Specification {
 
     def 'does not clear breadcrumbs when iterator chained to other breadcrumbs supported iterators'() {
     given:
-        AnalysedObjectIterator<String, String> iterator1 =
-            new AnalysedObjectIterator<String, String>({ "X${it}" } as Creator, ['1', '2', '3'])
-        AnalysedObjectIterator<String, String> iterator2 = new AnalysedObjectIterator({ "${it}X"} as Creator, iterator1)
-        iterator = new AnalysedObjectIterator({ it } as Creator, iterator2)
+        AnalysedObjects<String, String> iterator1 =
+            new AnalysedObjects<String, String>({ "X${it}" } as Creator, ['1', '2', '3'])
+        AnalysedObjects<String, String> iterator2 = new AnalysedObjects({ "${it}X"} as Creator, iterator1)
+        Iterator iterator = new AnalysedObjects({ it } as Creator, iterator2).iterator()
     when:
         iterator.next()
     then:
@@ -109,7 +111,7 @@ class AnalysedObjectIteratorSpec extends Specification {
             sourcesIterator.next() >> { throw new NoSuchElementException() }
             0 * creator._
         when:
-            iterator.next()
+            analysedObjects.iterator().next()
         then:
             thrown NoSuchElementException
     }

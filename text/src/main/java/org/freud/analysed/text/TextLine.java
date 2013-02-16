@@ -17,4 +17,12 @@ public final class TextLine {
     public int getLineNumber() {
         return lineNumber;
     }
+
+    @Override
+    public String toString() {
+        return "TextLine{" +
+                "lineNumber=" + lineNumber +
+                ", line='" + line + '\'' +
+                '}';
+    }
 }

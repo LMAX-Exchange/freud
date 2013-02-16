@@ -9,12 +9,12 @@ import static AnalysedObjectBreadcrumbs.BREADCRUMBS
 class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     @Subject
-    SubTypeAnalysedObjectIterator iterator
+    SubTypeAnalysedObjects subTypeAnalysedObjects
     Creator creator
 
     def setup() {
         creator = Mock()
-        iterator = new SubTypeAnalysedObjectIterator(creator, ['a', 'b', 'c', 'd'])
+        subTypeAnalysedObjects = new SubTypeAnalysedObjects(creator, ['a', 'b', 'c', 'd'])
     }
 
     def 'element contains several sub types'() {
@@ -23,7 +23,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         creator.create(!'a') >> ['x']
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : subTypeAnalysedObjects) {
             results.add(o)
         }
     then:
@@ -36,7 +36,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         creator.create(!'a') >> ['x']
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : subTypeAnalysedObjects) {
             results.add(o)
         }
     then:
@@ -49,7 +49,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         creator.create(!'a') >> ['x']
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : subTypeAnalysedObjects) {
             results.add(o)
         }
     then:
@@ -64,7 +64,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         creator.create('d') >> ['d']
     when:
         List results = []
-        for (Object o : iterator) {
+        for (Object o : subTypeAnalysedObjects) {
             results.add(o)
         }
     then:
@@ -77,6 +77,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         creator.create('b') >> ['b1', 'b2']
         creator.create('c') >> ['c1', 'c2']
         creator.create('d') >> ['d']
+        Iterator iterator = subTypeAnalysedObjects.iterator()
     when:
         iterator.next()
     then:
@@ -96,8 +97,8 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
 
     def 'analysed object appended to breadcrumbs'() {
     given:
-        iterator = new SubTypeAnalysedObjectIterator(creator,
-                        new AnalysedObjectIterator({ "X$it" } as Creator, ['a', 'b', 'c', 'd']))
+        Iterator iterator = new SubTypeAnalysedObjects(creator,
+                        new AnalysedObjects({ "X$it" } as Creator, ['a', 'b', 'c', 'd'])).iterator()
         creator.create('Xa') >> []
         creator.create('Xb') >> ['b1', 'b2']
         creator.create('Xc') >> ['c1', 'c2']
@@ -114,7 +115,7 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         BREADCRUMBS.size() == 2
         BREADCRUMBS.get(0) == 'b'
         BREADCRUMBS.get(1) == 'Xb'
-        when:
+    when:
         iterator.next()
     then:
         BREADCRUMBS.size() == 2

@@ -2,9 +2,9 @@ package org.freud.groovy
 
 import org.freud.core.Creator
 import org.freud.core.Filter
-import org.freud.core.iterator.AnalysedObjectIterator
-import org.freud.core.iterator.FilteredAnalysedObjectIterator
-import org.freud.core.iterator.SubTypeAnalysedObjectIterator
+import org.freud.core.iterator.AnalysedObjects
+import org.freud.core.iterator.FilteredAnalysedObjects
+import org.freud.core.iterator.SubTypeAnalysedObjects
 import spock.lang.Specification
 
 class FreudSpec extends Specification {
@@ -13,10 +13,10 @@ class FreudSpec extends Specification {
     expect:
         Freud.analyse(analysed) { it.startsWith('Z') }
     where:
-        analysed << new AnalysedObjectIterator({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjectIterator({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjectIterator(
-                                new AnalysedObjectIterator({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
+        analysed << new AnalysedObjects({ "Z$it" } as Creator,
+                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                        new FilteredAnalysedObjects(
+                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
     }
 
     def 'returns the return value from assertion'() {
@@ -27,10 +27,10 @@ class FreudSpec extends Specification {
 
     def 'passes analysed object and creators to assertion'() {
     given:
-        Iterator iterator = new AnalysedObjectIterator({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjectIterator({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjectIterator(
-                                new AnalysedObjectIterator({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
+        Iterator iterator = new AnalysedObjects({ "Z$it" } as Creator,
+                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                        new FilteredAnalysedObjects(
+                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))).iterator()
 
     expect:
         Freud.analyse(iterator.next(), { a -> a == 'ZX_1' })
@@ -41,14 +41,18 @@ class FreudSpec extends Specification {
 
     def 'blows up if assertion has too many parameters'() {
     given:
-        Iterator iterator = new AnalysedObjectIterator({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjectIterator({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjectIterator(
-                                new AnalysedObjectIterator({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
+        Iterator iterator = new AnalysedObjects({ "Z$it" } as Creator,
+                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                        new FilteredAnalysedObjects(
+                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))).iterator()
 
     when:
         Freud.analyse(iterator.next(), { a, b, c, d, e -> true })
     then:
         thrown IllegalArgumentException
+    }
+
+    def 'creates a FreudSource of files'() {
+        // TODO
     }
 }

@@ -2,9 +2,9 @@ package org.freud.java;
 
 import org.freud.core.Creator;
 import org.freud.core.Filter;
-import org.freud.core.iterator.AnalysedObjectIterator;
-import org.freud.core.iterator.FilteredAnalysedObjectIterator;
-import org.freud.core.iterator.SubTypeAnalysedObjectIterator;
+import org.freud.core.iterator.AnalysedObjects;
+import org.freud.core.iterator.FilteredAnalysedObjects;
+import org.freud.core.iterator.SubTypeAnalysedObjects;
 import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,10 +33,10 @@ public final class FreudTest {
     @Parameterized.Parameters
     public static Collection<Object[]> generateData() {
         Collection<String> source = Arrays.asList("1", "2", "3");
-        Iterable<String> data = new AnalysedObjectIterator<String, String>(new ZCreator(),
-                new SubTypeAnalysedObjectIterator<String, String>(new XYCreator(),
-                    new FilteredAnalysedObjectIterator<String>(
-                        new AnalysedObjectIterator<String, String>(new UnderscoreCreator(), source), new ThreeFilter())));
+        Iterable<String> data = new AnalysedObjects<String, String>(new ZCreator(),
+                new SubTypeAnalysedObjects<String, String>(new XYCreator(),
+                    new FilteredAnalysedObjects<String>(
+                        new AnalysedObjects<String, String>(new UnderscoreCreator(), source), new ThreeFilter())));
         Collection<Object[]> parametersData = new ArrayList<Object[]>();
         for (String element : data) {
             parametersData.add(new Object[] { element });

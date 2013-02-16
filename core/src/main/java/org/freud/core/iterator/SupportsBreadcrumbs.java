@@ -3,7 +3,7 @@ package org.freud.core.iterator;
 import static java.lang.Math.max;
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS;
 
-public abstract class SupportsBreadcrumbs<S, A> extends OneShotNonThreadSafeIterable<A> {
+public abstract class SupportsBreadcrumbs<S, A> implements Iterable<A> {
 
     private final int depth;
     private boolean firstInvocation = true;
