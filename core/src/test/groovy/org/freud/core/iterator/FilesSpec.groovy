@@ -3,7 +3,7 @@ package org.freud.core.iterator
 import spock.lang.Specification
 import spock.lang.Subject
 
-class FileIteratorSpec extends Specification {
+class FilesSpec extends Specification {
 
     @Subject
     Files fileIterator

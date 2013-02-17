@@ -13,10 +13,10 @@ class FreudSpec extends Specification {
     expect:
         Freud.analyse(analysed) { it.startsWith('Z') }
     where:
-        analysed << new AnalysedObjects({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjects(
-                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter)))
+        analysed << new AnalysedObjects(new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                new FilteredAnalysedObjects(
+                        new AnalysedObjects(['1', '2', '3'], { "_$it" } as Creator), { it.contains('3')} as Filter)), { "Z$it" } as Creator
+        )
     }
 
     def 'returns the return value from assertion'() {
@@ -27,10 +27,10 @@ class FreudSpec extends Specification {
 
     def 'passes analysed object and creators to assertion'() {
     given:
-        Iterator iterator = new AnalysedObjects({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjects(
-                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))).iterator()
+        Iterator iterator = new AnalysedObjects(new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                new FilteredAnalysedObjects(
+                        new AnalysedObjects(['1', '2', '3'], { "_$it" } as Creator), { it.contains('3')} as Filter)), { "Z$it" } as Creator
+        ).iterator()
 
     expect:
         Freud.analyse(iterator.next(), { a -> a == 'ZX_1' })
@@ -41,10 +41,10 @@ class FreudSpec extends Specification {
 
     def 'blows up if assertion has too many parameters'() {
     given:
-        Iterator iterator = new AnalysedObjects({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjects(
-                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))).iterator()
+        Iterator iterator = new AnalysedObjects(new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                new FilteredAnalysedObjects(
+                        new AnalysedObjects(['1', '2', '3'], { "_$it" } as Creator), { it.contains('3')} as Filter)), { "Z$it" } as Creator
+        ).iterator()
 
     when:
         Freud.analyse(iterator.next(), { a, b, c, d, e -> true })

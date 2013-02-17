@@ -42,9 +42,9 @@ project(':core') {
 project(':text') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"
-        compile project(':core')
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile fileTree('resources')
+        compile project(':core')
     }
 
     idea.module.iml {
@@ -58,8 +58,8 @@ project(':text') {
 project(':api-groovy') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"
-        compile project(':core')
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+        compile project(':core')
     }
 }
 
@@ -67,21 +67,29 @@ project(':api-groovy') {
 project(':api-java') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"
-        compile project(':core')
         compile "org.hamcrest:hamcrest-core:1.+"
-        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile "junit:junit:4.+"
+        testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
+        compile project(':core')
     }
 }
 
 
-project(':examples') {
+project(':examples-spock') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"
-        compile project(':api-groovy')
-        compile project(':api-java')
-        compile project(':text')
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile fileTree('resources')
+        compile project(':api-groovy')
+        compile project(':text')
+    }
+}
+
+project(':examples-junit') {
+    dependencies {
+        testCompile "junit:junit:4.+"
+        testCompile fileTree('resources')
+        compile project(':api-java')
+        compile project(':text')
     }
 }

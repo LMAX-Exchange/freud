@@ -14,7 +14,13 @@ public final class SubTypeAnalysedObjects<T, A> extends SupportsBreadcrumbs<T, A
 
     public SubTypeAnalysedObjects(final Creator<T, Iterable<A>> creator,
                                   final Iterable<T> superTypeIterable) {
-        super(getDepth(superTypeIterable) + 1);
+        this(creator, superTypeIterable, true);
+    }
+
+    public SubTypeAnalysedObjects(final Creator<T, Iterable<A>> creator,
+                                  final Iterable<T> superTypeIterable,
+                                  final boolean breadcrumbsEnabled) {
+        super(getDepth(superTypeIterable) + 1, breadcrumbsEnabled);
         this.superTypeIterator = superTypeIterable.iterator();
         this.creator = creator;
     }

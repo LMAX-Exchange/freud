@@ -22,10 +22,10 @@ class FreudSpec extends Specification {
 
     def 'has access to breadcrumbs'() {
     given:
-        Iterator<String> iterator = new AnalysedObjects({ "Z$it" } as Creator,
-                new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
-                        new FilteredAnalysedObjects(
-                                new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))).iterator()
+        Iterator<String> iterator = new AnalysedObjects(new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
+                new FilteredAnalysedObjects(
+                        new AnalysedObjects(['1', '2', '3'], { "_$it" } as Creator), { it.contains('3')} as Filter)), { "Z$it" } as Creator
+        ).iterator()
 
     expect:
         Freud.analyse(iterator.next(), new MyCustomMatcher())

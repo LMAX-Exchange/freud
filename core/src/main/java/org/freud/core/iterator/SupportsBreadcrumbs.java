@@ -6,11 +6,18 @@ import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS;
 public abstract class SupportsBreadcrumbs<S, A> implements Iterable<A> {
 
     private final int depth;
+    private final boolean enabled;
     private boolean firstInvocation = true;
 
     protected SupportsBreadcrumbs(final int depth) {
-        this.depth = max(depth, 0);
+        this(depth, true);
     }
+
+    protected SupportsBreadcrumbs(final int depth, final boolean enabled) {
+        this.depth = max(depth, 0);
+        this.enabled = enabled;
+    }
+
 
     protected void handleBreadcrumbs(final S source) {
         if (firstInvocation) {
@@ -19,11 +26,13 @@ public abstract class SupportsBreadcrumbs<S, A> implements Iterable<A> {
             }
             firstInvocation = false;
         }
-        if (BREADCRUMBS.size() == depth) {
-            BREADCRUMBS.add(source);
-        }
-        else {
-            BREADCRUMBS.set(depth, source);
+        if (enabled) {
+            if (BREADCRUMBS.size() == depth) {
+                BREADCRUMBS.add(source);
+            }
+            else {
+                BREADCRUMBS.set(depth, source);
+            }
         }
     }
 

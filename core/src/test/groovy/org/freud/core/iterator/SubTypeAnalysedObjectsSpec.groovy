@@ -6,7 +6,7 @@ import spock.lang.Subject
 
 import static AnalysedObjectBreadcrumbs.BREADCRUMBS
 
-class SubTypeAnalysedObjectIteratorSpec extends Specification {
+class SubTypeAnalysedObjectsSpec extends Specification {
 
     @Subject
     SubTypeAnalysedObjects subTypeAnalysedObjects
@@ -95,10 +95,20 @@ class SubTypeAnalysedObjectIteratorSpec extends Specification {
         BREADCRUMBS.get(0) == 'c'
     }
 
+    def 'does not save analysed object in breadcrumbs when disabled'() {
+    given:
+        subTypeAnalysedObjects = new SubTypeAnalysedObjects({ [it] } as Creator, ['a'], false)
+        Iterator iterator = subTypeAnalysedObjects.iterator()
+    when:
+        iterator.next()
+    then:
+        BREADCRUMBS.size() == 0
+    }
+
     def 'analysed object appended to breadcrumbs'() {
     given:
         Iterator iterator = new SubTypeAnalysedObjects(creator,
-                        new AnalysedObjects({ "X$it" } as Creator, ['a', 'b', 'c', 'd'])).iterator()
+                        new AnalysedObjects(['a', 'b', 'c', 'd'], { "X$it" } as Creator)).iterator()
         creator.create('Xa') >> []
         creator.create('Xb') >> ['b1', 'b2']
         creator.create('Xc') >> ['c1', 'c2']

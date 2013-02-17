@@ -11,7 +11,7 @@ public final class FilteredAnalysedObjects<A> extends SupportsBreadcrumbs<A, A> 
     private final Filter<A> filter;
 
     public FilteredAnalysedObjects(final Iterable<A> unfiltered, final Filter<A> filter) {
-        super(getDepth(unfiltered));
+        super(getDepth(unfiltered), false);
         this.unfiltered = unfiltered.iterator();
         this.filter = filter;
     }

@@ -1,4 +1,4 @@
-package org.freud.examples
+package org.freud
 
 import org.spockframework.runtime.ConditionNotSatisfiedError
 import spock.lang.FailsWith
@@ -10,7 +10,7 @@ import static org.freud.groovy.Freud.analyse
 import static org.freud.groovy.Freud.filesIn
 import static org.freud.groovy.Freud.forEach
 
-class TextExamples extends Specification {
+class TextExamplesSpock extends Specification {
 
     static File root = ClassLoader.getSystemResource('TextExamples').file as File
 

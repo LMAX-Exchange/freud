@@ -1,7 +1,9 @@
 package org.freud.java;
 
+import org.freud.core.Creator;
 import org.freud.core.Filter;
 import org.freud.core.FreudSource;
+import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.Files;
 import org.freud.core.iterator.FilteredAnalysedObjects;
 import org.hamcrest.Matcher;
@@ -10,20 +12,16 @@ import java.io.File;
 import java.io.FilenameFilter;
 
 import static java.util.Arrays.asList;
+import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS;
 
 public final class Freud {
 
-    static <A> boolean analyse(A analysedObject, Matcher assertion) {
+    public static <A> boolean analyse(A analysedObject, Matcher assertion) {
         return assertion.matches(analysedObject);
-//        int numberOfParameters = assertion.maximumNumberOfParameters
-//        int ptr = BREADCRUMBS.size()
-//        if (numberOfParameters > ptr + 1) {
-//            throw new IllegalArgumentException("Assertion has $numberOfParameters parameters, where only $ptr available")
-//        }
-//        for (int i = 1; i < numberOfParameters; i++) {
-//            curriedAssertion = curriedAssertion.curry(BREADCRUMBS.get(--ptr))
-//        }
-//        return curriedAssertion.call();
+    }
+
+    public static <A> Iterable<Object[]> parameterise(Iterable<A> sourceObjects, int numberOfParameters) {
+        return new AnalysedObjects<A, Object[]>(sourceObjects, new ParametersCreator<A>(numberOfParameters), false);
     }
 
     public static <A> Iterable<A> forEach(Iterable<A> analysedObjects, Matcher<A> matcher) {
@@ -62,7 +60,7 @@ public final class Freud {
         return new FreudSource<File>(new Files(asList(files), false, filter), File.class);
     }
 
-    private static class ToFilter<A> implements Filter<A> {
+    private static final class ToFilter<A> implements Filter<A> {
 
         private final Matcher<A> matcher;
 
@@ -73,6 +71,30 @@ public final class Freud {
         @Override
         public boolean filter(final A analysedObject) {
             return !matcher.matches(analysedObject);
+        }
+    }
+
+    private static final class ParametersCreator<A> implements Creator<A, Object[]> {
+
+        private final int numberOfParameters;
+
+        private ParametersCreator(final int numberOfParameters) {
+            this.numberOfParameters = numberOfParameters;
+        }
+
+        @Override
+        public Object[] create(final A analysed) {
+            Object[] params = new Object[numberOfParameters];
+            int ptr = BREADCRUMBS.size();
+            if (numberOfParameters > ptr + 1) {
+                throw new IllegalArgumentException("Parameterized test has " + numberOfParameters +
+                        " parameters, where only " + ptr + " available");
+            }
+            params[0] = analysed;
+            for (int i = 1; i < numberOfParameters; i++) {
+                params[i] = BREADCRUMBS.get(--ptr);
+            }
+            return params;
         }
     }
 

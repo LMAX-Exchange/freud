@@ -33,10 +33,10 @@ public final class FreudTest {
     @Parameterized.Parameters
     public static Collection<Object[]> generateData() {
         Collection<String> source = Arrays.asList("1", "2", "3");
-        Iterable<String> data = new AnalysedObjects<String, String>(new ZCreator(),
-                new SubTypeAnalysedObjects<String, String>(new XYCreator(),
-                    new FilteredAnalysedObjects<String>(
-                        new AnalysedObjects<String, String>(new UnderscoreCreator(), source), new ThreeFilter())));
+        Iterable<String> data = new AnalysedObjects<String, String>(new SubTypeAnalysedObjects<String, String>(new XYCreator(),
+            new FilteredAnalysedObjects<String>(
+                new AnalysedObjects<String, String>(source, new UnderscoreCreator()), new ThreeFilter())), new ZCreator()
+        );
         Collection<Object[]> parametersData = new ArrayList<Object[]>();
         for (String element : data) {
             parametersData.add(new Object[] { element });

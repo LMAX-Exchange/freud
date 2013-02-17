@@ -15,10 +15,10 @@ public final class TextDsl {
     @SuppressWarnings("unchecked")
     public static Iterable<Text> textOf(FreudSource source) {
         if (File.class.equals(source.getType())) {
-            return new AnalysedObjects<File, Text>(new TextFromFileCreator(), source.getSources());
+            return new AnalysedObjects<File, Text>(source.getSources(), new TextFromFileCreator());
         }
         if (String.class.equals(source.getType())) {
-            return new AnalysedObjects<String, Text>(new TextFromStringCreator(), source.getSources());
+            return new AnalysedObjects<String, Text>(source.getSources(), new TextFromStringCreator());
         }
         throw new UnsupportedOperationException("Unsupported conversion " + source.getType() + " to Text");
     }

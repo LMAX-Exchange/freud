@@ -7,7 +7,7 @@ import spock.lang.Subject
 
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS
 
-class FilteredAnalysedObjectIteratorSpec extends Specification {
+class FilteredAnalysedObjectsSpec extends Specification {
 
     @Subject
     FilteredAnalysedObjects filtered
@@ -81,7 +81,7 @@ class FilteredAnalysedObjectIteratorSpec extends Specification {
     def 'does not store items as breadcrumbs - only a filter'() {
     given:
         Iterator filteredIterator =
-            new FilteredAnalysedObjects(new AnalysedObjects({ it } as Creator, ['a', 'b', 'c', 'd']), filter).iterator()
+            new FilteredAnalysedObjects(new AnalysedObjects(['a', 'b', 'c', 'd'], { it } as Creator), filter).iterator()
         filter.filter('a') >> true
         filter.filter('b') >> false
         filter.filter('c') >> true
