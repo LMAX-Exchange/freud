@@ -19,4 +19,17 @@ class ClassFromNameCreatorSpec extends Specification {
     then:
         classObject == CLASS_OBJECT
     }
+
+    def 'creator creates class for inner class'() {
+    given:
+        creator = new ClassFromNameCreator()
+    when:
+        Class classObject = creator.create("${ClassFromNameCreatorSpec.class.name}\$InnerClass")
+    then:
+        classObject == InnerClass.class
+    }
+
+    private static class InnerClass {
+        private void someMethod() {}
+    }
 }
