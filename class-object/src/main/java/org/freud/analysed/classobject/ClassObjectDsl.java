@@ -5,6 +5,7 @@ import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.SubTypeAnalysedObjects;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 public final class ClassObjectDsl {
@@ -27,5 +28,13 @@ public final class ClassObjectDsl {
 
     public static Iterable<Method> declaredMethodsWithin(Iterable<Class> classes) {
         return new SubTypeAnalysedObjects<Class, Method>(new MethodsOfClassCreator(), classes);
+    }
+
+    public static Iterable<Field> fieldsWithin(Iterable<Class> classes) {
+        return new SubTypeAnalysedObjects<Class, Field>(new FieldsOfClassCreator(), classes);
+    }
+
+    public static Iterable<Field> declaredFieldsWithin(Iterable<Class> classes) {
+        return new SubTypeAnalysedObjects<Class, Field>(new FieldsOfClassCreator(), classes);
     }
 }
