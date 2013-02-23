@@ -4,7 +4,6 @@ import org.freud.core.FreudSource;
 import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.SubTypeAnalysedObjects;
 
-import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -16,10 +15,6 @@ public final class ClassObjectDsl {
 
     public static Iterable<Class> classOf(FreudSource<String> source) {
         return new AnalysedObjects<String, Class>(source.getSources(), new ClassFromNameCreator());
-    }
-
-    public static Iterable<Class> classOf(FreudSource<File> source, File... rootDirs) {
-        return new AnalysedObjects<File, Class>(source.getSources(), new ClassFromFileCreator(new ClassFromNameCreator(), rootDirs));
     }
 
     public static Iterable<Method> methodsWithin(Iterable<Class> classes) {

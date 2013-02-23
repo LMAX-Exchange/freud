@@ -6,7 +6,7 @@ import spock.lang.Subject
 import static org.freud.analysed.classobject.FieldsOfClassCreator.Type.DECLARED
 import static org.freud.analysed.classobject.FieldsOfClassCreator.Type.PUBLIC
 
-class FieldsOfClassCreatorTest extends Specification {
+class FieldsOfClassCreatorSpec extends Specification {
 
     @Subject
     FieldsOfClassCreator creator = new FieldsOfClassCreator()

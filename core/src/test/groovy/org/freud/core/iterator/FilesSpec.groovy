@@ -7,12 +7,12 @@ class FilesSpec extends Specification {
 
     @Subject
     Files fileIterator
-    File root = ClassLoader.getSystemResource('FileIteratorSpec/src').file as File
+    File root = ClassLoader.getSystemResource('FilesSpec/src').file as File
 
 
     def 'iterates over files'() {
     given:
-        fileIterator = new Files([root], false, null)
+        fileIterator = new Files(root, false, null)
     when:
         List files = fileIterator.collect { it }
     then:
@@ -23,7 +23,7 @@ class FilesSpec extends Specification {
 
     def 'iterates over files recursively'() {
     given:
-        fileIterator = new Files([root], true, null)
+        fileIterator = new Files(root, true, null)
     when:
         List files = fileIterator.collect { it }
     then:

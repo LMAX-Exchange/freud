@@ -6,7 +6,7 @@ import spock.lang.Subject
 import static org.freud.analysed.classobject.MethodsOfClassCreator.Type.DECLARED
 import static org.freud.analysed.classobject.MethodsOfClassCreator.Type.PUBLIC
 
-class MethodsOfClassCreatorTest extends Specification {
+class MethodsOfClassCreatorSpec extends Specification {
 
     @Subject
     MethodsOfClassCreator creator = new MethodsOfClassCreator()

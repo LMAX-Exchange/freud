@@ -15,6 +15,18 @@ public final class Files implements Iterable<File> {
     private final Deque<File> files = new LinkedList<File>();
 
 
+    public Files(final File root, final boolean recursive, final FilenameFilter filter) {
+        this.recursive = recursive;
+        this.filenameFilter = filter;
+        this.files.add(root);
+    }
+
+    public Files(final String rootPath, final boolean recursive, final FilenameFilter filter) {
+        this.recursive = recursive;
+        this.filenameFilter = filter;
+        this.files.add(toFile(rootPath));
+    }
+
     public Files(final Collection filesOrPaths, final boolean recursive, final FilenameFilter filter) {
         this.recursive = recursive;
         this.filenameFilter = filter;
@@ -99,7 +111,7 @@ public final class Files implements Iterable<File> {
     }
 
 
-    private File toFile(final Object fileOrPath) {
+    static File toFile(final Object fileOrPath) {
         if (fileOrPath instanceof File) {
             return (File) fileOrPath;
         }

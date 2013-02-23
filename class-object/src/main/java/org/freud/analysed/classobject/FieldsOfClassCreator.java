@@ -36,7 +36,7 @@ public final class FieldsOfClassCreator implements Creator<Class, Iterable<Field
                 }
                 return returnValue;
             }
-        };
+        }
     }
 
     private final Type type;

@@ -36,7 +36,7 @@ public final class MethodsOfClassCreator implements Creator<Class, Iterable<Meth
                 }
                 return returnValue;
             }
-        };
+        }
     }
 
     private final Type type;

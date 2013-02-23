@@ -106,6 +106,7 @@ project(':examples-spock') {
         testCompile fileTree('resources')
         compile project(':api-groovy')
         compile project(':text')
+        compile project(':class-object')
     }
 }
 
@@ -115,5 +116,6 @@ project(':examples-junit') {
         testCompile fileTree('resources')
         compile project(':api-java')
         compile project(':text')
+        compile project(':class-object')
     }
 }
