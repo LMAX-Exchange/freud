@@ -17,6 +17,10 @@ public final class ClassObjectDsl {
         return new AnalysedObjects<String, Class>(source.getSources(), new ClassFromNameCreator());
     }
 
+    public static Iterable<Class> classOf(FreudSource<String> source, ClassLoader classLoader) {
+        return new AnalysedObjects<String, Class>(source.getSources(), new ClassFromNameCreator(classLoader));
+    }
+
     public static Iterable<Method> methodsWithin(Iterable<Class> classes) {
         return new SubTypeAnalysedObjects<Class, Method>(new MethodsOfClassCreator(), classes);
     }

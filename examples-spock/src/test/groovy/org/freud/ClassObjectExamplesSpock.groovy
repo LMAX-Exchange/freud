@@ -1,22 +1,25 @@
 package org.freud
 
-import org.freud.analysed.classobject.ClassObjectDsl
+import spock.lang.Specification
 
+import static org.freud.analysed.classobject.ClassObjectDsl.classOf
 import static org.freud.groovy.Freud.analyse
-import static org.freud.groovy.Freud.filesIn
+import static org.freud.groovy.Freud.classNamesIn
 import static org.freud.groovy.Freud.forEach
+import static org.freud.groovy.Freud.has
 
-class ClassObjectExamplesSpock {
+class ClassObjectExamplesSpock extends Specification {
 
-    static File classExamplesPackage = ClassLoader.getSystemResource('ClassObjectExamples').file as File
+
+    static File classExamples = new File('examples-resources/src/main/java')
 
     def 'equals always goes together with hash code'() {
     expect:
-        analyse(analysed) { (it.getDeclaredMethod('equals', Object) &&  it.getDeclaredMethod('hashCode')) ||
-                            (!it.getDeclaredMethod('equals', Object) &&  !it.getDeclaredMethod('hashCode'))
+        analyse(analysed) { has {it.getDeclaredMethod('equals', Object)} &&  has {it.getDeclaredMethod('hashCode')} ||
+                            (!has {it.getDeclaredMethod('equals', Object)} &&  !has {it.getDeclaredMethod('hashCode')})
         }
     where:
-        analysed << forEach(ClassObjectDsl.classOf(filesIn([classExamplesPackage]), classExamplesPackage.parentFile))
+        analysed << forEach(classOf(classNamesIn(classExamples)))
     }
 
     def 'test class with JMOCK Mockery object must contain the right RunWith annotation'() {

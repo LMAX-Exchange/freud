@@ -18,6 +18,18 @@ public final class ClassNames implements Iterable<String> {
     private final Deque<File> roots = new LinkedList<File>();
 
 
+    public ClassNames(final File file, final boolean recursive, final FilenameFilter filter) {
+        this.recursive = recursive;
+        this.filenameFilter = filter;
+        this.roots.add(file);
+    }
+
+    public ClassNames(final String path, final boolean recursive, final FilenameFilter filter) {
+        this.recursive = recursive;
+        this.filenameFilter = filter;
+        this.roots.add(toFile(path));
+    }
+
     public ClassNames(final Collection filesOrPaths, final boolean recursive, final FilenameFilter filter) {
         this.recursive = recursive;
         this.filenameFilter = filter;

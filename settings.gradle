@@ -1,2 +1,2 @@
-include 'core', 'api-groovy', 'api-java', 'text', 'class-object', 'examples-spock', 'examples-junit'
+include 'core', 'examples-resources', 'api-groovy', 'api-java', 'text', 'class-object', 'examples-spock', 'examples-junit'
 

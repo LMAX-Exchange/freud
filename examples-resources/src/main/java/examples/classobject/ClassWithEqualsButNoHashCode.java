@@ -1,10 +1,10 @@
-package ClassObjectExamples;
+package examples.classobject;
 
-public final class ClassWithEqualsAndHashCode {
+public final class ClassWithEqualsButNoHashCode {
 
     private int i;
 
-    public ClassWithEqualsAndHashCode(final int i) {
+    public ClassWithEqualsButNoHashCode(final int i) {
         this.i = i;
     }
 
@@ -13,15 +13,10 @@ public final class ClassWithEqualsAndHashCode {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        final ClassWithEqualsAndHashCode that = (ClassWithEqualsAndHashCode) o;
+        final ClassWithEqualsButNoHashCode that = (ClassWithEqualsButNoHashCode) o;
 
         if (i != that.i) return false;
 
         return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return i;
     }
 }
