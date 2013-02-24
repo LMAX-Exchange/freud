@@ -26,15 +26,6 @@ class Freud {
         new FilteredAnalysedObjects<A>(analysedObjects, filter as Filter)
     }
 
-    static boolean has(Closure closure) {
-        try {
-            closure.call() as boolean
-        }
-        catch (_) {
-            false
-        }
-    }
-
     static FreudSource<String> classNamesIn(File root, Closure<Boolean> filenameFilter = { false }) {
         new FreudSource<String>(new ClassNames(root, true, toFilenameFilter(filenameFilter)), String)
     }
