@@ -7,13 +7,11 @@ import spock.lang.Specification
 import static org.freud.analysed.classobject.ClassObjectDsl.classOf
 import static org.freud.analysed.classobject.ClassObjectDsl.hasDeclaredMethod
 import static org.freud.groovy.Freud.analyse
-import static org.freud.groovy.Freud.classNamesIn
 import static org.freud.groovy.Freud.forEach
+import static org.freud.groovy.Freud.sourcesIn
 
 class ClassObjectExamplesSpock extends Specification {
 
-
-    static File classExamples = new File('examples-resources/src/main/java')
 
     def 'equals always goes together with hash code'() {
     expect:
@@ -21,8 +19,8 @@ class ClassObjectExamplesSpock extends Specification {
                             (!hasDeclaredMethod(it, 'equals', Object) &&  !hasDeclaredMethod(it, 'hashCode'))
         }
     where:
-        analysed << forEach(classOf(classNamesIn(classExamples)),
-                        { it.name.equals('examples.classobject.ClassWithEqualsButNoHashCode') })
+        analysed << forEach(classOf(sourcesIn(['examples.classobject.ClassWithEqualsAndHashCode',
+                                               'examples.classobject.EmptyClass'], String)))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -32,8 +30,7 @@ class ClassObjectExamplesSpock extends Specification {
                 (!hasDeclaredMethod(it, 'equals', Object) &&  !hasDeclaredMethod(it, 'hashCode'))
         }
     where:
-        analysed << forEach(classOf(classNamesIn(classExamples)),
-                { !it.name.equals('examples.classobject.ClassWithEqualsButNoHashCode') })
+        analysed << forEach(classOf(sourcesIn(['examples.classobject.ClassWithEqualsButNoHashCode'], String)))
     }
 
     def 'test class with JMOCK Mockery object must contain the right RunWith annotation'() {

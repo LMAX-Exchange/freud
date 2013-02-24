@@ -49,4 +49,9 @@ public final class AnalysedObjectBreadcrumbs {
     public int size() {
         return breadcrumbs.get().size();
     }
+
+    @Override
+    public String toString() {
+        return "AnalysedObjectBreadcrumbs" + breadcrumbs.get();
+    }
 }
