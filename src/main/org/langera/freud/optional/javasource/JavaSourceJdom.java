@@ -318,8 +318,16 @@ public final class JavaSourceJdom implements JavaSource
 
     public static String parseType(final Element element)
     {
-        final Element typeElement = element.getChild(JavaSourceTokenType.TYPE.getName());
-        return (typeElement == null) ? null :
-                typeElement.getChild(JavaSourceTokenType.QUALIFIED_TYPE_IDENT.getName()).getChildText(JavaSourceTokenType.IDENT.getName());
+    	final Element typeElement = element.getChild(JavaSourceTokenType.TYPE.getName());
+        if(typeElement==null) { //void
+        	return JavaSourceTokenType.VOID.name().toLowerCase();
+        }
+        Element qualifiedType = typeElement.getChild(JavaSourceTokenType.QUALIFIED_TYPE_IDENT.getName());
+        if (qualifiedType !=null) {
+        	return qualifiedType.getChildText(JavaSourceTokenType.IDENT.getName());
+        }else { //primitive type
+        	List<Element> children = typeElement.getChildren();
+        	return children.get(0).getText();
+        }	
     }
 }
