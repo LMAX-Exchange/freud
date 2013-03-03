@@ -41,9 +41,22 @@ class ClassObjectExamplesSpock extends Specification {
     }
 
     def 'all implementors of Comparator must not contain fields'() {
-//        return Freud.iterateOver(Class.class).
-//                assertThat(no(subTypeOf(Comparator.class)).or(no(withFields()))).in(iterator);
+    expect:
+        analyse(analysed) { Class cls ->
+            !Comparator.isAssignableFrom(cls) || cls.declaredFields.length == 0
+        }
+    where:
+        analysed << forEach(classOf(sourcesIn(['examples.classobject.EmptyClass', 'examples.classobject.StatelessComparator'], String)))
     }
 
 
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'all implementors of Comparator must not contain fields - failing test'() {
+    expect:
+        analyse(analysed) { Class cls ->
+            !Comparator.isAssignableFrom(cls) || cls.declaredFields.length == 0
+        }
+    where:
+        analysed << forEach(classOf(sourcesIn(['examples.classobject.StatefulComparator'], String)))
+    }
 }
