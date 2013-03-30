@@ -13,6 +13,11 @@ public final class TextDsl {
     }
 
     @SuppressWarnings("unchecked")
+    public static <T> Iterable<Text> textOf(Iterable<T> iterable, Class<T> type) {
+        return textOf(new FreudSource(iterable, type));
+    }
+
+    @SuppressWarnings("unchecked")
     public static Iterable<Text> textOf(FreudSource source) {
         if (File.class.equals(source.getType())) {
             return new AnalysedObjects<File, Text>(source.getSources(), new TextFromFileCreator());

@@ -1,5 +1,8 @@
 package org.freud
 
+import org.jmock.Mockery
+import org.jmock.integration.junit4.JMock
+import org.junit.runner.RunWith
 import org.spockframework.runtime.ConditionNotSatisfiedError
 import spock.lang.FailsWith
 import spock.lang.Specification
@@ -8,7 +11,6 @@ import static org.freud.analysed.classobject.ClassObjectDsl.classOf
 import static org.freud.analysed.classobject.ClassObjectDsl.hasDeclaredMethod
 import static org.freud.groovy.Freud.analyse
 import static org.freud.groovy.Freud.forEach
-import static org.freud.groovy.Freud.sourcesIn
 
 class ClassObjectExamplesSpock extends Specification {
 
@@ -19,8 +21,8 @@ class ClassObjectExamplesSpock extends Specification {
                             (!hasDeclaredMethod(it, 'equals', Object) &&  !hasDeclaredMethod(it, 'hashCode'))
         }
     where:
-        analysed << forEach(classOf(sourcesIn(['examples.classobject.ClassWithEqualsAndHashCode',
-                                               'examples.classobject.EmptyClass'], String)))
+        analysed << forEach(classOf(['examples.classobject.ClassWithEqualsAndHashCode',
+                                               'examples.classobject.EmptyClass'], String))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -30,14 +32,45 @@ class ClassObjectExamplesSpock extends Specification {
                 (!hasDeclaredMethod(it, 'equals', Object) &&  !hasDeclaredMethod(it, 'hashCode'))
         }
     where:
-        analysed << forEach(classOf(sourcesIn(['examples.classobject.ClassWithEqualsButNoHashCode'], String)))
+        analysed << forEach(classOf(['examples.classobject.ClassWithEqualsButNoHashCode'], String))
     }
 
-    def 'test class with JMOCK Mockery object must contain the right RunWith annotation'() {
-//        return Freud.iterateOver(Class.class).
-//                forEach(classSimpleName().matches(".+Test")).
-//                assertThat(no(hasDeclaredFieldOfType(Mockery.class)).
-//                        or(classAnnotation(RunWith.class, JMock.class))).in(iterator);
+    def 'test class with JMock Mockery object must contain the right RunWith annotation'() {
+    expect:
+        analyse(analysed) { Class cls ->
+            RunWith runWith = (RunWith) cls.getAnnotation(RunWith)
+            !cls.declaredFields.any { it.class == Mockery.class } || (runWith != null && runWith.value() == JMock.class)
+        }
+    where:
+        analysed << forEach(classOf(
+                ['examples.classobject.EmptyClass',
+                       'examples.classobject.ClassThatHasOtherRunWith',
+                       'examples.classobject.ClassThatHasRunWithJMock',
+                ], String))
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'test class with JMock Mockery object must contain the right RunWith annotation - failing test1'() {
+    expect:
+        analyse(analysed) { Class cls ->
+            RunWith runWith = (RunWith) cls.getAnnotation(RunWith)
+            !cls.declaredFields.any { it.type == Mockery.class } || (runWith != null && runWith.value() == JMock.class)
+        }
+    where:
+        analysed << forEach(classOf(
+                ['examples.classobject.ClassWithMockeryFieldButNoRunWith'], String))
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'test class with JMock Mockery object must contain the right RunWith annotation - failing test2'() {
+    expect:
+        analyse(analysed) { Class cls ->
+            RunWith runWith = (RunWith) cls.getAnnotation(RunWith)
+            !cls.declaredFields.any { it.type == Mockery.class } || (runWith != null && runWith.value() == JMock.class)
+        }
+    where:
+        analysed << forEach(classOf(
+                ['examples.classobject.ClassWithMockeryFieldButNoRunWithJMock'], String))
     }
 
     def 'all implementors of Comparator must not contain fields'() {
@@ -46,7 +79,7 @@ class ClassObjectExamplesSpock extends Specification {
             !Comparator.isAssignableFrom(cls) || cls.declaredFields.length == 0
         }
     where:
-        analysed << forEach(classOf(sourcesIn(['examples.classobject.EmptyClass', 'examples.classobject.StatelessComparator'], String)))
+        analysed << forEach(classOf(['examples.classobject.EmptyClass', 'examples.classobject.StatelessComparator'], String))
     }
 
 
@@ -57,6 +90,6 @@ class ClassObjectExamplesSpock extends Specification {
             !Comparator.isAssignableFrom(cls) || cls.declaredFields.length == 0
         }
     where:
-        analysed << forEach(classOf(sourcesIn(['examples.classobject.StatefulComparator'], String)))
+        analysed << forEach(classOf(['examples.classobject.StatefulComparator'], String))
     }
 }

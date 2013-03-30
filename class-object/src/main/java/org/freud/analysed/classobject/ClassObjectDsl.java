@@ -14,6 +14,10 @@ public final class ClassObjectDsl {
         // static utility
     }
 
+    public static <T> Iterable<Class> classOf(Iterable<T> iterable, Class<T> type) {
+        return classOf(new FreudSource(iterable, type));
+    }
+
     public static Iterable<Class> classOf(FreudSource<String> source) {
         return new AnalysedObjects<String, Class>(source.getSources(), new ClassFromNameCreator());
     }

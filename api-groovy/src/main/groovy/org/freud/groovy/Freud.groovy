@@ -33,11 +33,6 @@ class Freud {
         new FilteredAnalysedObjects<A>(analysedObjects, filter as Filter)
     }
 
-    static <T> FreudSource<T> sourcesIn(Iterable<T> iterable, Class<T> type) {
-        new FreudSource<T>(iterable, type)
-    }
-
-
     static FreudSource<File> filesIn(File root, Closure<Boolean> filenameFilter = { false }) {
         new FreudSource<File>(new Files(root, true, toFilenameFilter(filenameFilter)), File)
     }
