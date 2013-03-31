@@ -72,6 +72,16 @@ public final class ClassObjectDsl {
         }
     }
 
+    public static boolean hasDeclaredFieldOfType(Class analysed, final Class type) {
+        for (Field field : analysed.getDeclaredFields()) {
+            if (field.getType() == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public static boolean hasDeclaredField(Class analysed, final String name) {
         try {
             analysed.getDeclaredField(name);

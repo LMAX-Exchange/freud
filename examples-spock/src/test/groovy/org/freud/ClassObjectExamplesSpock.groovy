@@ -8,6 +8,7 @@ import spock.lang.FailsWith
 import spock.lang.Specification
 
 import static org.freud.analysed.classobject.ClassObjectDsl.classOf
+import static org.freud.analysed.classobject.ClassObjectDsl.hasDeclaredFieldOfType
 import static org.freud.analysed.classobject.ClassObjectDsl.hasDeclaredMethod
 import static org.freud.groovy.Freud.analyse
 import static org.freud.groovy.Freud.forEach
@@ -39,7 +40,7 @@ class ClassObjectExamplesSpock extends Specification {
     expect:
         analyse(analysed) { Class cls ->
             RunWith runWith = (RunWith) cls.getAnnotation(RunWith)
-            !cls.declaredFields.any { it.class == Mockery.class } || (runWith != null && runWith.value() == JMock.class)
+            !hasDeclaredFieldOfType(cls, Mockery) || (runWith != null && runWith.value() == JMock.class)
         }
     where:
         analysed << forEach(classOf(
@@ -54,7 +55,7 @@ class ClassObjectExamplesSpock extends Specification {
     expect:
         analyse(analysed) { Class cls ->
             RunWith runWith = (RunWith) cls.getAnnotation(RunWith)
-            !cls.declaredFields.any { it.type == Mockery.class } || (runWith != null && runWith.value() == JMock.class)
+            !hasDeclaredFieldOfType(cls, Mockery) || (runWith != null && runWith.value() == JMock.class)
         }
     where:
         analysed << forEach(classOf(
@@ -66,7 +67,7 @@ class ClassObjectExamplesSpock extends Specification {
     expect:
         analyse(analysed) { Class cls ->
             RunWith runWith = (RunWith) cls.getAnnotation(RunWith)
-            !cls.declaredFields.any { it.type == Mockery.class } || (runWith != null && runWith.value() == JMock.class)
+            !hasDeclaredFieldOfType(cls, Mockery) || (runWith != null && runWith.value() == JMock.class)
         }
     where:
         analysed << forEach(classOf(
