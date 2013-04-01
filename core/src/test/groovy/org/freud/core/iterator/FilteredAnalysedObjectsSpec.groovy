@@ -81,7 +81,7 @@ class FilteredAnalysedObjectsSpec extends Specification {
     def 'does not store items as breadcrumbs - only a filter'() {
     given:
         Iterator filteredIterator =
-            new FilteredAnalysedObjects(new AnalysedObjects(['a', 'b', 'c', 'd'], { it } as Creator), filter).iterator()
+            new FilteredAnalysedObjects(new AnalysedObjects({ it } as Creator, ['a', 'b', 'c', 'd']), filter).iterator()
         filter.filter('a') >> true
         filter.filter('b') >> false
         filter.filter('c') >> true

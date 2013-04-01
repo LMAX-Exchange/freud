@@ -108,7 +108,7 @@ class SubTypeAnalysedObjectsSpec extends Specification {
     def 'analysed object appended to breadcrumbs'() {
     given:
         Iterator iterator = new SubTypeAnalysedObjects(creator,
-                        new AnalysedObjects(['a', 'b', 'c', 'd'], { "X$it" } as Creator)).iterator()
+                        new AnalysedObjects({ "X$it" } as Creator, ['a', 'b', 'c', 'd'])).iterator()
         creator.create('Xa') >> []
         creator.create('Xb') >> ['b1', 'b2']
         creator.create('Xc') >> ['c1', 'c2']

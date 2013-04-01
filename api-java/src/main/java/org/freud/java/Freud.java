@@ -21,7 +21,7 @@ public final class Freud {
     }
 
     public static <A> Iterable<Object[]> parameterise(Iterable<A> sourceObjects, int numberOfParameters) {
-        return new AnalysedObjects<A, Object[]>(sourceObjects, new ParametersCreator<A>(numberOfParameters), false);
+        return new AnalysedObjects<A, Object[]>(new ParametersCreator<A>(numberOfParameters), sourceObjects, false);
     }
 
     public static <A> Iterable<A> forEach(Iterable<A> analysedObjects, Matcher<A> matcher) {

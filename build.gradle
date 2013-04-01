@@ -135,6 +135,7 @@ project(':examples-spock') {
         compile project(':examples-resources')
         compile project(':api-groovy')
         compile project(':text')
+        compile project(':properties')
         compile project(':class-object')
     }
 }
@@ -145,6 +146,7 @@ project(':examples-junit') {
         compile project(':examples-resources')
         compile project(':api-java')
         compile project(':text')
+        compile project(':properties')
         compile project(':class-object')
     }
 }

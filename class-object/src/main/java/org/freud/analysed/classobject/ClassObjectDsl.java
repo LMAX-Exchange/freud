@@ -19,11 +19,11 @@ public final class ClassObjectDsl {
     }
 
     public static Iterable<Class> classOf(FreudSource<String> source) {
-        return new AnalysedObjects<String, Class>(source.getSources(), new ClassFromNameCreator());
+        return new AnalysedObjects<String, Class>(new ClassFromNameCreator(), source.getSources());
     }
 
     public static Iterable<Class> classOf(FreudSource<String> source, ClassLoader classLoader) {
-        return new AnalysedObjects<String, Class>(source.getSources(), new ClassFromNameCreator(classLoader));
+        return new AnalysedObjects<String, Class>(new ClassFromNameCreator(classLoader), source.getSources());
     }
 
     public static Iterable<Method> methodsWithin(Iterable<Class> classes) {

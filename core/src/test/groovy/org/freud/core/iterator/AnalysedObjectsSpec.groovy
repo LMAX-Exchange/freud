@@ -16,7 +16,7 @@ class AnalysedObjectsSpec extends Specification {
 
     def setup() {
        sources.iterator() >> sourcesIterator
-       analysedObjects = new AnalysedObjects(sources, creator)
+       analysedObjects = new AnalysedObjects(creator, sources)
     }
 
     def 'returns no next item when there is not one'() {
@@ -57,7 +57,7 @@ class AnalysedObjectsSpec extends Specification {
         sourcesIterator.next() >>> [ 'a', 'b' ]
         creator.create('a') >> '1'
         creator.create('b') >> '2'
-        analysedObjects = new AnalysedObjects(sources, creator)
+        analysedObjects = new AnalysedObjects(creator, sources)
         Iterator iterator = analysedObjects.iterator()
     when:
         iterator.next()
@@ -74,7 +74,7 @@ class AnalysedObjectsSpec extends Specification {
 
     def 'does not save breadcrumbs when not enabled'() {
     given:
-        Iterator iterator = new AnalysedObjects(['a'], { '1' } as Creator, false).iterator()
+        Iterator iterator = new AnalysedObjects({ '1' } as Creator, ['a'], false).iterator()
     when:
         iterator.next()
     then:
@@ -90,11 +90,11 @@ class AnalysedObjectsSpec extends Specification {
         creator.create('b') >> '2'
         Iterator iterator = analysedObjects.iterator()
         Iterator otherIterator =
-                new AnalysedObjects<String, String>(
-                        new AnalysedObjects<String, String>(
-                            new AnalysedObjects<String, String>(['x', 'y', 'z'], { it } as Creator),
-                                { it } as Creator),
-                        { it } as Creator).iterator()
+                new AnalysedObjects<String, String>({ it } as Creator,
+                        new AnalysedObjects<String, String>({ it } as Creator,
+                                new AnalysedObjects<String, String>({ it } as Creator, ['x', 'y', 'z'])
+                        )
+                ).iterator()
         when:
         otherIterator.next()
         iterator.next()
@@ -106,9 +106,9 @@ class AnalysedObjectsSpec extends Specification {
     def 'does not clear breadcrumbs when iterator chained to other breadcrumbs supported iterators'() {
     given:
         AnalysedObjects<String, String> iterator1 =
-            new AnalysedObjects<String, String>(['1', '2', '3'], { "X${it}" } as Creator)
-        AnalysedObjects<String, String> iterator2 = new AnalysedObjects(iterator1, { "${it}X"} as Creator)
-        Iterator iterator = new AnalysedObjects(iterator2, { it } as Creator).iterator()
+            new AnalysedObjects<String, String>({ "X${it}" } as Creator, ['1', '2', '3'])
+        AnalysedObjects<String, String> iterator2 = new AnalysedObjects({ "${it}X"} as Creator, iterator1)
+        Iterator iterator = new AnalysedObjects({ it } as Creator, iterator2).iterator()
     when:
         iterator.next()
     then:
