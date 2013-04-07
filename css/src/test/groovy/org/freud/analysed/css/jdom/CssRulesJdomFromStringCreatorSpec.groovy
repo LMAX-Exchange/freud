@@ -1,9 +1,16 @@
 package org.freud.analysed.css.jdom
 
 import org.freud.analysed.css.rule.CssRule
-import org.freud.analysed.css.rule.selector.CssSelector
 import spock.lang.Specification
 import spock.lang.Subject
+
+import static org.freud.analysed.css.jdom.CssTestUtil.cssDeclaration
+import static org.freud.analysed.css.jdom.CssTestUtil.cssRule
+import static org.freud.analysed.css.jdom.CssTestUtil.cssSelector
+import static org.freud.analysed.css.jdom.CssTestUtil.matchClosuresToList
+import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
+import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID
+import static org.freud.analysed.css.rule.selector.CssSelector.Type.TAG
 
 class CssRulesJdomFromStringCreatorSpec extends Specification {
 
@@ -24,21 +31,13 @@ class CssRulesJdomFromStringCreatorSpec extends Specification {
                  display: none;
                 } ''') as List
     then:
-        rules[0].cssSelectorList[0].type == CssSelector.Type.TAG
-        rules[0].cssSelectorList[0].selectorString == 'tag'
-        rules[0].cssSelectorList[1].type == CssSelector.Type.CLASS
-        rules[0].cssSelectorList[1].selectorString == 'class'
-        rules[0].cssSelectorList.size() == 2
+        matchClosuresToList.call([
+            cssRule([cssSelector(TAG, 'tag', [cssDeclaration('display', 'none')]),
+                    cssSelector(CLASS, 'class', [cssDeclaration('display', 'none')])]),
+            cssRule([cssSelector(ID, 'id', [cssDeclaration('display', 'none')]),
+                    cssSelector(CLASS, 'class', [cssDeclaration('display', 'none')])]),
+            cssRule([cssSelector(ID, 'id', [cssDeclaration('display', 'none')])]),
+        ], rules)
 
-        rules[1].cssSelectorList[0].type == CssSelector.Type.ID
-        rules[1].cssSelectorList[0].selectorString == 'id'
-        rules[1].cssSelectorList[1].type == CssSelector.Type.CLASS
-        rules[1].cssSelectorList[1].selectorString == 'class'
-        rules[1].cssSelectorList.size() == 2
-
-        rules[2].cssSelectorList[0].type == CssSelector.Type.ID
-        rules[2].cssSelectorList[0].selectorString == 'id'
-        rules[2].cssSelectorList.size() == 1
-        rules.size() == 3
     }
 }

@@ -15,7 +15,8 @@ final class CssSelectorJdom implements CssSelector {
         this.cssRule = cssRule;
         type = Type.valueOf(element.getName());
         selectorString = element.getAttributeValue(JdomTreeAdaptor.ID_ATTR);
-        this.combinator = combinator;
+        this.combinator = (type == Type.PSEUDO) ? Combinator.PSEUDO :
+                                (type == Type.ATTRIB) ? Combinator.ATTRIB : combinator;
     }
 
     @Override

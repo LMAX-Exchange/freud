@@ -19,7 +19,7 @@ public interface CssSelector {
     }
 
     public enum Combinator {
-        ADJACENT_SIBLING, CHILD, DESCENDANT;
+        ADJACENT_SIBLING, CHILD, DESCENDANT, PSEUDO, ATTRIB;
 
         public static boolean isCombinator(String name) {
             final Combinator[] combinators = Combinator.values();

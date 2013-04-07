@@ -46,7 +46,7 @@ final class CssRuleJdom implements CssRule {
         cssSelectorList = new ArrayList<CssSelector>();
         final List<Element> children = ruleElement.getChildren();
         int index = 0;
-        CssSelector.Combinator combinator = CssSelector.Combinator.DESCENDANT;
+        CssSelector.Combinator combinator = null;
         for (Element child : children) {
             if (CssTokenType.COMMA.name().equals(child.getName())) {
                 index++;

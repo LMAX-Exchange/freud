@@ -6,6 +6,10 @@ table, tr, td {
     display: none;
 }
 
+table tr td {
+    display: none;
+}
+
 a + #my-link-id > #myOtherLinkId {
     display: none;
     color: red;
