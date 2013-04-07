@@ -22,8 +22,7 @@ import org.antlr.runtime.tree.TreeAdaptor;
 /**
  * Simplified version of grammar CSS grammar - http://www.antlr.org/grammar/1214945003224/csst3.g
  */
-public class CssParser extends Parser
-{
+public class CssParser extends Parser {
     public static final String[] tokenNames = new String[]{
             "<invalid>", "<EOR>", "<DOWN>", "<UP>", "IMPORT", "NESTED", "NEST", "RULE", "ATTRIB", "CHILD", "ADJACENT_SIBLING", "ATTRIBEQUAL", "HASVALUE", "BEGINSWITH", "PSEUDO", "PROPERTY", "COLOUR", "FUNCTION", "TAG", "ID", "CLASS", "UNIVERSAL", "IDENT", "SL_COMMENT", "COMMENT", "WS", "'@import'", "'@include'", "'@'", "'{'", "'}'", "','", "'>'", "'+'", "';'", "'*'", "'#'", "'.'", "':'", "'::'", "'['", "']'", "'='", "'~='", "'|='", "'%'", "'px'", "'cm'", "'mm'", "'in'", "'pt'", "'pc'", "'em'", "'ex'", "'deg'", "'rad'", "'grad'", "'ms'", "'s'", "'hz'", "'khz'", "'('", "')'"
     };
@@ -92,46 +91,38 @@ public class CssParser extends Parser
     // delegators
 
 
-    public CssParser(TokenStream input)
-    {
+    public CssParser(TokenStream input) {
         this(input, new RecognizerSharedState());
     }
 
-    public CssParser(TokenStream input, RecognizerSharedState state)
-    {
+    public CssParser(TokenStream input, RecognizerSharedState state) {
         super(input, state);
 
     }
 
     protected TreeAdaptor adaptor = new CommonTreeAdaptor();
 
-    public void setTreeAdaptor(TreeAdaptor adaptor)
-    {
+    public void setTreeAdaptor(TreeAdaptor adaptor) {
         this.adaptor = adaptor;
     }
 
-    public TreeAdaptor getTreeAdaptor()
-    {
+    public TreeAdaptor getTreeAdaptor() {
         return adaptor;
     }
 
-    public String[] getTokenNames()
-    {
+    public String[] getTokenNames() {
         return CssParser.tokenNames;
     }
 
-    public String getGrammarFileName()
-    {
+    public String getGrammarFileName() {
         return "/home/langera/dev/freud/src/grammar/Css.g";
     }
 
 
-    public static class stylesheet_return extends ParserRuleReturnScope
-    {
+    public static class stylesheet_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -141,8 +132,7 @@ public class CssParser extends Parser
     // $ANTLR start "stylesheet"
     // /home/langera/dev/freud/src/grammar/Css.g:40:1: stylesheet : ( importRule )* ( nested | ruleset )+ ;
 
-    public final CssParser.stylesheet_return stylesheet() throws RecognitionException
-    {
+    public final CssParser.stylesheet_return stylesheet() throws RecognitionException {
         CssParser.stylesheet_return retval = new CssParser.stylesheet_return();
         retval.start = input.LT(1);
 
@@ -155,8 +145,7 @@ public class CssParser extends Parser
         CssParser.ruleset_return ruleset3 = null;
 
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:41:2: ( ( importRule )* ( nested | ruleset )+ )
             // /home/langera/dev/freud/src/grammar/Css.g:41:4: ( importRule )* ( nested | ruleset )+
             {
@@ -164,19 +153,16 @@ public class CssParser extends Parser
 
                 // /home/langera/dev/freud/src/grammar/Css.g:41:4: ( importRule )*
                 loop1:
-                do
-                {
+                do {
                     int alt1 = 2;
                     int LA1_0 = input.LA(1);
 
-                    if (((LA1_0 >= 26 && LA1_0 <= 27)))
-                    {
+                    if (((LA1_0 >= 26 && LA1_0 <= 27))) {
                         alt1 = 1;
                     }
 
 
-                    switch (alt1)
-                    {
+                    switch (alt1) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:41:4: importRule
                         {
@@ -199,23 +185,19 @@ public class CssParser extends Parser
                 // /home/langera/dev/freud/src/grammar/Css.g:41:16: ( nested | ruleset )+
                 int cnt2 = 0;
                 loop2:
-                do
-                {
+                do {
                     int alt2 = 3;
                     int LA2_0 = input.LA(1);
 
-                    if ((LA2_0 == 28))
-                    {
+                    if ((LA2_0 == 28)) {
                         alt2 = 1;
                     }
-                    else if ((LA2_0 == IDENT || (LA2_0 >= 35 && LA2_0 <= 37)))
-                    {
+                    else if ((LA2_0 == IDENT || (LA2_0 >= 35 && LA2_0 <= 37))) {
                         alt2 = 2;
                     }
 
 
-                    switch (alt2)
-                    {
+                    switch (alt2) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:41:17: nested
                         {
@@ -242,8 +224,7 @@ public class CssParser extends Parser
                         break;
 
                         default:
-                            if (cnt2 >= 1)
-                            {
+                            if (cnt2 >= 1) {
                                 break loop2;
                             }
                             EarlyExitException eee =
@@ -263,26 +244,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "stylesheet"
 
-    public static class importRule_return extends ParserRuleReturnScope
-    {
+    public static class importRule_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -292,8 +269,7 @@ public class CssParser extends Parser
     // $ANTLR start "importRule"
     // /home/langera/dev/freud/src/grammar/Css.g:44:1: importRule : ( '@import' | '@include' ) IDENT -> ^( IMPORT IDENT ) ;
 
-    public final CssParser.importRule_return importRule() throws RecognitionException
-    {
+    public final CssParser.importRule_return importRule() throws RecognitionException {
         CssParser.importRule_return retval = new CssParser.importRule_return();
         retval.start = input.LT(1);
 
@@ -310,8 +286,7 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_26 = new RewriteRuleTokenStream(adaptor, "token 26");
         RewriteRuleTokenStream stream_27 = new RewriteRuleTokenStream(adaptor, "token 27");
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:45:2: ( ( '@import' | '@include' ) IDENT -> ^( IMPORT IDENT ) )
             // /home/langera/dev/freud/src/grammar/Css.g:45:4: ( '@import' | '@include' ) IDENT
             {
@@ -319,23 +294,19 @@ public class CssParser extends Parser
                 int alt3 = 2;
                 int LA3_0 = input.LA(1);
 
-                if ((LA3_0 == 26))
-                {
+                if ((LA3_0 == 26)) {
                     alt3 = 1;
                 }
-                else if ((LA3_0 == 27))
-                {
+                else if ((LA3_0 == 27)) {
                     alt3 = 2;
                 }
-                else
-                {
+                else {
                     NoViableAltException nvae =
                             new NoViableAltException("", 3, 0, input);
 
                     throw nvae;
                 }
-                switch (alt3)
-                {
+                switch (alt3) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:45:5: '@import'
                     {
@@ -395,26 +366,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "importRule"
 
-    public static class nested_return extends ParserRuleReturnScope
-    {
+    public static class nested_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -424,8 +391,7 @@ public class CssParser extends Parser
     // $ANTLR start "nested"
     // /home/langera/dev/freud/src/grammar/Css.g:48:1: nested : '@' nest '{' ( properties )? ( nested )* '}' -> ^( NESTED nest ( properties )* ( nested )* ) ;
 
-    public final CssParser.nested_return nested() throws RecognitionException
-    {
+    public final CssParser.nested_return nested() throws RecognitionException {
         CssParser.nested_return retval = new CssParser.nested_return();
         retval.start = input.LT(1);
 
@@ -450,8 +416,7 @@ public class CssParser extends Parser
         RewriteRuleSubtreeStream stream_nested = new RewriteRuleSubtreeStream(adaptor, "rule nested");
         RewriteRuleSubtreeStream stream_nest = new RewriteRuleSubtreeStream(adaptor, "rule nest");
         RewriteRuleSubtreeStream stream_properties = new RewriteRuleSubtreeStream(adaptor, "rule properties");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:49:3: ( '@' nest '{' ( properties )? ( nested )* '}' -> ^( NESTED nest ( properties )* ( nested )* ) )
             // /home/langera/dev/freud/src/grammar/Css.g:49:5: '@' nest '{' ( properties )? ( nested )* '}'
             {
@@ -471,12 +436,10 @@ public class CssParser extends Parser
                 int alt4 = 2;
                 int LA4_0 = input.LA(1);
 
-                if ((LA4_0 == IDENT))
-                {
+                if ((LA4_0 == IDENT)) {
                     alt4 = 1;
                 }
-                switch (alt4)
-                {
+                switch (alt4) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:49:18: properties
                     {
@@ -494,19 +457,16 @@ public class CssParser extends Parser
 
                 // /home/langera/dev/freud/src/grammar/Css.g:49:30: ( nested )*
                 loop5:
-                do
-                {
+                do {
                     int alt5 = 2;
                     int LA5_0 = input.LA(1);
 
-                    if ((LA5_0 == 28))
-                    {
+                    if ((LA5_0 == 28)) {
                         alt5 = 1;
                     }
 
 
-                    switch (alt5)
-                    {
+                    switch (alt5) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:49:30: nested
                         {
@@ -550,15 +510,13 @@ public class CssParser extends Parser
 
                         adaptor.addChild(root_1, stream_nest.nextTree());
                         // /home/langera/dev/freud/src/grammar/Css.g:49:60: ( properties )*
-                        while (stream_properties.hasNext())
-                        {
+                        while (stream_properties.hasNext()) {
                             adaptor.addChild(root_1, stream_properties.nextTree());
 
                         }
                         stream_properties.reset();
                         // /home/langera/dev/freud/src/grammar/Css.g:49:72: ( nested )*
-                        while (stream_nested.hasNext())
-                        {
+                        while (stream_nested.hasNext()) {
                             adaptor.addChild(root_1, stream_nested.nextTree());
 
                         }
@@ -578,26 +536,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "nested"
 
-    public static class nest_return extends ParserRuleReturnScope
-    {
+    public static class nest_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -607,8 +561,7 @@ public class CssParser extends Parser
     // $ANTLR start "nest"
     // /home/langera/dev/freud/src/grammar/Css.g:52:1: nest : IDENT ( IDENT )* ( pseudo )* -> ^( NEST IDENT ( IDENT )* ( pseudo )* ) ;
 
-    public final CssParser.nest_return nest() throws RecognitionException
-    {
+    public final CssParser.nest_return nest() throws RecognitionException {
         CssParser.nest_return retval = new CssParser.nest_return();
         retval.start = input.LT(1);
 
@@ -623,8 +576,7 @@ public class CssParser extends Parser
         CommonTree IDENT14_tree = null;
         RewriteRuleTokenStream stream_IDENT = new RewriteRuleTokenStream(adaptor, "token IDENT");
         RewriteRuleSubtreeStream stream_pseudo = new RewriteRuleSubtreeStream(adaptor, "rule pseudo");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:53:2: ( IDENT ( IDENT )* ( pseudo )* -> ^( NEST IDENT ( IDENT )* ( pseudo )* ) )
             // /home/langera/dev/freud/src/grammar/Css.g:53:4: IDENT ( IDENT )* ( pseudo )*
             {
@@ -633,19 +585,16 @@ public class CssParser extends Parser
 
                 // /home/langera/dev/freud/src/grammar/Css.g:53:10: ( IDENT )*
                 loop6:
-                do
-                {
+                do {
                     int alt6 = 2;
                     int LA6_0 = input.LA(1);
 
-                    if ((LA6_0 == IDENT))
-                    {
+                    if ((LA6_0 == IDENT)) {
                         alt6 = 1;
                     }
 
 
-                    switch (alt6)
-                    {
+                    switch (alt6) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:53:10: IDENT
                         {
@@ -664,19 +613,16 @@ public class CssParser extends Parser
 
                 // /home/langera/dev/freud/src/grammar/Css.g:53:17: ( pseudo )*
                 loop7:
-                do
-                {
+                do {
                     int alt7 = 2;
                     int LA7_0 = input.LA(1);
 
-                    if (((LA7_0 >= 38 && LA7_0 <= 39)))
-                    {
+                    if (((LA7_0 >= 38 && LA7_0 <= 39))) {
                         alt7 = 1;
                     }
 
 
-                    switch (alt7)
-                    {
+                    switch (alt7) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:53:17: pseudo
                         {
@@ -717,15 +663,13 @@ public class CssParser extends Parser
 
                         adaptor.addChild(root_1, stream_IDENT.nextNode());
                         // /home/langera/dev/freud/src/grammar/Css.g:53:42: ( IDENT )*
-                        while (stream_IDENT.hasNext())
-                        {
+                        while (stream_IDENT.hasNext()) {
                             adaptor.addChild(root_1, stream_IDENT.nextNode());
 
                         }
                         stream_IDENT.reset();
                         // /home/langera/dev/freud/src/grammar/Css.g:53:49: ( pseudo )*
-                        while (stream_pseudo.hasNext())
-                        {
+                        while (stream_pseudo.hasNext()) {
                             adaptor.addChild(root_1, stream_pseudo.nextTree());
 
                         }
@@ -745,26 +689,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "nest"
 
-    public static class ruleset_return extends ParserRuleReturnScope
-    {
+    public static class ruleset_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -774,8 +714,7 @@ public class CssParser extends Parser
     // $ANTLR start "ruleset"
     // /home/langera/dev/freud/src/grammar/Css.g:56:1: ruleset : selectors '{' ( properties )? '}' -> ^( RULE selectors ( properties )* ) ;
 
-    public final CssParser.ruleset_return ruleset() throws RecognitionException
-    {
+    public final CssParser.ruleset_return ruleset() throws RecognitionException {
         CssParser.ruleset_return retval = new CssParser.ruleset_return();
         retval.start = input.LT(1);
 
@@ -794,8 +733,7 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_29 = new RewriteRuleTokenStream(adaptor, "token 29");
         RewriteRuleSubtreeStream stream_selectors = new RewriteRuleSubtreeStream(adaptor, "rule selectors");
         RewriteRuleSubtreeStream stream_properties = new RewriteRuleSubtreeStream(adaptor, "rule properties");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:57:3: ( selectors '{' ( properties )? '}' -> ^( RULE selectors ( properties )* ) )
             // /home/langera/dev/freud/src/grammar/Css.g:57:5: selectors '{' ( properties )? '}'
             {
@@ -812,12 +750,10 @@ public class CssParser extends Parser
                 int alt8 = 2;
                 int LA8_0 = input.LA(1);
 
-                if ((LA8_0 == IDENT))
-                {
+                if ((LA8_0 == IDENT)) {
                     alt8 = 1;
                 }
-                switch (alt8)
-                {
+                switch (alt8) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:57:19: properties
                     {
@@ -857,8 +793,7 @@ public class CssParser extends Parser
 
                         adaptor.addChild(root_1, stream_selectors.nextTree());
                         // /home/langera/dev/freud/src/grammar/Css.g:57:56: ( properties )*
-                        while (stream_properties.hasNext())
-                        {
+                        while (stream_properties.hasNext()) {
                             adaptor.addChild(root_1, stream_properties.nextTree());
 
                         }
@@ -878,26 +813,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "ruleset"
 
-    public static class selectors_return extends ParserRuleReturnScope
-    {
+    public static class selectors_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -907,8 +838,7 @@ public class CssParser extends Parser
     // $ANTLR start "selectors"
     // /home/langera/dev/freud/src/grammar/Css.g:60:1: selectors : selector ( ',' selector )* ;
 
-    public final CssParser.selectors_return selectors() throws RecognitionException
-    {
+    public final CssParser.selectors_return selectors() throws RecognitionException {
         CssParser.selectors_return retval = new CssParser.selectors_return();
         retval.start = input.LT(1);
 
@@ -922,8 +852,7 @@ public class CssParser extends Parser
 
         CommonTree char_literal21_tree = null;
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:61:2: ( selector ( ',' selector )* )
             // /home/langera/dev/freud/src/grammar/Css.g:61:4: selector ( ',' selector )*
             {
@@ -937,19 +866,16 @@ public class CssParser extends Parser
                 adaptor.addChild(root_0, selector20.getTree());
                 // /home/langera/dev/freud/src/grammar/Css.g:61:13: ( ',' selector )*
                 loop9:
-                do
-                {
+                do {
                     int alt9 = 2;
                     int LA9_0 = input.LA(1);
 
-                    if ((LA9_0 == 31))
-                    {
+                    if ((LA9_0 == 31)) {
                         alt9 = 1;
                     }
 
 
-                    switch (alt9)
-                    {
+                    switch (alt9) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:61:14: ',' selector
                         {
@@ -982,26 +908,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "selectors"
 
-    public static class selector_return extends ParserRuleReturnScope
-    {
+    public static class selector_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -1011,8 +933,7 @@ public class CssParser extends Parser
     // $ANTLR start "selector"
     // /home/langera/dev/freud/src/grammar/Css.g:64:1: selector : elem ( selectorOperation )* ( attrib )* ( pseudo )? -> elem ( selectorOperation )* ( attrib )* ( pseudo )* ;
 
-    public final CssParser.selector_return selector() throws RecognitionException
-    {
+    public final CssParser.selector_return selector() throws RecognitionException {
         CssParser.selector_return retval = new CssParser.selector_return();
         retval.start = input.LT(1);
 
@@ -1031,8 +952,7 @@ public class CssParser extends Parser
         RewriteRuleSubtreeStream stream_pseudo = new RewriteRuleSubtreeStream(adaptor, "rule pseudo");
         RewriteRuleSubtreeStream stream_selectorOperation = new RewriteRuleSubtreeStream(adaptor, "rule selectorOperation");
         RewriteRuleSubtreeStream stream_attrib = new RewriteRuleSubtreeStream(adaptor, "rule attrib");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:65:2: ( elem ( selectorOperation )* ( attrib )* ( pseudo )? -> elem ( selectorOperation )* ( attrib )* ( pseudo )* )
             // /home/langera/dev/freud/src/grammar/Css.g:65:4: elem ( selectorOperation )* ( attrib )* ( pseudo )?
             {
@@ -1044,12 +964,10 @@ public class CssParser extends Parser
                 stream_elem.add(elem23.getTree());
                 // /home/langera/dev/freud/src/grammar/Css.g:65:9: ( selectorOperation )*
                 loop10:
-                do
-                {
+                do {
                     int alt10 = 2;
                     alt10 = dfa10.predict(input);
-                    switch (alt10)
-                    {
+                    switch (alt10) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:65:9: selectorOperation
                         {
@@ -1071,19 +989,16 @@ public class CssParser extends Parser
 
                 // /home/langera/dev/freud/src/grammar/Css.g:65:28: ( attrib )*
                 loop11:
-                do
-                {
+                do {
                     int alt11 = 2;
                     int LA11_0 = input.LA(1);
 
-                    if ((LA11_0 == 40))
-                    {
+                    if ((LA11_0 == 40)) {
                         alt11 = 1;
                     }
 
 
-                    switch (alt11)
-                    {
+                    switch (alt11) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:65:28: attrib
                         {
@@ -1107,12 +1022,10 @@ public class CssParser extends Parser
                 int alt12 = 2;
                 int LA12_0 = input.LA(1);
 
-                if (((LA12_0 >= 38 && LA12_0 <= 39)))
-                {
+                if (((LA12_0 >= 38 && LA12_0 <= 39))) {
                     alt12 = 1;
                 }
-                switch (alt12)
-                {
+                switch (alt12) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:65:36: pseudo
                     {
@@ -1144,22 +1057,19 @@ public class CssParser extends Parser
                 {
                     adaptor.addChild(root_0, stream_elem.nextTree());
                     // /home/langera/dev/freud/src/grammar/Css.g:65:53: ( selectorOperation )*
-                    while (stream_selectorOperation.hasNext())
-                    {
+                    while (stream_selectorOperation.hasNext()) {
                         adaptor.addChild(root_0, stream_selectorOperation.nextTree());
 
                     }
                     stream_selectorOperation.reset();
                     // /home/langera/dev/freud/src/grammar/Css.g:65:72: ( attrib )*
-                    while (stream_attrib.hasNext())
-                    {
+                    while (stream_attrib.hasNext()) {
                         adaptor.addChild(root_0, stream_attrib.nextTree());
 
                     }
                     stream_attrib.reset();
                     // /home/langera/dev/freud/src/grammar/Css.g:65:80: ( pseudo )*
-                    while (stream_pseudo.hasNext())
-                    {
+                    while (stream_pseudo.hasNext()) {
                         adaptor.addChild(root_0, stream_pseudo.nextTree());
 
                     }
@@ -1176,26 +1086,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "selector"
 
-    public static class selectorOperation_return extends ParserRuleReturnScope
-    {
+    public static class selectorOperation_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -1205,8 +1111,7 @@ public class CssParser extends Parser
     // $ANTLR start "selectorOperation"
     // /home/langera/dev/freud/src/grammar/Css.g:68:1: selectorOperation : ( selectop )? elem -> ( selectop )* elem ;
 
-    public final CssParser.selectorOperation_return selectorOperation() throws RecognitionException
-    {
+    public final CssParser.selectorOperation_return selectorOperation() throws RecognitionException {
         CssParser.selectorOperation_return retval = new CssParser.selectorOperation_return();
         retval.start = input.LT(1);
 
@@ -1219,8 +1124,7 @@ public class CssParser extends Parser
 
         RewriteRuleSubtreeStream stream_elem = new RewriteRuleSubtreeStream(adaptor, "rule elem");
         RewriteRuleSubtreeStream stream_selectop = new RewriteRuleSubtreeStream(adaptor, "rule selectop");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:69:2: ( ( selectop )? elem -> ( selectop )* elem )
             // /home/langera/dev/freud/src/grammar/Css.g:69:4: ( selectop )? elem
             {
@@ -1228,12 +1132,10 @@ public class CssParser extends Parser
                 int alt13 = 2;
                 int LA13_0 = input.LA(1);
 
-                if (((LA13_0 >= 32 && LA13_0 <= 33)))
-                {
+                if (((LA13_0 >= 32 && LA13_0 <= 33))) {
                     alt13 = 1;
                 }
-                switch (alt13)
-                {
+                switch (alt13) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:69:4: selectop
                     {
@@ -1271,8 +1173,7 @@ public class CssParser extends Parser
                 // 69:19: -> ( selectop )* elem
                 {
                     // /home/langera/dev/freud/src/grammar/Css.g:69:22: ( selectop )*
-                    while (stream_selectop.hasNext())
-                    {
+                    while (stream_selectop.hasNext()) {
                         adaptor.addChild(root_0, stream_selectop.nextTree());
 
                     }
@@ -1290,26 +1191,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "selectorOperation"
 
-    public static class selectop_return extends ParserRuleReturnScope
-    {
+    public static class selectop_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -1319,8 +1216,7 @@ public class CssParser extends Parser
     // $ANTLR start "selectop"
     // /home/langera/dev/freud/src/grammar/Css.g:72:1: selectop : ( '>' -> CHILD | '+' -> ADJACENT_SIBLING );
 
-    public final CssParser.selectop_return selectop() throws RecognitionException
-    {
+    public final CssParser.selectop_return selectop() throws RecognitionException {
         CssParser.selectop_return retval = new CssParser.selectop_return();
         retval.start = input.LT(1);
 
@@ -1334,29 +1230,24 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_32 = new RewriteRuleTokenStream(adaptor, "token 32");
         RewriteRuleTokenStream stream_33 = new RewriteRuleTokenStream(adaptor, "token 33");
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:73:2: ( '>' -> CHILD | '+' -> ADJACENT_SIBLING )
             int alt14 = 2;
             int LA14_0 = input.LA(1);
 
-            if ((LA14_0 == 32))
-            {
+            if ((LA14_0 == 32)) {
                 alt14 = 1;
             }
-            else if ((LA14_0 == 33))
-            {
+            else if ((LA14_0 == 33)) {
                 alt14 = 2;
             }
-            else
-            {
+            else {
                 NoViableAltException nvae =
                         new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
-            switch (alt14)
-            {
+            switch (alt14) {
                 case 1:
                     // /home/langera/dev/freud/src/grammar/Css.g:73:4: '>'
                 {
@@ -1419,26 +1310,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "selectop"
 
-    public static class properties_return extends ParserRuleReturnScope
-    {
+    public static class properties_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -1448,8 +1335,7 @@ public class CssParser extends Parser
     // $ANTLR start "properties"
     // /home/langera/dev/freud/src/grammar/Css.g:77:1: properties : declaration ( ';' ( declaration )? )* -> ( declaration )+ ;
 
-    public final CssParser.properties_return properties() throws RecognitionException
-    {
+    public final CssParser.properties_return properties() throws RecognitionException {
         CssParser.properties_return retval = new CssParser.properties_return();
         retval.start = input.LT(1);
 
@@ -1464,8 +1350,7 @@ public class CssParser extends Parser
         CommonTree char_literal32_tree = null;
         RewriteRuleTokenStream stream_34 = new RewriteRuleTokenStream(adaptor, "token 34");
         RewriteRuleSubtreeStream stream_declaration = new RewriteRuleSubtreeStream(adaptor, "rule declaration");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:78:2: ( declaration ( ';' ( declaration )? )* -> ( declaration )+ )
             // /home/langera/dev/freud/src/grammar/Css.g:78:4: declaration ( ';' ( declaration )? )*
             {
@@ -1477,19 +1362,16 @@ public class CssParser extends Parser
                 stream_declaration.add(declaration31.getTree());
                 // /home/langera/dev/freud/src/grammar/Css.g:78:16: ( ';' ( declaration )? )*
                 loop16:
-                do
-                {
+                do {
                     int alt16 = 2;
                     int LA16_0 = input.LA(1);
 
-                    if ((LA16_0 == 34))
-                    {
+                    if ((LA16_0 == 34)) {
                         alt16 = 1;
                     }
 
 
-                    switch (alt16)
-                    {
+                    switch (alt16) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:78:17: ';' ( declaration )?
                         {
@@ -1500,12 +1382,10 @@ public class CssParser extends Parser
                             int alt15 = 2;
                             int LA15_0 = input.LA(1);
 
-                            if ((LA15_0 == IDENT))
-                            {
+                            if ((LA15_0 == IDENT)) {
                                 alt15 = 1;
                             }
-                            switch (alt15)
-                            {
+                            switch (alt15) {
                                 case 1:
                                     // /home/langera/dev/freud/src/grammar/Css.g:78:21: declaration
                                 {
@@ -1545,12 +1425,10 @@ public class CssParser extends Parser
                 root_0 = (CommonTree) adaptor.nil();
                 // 78:36: -> ( declaration )+
                 {
-                    if (!(stream_declaration.hasNext()))
-                    {
+                    if (!(stream_declaration.hasNext())) {
                         throw new RewriteEarlyExitException();
                     }
-                    while (stream_declaration.hasNext())
-                    {
+                    while (stream_declaration.hasNext()) {
                         adaptor.addChild(root_0, stream_declaration.nextTree());
 
                     }
@@ -1567,26 +1445,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "properties"
 
-    public static class elem_return extends ParserRuleReturnScope
-    {
+    public static class elem_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -1596,8 +1470,7 @@ public class CssParser extends Parser
     // $ANTLR start "elem"
     // /home/langera/dev/freud/src/grammar/Css.g:81:1: elem : ( '*' -> ^( UNIVERSAL ) | '#' IDENT -> ^( ID IDENT ) | '.' IDENT -> ^( CLASS IDENT ) | IDENT -> ^( TAG IDENT ) );
 
-    public final CssParser.elem_return elem() throws RecognitionException
-    {
+    public final CssParser.elem_return elem() throws RecognitionException {
         CssParser.elem_return retval = new CssParser.elem_return();
         retval.start = input.LT(1);
 
@@ -1621,29 +1494,23 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_36 = new RewriteRuleTokenStream(adaptor, "token 36");
         RewriteRuleTokenStream stream_37 = new RewriteRuleTokenStream(adaptor, "token 37");
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:82:2: ( '*' -> ^( UNIVERSAL ) | '#' IDENT -> ^( ID IDENT ) | '.' IDENT -> ^( CLASS IDENT ) | IDENT -> ^( TAG IDENT ) )
             int alt17 = 4;
-            switch (input.LA(1))
-            {
-                case 35:
-                {
+            switch (input.LA(1)) {
+                case 35: {
                     alt17 = 1;
                 }
                 break;
-                case 36:
-                {
+                case 36: {
                     alt17 = 2;
                 }
                 break;
-                case 37:
-                {
+                case 37: {
                     alt17 = 3;
                 }
                 break;
-                case IDENT:
-                {
+                case IDENT: {
                     alt17 = 4;
                 }
                 break;
@@ -1654,8 +1521,7 @@ public class CssParser extends Parser
                     throw nvae;
             }
 
-            switch (alt17)
-            {
+            switch (alt17) {
                 case 1:
                     // /home/langera/dev/freud/src/grammar/Css.g:82:4: '*'
                 {
@@ -1808,26 +1674,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "elem"
 
-    public static class pseudo_return extends ParserRuleReturnScope
-    {
+    public static class pseudo_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -1837,8 +1699,7 @@ public class CssParser extends Parser
     // $ANTLR start "pseudo"
     // /home/langera/dev/freud/src/grammar/Css.g:88:1: pseudo : ( ( ':' | '::' ) IDENT -> ^( PSEUDO IDENT ) | ( ':' | '::' ) function -> ^( PSEUDO function ) );
 
-    public final CssParser.pseudo_return pseudo() throws RecognitionException
-    {
+    public final CssParser.pseudo_return pseudo() throws RecognitionException {
         CssParser.pseudo_return retval = new CssParser.pseudo_return();
         retval.start = input.LT(1);
 
@@ -1861,13 +1722,11 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_39 = new RewriteRuleTokenStream(adaptor, "token 39");
         RewriteRuleTokenStream stream_38 = new RewriteRuleTokenStream(adaptor, "token 38");
         RewriteRuleSubtreeStream stream_function = new RewriteRuleSubtreeStream(adaptor, "rule function");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:89:2: ( ( ':' | '::' ) IDENT -> ^( PSEUDO IDENT ) | ( ':' | '::' ) function -> ^( PSEUDO function ) )
             int alt20 = 2;
             alt20 = dfa20.predict(input);
-            switch (alt20)
-            {
+            switch (alt20) {
                 case 1:
                     // /home/langera/dev/freud/src/grammar/Css.g:89:4: ( ':' | '::' ) IDENT
                 {
@@ -1875,23 +1734,19 @@ public class CssParser extends Parser
                     int alt18 = 2;
                     int LA18_0 = input.LA(1);
 
-                    if ((LA18_0 == 38))
-                    {
+                    if ((LA18_0 == 38)) {
                         alt18 = 1;
                     }
-                    else if ((LA18_0 == 39))
-                    {
+                    else if ((LA18_0 == 39)) {
                         alt18 = 2;
                     }
-                    else
-                    {
+                    else {
                         NoViableAltException nvae =
                                 new NoViableAltException("", 18, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt18)
-                    {
+                    switch (alt18) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:89:5: ':'
                         {
@@ -1952,23 +1807,19 @@ public class CssParser extends Parser
                     int alt19 = 2;
                     int LA19_0 = input.LA(1);
 
-                    if ((LA19_0 == 38))
-                    {
+                    if ((LA19_0 == 38)) {
                         alt19 = 1;
                     }
-                    else if ((LA19_0 == 39))
-                    {
+                    else if ((LA19_0 == 39)) {
                         alt19 = 2;
                     }
-                    else
-                    {
+                    else {
                         NoViableAltException nvae =
                                 new NoViableAltException("", 19, 0, input);
 
                         throw nvae;
                     }
-                    switch (alt19)
-                    {
+                    switch (alt19) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:90:5: ':'
                         {
@@ -2034,26 +1885,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "pseudo"
 
-    public static class attrib_return extends ParserRuleReturnScope
-    {
+    public static class attrib_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2063,8 +1910,7 @@ public class CssParser extends Parser
     // $ANTLR start "attrib"
     // /home/langera/dev/freud/src/grammar/Css.g:93:1: attrib : '[' IDENT ( attribRelate IDENT )? ']' -> ^( ATTRIB IDENT ( attribRelate ( IDENT )* )? ) ;
 
-    public final CssParser.attrib_return attrib() throws RecognitionException
-    {
+    public final CssParser.attrib_return attrib() throws RecognitionException {
         CssParser.attrib_return retval = new CssParser.attrib_return();
         retval.start = input.LT(1);
 
@@ -2085,8 +1931,7 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_41 = new RewriteRuleTokenStream(adaptor, "token 41");
         RewriteRuleTokenStream stream_40 = new RewriteRuleTokenStream(adaptor, "token 40");
         RewriteRuleSubtreeStream stream_attribRelate = new RewriteRuleSubtreeStream(adaptor, "rule attribRelate");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:94:2: ( '[' IDENT ( attribRelate IDENT )? ']' -> ^( ATTRIB IDENT ( attribRelate ( IDENT )* )? ) )
             // /home/langera/dev/freud/src/grammar/Css.g:94:4: '[' IDENT ( attribRelate IDENT )? ']'
             {
@@ -2100,12 +1945,10 @@ public class CssParser extends Parser
                 int alt21 = 2;
                 int LA21_0 = input.LA(1);
 
-                if (((LA21_0 >= 42 && LA21_0 <= 44)))
-                {
+                if (((LA21_0 >= 42 && LA21_0 <= 44))) {
                     alt21 = 1;
                 }
-                switch (alt21)
-                {
+                switch (alt21) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:94:15: attribRelate IDENT
                     {
@@ -2148,12 +1991,10 @@ public class CssParser extends Parser
 
                         adaptor.addChild(root_1, stream_IDENT.nextNode());
                         // /home/langera/dev/freud/src/grammar/Css.g:94:59: ( attribRelate ( IDENT )* )?
-                        if (stream_attribRelate.hasNext() || stream_IDENT.hasNext())
-                        {
+                        if (stream_attribRelate.hasNext() || stream_IDENT.hasNext()) {
                             adaptor.addChild(root_1, stream_attribRelate.nextTree());
                             // /home/langera/dev/freud/src/grammar/Css.g:94:73: ( IDENT )*
-                            while (stream_IDENT.hasNext())
-                            {
+                            while (stream_IDENT.hasNext()) {
                                 adaptor.addChild(root_1, stream_IDENT.nextNode());
 
                             }
@@ -2177,26 +2018,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "attrib"
 
-    public static class attribRelate_return extends ParserRuleReturnScope
-    {
+    public static class attribRelate_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2206,8 +2043,7 @@ public class CssParser extends Parser
     // $ANTLR start "attribRelate"
     // /home/langera/dev/freud/src/grammar/Css.g:97:1: attribRelate : ( '=' -> ATTRIBEQUAL | '~=' -> HASVALUE | '|=' -> BEGINSWITH );
 
-    public final CssParser.attribRelate_return attribRelate() throws RecognitionException
-    {
+    public final CssParser.attribRelate_return attribRelate() throws RecognitionException {
         CssParser.attribRelate_return retval = new CssParser.attribRelate_return();
         retval.start = input.LT(1);
 
@@ -2224,24 +2060,19 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_44 = new RewriteRuleTokenStream(adaptor, "token 44");
         RewriteRuleTokenStream stream_42 = new RewriteRuleTokenStream(adaptor, "token 42");
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:98:2: ( '=' -> ATTRIBEQUAL | '~=' -> HASVALUE | '|=' -> BEGINSWITH )
             int alt22 = 3;
-            switch (input.LA(1))
-            {
-                case 42:
-                {
+            switch (input.LA(1)) {
+                case 42: {
                     alt22 = 1;
                 }
                 break;
-                case 43:
-                {
+                case 43: {
                     alt22 = 2;
                 }
                 break;
-                case 44:
-                {
+                case 44: {
                     alt22 = 3;
                 }
                 break;
@@ -2252,8 +2083,7 @@ public class CssParser extends Parser
                     throw nvae;
             }
 
-            switch (alt22)
-            {
+            switch (alt22) {
                 case 1:
                     // /home/langera/dev/freud/src/grammar/Css.g:98:4: '='
                 {
@@ -2343,26 +2173,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "attribRelate"
 
-    public static class declaration_return extends ParserRuleReturnScope
-    {
+    public static class declaration_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2372,8 +2198,7 @@ public class CssParser extends Parser
     // $ANTLR start "declaration"
     // /home/langera/dev/freud/src/grammar/Css.g:103:1: declaration : IDENT ':' args -> ^( PROPERTY IDENT args ) ;
 
-    public final CssParser.declaration_return declaration() throws RecognitionException
-    {
+    public final CssParser.declaration_return declaration() throws RecognitionException {
         CssParser.declaration_return retval = new CssParser.declaration_return();
         retval.start = input.LT(1);
 
@@ -2389,8 +2214,7 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_IDENT = new RewriteRuleTokenStream(adaptor, "token IDENT");
         RewriteRuleTokenStream stream_38 = new RewriteRuleTokenStream(adaptor, "token 38");
         RewriteRuleSubtreeStream stream_args = new RewriteRuleSubtreeStream(adaptor, "rule args");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:104:2: ( IDENT ':' args -> ^( PROPERTY IDENT args ) )
             // /home/langera/dev/freud/src/grammar/Css.g:104:4: IDENT ':' args
             {
@@ -2443,26 +2267,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "declaration"
 
-    public static class args_return extends ParserRuleReturnScope
-    {
+    public static class args_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2472,8 +2292,7 @@ public class CssParser extends Parser
     // $ANTLR start "args"
     // /home/langera/dev/freud/src/grammar/Css.g:107:1: args : expr ( ( ',' )? expr )* -> ( expr )* ;
 
-    public final CssParser.args_return args() throws RecognitionException
-    {
+    public final CssParser.args_return args() throws RecognitionException {
         CssParser.args_return retval = new CssParser.args_return();
         retval.start = input.LT(1);
 
@@ -2488,8 +2307,7 @@ public class CssParser extends Parser
         CommonTree char_literal58_tree = null;
         RewriteRuleTokenStream stream_31 = new RewriteRuleTokenStream(adaptor, "token 31");
         RewriteRuleSubtreeStream stream_expr = new RewriteRuleSubtreeStream(adaptor, "rule expr");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:108:2: ( expr ( ( ',' )? expr )* -> ( expr )* )
             // /home/langera/dev/freud/src/grammar/Css.g:108:4: expr ( ( ',' )? expr )*
             {
@@ -2501,19 +2319,16 @@ public class CssParser extends Parser
                 stream_expr.add(expr57.getTree());
                 // /home/langera/dev/freud/src/grammar/Css.g:108:9: ( ( ',' )? expr )*
                 loop24:
-                do
-                {
+                do {
                     int alt24 = 2;
                     int LA24_0 = input.LA(1);
 
-                    if ((LA24_0 == IDENT || LA24_0 == 31 || (LA24_0 >= 36 && LA24_0 <= 37)))
-                    {
+                    if ((LA24_0 == IDENT || LA24_0 == 31 || (LA24_0 >= 36 && LA24_0 <= 37))) {
                         alt24 = 1;
                     }
 
 
-                    switch (alt24)
-                    {
+                    switch (alt24) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:108:10: ( ',' )? expr
                         {
@@ -2521,12 +2336,10 @@ public class CssParser extends Parser
                             int alt23 = 2;
                             int LA23_0 = input.LA(1);
 
-                            if ((LA23_0 == 31))
-                            {
+                            if ((LA23_0 == 31)) {
                                 alt23 = 1;
                             }
-                            switch (alt23)
-                            {
+                            switch (alt23) {
                                 case 1:
                                     // /home/langera/dev/freud/src/grammar/Css.g:108:10: ','
                                 {
@@ -2570,8 +2383,7 @@ public class CssParser extends Parser
                 // 108:22: -> ( expr )*
                 {
                     // /home/langera/dev/freud/src/grammar/Css.g:108:25: ( expr )*
-                    while (stream_expr.hasNext())
-                    {
+                    while (stream_expr.hasNext()) {
                         adaptor.addChild(root_0, stream_expr.nextTree());
 
                     }
@@ -2588,26 +2400,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "args"
 
-    public static class expr_return extends ParserRuleReturnScope
-    {
+    public static class expr_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2617,8 +2425,7 @@ public class CssParser extends Parser
     // $ANTLR start "expr"
     // /home/langera/dev/freud/src/grammar/Css.g:111:1: expr : ( ( IDENT unit ) | IDENT | '#' IDENT -> ^( COLOUR '#' IDENT ) | '.' IDENT | function );
 
-    public final CssParser.expr_return expr() throws RecognitionException
-    {
+    public final CssParser.expr_return expr() throws RecognitionException {
         CssParser.expr_return retval = new CssParser.expr_return();
         retval.start = input.LT(1);
 
@@ -2644,13 +2451,11 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_IDENT = new RewriteRuleTokenStream(adaptor, "token IDENT");
         RewriteRuleTokenStream stream_36 = new RewriteRuleTokenStream(adaptor, "token 36");
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:112:2: ( ( IDENT unit ) | IDENT | '#' IDENT -> ^( COLOUR '#' IDENT ) | '.' IDENT | function )
             int alt25 = 5;
             alt25 = dfa25.predict(input);
-            switch (alt25)
-            {
+            switch (alt25) {
                 case 1:
                     // /home/langera/dev/freud/src/grammar/Css.g:112:4: ( IDENT unit )
                 {
@@ -2764,26 +2569,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "expr"
 
-    public static class unit_return extends ParserRuleReturnScope
-    {
+    public static class unit_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2793,8 +2594,7 @@ public class CssParser extends Parser
     // $ANTLR start "unit"
     // /home/langera/dev/freud/src/grammar/Css.g:119:1: unit : ( '%' | 'px' | 'cm' | 'mm' | 'in' | 'pt' | 'pc' | 'em' | 'ex' | 'deg' | 'rad' | 'grad' | 'ms' | 's' | 'hz' | 'khz' ) ;
 
-    public final CssParser.unit_return unit() throws RecognitionException
-    {
+    public final CssParser.unit_return unit() throws RecognitionException {
         CssParser.unit_return retval = new CssParser.unit_return();
         retval.start = input.LT(1);
 
@@ -2804,22 +2604,19 @@ public class CssParser extends Parser
 
         CommonTree set68_tree = null;
 
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:120:2: ( ( '%' | 'px' | 'cm' | 'mm' | 'in' | 'pt' | 'pc' | 'em' | 'ex' | 'deg' | 'rad' | 'grad' | 'ms' | 's' | 'hz' | 'khz' ) )
             // /home/langera/dev/freud/src/grammar/Css.g:120:4: ( '%' | 'px' | 'cm' | 'mm' | 'in' | 'pt' | 'pc' | 'em' | 'ex' | 'deg' | 'rad' | 'grad' | 'ms' | 's' | 'hz' | 'khz' )
             {
                 root_0 = (CommonTree) adaptor.nil();
 
                 set68 = (Token) input.LT(1);
-                if ((input.LA(1) >= 45 && input.LA(1) <= 60))
-                {
+                if ((input.LA(1) >= 45 && input.LA(1) <= 60)) {
                     input.consume();
                     adaptor.addChild(root_0, (CommonTree) adaptor.create(set68));
                     state.errorRecovery = false;
                 }
-                else
-                {
+                else {
                     MismatchedSetException mse = new MismatchedSetException(null, input);
                     throw mse;
                 }
@@ -2833,26 +2630,22 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
     // $ANTLR end "unit"
 
-    public static class function_return extends ParserRuleReturnScope
-    {
+    public static class function_return extends ParserRuleReturnScope {
         CommonTree tree;
 
-        public Object getTree()
-        {
+        public Object getTree() {
             return tree;
         }
     }
@@ -2862,8 +2655,7 @@ public class CssParser extends Parser
     // $ANTLR start "function"
     // /home/langera/dev/freud/src/grammar/Css.g:123:1: function : IDENT '(' ( args )? ')' -> IDENT '(' ( args )* ')' ;
 
-    public final CssParser.function_return function() throws RecognitionException
-    {
+    public final CssParser.function_return function() throws RecognitionException {
         CssParser.function_return retval = new CssParser.function_return();
         retval.start = input.LT(1);
 
@@ -2882,8 +2674,7 @@ public class CssParser extends Parser
         RewriteRuleTokenStream stream_62 = new RewriteRuleTokenStream(adaptor, "token 62");
         RewriteRuleTokenStream stream_61 = new RewriteRuleTokenStream(adaptor, "token 61");
         RewriteRuleSubtreeStream stream_args = new RewriteRuleSubtreeStream(adaptor, "rule args");
-        try
-        {
+        try {
             // /home/langera/dev/freud/src/grammar/Css.g:124:2: ( IDENT '(' ( args )? ')' -> IDENT '(' ( args )* ')' )
             // /home/langera/dev/freud/src/grammar/Css.g:124:4: IDENT '(' ( args )? ')'
             {
@@ -2897,12 +2688,10 @@ public class CssParser extends Parser
                 int alt26 = 2;
                 int LA26_0 = input.LA(1);
 
-                if ((LA26_0 == IDENT || (LA26_0 >= 36 && LA26_0 <= 37)))
-                {
+                if ((LA26_0 == IDENT || (LA26_0 >= 36 && LA26_0 <= 37))) {
                     alt26 = 1;
                 }
-                switch (alt26)
-                {
+                switch (alt26) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:124:14: args
                     {
@@ -2938,8 +2727,7 @@ public class CssParser extends Parser
                     adaptor.addChild(root_0, stream_IDENT.nextNode());
                     adaptor.addChild(root_0, stream_61.nextNode());
                     // /home/langera/dev/freud/src/grammar/Css.g:124:37: ( args )*
-                    while (stream_args.hasNext())
-                    {
+                    while (stream_args.hasNext()) {
                         adaptor.addChild(root_0, stream_args.nextTree());
 
                     }
@@ -2957,15 +2745,13 @@ public class CssParser extends Parser
             adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
 
         }
-        catch (RecognitionException re)
-        {
+        catch (RecognitionException re) {
             reportError(re);
             recover(input, re);
             retval.tree = (CommonTree) adaptor.errorNode(input, retval.start, input.LT(-1), re);
 
         }
-        finally
-        {
+        finally {
         }
         return retval;
     }
@@ -3012,21 +2798,17 @@ public class CssParser extends Parser
     static final short[] DFA10_special = DFA.unpackEncodedString(DFA10_specialS);
     static final short[][] DFA10_transition;
 
-    static
-    {
+    static {
         int numStates = DFA10_transitionS.length;
         DFA10_transition = new short[numStates][];
-        for (int i = 0; i < numStates; i++)
-        {
+        for (int i = 0; i < numStates; i++) {
             DFA10_transition[i] = DFA.unpackEncodedString(DFA10_transitionS[i]);
         }
     }
 
-    class DFA10 extends DFA
-    {
+    class DFA10 extends DFA {
 
-        public DFA10(BaseRecognizer recognizer)
-        {
+        public DFA10(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
             this.decisionNumber = 10;
             this.eot = DFA10_eot;
@@ -3038,8 +2820,7 @@ public class CssParser extends Parser
             this.transition = DFA10_transition;
         }
 
-        public String getDescription()
-        {
+        public String getDescription() {
             return "()* loopback of 65:9: ( selectorOperation )*";
         }
     }
@@ -3082,21 +2863,17 @@ public class CssParser extends Parser
     static final short[] DFA20_special = DFA.unpackEncodedString(DFA20_specialS);
     static final short[][] DFA20_transition;
 
-    static
-    {
+    static {
         int numStates = DFA20_transitionS.length;
         DFA20_transition = new short[numStates][];
-        for (int i = 0; i < numStates; i++)
-        {
+        for (int i = 0; i < numStates; i++) {
             DFA20_transition[i] = DFA.unpackEncodedString(DFA20_transitionS[i]);
         }
     }
 
-    class DFA20 extends DFA
-    {
+    class DFA20 extends DFA {
 
-        public DFA20(BaseRecognizer recognizer)
-        {
+        public DFA20(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
             this.decisionNumber = 20;
             this.eot = DFA20_eot;
@@ -3108,8 +2885,7 @@ public class CssParser extends Parser
             this.transition = DFA20_transition;
         }
 
-        public String getDescription()
-        {
+        public String getDescription() {
             return "88:1: pseudo : ( ( ':' | '::' ) IDENT -> ^( PSEUDO IDENT ) | ( ':' | '::' ) function -> ^( PSEUDO function ) );";
         }
     }
@@ -3152,21 +2928,17 @@ public class CssParser extends Parser
     static final short[] DFA25_special = DFA.unpackEncodedString(DFA25_specialS);
     static final short[][] DFA25_transition;
 
-    static
-    {
+    static {
         int numStates = DFA25_transitionS.length;
         DFA25_transition = new short[numStates][];
-        for (int i = 0; i < numStates; i++)
-        {
+        for (int i = 0; i < numStates; i++) {
             DFA25_transition[i] = DFA.unpackEncodedString(DFA25_transitionS[i]);
         }
     }
 
-    class DFA25 extends DFA
-    {
+    class DFA25 extends DFA {
 
-        public DFA25(BaseRecognizer recognizer)
-        {
+        public DFA25(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
             this.decisionNumber = 25;
             this.eot = DFA25_eot;
@@ -3178,8 +2950,7 @@ public class CssParser extends Parser
             this.transition = DFA25_transition;
         }
 
-        public String getDescription()
-        {
+        public String getDescription() {
             return "111:1: expr : ( ( IDENT unit ) | IDENT | '#' IDENT -> ^( COLOUR '#' IDENT ) | '.' IDENT | function );";
         }
     }

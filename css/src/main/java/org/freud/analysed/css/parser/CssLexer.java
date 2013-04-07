@@ -76,32 +76,26 @@ public class CssLexer extends Lexer {
     // delegates
     // delegators
 
-    public CssLexer()
-    {
+    public CssLexer() {
         ;
     }
 
-    public CssLexer(CharStream input)
-    {
+    public CssLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
 
-    public CssLexer(CharStream input, RecognizerSharedState state)
-    {
+    public CssLexer(CharStream input, RecognizerSharedState state) {
         super(input, state);
 
     }
 
-    public String getGrammarFileName()
-    {
+    public String getGrammarFileName() {
         return "/home/langera/dev/freud/src/grammar/Css.g";
     }
 
     // $ANTLR start "T__26"
-    public final void mT__26() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__26() throws RecognitionException {
+        try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:7:7: ( '@import' )
@@ -115,17 +109,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__26"
 
     // $ANTLR start "T__27"
-    public final void mT__27() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__27() throws RecognitionException {
+        try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:8:7: ( '@include' )
@@ -139,17 +130,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__27"
 
     // $ANTLR start "T__28"
-    public final void mT__28() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__28() throws RecognitionException {
+        try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:9:7: ( '@' )
@@ -162,17 +150,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__28"
 
     // $ANTLR start "T__29"
-    public final void mT__29() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__29() throws RecognitionException {
+        try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:10:7: ( '{' )
@@ -185,17 +170,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__29"
 
     // $ANTLR start "T__30"
-    public final void mT__30() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__30() throws RecognitionException {
+        try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:11:7: ( '}' )
@@ -208,17 +190,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__30"
 
     // $ANTLR start "T__31"
-    public final void mT__31() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__31() throws RecognitionException {
+        try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:12:7: ( ',' )
@@ -231,17 +210,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__31"
 
     // $ANTLR start "T__32"
-    public final void mT__32() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__32() throws RecognitionException {
+        try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:13:7: ( '>' )
@@ -254,17 +230,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__32"
 
     // $ANTLR start "T__33"
-    public final void mT__33() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__33() throws RecognitionException {
+        try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:14:7: ( '+' )
@@ -277,17 +250,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__33"
 
     // $ANTLR start "T__34"
-    public final void mT__34() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__34() throws RecognitionException {
+        try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:15:7: ( ';' )
@@ -300,17 +270,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__34"
 
     // $ANTLR start "T__35"
-    public final void mT__35() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__35() throws RecognitionException {
+        try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:16:7: ( '*' )
@@ -323,17 +290,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__35"
 
     // $ANTLR start "T__36"
-    public final void mT__36() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__36() throws RecognitionException {
+        try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:17:7: ( '#' )
@@ -346,17 +310,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__36"
 
     // $ANTLR start "T__37"
-    public final void mT__37() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__37() throws RecognitionException {
+        try {
             int _type = T__37;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:18:7: ( '.' )
@@ -369,17 +330,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__37"
 
     // $ANTLR start "T__38"
-    public final void mT__38() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__38() throws RecognitionException {
+        try {
             int _type = T__38;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:19:7: ( ':' )
@@ -392,17 +350,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__38"
 
     // $ANTLR start "T__39"
-    public final void mT__39() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__39() throws RecognitionException {
+        try {
             int _type = T__39;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:20:7: ( '::' )
@@ -416,17 +371,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__39"
 
     // $ANTLR start "T__40"
-    public final void mT__40() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__40() throws RecognitionException {
+        try {
             int _type = T__40;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:21:7: ( '[' )
@@ -439,17 +391,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__40"
 
     // $ANTLR start "T__41"
-    public final void mT__41() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__41() throws RecognitionException {
+        try {
             int _type = T__41;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:22:7: ( ']' )
@@ -462,17 +411,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__41"
 
     // $ANTLR start "T__42"
-    public final void mT__42() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__42() throws RecognitionException {
+        try {
             int _type = T__42;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:23:7: ( '=' )
@@ -485,17 +431,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__42"
 
     // $ANTLR start "T__43"
-    public final void mT__43() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__43() throws RecognitionException {
+        try {
             int _type = T__43;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:24:7: ( '~=' )
@@ -509,17 +452,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__43"
 
     // $ANTLR start "T__44"
-    public final void mT__44() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__44() throws RecognitionException {
+        try {
             int _type = T__44;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:25:7: ( '|=' )
@@ -533,17 +473,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__44"
 
     // $ANTLR start "T__45"
-    public final void mT__45() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__45() throws RecognitionException {
+        try {
             int _type = T__45;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:26:7: ( '%' )
@@ -556,17 +493,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__45"
 
     // $ANTLR start "T__46"
-    public final void mT__46() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__46() throws RecognitionException {
+        try {
             int _type = T__46;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:27:7: ( 'px' )
@@ -580,17 +514,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__46"
 
     // $ANTLR start "T__47"
-    public final void mT__47() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__47() throws RecognitionException {
+        try {
             int _type = T__47;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:28:7: ( 'cm' )
@@ -604,17 +535,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__47"
 
     // $ANTLR start "T__48"
-    public final void mT__48() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__48() throws RecognitionException {
+        try {
             int _type = T__48;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:29:7: ( 'mm' )
@@ -628,17 +556,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__48"
 
     // $ANTLR start "T__49"
-    public final void mT__49() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__49() throws RecognitionException {
+        try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:30:7: ( 'in' )
@@ -652,17 +577,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__49"
 
     // $ANTLR start "T__50"
-    public final void mT__50() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__50() throws RecognitionException {
+        try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:31:7: ( 'pt' )
@@ -676,17 +598,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__50"
 
     // $ANTLR start "T__51"
-    public final void mT__51() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__51() throws RecognitionException {
+        try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:32:7: ( 'pc' )
@@ -700,17 +619,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__51"
 
     // $ANTLR start "T__52"
-    public final void mT__52() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__52() throws RecognitionException {
+        try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:33:7: ( 'em' )
@@ -724,17 +640,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__52"
 
     // $ANTLR start "T__53"
-    public final void mT__53() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__53() throws RecognitionException {
+        try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:34:7: ( 'ex' )
@@ -748,17 +661,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__53"
 
     // $ANTLR start "T__54"
-    public final void mT__54() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__54() throws RecognitionException {
+        try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:35:7: ( 'deg' )
@@ -772,17 +682,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__54"
 
     // $ANTLR start "T__55"
-    public final void mT__55() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__55() throws RecognitionException {
+        try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:36:7: ( 'rad' )
@@ -796,17 +703,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__55"
 
     // $ANTLR start "T__56"
-    public final void mT__56() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__56() throws RecognitionException {
+        try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:37:7: ( 'grad' )
@@ -820,17 +724,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__56"
 
     // $ANTLR start "T__57"
-    public final void mT__57() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__57() throws RecognitionException {
+        try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:38:7: ( 'ms' )
@@ -844,17 +745,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__57"
 
     // $ANTLR start "T__58"
-    public final void mT__58() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__58() throws RecognitionException {
+        try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:39:7: ( 's' )
@@ -867,17 +765,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__58"
 
     // $ANTLR start "T__59"
-    public final void mT__59() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__59() throws RecognitionException {
+        try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:40:7: ( 'hz' )
@@ -891,17 +786,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__59"
 
     // $ANTLR start "T__60"
-    public final void mT__60() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__60() throws RecognitionException {
+        try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:41:7: ( 'khz' )
@@ -915,17 +807,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__60"
 
     // $ANTLR start "T__61"
-    public final void mT__61() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__61() throws RecognitionException {
+        try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:42:7: ( '(' )
@@ -938,17 +827,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__61"
 
     // $ANTLR start "T__62"
-    public final void mT__62() throws RecognitionException
-    {
-        try
-        {
+    public final void mT__62() throws RecognitionException {
+        try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:43:7: ( ')' )
@@ -961,29 +847,24 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "T__62"
 
     // $ANTLR start "IDENT"
-    public final void mIDENT() throws RecognitionException
-    {
-        try
-        {
+    public final void mIDENT() throws RecognitionException {
+        try {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:128:2: ( ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '=' | '!' ) ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' ) )* )
             // /home/langera/dev/freud/src/grammar/Css.g:128:4: ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '=' | '!' ) ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' ) )*
             {
-                if ((input.LA(1) >= '!' && input.LA(1) <= '\"') || input.LA(1) == '\'' || input.LA(1) == '-' || (input.LA(1) >= '/' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE'))
-                {
+                if ((input.LA(1) >= '!' && input.LA(1) <= '\"') || input.LA(1) == '\'' || input.LA(1) == '-' || (input.LA(1) >= '/' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE')) {
                     input.consume();
 
                 }
-                else
-                {
+                else {
                     MismatchedSetException mse = new MismatchedSetException(null, input);
                     recover(mse);
                     throw mse;
@@ -991,29 +872,24 @@ public class CssLexer extends Lexer {
 
                 // /home/langera/dev/freud/src/grammar/Css.g:129:4: ( options {greedy=true; } : ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' ) )*
                 loop1:
-                do
-                {
+                do {
                     int alt1 = 2;
                     int LA1_0 = input.LA(1);
 
-                    if ((LA1_0 == '\"' || LA1_0 == '\'' || (LA1_0 >= '-' && LA1_0 <= '9') || LA1_0 == '=' || (LA1_0 >= 'A' && LA1_0 <= 'Z') || LA1_0 == '_' || (LA1_0 >= 'a' && LA1_0 <= 'z') || (LA1_0 >= '\u0100' && LA1_0 <= '\uFFFE')))
-                    {
+                    if ((LA1_0 == '\"' || LA1_0 == '\'' || (LA1_0 >= '-' && LA1_0 <= '9') || LA1_0 == '=' || (LA1_0 >= 'A' && LA1_0 <= 'Z') || LA1_0 == '_' || (LA1_0 >= 'a' && LA1_0 <= 'z') || (LA1_0 >= '\u0100' && LA1_0 <= '\uFFFE'))) {
                         alt1 = 1;
                     }
 
 
-                    switch (alt1)
-                    {
+                    switch (alt1) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:129:34: ( '_' | '-' | 'a' .. 'z' | 'A' .. 'Z' | '\\u0100' .. '\\ufffe' | '0' .. '9' | '\"' | '\\'' | '/' | '.' | '=' )
                         {
-                            if (input.LA(1) == '\"' || input.LA(1) == '\'' || (input.LA(1) >= '-' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE'))
-                            {
+                            if (input.LA(1) == '\"' || input.LA(1) == '\'' || (input.LA(1) >= '-' && input.LA(1) <= '9') || input.LA(1) == '=' || (input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z') || (input.LA(1) >= '\u0100' && input.LA(1) <= '\uFFFE')) {
                                 input.consume();
 
                             }
-                            else
-                            {
+                            else {
                                 MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
@@ -1035,17 +911,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "IDENT"
 
     // $ANTLR start "SL_COMMENT"
-    public final void mSL_COMMENT() throws RecognitionException
-    {
-        try
-        {
+    public final void mSL_COMMENT() throws RecognitionException {
+        try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:135:2: ( '//' (~ ( '\\n' | '\\r' ) )* ( '\\n' | '\\r' ( '\\n' )? ) )
@@ -1055,29 +928,24 @@ public class CssLexer extends Lexer {
 
                 // /home/langera/dev/freud/src/grammar/Css.g:136:3: (~ ( '\\n' | '\\r' ) )*
                 loop2:
-                do
-                {
+                do {
                     int alt2 = 2;
                     int LA2_0 = input.LA(1);
 
-                    if (((LA2_0 >= '\u0000' && LA2_0 <= '\t') || (LA2_0 >= '\u000B' && LA2_0 <= '\f') || (LA2_0 >= '\u000E' && LA2_0 <= '\uFFFF')))
-                    {
+                    if (((LA2_0 >= '\u0000' && LA2_0 <= '\t') || (LA2_0 >= '\u000B' && LA2_0 <= '\f') || (LA2_0 >= '\u000E' && LA2_0 <= '\uFFFF'))) {
                         alt2 = 1;
                     }
 
 
-                    switch (alt2)
-                    {
+                    switch (alt2) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:136:4: ~ ( '\\n' | '\\r' )
                         {
-                            if ((input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF'))
-                            {
+                            if ((input.LA(1) >= '\u0000' && input.LA(1) <= '\t') || (input.LA(1) >= '\u000B' && input.LA(1) <= '\f') || (input.LA(1) >= '\u000E' && input.LA(1) <= '\uFFFF')) {
                                 input.consume();
 
                             }
-                            else
-                            {
+                            else {
                                 MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
@@ -1097,23 +965,19 @@ public class CssLexer extends Lexer {
                 int alt4 = 2;
                 int LA4_0 = input.LA(1);
 
-                if ((LA4_0 == '\n'))
-                {
+                if ((LA4_0 == '\n')) {
                     alt4 = 1;
                 }
-                else if ((LA4_0 == '\r'))
-                {
+                else if ((LA4_0 == '\r')) {
                     alt4 = 2;
                 }
-                else
-                {
+                else {
                     NoViableAltException nvae =
                             new NoViableAltException("", 4, 0, input);
 
                     throw nvae;
                 }
-                switch (alt4)
-                {
+                switch (alt4) {
                     case 1:
                         // /home/langera/dev/freud/src/grammar/Css.g:136:20: '\\n'
                     {
@@ -1129,12 +993,10 @@ public class CssLexer extends Lexer {
                         int alt3 = 2;
                         int LA3_0 = input.LA(1);
 
-                        if ((LA3_0 == '\n'))
-                        {
+                        if ((LA3_0 == '\n')) {
                             alt3 = 1;
                         }
-                        switch (alt3)
-                        {
+                        switch (alt3) {
                             case 1:
                                 // /home/langera/dev/freud/src/grammar/Css.g:136:30: '\\n'
                             {
@@ -1158,17 +1020,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "SL_COMMENT"
 
     // $ANTLR start "COMMENT"
-    public final void mCOMMENT() throws RecognitionException
-    {
-        try
-        {
+    public final void mCOMMENT() throws RecognitionException {
+        try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:142:2: ( '/*' ( . )* '*/' )
@@ -1178,34 +1037,28 @@ public class CssLexer extends Lexer {
 
                 // /home/langera/dev/freud/src/grammar/Css.g:142:9: ( . )*
                 loop5:
-                do
-                {
+                do {
                     int alt5 = 2;
                     int LA5_0 = input.LA(1);
 
-                    if ((LA5_0 == '*'))
-                    {
+                    if ((LA5_0 == '*')) {
                         int LA5_1 = input.LA(2);
 
-                        if ((LA5_1 == '/'))
-                        {
+                        if ((LA5_1 == '/')) {
                             alt5 = 2;
                         }
-                        else if (((LA5_1 >= '\u0000' && LA5_1 <= '.') || (LA5_1 >= '0' && LA5_1 <= '\uFFFF')))
-                        {
+                        else if (((LA5_1 >= '\u0000' && LA5_1 <= '.') || (LA5_1 >= '0' && LA5_1 <= '\uFFFF'))) {
                             alt5 = 1;
                         }
 
 
                     }
-                    else if (((LA5_0 >= '\u0000' && LA5_0 <= ')') || (LA5_0 >= '+' && LA5_0 <= '\uFFFF')))
-                    {
+                    else if (((LA5_0 >= '\u0000' && LA5_0 <= ')') || (LA5_0 >= '+' && LA5_0 <= '\uFFFF'))) {
                         alt5 = 1;
                     }
 
 
-                    switch (alt5)
-                    {
+                    switch (alt5) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:142:9: .
                         {
@@ -1229,17 +1082,14 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "COMMENT"
 
     // $ANTLR start "WS"
-    public final void mWS() throws RecognitionException
-    {
-        try
-        {
+    public final void mWS() throws RecognitionException {
+        try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // /home/langera/dev/freud/src/grammar/Css.g:146:4: ( ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )+ )
@@ -1248,29 +1098,24 @@ public class CssLexer extends Lexer {
                 // /home/langera/dev/freud/src/grammar/Css.g:146:6: ( ' ' | '\\t' | '\\r' | '\\n' | '\\f' )+
                 int cnt6 = 0;
                 loop6:
-                do
-                {
+                do {
                     int alt6 = 2;
                     int LA6_0 = input.LA(1);
 
-                    if (((LA6_0 >= '\t' && LA6_0 <= '\n') || (LA6_0 >= '\f' && LA6_0 <= '\r') || LA6_0 == ' '))
-                    {
+                    if (((LA6_0 >= '\t' && LA6_0 <= '\n') || (LA6_0 >= '\f' && LA6_0 <= '\r') || LA6_0 == ' ')) {
                         alt6 = 1;
                     }
 
 
-                    switch (alt6)
-                    {
+                    switch (alt6) {
                         case 1:
                             // /home/langera/dev/freud/src/grammar/Css.g:
                         {
-                            if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || (input.LA(1) >= '\f' && input.LA(1) <= '\r') || input.LA(1) == ' ')
-                            {
+                            if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || (input.LA(1) >= '\f' && input.LA(1) <= '\r') || input.LA(1) == ' ') {
                                 input.consume();
 
                             }
-                            else
-                            {
+                            else {
                                 MismatchedSetException mse = new MismatchedSetException(null, input);
                                 recover(mse);
                                 throw mse;
@@ -1281,8 +1126,7 @@ public class CssLexer extends Lexer {
                         break;
 
                         default:
-                            if (cnt6 >= 1)
-                            {
+                            if (cnt6 >= 1) {
                                 break loop6;
                             }
                             EarlyExitException eee =
@@ -1300,19 +1144,16 @@ public class CssLexer extends Lexer {
             state.type = _type;
             state.channel = _channel;
         }
-        finally
-        {
+        finally {
         }
     }
     // $ANTLR end "WS"
 
-    public void mTokens() throws RecognitionException
-    {
+    public void mTokens() throws RecognitionException {
         // /home/langera/dev/freud/src/grammar/Css.g:1:8: ( T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | IDENT | SL_COMMENT | COMMENT | WS )
         int alt7 = 41;
         alt7 = dfa7.predict(input);
-        switch (alt7)
-        {
+        switch (alt7) {
             case 1:
                 // /home/langera/dev/freud/src/grammar/Css.g:1:10: T__26
             {
@@ -1746,21 +1587,17 @@ public class CssLexer extends Lexer {
     static final short[] DFA7_special = DFA.unpackEncodedString(DFA7_specialS);
     static final short[][] DFA7_transition;
 
-    static
-    {
+    static {
         int numStates = DFA7_transitionS.length;
         DFA7_transition = new short[numStates][];
-        for (int i = 0; i < numStates; i++)
-        {
+        for (int i = 0; i < numStates; i++) {
             DFA7_transition[i] = DFA.unpackEncodedString(DFA7_transitionS[i]);
         }
     }
 
-    class DFA7 extends DFA
-    {
+    class DFA7 extends DFA {
 
-        public DFA7(BaseRecognizer recognizer)
-        {
+        public DFA7(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
             this.decisionNumber = 7;
             this.eot = DFA7_eot;
@@ -1772,38 +1609,31 @@ public class CssLexer extends Lexer {
             this.transition = DFA7_transition;
         }
 
-        public String getDescription()
-        {
+        public String getDescription() {
             return "1:1: Tokens : ( T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | IDENT | SL_COMMENT | COMMENT | WS );";
         }
 
-        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException
-        {
+        public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
             int _s = s;
-            switch (s)
-            {
+            switch (s) {
                 case 0:
                     int LA7_54 = input.LA(1);
 
                     s = -1;
-                    if ((LA7_54 == '\"' || LA7_54 == '\'' || (LA7_54 >= '-' && LA7_54 <= '9') || LA7_54 == '=' || (LA7_54 >= 'A' && LA7_54 <= 'Z') || LA7_54 == '_' || (LA7_54 >= 'a' && LA7_54 <= 'z') || (LA7_54 >= '\u0100' && LA7_54 <= '\uFFFE')))
-                    {
+                    if ((LA7_54 == '\"' || LA7_54 == '\'' || (LA7_54 >= '-' && LA7_54 <= '9') || LA7_54 == '=' || (LA7_54 >= 'A' && LA7_54 <= 'Z') || LA7_54 == '_' || (LA7_54 >= 'a' && LA7_54 <= 'z') || (LA7_54 >= '\u0100' && LA7_54 <= '\uFFFE'))) {
                         s = 72;
                     }
 
-                    else if (((LA7_54 >= '\u0000' && LA7_54 <= '!') || (LA7_54 >= '#' && LA7_54 <= '&') || (LA7_54 >= '(' && LA7_54 <= ',') || (LA7_54 >= ':' && LA7_54 <= '<') || (LA7_54 >= '>' && LA7_54 <= '@') || (LA7_54 >= '[' && LA7_54 <= '^') || LA7_54 == '`' || (LA7_54 >= '{' && LA7_54 <= '\u00FF') || LA7_54 == '\uFFFF'))
-                    {
+                    else if (((LA7_54 >= '\u0000' && LA7_54 <= '!') || (LA7_54 >= '#' && LA7_54 <= '&') || (LA7_54 >= '(' && LA7_54 <= ',') || (LA7_54 >= ':' && LA7_54 <= '<') || (LA7_54 >= '>' && LA7_54 <= '@') || (LA7_54 >= '[' && LA7_54 <= '^') || LA7_54 == '`' || (LA7_54 >= '{' && LA7_54 <= '\u00FF') || LA7_54 == '\uFFFF')) {
                         s = 73;
                     }
 
-                    else
-                    {
+                    else {
                         s = 32;
                     }
 
-                    if (s >= 0)
-                    {
+                    if (s >= 0) {
                         return s;
                     }
                     break;
@@ -1811,23 +1641,19 @@ public class CssLexer extends Lexer {
                     int LA7_72 = input.LA(1);
 
                     s = -1;
-                    if (((LA7_72 >= '\u0000' && LA7_72 <= '!') || (LA7_72 >= '#' && LA7_72 <= '&') || (LA7_72 >= '(' && LA7_72 <= ',') || (LA7_72 >= ':' && LA7_72 <= '<') || (LA7_72 >= '>' && LA7_72 <= '@') || (LA7_72 >= '[' && LA7_72 <= '^') || LA7_72 == '`' || (LA7_72 >= '{' && LA7_72 <= '\u00FF') || LA7_72 == '\uFFFF'))
-                    {
+                    if (((LA7_72 >= '\u0000' && LA7_72 <= '!') || (LA7_72 >= '#' && LA7_72 <= '&') || (LA7_72 >= '(' && LA7_72 <= ',') || (LA7_72 >= ':' && LA7_72 <= '<') || (LA7_72 >= '>' && LA7_72 <= '@') || (LA7_72 >= '[' && LA7_72 <= '^') || LA7_72 == '`' || (LA7_72 >= '{' && LA7_72 <= '\u00FF') || LA7_72 == '\uFFFF')) {
                         s = 73;
                     }
 
-                    else if ((LA7_72 == '\"' || LA7_72 == '\'' || (LA7_72 >= '-' && LA7_72 <= '9') || LA7_72 == '=' || (LA7_72 >= 'A' && LA7_72 <= 'Z') || LA7_72 == '_' || (LA7_72 >= 'a' && LA7_72 <= 'z') || (LA7_72 >= '\u0100' && LA7_72 <= '\uFFFE')))
-                    {
+                    else if ((LA7_72 == '\"' || LA7_72 == '\'' || (LA7_72 >= '-' && LA7_72 <= '9') || LA7_72 == '=' || (LA7_72 >= 'A' && LA7_72 <= 'Z') || LA7_72 == '_' || (LA7_72 >= 'a' && LA7_72 <= 'z') || (LA7_72 >= '\u0100' && LA7_72 <= '\uFFFE'))) {
                         s = 72;
                     }
 
-                    else
-                    {
+                    else {
                         s = 32;
                     }
 
-                    if (s >= 0)
-                    {
+                    if (s >= 0) {
                         return s;
                     }
                     break;

@@ -8,7 +8,7 @@ class TextFromStringCreatorSpec extends Specification {
     @Subject
     TextFromStringCreator creator = new TextFromStringCreator()
 
-    def 'creates a Text obejct from string'() {
+    def 'creates a Text object from string'() {
         expect:
             creator.create('source').textAsString == 'source'
             creator.create('source').textAsStream.readLine() == 'source'

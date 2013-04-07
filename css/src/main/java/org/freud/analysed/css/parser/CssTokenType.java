@@ -71,34 +71,28 @@ public enum CssTokenType implements TokenType {
     private final boolean idRequired;
     private final boolean useIdLocation;
 
-    CssTokenType()
-    {
+    CssTokenType() {
         this(false, false);
     }
 
-    CssTokenType(boolean idRequired, boolean useIdLocation)
-    {
+    CssTokenType(boolean idRequired, boolean useIdLocation) {
         this.idRequired = idRequired;
         this.useIdLocation = useIdLocation;
     }
 
-    public boolean isIdRequired()
-    {
+    public boolean isIdRequired() {
         return idRequired;
     }
 
-    public boolean isUseIdLocation()
-    {
+    public boolean isUseIdLocation() {
         return useIdLocation;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name();
     }
 
-    public boolean isIdent()
-    {
+    public boolean isIdent() {
         return this == IDENT;
     }
 }
