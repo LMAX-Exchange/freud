@@ -1,12 +1,35 @@
 package org.freud
 
-class CssExamplesSpock {
+import org.spockframework.runtime.ConditionNotSatisfiedError
+import spock.lang.FailsWith
+import spock.lang.Specification
+
+import static org.freud.analysed.css.CssDsl.cssRuleOf
+import static org.freud.analysed.css.CssDsl.cssSelectorsWithin
+import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
+import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID
+import static org.freud.groovy.Freud.analyse
+import static org.freud.groovy.Freud.forEach
+
+class CssExamplesSpock extends Specification {
+
+    static URL root = ClassLoader.getSystemResource('CssExamples/')
 
     def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters'() {
-//        return Freud.iterateOver(CssSelector.class).
-//                forEach(classSelector().or(idSelector())).
-//                assertThat(no(selector().contains("[A-Z]"))).within(iterator);
+    expect:
+        analyse(analysed) { !(it.type == CLASS || it.type == ID) || !it.selectorString.contains("[A-Z]") }
+    where:
+        analysed << forEach(cssSelectorsWithin(cssRuleOf([new URL(root, 'file.css').text], String)))
     }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters - failing test'() {
+    expect:
+        analyse(analysed) { !(it.type == CLASS || it.type == ID) || !it.selectorString.contains("[A-Z]") }
+    where:
+        analysed << forEach(cssSelectorsWithin(cssRuleOf([new URL(root, 'classWithUpperCase.css').text], String)))
+    }
+
 
     def 'cssDisplayDeclarationIsAlwaysNone'() {
 //        return Freud.iterateOver(CssDeclaration.class).
