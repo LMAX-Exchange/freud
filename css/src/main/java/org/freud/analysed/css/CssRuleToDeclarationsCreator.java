@@ -7,6 +7,6 @@ import org.freud.core.Creator;
 public final class CssRuleToDeclarationsCreator implements Creator<CssRule, Iterable<CssDeclaration>> {
     @Override
     public Iterable<CssDeclaration> create(final CssRule source) {
-        return source.getCssDeclarationList();
+        return source.getCssDeclarations();
     }
 }

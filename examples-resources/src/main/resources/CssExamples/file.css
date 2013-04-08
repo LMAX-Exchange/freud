@@ -10,7 +10,7 @@ table tr td {
     display: none;
 }
 
-a + #my-link-id > #my-other-link-id {
+.my-button + .my-link > .my-other-link {
     display: none;
     color: red;
 }

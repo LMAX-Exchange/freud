@@ -13,7 +13,7 @@ class CssRuleToDeclarationsCreatorSpec extends Specification {
     given:
         List expected = []
         CssRule rule = Mock()
-        rule.cssDeclarationList >> expected
+        rule.cssDeclarations >> expected
     expect:
         creator.create(rule).is(expected)
 

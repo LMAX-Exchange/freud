@@ -1,3 +1,5 @@
+// $ANTLR 3.1.2 ./css/src/main/grammar/Css.g 2013-04-08 17:17:45
+
 package org.freud.analysed.css.parser;
 
 import org.antlr.runtime.BaseRecognizer;

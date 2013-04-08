@@ -16,8 +16,7 @@ class CssTestUtil {
 
     static Closure<Boolean> cssRule(List<Closure<Boolean>> selectorsConditions) {
         return { CssRule rule ->
-            println rule
-            matchClosuresToList.call(selectorsConditions, rule.cssSelectorList)
+            matchClosuresToList.call(selectorsConditions, rule.cssSelectors)
         }
     }
 
@@ -31,9 +30,8 @@ class CssTestUtil {
                                         String selectorString,
                                         List<Closure<Boolean>> declarationsConditions) {
         return { CssSelector selector ->
-            selector.type == type && selector.selectorString == selectorString &&
-                    selector.combinator == combinator &&
-                    matchClosuresToList.call(declarationsConditions, selector.cssRuleForSelector.cssDeclarationList)
+            selector.type == type && selector.selectorString == selectorString && selector.combinator == combinator &&
+                    matchClosuresToList.call(declarationsConditions, selector.cssRuleForSelector.cssDeclarations)
         }
     }
 

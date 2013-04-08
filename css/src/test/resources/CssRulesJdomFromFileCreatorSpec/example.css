@@ -27,6 +27,10 @@ a > b > c {
     display: block;
 }
 
+tag.class {
+    display: block;
+}
+
 a [href] {
     display: block;
 }

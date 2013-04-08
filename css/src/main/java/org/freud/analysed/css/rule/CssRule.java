@@ -6,7 +6,7 @@ import org.freud.analysed.css.rule.selector.CssSelector;
 import java.util.List;
 
 public interface CssRule {
-    public List<CssSelector> getCssSelectorList();
+    public List<CssSelector> getCssSelectors();
 
-    public List<CssDeclaration> getCssDeclarationList();
+    public List<CssDeclaration> getCssDeclarations();
 }

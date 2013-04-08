@@ -1,4 +1,3 @@
-
 package org.freud.analysed.css.jdom;
 
 import org.apache.commons.jxpath.JXPathContext;
@@ -9,6 +8,8 @@ import org.freud.analysed.css.rule.selector.CssSelector;
 import org.jdom.Element;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -26,7 +27,7 @@ final class CssRuleJdom implements CssRule {
     }
 
     @Override
-    public List<CssSelector> getCssSelectorList() {
+    public List<CssSelector> getCssSelectors() {
         if (cssSelectorList == null) {
             parseSelectors();
         }
@@ -34,7 +35,7 @@ final class CssRuleJdom implements CssRule {
     }
 
     @Override
-    public List<CssDeclaration> getCssDeclarationList() {
+    public List<CssDeclaration> getCssDeclarations() {
         if (cssDeclarationList == null) {
             parseDeclarations();
         }
@@ -53,13 +54,56 @@ final class CssRuleJdom implements CssRule {
             }
             else if (getCommaSeparatedSelectorListIndex() == index) {
                 if (CssSelector.Type.isType(child.getName())) {
-                    cssSelectorList.add(new CssSelectorJdom(this, child, combinator));
-                    combinator = CssSelector.Combinator.DESCENDANT;
+                    final String selectorString = child.getAttributeValue(JdomTreeAdaptor.ID_ATTR);
+                    CssSelector.Type selectorType = CssSelector.Type.valueOf(child.getName());
+                    if (selectorString != null) {
+                        Iterable<String> selectors = breakIdentToSelectors(selectorString);
+                        for (String selector : selectors) {
+                            cssSelectorList.add(new CssSelectorJdom(this, selector, selectorType, combinator));
+                            combinator = CssSelector.Combinator.DESCENDANT;
+                            selectorType = CssSelector.Type.CLASS;
+                        }
+                    }
+                    else {
+                        cssSelectorList.add(new CssSelectorJdom(this, null, selectorType, combinator));
+                        combinator = CssSelector.Combinator.DESCENDANT;
+                    }
                 }
                 else if (CssSelector.Combinator.isCombinator(child.getName())) {
                     combinator = CssSelector.Combinator.valueOf(child.getName());
                 }
             }
+        }
+    }
+
+    // antlr grammar should have solved it but doesn't
+    private Iterable<String> breakIdentToSelectors(final String selectorString) {
+        if (selectorString.contains(".")) {
+            List<String> selectors = new LinkedList<String>();
+            char insideQuote = 0;
+            int start = 0;
+            for (int i = 0, size = selectorString.length(); i < size; i++) {
+                char c = selectorString.charAt(i);
+                if (insideQuote != 0) {
+                    if (c == insideQuote) {
+                        insideQuote = 0;
+                    }
+                }
+                else {
+                    if (c == '\'' || c == '\"') {
+                        insideQuote = c;
+                    }
+                    else if (c == '.') {
+                        selectors.add(selectorString.substring(start, i));
+                        start = i + 1;
+                    }
+                }
+            }
+            selectors.add(selectorString.substring(start, selectorString.length()));
+            return selectors;
+        }
+        else {
+            return Collections.singleton(selectorString);
         }
     }
 
@@ -80,7 +124,7 @@ final class CssRuleJdom implements CssRule {
 
     @Override
     public String toString() {
-        return "CSS Rule: " + getCssSelectorList().toString();
+        return "CSS Rule: " + getCssSelectors().toString();
     }
 
     public int getNumberOfCommaSeparatedSelectorLists() {

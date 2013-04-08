@@ -8,6 +8,7 @@ import static org.freud.analysed.css.jdom.CssTestUtil.cssDeclaration
 import static org.freud.analysed.css.jdom.CssTestUtil.cssRule
 import static org.freud.analysed.css.jdom.CssTestUtil.cssSelector
 import static org.freud.analysed.css.jdom.CssTestUtil.matchClosuresToList
+import static org.freud.analysed.css.rule.selector.CssSelector.Combinator.DESCENDANT
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.TAG
@@ -33,9 +34,9 @@ class CssRulesJdomFromStringCreatorSpec extends Specification {
     then:
         matchClosuresToList.call([
             cssRule([cssSelector(TAG, 'tag', [cssDeclaration('display', 'none')]),
-                    cssSelector(CLASS, 'class', [cssDeclaration('display', 'none')])]),
+                     cssSelector(CLASS, DESCENDANT, 'class', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(ID, 'id', [cssDeclaration('display', 'none')]),
-                    cssSelector(CLASS, 'class', [cssDeclaration('display', 'none')])]),
+                     cssSelector(CLASS, DESCENDANT, 'class', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(ID, 'id', [cssDeclaration('display', 'none')])]),
         ], rules)
 

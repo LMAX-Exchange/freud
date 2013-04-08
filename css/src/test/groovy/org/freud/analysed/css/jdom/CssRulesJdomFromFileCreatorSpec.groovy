@@ -47,6 +47,8 @@ class CssRulesJdomFromFileCreatorSpec extends Specification {
                 cssSelector(TAG, CHILD, 'b', [cssDeclaration('display', 'none')]),
                 cssSelector(TAG, CHILD, 'c', [cssDeclaration('display', 'none')])]),
         cssRule([cssSelector(UNIVERSAL, null, [cssDeclaration('display', 'block')])]),
+        cssRule([cssSelector(TAG, 'tag', [cssDeclaration('display', 'block')]),
+                 cssSelector(CLASS, DESCENDANT, 'class', [cssDeclaration('display', 'block')])]),
         cssRule([cssSelector(TAG, 'a', [cssDeclaration('display', 'block')]),
                 cssSelector(ATTRIB, CssSelector.Combinator.ATTRIB, 'href', [cssDeclaration('display', 'block')])]),
         cssRule([cssSelector(TAG, 'a', [cssDeclaration('display', 'block')]),

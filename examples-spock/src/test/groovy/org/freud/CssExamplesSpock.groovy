@@ -1,5 +1,7 @@
 package org.freud
 
+import org.freud.analysed.css.rule.CssRule
+import org.freud.analysed.css.rule.selector.CssSelector
 import org.spockframework.runtime.ConditionNotSatisfiedError
 import spock.lang.FailsWith
 import spock.lang.Specification
@@ -7,8 +9,10 @@ import spock.lang.Specification
 import static org.freud.analysed.css.CssDsl.cssDeclarationsWithin
 import static org.freud.analysed.css.CssDsl.cssRulesOf
 import static org.freud.analysed.css.CssDsl.cssSelectorsWithin
+import static org.freud.analysed.css.rule.selector.CssSelector.Combinator.DESCENDANT
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID
+import static org.freud.analysed.css.rule.selector.CssSelector.Type.TAG
 import static org.freud.groovy.Freud.analyse
 import static org.freud.groovy.Freud.forEach
 
@@ -50,27 +54,68 @@ class CssExamplesSpock extends Specification {
     /**
      * see https://developer.mozilla.org/en/Writing_Efficient_CSS
      */
-    def 'doNotQualifyIdRuleWithTagName'() {
-//        return Freud.iterateOver(CssRule.class).
-//                assertThat(no(containsSelector(CssSelector.Type.TAG).and(
-//                        lastIndexOfSelector(CssSelector.Type.TAG).lessThan(lastIndexOfSelector(CssSelector.Type.ID))))).within(iterator);
+    def 'doNotQualifyIdRuleWithTagOrClassName'() {
+    expect:
+        analyse(analysed) { CssSelector selector ->
+            selector.type != ID || selector.combinator != DESCENDANT
+        }
+    where:
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)))
+    }
+
+    @FailsWith(ConditionNotSatisfiedError) // slightly different iteration because test requires to fail on EVERY analysed object
+    def 'doNotQualifyIdRuleWithTagOrClassName - failing test'() {
+    expect:
+        analyse(analysed) { CssRule rule ->
+            rule.cssSelectors.every { CssSelector selector ->
+                selector.type != ID || selector.combinator != DESCENDANT
+            }
+        }
+    where:
+        analysed << forEach(cssRulesOf([new URL(root, 'doNotQualifyIdRuleWithTagOrClassName.css').text], String))
     }
 
     /**
      * see https://developer.mozilla.org/en/Writing_Efficient_CSS
      */
-    def 'doNotQualifyIdRuleWithClassName'() {
-//        return Freud.iterateOver(CssRule.class).
-//                assertThat(no(containsSelector(CssSelector.Type.CLASS).and(
-//                        lastIndexOfSelector(CssSelector.Type.CLASS).lessThan(lastIndexOfSelector(CssSelector.Type.ID))))).within(iterator);
+    def 'doNotQualifyClassRuleWithTagName'() {
+    expect:
+        analyse(analysed) { CssRule rule ->
+            int firstClassIndex = rule.cssSelectors.findIndexOf { it.type == CLASS }
+
+            int firstTagIndex = rule.cssSelectors.findIndexOf { it.type == TAG }
+
+            return firstTagIndex == -1 || firstClassIndex == -1 || firstClassIndex < firstTagIndex
+        }
+    where:
+        analysed << forEach(cssRulesOf([new URL(root, 'file.css').text], String))
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'doNotQualifyClassRuleWithTagName - failing test'() {
+    expect:
+        analyse(analysed) { CssRule rule ->
+
+            int firstClassIndex = rule.cssSelectors.findIndexOf { it.type == CLASS }
+
+            int firstTagIndex = rule.cssSelectors.findIndexOf { it.type == TAG }
+
+            return firstTagIndex == -1 || firstClassIndex == -1 || firstClassIndex < firstTagIndex
+        }
+    where:
+        analysed << forEach(cssRulesOf([new URL(root, 'doNotQualifyClassRuleWithTagName.css').text], String))
     }
 
     /**
      * see http://css-tricks.com/efficiently-rendering-css/
      */
     def 'descendantSelectorsAreTheWorst'() {
-//        return Freud.iterateOver(CssRule.class).
-//                assertThat(selectors(CssSelector.Type.TAG).lessThanOrEqualTo(1)).within(iterator);
+    expect:
+        analyse(analysed) { CssRule rule ->
+            rule.cssSelectors.size() <= 1
+        }
+    where:
+        analysed << forEach(cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst.css').text], String))
     }
 
 }
