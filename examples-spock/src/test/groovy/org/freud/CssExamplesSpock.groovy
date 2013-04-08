@@ -118,4 +118,13 @@ class CssExamplesSpock extends Specification {
         analysed << forEach(cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst.css').text], String))
     }
 
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'descendantSelectorsAreTheWorst failing test'() {
+    expect:
+        analyse(analysed) { CssRule rule ->
+            rule.cssSelectors.size() <= 1
+        }
+    where:
+        analysed << forEach(cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst_failing.css').text], String))
+    }
 }
