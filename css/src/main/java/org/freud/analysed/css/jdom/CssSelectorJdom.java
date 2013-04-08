@@ -2,7 +2,6 @@ package org.freud.analysed.css.jdom;
 
 import org.freud.analysed.css.rule.CssRule;
 import org.freud.analysed.css.rule.selector.CssSelector;
-import org.jdom.Element;
 
 
 final class CssSelectorJdom implements CssSelector {
@@ -11,12 +10,12 @@ final class CssSelectorJdom implements CssSelector {
     private final CssRule cssRule;
     private final Combinator combinator;
 
-    CssSelectorJdom(final CssRule cssRule, final Element element, Combinator combinator) {
+    CssSelectorJdom(final CssRule cssRule, final String selectorString, final Type type, final Combinator combinator) {
         this.cssRule = cssRule;
-        type = Type.valueOf(element.getName());
-        selectorString = element.getAttributeValue(JdomTreeAdaptor.ID_ATTR);
+        this.selectorString = selectorString;
+        this.type = type;
         this.combinator = (type == Type.PSEUDO) ? Combinator.PSEUDO :
-                                (type == Type.ATTRIB) ? Combinator.ATTRIB : combinator;
+                (type == Type.ATTRIB) ? Combinator.ATTRIB : combinator;
     }
 
     @Override
