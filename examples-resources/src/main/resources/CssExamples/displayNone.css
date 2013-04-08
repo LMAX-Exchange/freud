@@ -10,7 +10,7 @@ table tr td {
     display: none;
 }
 
-a + #my-link-id > #my-other-link-id {
+a + #my-link-id > #myOtherLinkId {
     display: none;
     color: red;
 }
@@ -24,15 +24,15 @@ a > b > c {
 }
 
 * {
-    display: block;
+    display: none;
 }
 
 a [href] {
-    display: block;
+    display: none;
 }
 
 a [href="foo.html"] {
-    display: block;
+    display: none;
 }
 
 .tfx-btn-add {

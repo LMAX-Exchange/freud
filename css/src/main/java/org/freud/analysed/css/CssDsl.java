@@ -17,12 +17,12 @@ public final class CssDsl {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> Iterable<CssRule> cssRuleOf(Iterable<T> iterable, Class<T> type) {
-        return cssRuleOf(new FreudSource(iterable, type));
+    public static <T> Iterable<CssRule> cssRulesOf(Iterable<T> iterable, Class<T> type) {
+        return cssRulesOf(new FreudSource(iterable, type));
     }
 
     @SuppressWarnings("unchecked")
-    public static Iterable<CssRule> cssRuleOf(FreudSource source) {
+    public static Iterable<CssRule> cssRulesOf(FreudSource source) {
         if (File.class.equals(source.getType())) {
             return new SubTypeAnalysedObjects<File, CssRule>(new CssRulesJdomFromFileCreator(), source.getSources());
         }

@@ -4,7 +4,8 @@ import org.spockframework.runtime.ConditionNotSatisfiedError
 import spock.lang.FailsWith
 import spock.lang.Specification
 
-import static org.freud.analysed.css.CssDsl.cssRuleOf
+import static org.freud.analysed.css.CssDsl.cssDeclarationsWithin
+import static org.freud.analysed.css.CssDsl.cssRulesOf
 import static org.freud.analysed.css.CssDsl.cssSelectorsWithin
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID
@@ -17,28 +18,37 @@ class CssExamplesSpock extends Specification {
 
     def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters'() {
     expect:
-        analyse(analysed) { !(it.type == CLASS || it.type == ID) || !it.selectorString.contains("[A-Z]") }
+        analyse(analysed) { (it.type != CLASS && it.type != ID) || !it.selectorString.matches(".*[A-Z].*") }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRuleOf([new URL(root, 'file.css').text], String)))
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
     def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters - failing test'() {
     expect:
-        analyse(analysed) { !(it.type == CLASS || it.type == ID) || !it.selectorString.contains("[A-Z]") }
+        analyse(analysed) { (it.type != CLASS && it.type != ID) || !it.selectorString.matches(".*[A-Z].*") }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRuleOf([new URL(root, 'classWithUpperCase.css').text], String)))
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text], String)))
     }
 
 
     def 'cssDisplayDeclarationIsAlwaysNone'() {
-//        return Freud.iterateOver(CssDeclaration.class).
-//                forEach(declarationKey().matches("display")).
-//                assertThat(declarationValue().matches("none")).within(iterator);
+    expect:
+        analyse(analysed) { it.key != 'display' || it.value == 'none' }
+    where:
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text], String)))
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'cssDisplayDeclarationIsAlwaysNone - failing test'() {
+    expect:
+        analyse(analysed) { it.key != 'display' || it.value == 'none' }
+    where:
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text], String)))
     }
 
     /**
-     * @see https://developer.mozilla.org/en/Writing_Efficient_CSS
+     * see https://developer.mozilla.org/en/Writing_Efficient_CSS
      */
     def 'doNotQualifyIdRuleWithTagName'() {
 //        return Freud.iterateOver(CssRule.class).
@@ -47,7 +57,7 @@ class CssExamplesSpock extends Specification {
     }
 
     /**
-     * @see https://developer.mozilla.org/en/Writing_Efficient_CSS
+     * see https://developer.mozilla.org/en/Writing_Efficient_CSS
      */
     def 'doNotQualifyIdRuleWithClassName'() {
 //        return Freud.iterateOver(CssRule.class).
@@ -56,7 +66,7 @@ class CssExamplesSpock extends Specification {
     }
 
     /**
-     * @see http://css-tricks.com/efficiently-rendering-css/
+     * see http://css-tricks.com/efficiently-rendering-css/
      */
     def 'descendantSelectorsAreTheWorst'() {
 //        return Freud.iterateOver(CssRule.class).
