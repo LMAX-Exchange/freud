@@ -14,8 +14,8 @@ public final class ClassObjectDsl {
         // static utility
     }
 
-    public static <T> Iterable<Class> classOf(Iterable<T> iterable, Class<T> type) {
-        return classOf(new FreudSource(iterable, type));
+    public static Iterable<Class> classOf(Iterable<String> iterable) {
+        return classOf(new FreudSource(iterable, String.class));
     }
 
     public static Iterable<Class> classOf(FreudSource<String> source) {

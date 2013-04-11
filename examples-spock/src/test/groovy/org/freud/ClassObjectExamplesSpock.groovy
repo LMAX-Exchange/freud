@@ -23,7 +23,7 @@ class ClassObjectExamplesSpock extends Specification {
         }
     where:
         analysed << forEach(classOf(['examples.classobject.ClassWithEqualsAndHashCode',
-                                               'examples.classobject.EmptyClass'], String))
+                                               'examples.classobject.EmptyClass']))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -33,7 +33,7 @@ class ClassObjectExamplesSpock extends Specification {
                 (!hasDeclaredMethod(it, 'equals', Object) &&  !hasDeclaredMethod(it, 'hashCode'))
         }
     where:
-        analysed << forEach(classOf(['examples.classobject.ClassWithEqualsButNoHashCode'], String))
+        analysed << forEach(classOf(['examples.classobject.ClassWithEqualsButNoHashCode']))
     }
 
     def 'test class with JMock Mockery object must contain the right RunWith annotation'() {
@@ -47,7 +47,7 @@ class ClassObjectExamplesSpock extends Specification {
                 ['examples.classobject.EmptyClass',
                        'examples.classobject.ClassThatHasOtherRunWith',
                        'examples.classobject.ClassThatHasRunWithJMock',
-                ], String))
+                ]))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -59,7 +59,7 @@ class ClassObjectExamplesSpock extends Specification {
         }
     where:
         analysed << forEach(classOf(
-                ['examples.classobject.ClassWithMockeryFieldButNoRunWith'], String))
+                ['examples.classobject.ClassWithMockeryFieldButNoRunWith']))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -71,7 +71,7 @@ class ClassObjectExamplesSpock extends Specification {
         }
     where:
         analysed << forEach(classOf(
-                ['examples.classobject.ClassWithMockeryFieldButNoRunWithJMock'], String))
+                ['examples.classobject.ClassWithMockeryFieldButNoRunWithJMock']))
     }
 
     def 'all implementors of Comparator must not contain fields'() {
@@ -80,7 +80,7 @@ class ClassObjectExamplesSpock extends Specification {
             !Comparator.isAssignableFrom(cls) || cls.declaredFields.length == 0
         }
     where:
-        analysed << forEach(classOf(['examples.classobject.EmptyClass', 'examples.classobject.StatelessComparator'], String))
+        analysed << forEach(classOf(['examples.classobject.EmptyClass', 'examples.classobject.StatelessComparator']))
     }
 
 
@@ -91,6 +91,6 @@ class ClassObjectExamplesSpock extends Specification {
             !Comparator.isAssignableFrom(cls) || cls.declaredFields.length == 0
         }
     where:
-        analysed << forEach(classOf(['examples.classobject.StatefulComparator'], String))
+        analysed << forEach(classOf(['examples.classobject.StatefulComparator']))
     }
 }
