@@ -1,7 +1,6 @@
 package org.freud.analysed.classbytecode;
 
-public interface ClassByteCodeField extends ClassByteCodeElement
-{
+public interface ClassByteCodeField extends ClassByteCodeElement {
     String getName();
 
     String getDesc();

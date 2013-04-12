@@ -4,8 +4,7 @@ import org.freud.analysed.classbytecode.method.ClassByteCodeMethod;
 
 import java.util.List;
 
-public interface ClassByteCode extends ClassByteCodeElement
-{
+public interface ClassByteCode extends ClassByteCodeElement {
     List<ClassByteCodeField> getFieldList();
 
     List<ClassByteCodeMethod> getMethodList();

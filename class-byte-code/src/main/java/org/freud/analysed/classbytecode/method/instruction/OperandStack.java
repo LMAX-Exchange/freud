@@ -1,7 +1,6 @@
 package org.freud.analysed.classbytecode.method.instruction;
 
-public interface OperandStack
-{
+public interface OperandStack {
     String getOperandType();
 
     OperandStack next();

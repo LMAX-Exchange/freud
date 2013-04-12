@@ -9,8 +9,7 @@ import org.objectweb.asm.Opcodes;
 import java.util.LinkedList;
 import java.util.List;
 
-final class AsmClassByteCode extends AsmElement implements ClassByteCode
-{
+final class AsmClassByteCode extends AsmElement implements ClassByteCode {
     private final int version;
     private final String name;
     private final String signature;
@@ -24,8 +23,7 @@ final class AsmClassByteCode extends AsmElement implements ClassByteCode
 
     public AsmClassByteCode(final int version, final int access,
                             final String name, final String signature, final String superName,
-                            final String... interfaces)
-    {
+                            final String... interfaces) {
         super(access);
         this.version = version;
         this.name = name;
@@ -38,119 +36,98 @@ final class AsmClassByteCode extends AsmElement implements ClassByteCode
     }
 
     @Override
-    public int getVersion()
-    {
+    public int getVersion() {
         return version;
     }
 
     @Override
-    public boolean isInterface()
-    {
+    public boolean isInterface() {
         return isAccessModifier(Opcodes.ACC_INTERFACE);
     }
 
     @Override
-    public boolean isEnum()
-    {
+    public boolean isEnum() {
         return isAccessModifier(Opcodes.ACC_ENUM);
     }
 
     @Override
-    public boolean isAnnotation()
-    {
+    public boolean isAnnotation() {
         return isAccessModifier(Opcodes.ACC_ANNOTATION);
     }
 
     @Override
-    public boolean isAbstract()
-    {
+    public boolean isAbstract() {
         return isAccessModifier(Opcodes.ACC_ABSTRACT);
     }
 
     @Override
-    public boolean isSuper()
-    {
+    public boolean isSuper() {
         return isAccessModifier(Opcodes.ACC_SUPER);
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     @Override
-    public String[] getInterfaces()
-    {
+    public String[] getInterfaces() {
         return interfaces;
     }
 
     @Override
-    public String getSignature()
-    {
+    public String getSignature() {
         return signature;
     }
 
     @Override
-    public String getSuperName()
-    {
+    public String getSuperName() {
         return superName;
     }
 
     @Override
-    public List<ClassByteCodeField> getFieldList()
-    {
+    public List<ClassByteCodeField> getFieldList() {
         return fieldList;
     }
 
     @Override
-    public List<ClassByteCodeMethod> getMethodList()
-    {
+    public List<ClassByteCodeMethod> getMethodList() {
         return methodList;
     }
 
     @Override
-    public List<ClassByteCodeInnerClass> getInnerClassList()
-    {
+    public List<ClassByteCodeInnerClass> getInnerClassList() {
         return innerClassList;
     }
 
-    protected String getOuterDesc()
-    {
+    protected String getOuterDesc() {
         return outerDesc;
     }
 
-    protected String getOuterName()
-    {
+    protected String getOuterName() {
         return outerName;
     }
 
-    protected void addField(final AsmField field)
-    {
+    protected void addField(final AsmField field) {
         fieldList.add(field);
     }
 
-    protected void addMethod(final AsmMethod method)
-    {
+    protected void addMethod(final AsmMethod method) {
         methodList.add(method);
     }
 
-    protected void addInnerClass(final AsmClassByteCode classByteCode, final String innerName, final int access)
-    {
+    protected void addInnerClass(final AsmClassByteCode classByteCode, final String innerName, final int access) {
         final AsmInnerClass innerClass = new AsmInnerClass(classByteCode, innerName, access);
         innerClassList.add(innerClass);
-        for (ClassByteCodeMethod method : methodList)
-        {
+        for (ClassByteCodeMethod method : methodList) {
             if (innerClass.isAnonymous() &&
-                    method.getName().equals(innerClass.getOuterName()) && method.getDesc().equals(innerClass.getOuterDesc()))
-            {
+                    method.getName().equals(innerClass.getOuterName()) && method.getDesc().equals(innerClass.getOuterDesc())) {
                 method.getAnonymousClassList().add(innerClass);
             }
         }
     }
 
-    protected void setOuterValues(final String name, final String desc)
-    {
+    protected void setOuterValues(final String name, final String desc) {
         outerName = name;
         outerDesc = desc;
     }

@@ -1,7 +1,6 @@
 package org.freud.analysed.classbytecode.method.instruction;
 
-public class Instruction
-{
+public class Instruction {
     private final int index;
     private final Opcode opcode;
     private final int lineNumber;
@@ -17,8 +16,7 @@ public class Instruction
     private final String[] args;
     private OperandStack operandStack;
 
-    public Instruction(final int index, final Opcode opcode, final int currentLineNumber)
-    {
+    public Instruction(final int index, final Opcode opcode, final int currentLineNumber) {
         this(index, opcode, currentLineNumber, null, null, null, null, -1, null, -1, null, null, null);
     }
 
@@ -34,8 +32,7 @@ public class Instruction
                           final int varIndex,
                           final Label label,
                           final String[] args,
-                          final String returnType)
-    {
+                          final String returnType) {
         this.index = index;
         this.opcode = opcode;
         this.lineNumber = lineNumber;
@@ -51,89 +48,72 @@ public class Instruction
         this.returnType = returnType;
     }
 
-    public int getInstructionIndex()
-    {
+    public int getInstructionIndex() {
         return index;
     }
 
-    public OperandStack getOperandStack()
-    {
+    public OperandStack getOperandStack() {
         return operandStack;
     }
 
-    public void setOperandStack(final OperandStack operandStack)
-    {
+    public void setOperandStack(final OperandStack operandStack) {
         this.operandStack = operandStack;
     }
 
-    public String[] getArgs()
-    {
+    public String[] getArgs() {
         return args;
     }
 
-    public Label getLabel()
-    {
+    public Label getLabel() {
         return label;
     }
 
-    public String getDesc()
-    {
+    public String getDesc() {
         return desc;
     }
 
-    public int getIntOperand()
-    {
+    public int getIntOperand() {
         return intOperand;
     }
 
-    public int getLineNumber()
-    {
+    public int getLineNumber() {
         return lineNumber;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public Opcode getOpcode()
-    {
+    public Opcode getOpcode() {
         return opcode;
     }
 
-    public String getOperandType()
-    {
+    public String getOperandType() {
         return operandType;
     }
 
-    public Object getConstant()
-    {
+    public Object getConstant() {
         return constant;
     }
 
-    public String getOwner()
-    {
+    public String getOwner() {
         return owner;
     }
 
-    public String getReturnType()
-    {
+    public String getReturnType() {
         return returnType;
     }
 
-    public int getVarIndex()
-    {
+    public int getVarIndex() {
         return varIndex;
     }
 
-    public void visit(final InstructionVisitor instructionVisitor)
-    {
+    public void visit(final InstructionVisitor instructionVisitor) {
         instructionVisitor.noArgInstruction(this);
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Instruction{" +
                 "index=" + index +
                 ", opcode=" + opcode +

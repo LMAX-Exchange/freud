@@ -64,8 +64,8 @@ public final class FreudTest {
     }
     private static class ThreeFilter implements Filter<String> {
         @Override
-        public boolean filter(final String analysedObject) {
-            return analysedObject.contains("3");
+        public boolean accept(final String analysedObject) {
+            return !analysedObject.contains("3");
         }
     }
 }

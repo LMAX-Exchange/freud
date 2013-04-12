@@ -1,7 +1,6 @@
 package org.freud.analysed.classbytecode.method.instruction;
 
-public final class Label
-{
+public final class Label {
     private final int createdInstructionIndex;
     private final int key;
     private final boolean defaultKey;
@@ -9,28 +8,23 @@ public final class Label
     private int declaredInstructionIndex;
     private int lineNumber;
 
-    public static Label create(final int createdInstructionIndex)
-    {
+    public static Label create(final int createdInstructionIndex) {
         return new Label(createdInstructionIndex, null, -1, false);
     }
 
-    public static Label createHandler(final int createdInstructionIndex, final String handledType)
-    {
+    public static Label createHandler(final int createdInstructionIndex, final String handledType) {
         return new Label(createdInstructionIndex, handledType, -1, false);
     }
 
-    public static Label createLookupKey(final int createdInstructionIndex, final int key)
-    {
+    public static Label createLookupKey(final int createdInstructionIndex, final int key) {
         return new Label(createdInstructionIndex, null, key, false);
     }
 
-    public static Label createDefaultLookupKey(final int createdInstructionIndex)
-    {
+    public static Label createDefaultLookupKey(final int createdInstructionIndex) {
         return new Label(createdInstructionIndex, null, -1, true);
     }
 
-    private Label(final int createdInstructionIndex, final String handledType, final int key, final boolean defaultKey)
-    {
+    private Label(final int createdInstructionIndex, final String handledType, final int key, final boolean defaultKey) {
         this.createdInstructionIndex = createdInstructionIndex;
         this.handledType = handledType;
         this.key = key;
@@ -39,44 +33,36 @@ public final class Label
         lineNumber = -1;
     }
 
-    public void declare(final int instructionIndex)
-    {
+    public void declare(final int instructionIndex) {
         declaredInstructionIndex = instructionIndex;
     }
 
-    public void setLineNumber(final int lineNumber)
-    {
+    public void setLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
-    public int getKey()
-    {
+    public int getKey() {
         return key;
     }
 
-    public int getCreatedInstructionIndex()
-    {
+    public int getCreatedInstructionIndex() {
         return createdInstructionIndex;
     }
 
-    public int getDeclaredInstructionIndex()
-    {
+    public int getDeclaredInstructionIndex() {
         return declaredInstructionIndex;
     }
 
-    public String getHandledType()
-    {
+    public String getHandledType() {
         return handledType;
     }
 
-    public int getLineNumber()
-    {
+    public int getLineNumber() {
         return lineNumber;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "Label{" +
                 "createdInstructionIndex=" + createdInstructionIndex +
                 ", key=" + key +

@@ -32,7 +32,7 @@ public final class FilteredAnalysedObjects<A> extends SupportsBreadcrumbs<A, A> 
             }
             while (unfiltered.hasNext()) {
                 current = unfiltered.next();
-                if (!filter.filter(current)) {
+                if (filter.accept(current)) {
                     return true;
                 }
             }
@@ -49,7 +49,7 @@ public final class FilteredAnalysedObjects<A> extends SupportsBreadcrumbs<A, A> 
             }
             while (unfiltered.hasNext()) {
                 A nextToReturn = unfiltered.next();
-                if (!filter.filter(nextToReturn)) {
+                if (filter.accept(nextToReturn)) {
                     return nextToReturn;
                 }
             }

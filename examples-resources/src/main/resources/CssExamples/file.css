@@ -38,3 +38,7 @@ a [href="foo.html"] {
 .tfx-btn-add {
     background-image: url('../images/drop-add.gif') !important;
 }
+
+#my-id {
+    display: block
+}

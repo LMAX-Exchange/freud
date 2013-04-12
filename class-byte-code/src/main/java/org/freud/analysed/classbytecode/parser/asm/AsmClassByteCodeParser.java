@@ -5,22 +5,19 @@ import org.freud.analysed.classbytecode.parser.InnerClassByteCodeResourceIdentif
 
 import java.util.LinkedHashMap;
 
-public final class AsmClassByteCodeParser implements AsmClassByteCodeGetter
-{
+public final class AsmClassByteCodeParser implements AsmClassByteCodeGetter {
     private static final int CACHE_SIZE = 5;
     private final LinkedHashMap<String, AsmClassByteCode> classByNameCache;
     private final InnerClassByteCodeResourceIdentifierGetter innerClassByteCodeResourceIdentifierGetter;
-//    private Resource currentResource;
+    //    private Resource currentResource;
     private String currentResourceIdentifier;
 
-    public AsmClassByteCodeParser(final InnerClassByteCodeResourceIdentifierGetter innerClassByteCodeResourceIdentifierGetter)
-    {
+    public AsmClassByteCodeParser(final InnerClassByteCodeResourceIdentifierGetter innerClassByteCodeResourceIdentifierGetter) {
         this.innerClassByteCodeResourceIdentifierGetter = innerClassByteCodeResourceIdentifierGetter;
         classByNameCache = new LinkedHashMap<String, AsmClassByteCode>();
     }
 
-    public Class<ClassByteCode> getType()
-    {
+    public Class<ClassByteCode> getType() {
         return ClassByteCode.class;
     }
 
@@ -79,11 +76,9 @@ public final class AsmClassByteCodeParser implements AsmClassByteCodeGetter
 //        }
 //    }
 
-    private AsmClassByteCode addToCacheAndReturn(final AsmClassByteCode classByteCode)
-    {
+    private AsmClassByteCode addToCacheAndReturn(final AsmClassByteCode classByteCode) {
         classByNameCache.put(classByteCode.getName(), classByteCode);
-        if (classByNameCache.size() > CACHE_SIZE)
-        {
+        if (classByNameCache.size() > CACHE_SIZE) {
             classByNameCache.remove(classByNameCache.values().iterator().next());
         }
         return classByteCode;

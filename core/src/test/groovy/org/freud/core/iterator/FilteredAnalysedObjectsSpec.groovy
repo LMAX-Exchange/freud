@@ -20,10 +20,10 @@ class FilteredAnalysedObjectsSpec extends Specification {
 
     def 'first item is filtered'() {
     given:
-        filter.filter('a') >> true
-        filter.filter('b') >> false
-        filter.filter('c') >> false
-        filter.filter('d') >> false
+        filter.accept('a') >> false
+        filter.accept('b') >> true
+        filter.accept('c') >> true
+        filter.accept('d') >> true
     when:
         List results = []
         for (Object o : filtered) {
@@ -35,10 +35,10 @@ class FilteredAnalysedObjectsSpec extends Specification {
 
     def 'several items are filtered'() {
     given:
-        filter.filter('a') >> true
-        filter.filter('b') >> true
-        filter.filter('c') >> true
-        filter.filter('d') >> false
+        filter.accept('a') >> false
+        filter.accept('b') >> false
+        filter.accept('c') >> false
+        filter.accept('d') >> true
     when:
         List results = []
         for (Object o : filtered) {
@@ -50,10 +50,10 @@ class FilteredAnalysedObjectsSpec extends Specification {
 
     def 'last item is filtered'() {
     given:
-        filter.filter('a') >> false
-        filter.filter('b') >> false
-        filter.filter('c') >> false
-        filter.filter('d') >> true
+        filter.accept('a') >> true
+        filter.accept('b') >> true
+        filter.accept('c') >> true
+        filter.accept('d') >> false
     when:
         List results = []
         for (Object o : filtered) {
@@ -65,10 +65,10 @@ class FilteredAnalysedObjectsSpec extends Specification {
 
     def 'all items are filtered'() {
     given:
-        filter.filter('a') >> true
-        filter.filter('b') >> true
-        filter.filter('c') >> true
-        filter.filter('d') >> true
+        filter.accept('a') >> false
+        filter.accept('b') >> false
+        filter.accept('c') >> false
+        filter.accept('d') >> false
     when:
         List results = []
         for (Object o : filtered) {
@@ -82,10 +82,10 @@ class FilteredAnalysedObjectsSpec extends Specification {
     given:
         Iterator filteredIterator =
             new FilteredAnalysedObjects(new AnalysedObjects({ it } as Creator, ['a', 'b', 'c', 'd']), filter).iterator()
-        filter.filter('a') >> true
-        filter.filter('b') >> false
-        filter.filter('c') >> true
-        filter.filter('d') >> false
+        filter.accept('a') >> false
+        filter.accept('b') >> true
+        filter.accept('c') >> false
+        filter.accept('d') >> true
     when:
         filteredIterator.next();
     then:

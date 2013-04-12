@@ -32,8 +32,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCodeMethod
-{
+final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCodeMethod {
     private static final Pattern METHOD_DESC_PATTERN = Pattern.compile("\\((.*)\\)(.+)");
     private static final Opcode[] OPCODES_ARRAY = Opcode.values();
     private static final String[] NEWARRAY_TYPES =
@@ -59,8 +58,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
     private List<String> currentLocals;
     private String returnType;
 
-    public AsmMethod(final AsmClassByteCode classByteCode, final int access, final String name, final String desc, final String signature, final String... exceptions)
-    {
+    public AsmMethod(final AsmClassByteCode classByteCode, final int access, final String name, final String desc, final String signature, final String... exceptions) {
         super(access);
         this.signature = signature;
         this.exceptions = exceptions;
@@ -70,10 +68,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
         this.instructionList = new ArrayList<Instruction>();
         this.labelByAsmLabelMap = new HashMap<org.objectweb.asm.Label, Label>();
         this.variableByNameMap = new LinkedHashMap<String, LocalVariable>();
-        for (ClassByteCodeInnerClass innerClass : classByteCode.getInnerClassList())
-        {
-            if (innerClass.isAnonymous() && name.equals(innerClass.getOuterName()) && desc.equals(innerClass.getOuterDesc()))
-            {
+        for (ClassByteCodeInnerClass innerClass : classByteCode.getInnerClassList()) {
+            if (innerClass.isAnonymous() && name.equals(innerClass.getOuterName()) && desc.equals(innerClass.getOuterDesc())) {
                 innerClassList.add(innerClass);
             }
         }
@@ -84,46 +80,37 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
     }
 
     @Override
-    public void findInstruction(final InstructionVisitor instructionVisitor)
-    {
-        for (final Instruction instruction : instructionList)
-        {
+    public void findInstruction(final InstructionVisitor instructionVisitor) {
+        for (final Instruction instruction : instructionList) {
             instruction.visit(instructionVisitor);
         }
     }
 
     @Override
-    public String getReturnType()
-    {
+    public String getReturnType() {
         return returnType;
     }
 
     @Override
-    public Instruction getInstruction(final int index)
-    {
+    public Instruction getInstruction(final int index) {
         return instructionList.get(index);
     }
 
     @Override
-    public List<ClassByteCodeInnerClass> getAnonymousClassList()
-    {
+    public List<ClassByteCodeInnerClass> getAnonymousClassList() {
         return innerClassList;
     }
 
     @Override
-    public LocalVariable getLocalVariable(final String name)
-    {
+    public LocalVariable getLocalVariable(final String name) {
         return variableByNameMap.get(name);
     }
 
     @Override
-    public LocalVariable getLocalVariable(final int index)
-    {
+    public LocalVariable getLocalVariable(final int index) {
         int i = 0;
-        for (LocalVariable variable : variableByNameMap.values())
-        {
-            if (index == i++)
-            {
+        for (LocalVariable variable : variableByNameMap.values()) {
+            if (index == i++) {
                 return variable;
             }
         }
@@ -131,136 +118,113 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
     }
 
     @Override
-    public String getLocalVariableType(final int index)
-    {
+    public String getLocalVariableType(final int index) {
         return currentLocals.get(index);
     }
 
     @Override
-    public boolean isStatic()
-    {
+    public boolean isStatic() {
         return isAccessModifier(Opcodes.ACC_STATIC);
     }
 
     @Override
-    public boolean isSynchronized()
-    {
+    public boolean isSynchronized() {
         return isAccessModifier(Opcodes.ACC_SYNCHRONIZED);
     }
 
     @Override
-    public boolean isBridge()
-    {
+    public boolean isBridge() {
         return isAccessModifier(Opcodes.ACC_BRIDGE);
     }
 
     @Override
-    public boolean isVarargs()
-    {
+    public boolean isVarargs() {
         return isAccessModifier(Opcodes.ACC_VARARGS);
     }
 
     @Override
-    public boolean isNative()
-    {
+    public boolean isNative() {
         return isAccessModifier(Opcodes.ACC_NATIVE);
     }
 
     @Override
-    public boolean isStrict()
-    {
+    public boolean isStrict() {
         return isAccessModifier(Opcodes.ACC_STRICT);
     }
 
     @Override
-    public boolean isAbstract()
-    {
+    public boolean isAbstract() {
         return isAccessModifier(Opcodes.ACC_ABSTRACT);
     }
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
     @Override
-    public String getDesc()
-    {
+    public String getDesc() {
         return desc;
     }
 
     @Override
-    public String getSignature()
-    {
+    public String getSignature() {
         return signature;
     }
 
     @Override
-    public String[] getExceptions()
-    {
+    public String[] getExceptions() {
         return exceptions;
     }
 
     @Override
-    public AnnotationVisitor visitAnnotationDefault()
-    {
+    public AnnotationVisitor visitAnnotationDefault() {
         return new AsmAnnotation(this);
     }
 
     @Override
-    public AnnotationVisitor visitAnnotation(final String desc, final boolean visible)
-    {
+    public AnnotationVisitor visitAnnotation(final String desc, final boolean visible) {
         return new AsmAnnotation(this, desc, visible);
     }
 
     @Override
-    public AnnotationVisitor visitParameterAnnotation(final int parameter, final String desc, final boolean visible)
-    {
+    public AnnotationVisitor visitParameterAnnotation(final int parameter, final String desc, final boolean visible) {
         return new AsmAnnotation(this, parameter, desc, visible);
     }
 
     @Override
-    public void visitAttribute(final Attribute attr)
-    {
+    public void visitAttribute(final Attribute attr) {
         //  no op
     }
 
 
-    public void visitCode()
-    {
+    public void visitCode() {
         // no op
     }
 
-    public void visitInsn(final int opcode)
-    {
+    public void visitInsn(final int opcode) {
         final Instruction instruction = new Instruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber);
         updateCurrentState(instruction);
     }
 
-    public void visitIntInsn(final int opcodeUsed, final int operand)
-    {
+    public void visitIntInsn(final int opcodeUsed, final int operand) {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         final Instruction instruction;
-        if (opcode == Opcode.NEWARRAY)
-        {
+        if (opcode == Opcode.NEWARRAY) {
             instruction = new ReferenceOperandInstruction(instructionList.size(), opcode, currentLineNumber, NEWARRAY_TYPES[operand]);
         }
-        else
-        {
+        else {
             instruction = new IntOperandInstruction(instructionList.size(), opcode, currentLineNumber, operand);
         }
         updateCurrentState(instruction);
     }
 
-    public void visitVarInsn(final int opcodeUsed, final int var)
-    {
+    public void visitVarInsn(final int opcodeUsed, final int var) {
         final Instruction instruction = new VarInstruction(instructionList.size(), OPCODES_ARRAY[opcodeUsed], currentLineNumber, var);
         updateCurrentState(instruction);
     }
 
-    public void visitTypeInsn(final int opcodeUsed, final String type)
-    {
+    public void visitTypeInsn(final int opcodeUsed, final String type) {
         final Opcode opcode = OPCODES_ARRAY[opcodeUsed];
         final String operandType = "L" + type + ";";
         final Instruction instruction = new ReferenceOperandInstruction(instructionList.size(), opcode, currentLineNumber, operandType);
@@ -271,8 +235,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
             final int opcode,
             final String owner,
             final String name,
-            final String desc)
-    {
+            final String desc) {
         final Instruction instruction = new FieldInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, owner, name, desc);
         updateCurrentState(instruction);
     }
@@ -281,11 +244,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
             final int opcode,
             final String owner,
             final String name,
-            final String desc)
-    {
+            final String desc) {
         final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             final String argsAsString = matcher.group(1);
             final ArrayList<String> argsContainer = new ArrayList<String>();
             String returnType = matcher.group(2);
@@ -297,40 +258,33 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
         }
     }
 
-    public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel)
-    {
+    public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel) {
         Label label = declareLabel(asmLabel);
         final Instruction instruction = new JumpInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label);
         updateCurrentState(instruction);
     }
 
-    public void visitLabel(final org.objectweb.asm.Label asmLabel)
-    {
+    public void visitLabel(final org.objectweb.asm.Label asmLabel) {
         final Label label = declareLabel(asmLabel);
         label.declare(instructionList.size());
         final String handledType = label.getHandledType();
-        if (handledType != null)
-        {
+        if (handledType != null) {
             currentOperandStack = new StaticOperandStack(handledType, currentOperandStack, null);
         }
     }
 
-    public void visitLdcInsn(final Object constant)
-    {
+    public void visitLdcInsn(final Object constant) {
         final Instruction instruction;
-        if (constant instanceof Type)
-        {
+        if (constant instanceof Type) {
             instruction = new ReferenceOperandInstruction(instructionList.size(), Opcode.LDC, currentLineNumber, constant.toString());
         }
-        else
-        {
+        else {
             instruction = new ConstInstruction(instructionList.size(), Opcode.LDC, currentLineNumber, constant);
         }
         updateCurrentState(instruction);
     }
 
-    public void visitIincInsn(final int var, final int increment)
-    {
+    public void visitIincInsn(final int var, final int increment) {
         final Instruction instruction = new IntOperandInstruction(instructionList.size(), Opcode.IINC, currentLineNumber, increment);
         updateCurrentState(instruction);
     }
@@ -339,10 +293,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
             final int min,
             final int max,
             final org.objectweb.asm.Label dflt,
-            final org.objectweb.asm.Label[] labels)
-    {
-        for (int i = 0; i < labels.length; ++i)
-        {
+            final org.objectweb.asm.Label[] labels) {
+        for (int i = 0; i < labels.length; ++i) {
             declareLookupLabel(labels[i], min + i);
         }
         declareDefaultLookupLabel(dflt);
@@ -351,10 +303,8 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
     public void visitLookupSwitchInsn(
             final org.objectweb.asm.Label dflt,
             final int[] keys,
-            final org.objectweb.asm.Label[] labels)
-    {
-        for (int i = 0; i < labels.length; ++i)
-        {
+            final org.objectweb.asm.Label[] labels) {
+        for (int i = 0; i < labels.length; ++i) {
             declareLookupLabel(labels[i], keys[i]);
         }
         declareDefaultLookupLabel(dflt);
@@ -364,8 +314,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
             final org.objectweb.asm.Label start,
             final org.objectweb.asm.Label end,
             final org.objectweb.asm.Label handler,
-            final String type)
-    {
+            final String type) {
         declareHandlerLabel(handler, (type != null) ? "L" + type + ";" : "Ljava/lang/Throwable;");
         declareLabel(start);
         declareLabel(end);
@@ -376,11 +325,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
             final int nLocal,
             final Object[] local,
             final int nStack,
-            final Object[] stack)
-    {
+            final Object[] stack) {
         final FrameType frameType = FrameType.getFrameType(type);
-        switch (frameType)
-        {
+        switch (frameType) {
             case F_SAME:
                 currentOperandStack = AbstractOperandStack.EMPTY_STACK;
                 break;
@@ -389,8 +336,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
                 break;
             case F_APPEND:
                 currentOperandStack = AbstractOperandStack.EMPTY_STACK;
-                for (int i = 0; i < nLocal; i++)
-                {
+                for (int i = 0; i < nLocal; i++) {
                     currentLocals.add(getTypeFromFrame(local[i]));
                 }
                 break;
@@ -400,14 +346,12 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
                 break;
             case F_FULL:
                 currentLocals = new ArrayList<String>();
-                for (int i = 0; i < nLocal; i++)
-                {
+                for (int i = 0; i < nLocal; i++) {
                     currentLocals.add(getTypeFromFrame(local[i]));
 
                 }
                 currentOperandStack = AbstractOperandStack.EMPTY_STACK;
-                for (int i = 0; i < nStack; i++)
-                {
+                for (int i = 0; i < nStack; i++) {
                     currentOperandStack = new StaticOperandStack(getTypeFromFrame(stack[i]), currentOperandStack, null);
                 }
                 break;
@@ -416,8 +360,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
         }
     }
 
-    public void visitMultiANewArrayInsn(final String desc, final int dims)
-    {
+    public void visitMultiANewArrayInsn(final String desc, final int dims) {
         final Instruction instruction = new ReferenceOperandInstruction(instructionList.size(), Opcode.MULTIANEWARRAY, currentLineNumber, desc, dims);
         updateCurrentState(instruction);
     }
@@ -428,47 +371,37 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
             final String signature,
             final org.objectweb.asm.Label start,
             final org.objectweb.asm.Label end,
-            final int index)
-    {
+            final int index) {
         variableByNameMap.put(name, new LocalVariable(name, desc, signature, declareLabel(start), declareLabel(end)));
     }
 
-    public void visitLineNumber(final int line, final org.objectweb.asm.Label start)
-    {
-        if (currentLineNumber < line)
-        {
+    public void visitLineNumber(final int line, final org.objectweb.asm.Label start) {
+        if (currentLineNumber < line) {
             currentLineNumber = line;
         }
         labelByAsmLabelMap.get(start).setLineNumber(line);
     }
 
-    public void visitMaxs(final int maxStack, final int maxLocals)
-    {
+    public void visitMaxs(final int maxStack, final int maxLocals) {
         // TODO
     }
 
     @Override
-    public void visitEnd()
-    {
+    public void visitEnd() {
         // no op
     }
 
-    private String getTypeFromFrame(final Object item)
-    {
-        if (item instanceof String)
-        {
+    private String getTypeFromFrame(final Object item) {
+        if (item instanceof String) {
             final String strItem = (String) item;
             return (strItem.indexOf('/') > -1) ? "L" + strItem + ";" : strItem;
         }
-        else if (item instanceof org.objectweb.asm.Label)
-        {
+        else if (item instanceof org.objectweb.asm.Label) {
             return "Ljava/lang/Object;";
         }
-        else if (item instanceof Integer)
-        {
+        else if (item instanceof Integer) {
             final FrameValueType valueType = FrameValueType.getFrameValueType((Integer) item);
-            switch (valueType)
-            {
+            switch (valueType) {
                 case TOP:
                 case NULL:
                 case UNINITIALIZED_THIS:
@@ -485,45 +418,37 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
                     throw new IllegalArgumentException("frame item " + item);
             }
         }
-        else
-        {
+        else {
             throw new IllegalArgumentException("frame item " + item);
         }
     }
 
-    private void initLocals(final String desc)
-    {
+    private void initLocals(final String desc) {
         final Matcher matcher = METHOD_DESC_PATTERN.matcher(desc);
-        if (matcher.matches())
-        {
+        if (matcher.matches()) {
             final String paramsAsString = matcher.group(1);
             parseArgs(paramsAsString, currentLocals);
             returnType = matcher.group(2);
         }
-        else
-        {
+        else {
             throw new IllegalArgumentException("desc " + desc);
         }
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         return "AsmMethod[" + name + "]";
     }
 
     ////////////////////////////////////////////////////////////////////////
 
-    private void parseArgs(final String argsAsString, final List<String> args)
-    {
+    private void parseArgs(final String argsAsString, final List<String> args) {
         boolean start = true;
         final int len = argsAsString.length();
         int ptr = 0;
-        for (int i = 0; i < len; i++)
-        {
+        for (int i = 0; i < len; i++) {
             final char c = argsAsString.charAt(i);
-            switch (c)
-            {
+            switch (c) {
                 case '[':
                 case 'L':
                     start = false;
@@ -541,57 +466,47 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
                 case 'J':
                 case 'S':
                 case 'Z':
-                    if (start)
-                    {
+                    if (start) {
                         args.add(String.valueOf(c));
                         ptr = i + 1;
                     }
                     break;
             }
         }
-        if (ptr < len)
-        {
+        if (ptr < len) {
             args.add(argsAsString.substring(ptr));
         }
     }
 
-    private Label declareLabel(final org.objectweb.asm.Label asmLabel)
-    {
+    private Label declareLabel(final org.objectweb.asm.Label asmLabel) {
         return storeLabel(asmLabel, Label.create(instructionList.size()));
     }
 
-    private Label declareHandlerLabel(final org.objectweb.asm.Label asmLabel, final String type)
-    {
+    private Label declareHandlerLabel(final org.objectweb.asm.Label asmLabel, final String type) {
         return storeLabel(asmLabel, Label.createHandler(instructionList.size(), type));
     }
 
-    private Label declareLookupLabel(final org.objectweb.asm.Label asmLabel, final int key)
-    {
+    private Label declareLookupLabel(final org.objectweb.asm.Label asmLabel, final int key) {
         return storeLabel(asmLabel, Label.createLookupKey(instructionList.size(), key));
     }
 
 
-    private Label declareDefaultLookupLabel(final org.objectweb.asm.Label asmLabel)
-    {
+    private Label declareDefaultLookupLabel(final org.objectweb.asm.Label asmLabel) {
         return storeLabel(asmLabel, Label.createDefaultLookupKey(instructionList.size()));
     }
 
-    private Label storeLabel(final org.objectweb.asm.Label asmLabel, final Label label)
-    {
+    private Label storeLabel(final org.objectweb.asm.Label asmLabel, final Label label) {
         final Label oldLabel = labelByAsmLabelMap.get(asmLabel);
-        if (oldLabel != null)
-        {
+        if (oldLabel != null) {
             return oldLabel;
         }
-        else
-        {
+        else {
             labelByAsmLabelMap.put(asmLabel, label);
             return label;
         }
     }
 
-    private void updateCurrentState(final Instruction instruction)
-    {
+    private void updateCurrentState(final Instruction instruction) {
         instructionList.add(instruction);
         final Opcode opcode = instruction.getOpcode();
         ensureCurrentLocalsSize(instruction.getVarIndex());
@@ -600,16 +515,13 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
         instruction.setOperandStack(currentOperandStack);
     }
 
-    private void ensureCurrentLocalsSize(final int varIndex)
-    {
-        while (varIndex >= currentLocals.size())
-        {
+    private void ensureCurrentLocalsSize(final int varIndex) {
+        while (varIndex >= currentLocals.size()) {
             currentLocals.add("");
         }
     }
 
-    private enum FrameValueType
-    {
+    private enum FrameValueType {
         TOP(Opcodes.TOP),
         INTEGER(Opcodes.INTEGER),
         FLOAT(Opcodes.FLOAT),
@@ -620,17 +532,13 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
 
         private final int asmValue;
 
-        FrameValueType(final int asmValue)
-        {
+        FrameValueType(final int asmValue) {
             this.asmValue = asmValue;
         }
 
-        public static FrameValueType getFrameValueType(final int asmValue)
-        {
-            for (FrameValueType valueType : FrameValueType.values())
-            {
-                if (valueType.asmValue == asmValue)
-                {
+        public static FrameValueType getFrameValueType(final int asmValue) {
+            for (FrameValueType valueType : FrameValueType.values()) {
+                if (valueType.asmValue == asmValue) {
                     return valueType;
                 }
             }
@@ -638,8 +546,7 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
         }
     }
 
-    private enum FrameType
-    {
+    private enum FrameType {
         F_NEW(Opcodes.F_NEW),
         F_FULL(Opcodes.F_FULL),
         F_APPEND(Opcodes.F_APPEND),
@@ -649,17 +556,13 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
 
         private final int asmValue;
 
-        FrameType(final int asmValue)
-        {
+        FrameType(final int asmValue) {
             this.asmValue = asmValue;
         }
 
-        public static FrameType getFrameType(final int asmValue)
-        {
-            for (FrameType type : FrameType.values())
-            {
-                if (type.asmValue == asmValue)
-                {
+        public static FrameType getFrameType(final int asmValue) {
+            for (FrameType type : FrameType.values()) {
+                if (type.asmValue == asmValue) {
                     return type;
                 }
             }

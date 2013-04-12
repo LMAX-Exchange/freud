@@ -8,8 +8,7 @@ import org.freud.analysed.classbytecode.method.instruction.InstructionVisitor;
 
 import java.util.List;
 
-public interface ClassByteCodeMethod extends ClassByteCodeElement
-{
+public interface ClassByteCodeMethod extends ClassByteCodeElement {
     String getName();
 
     String getDesc();

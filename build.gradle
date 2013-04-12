@@ -178,6 +178,7 @@ project(':examples-spock') {
         compile project(':properties')
         compile project(':css')
         compile project(':class-object')
+        compile project(':class-byte-code')
     }
 }
 
@@ -190,5 +191,6 @@ project(':examples-junit') {
         compile project(':properties')
         compile project(':css')
         compile project(':class-object')
+        compile project(':class-byte-code')
     }
 }

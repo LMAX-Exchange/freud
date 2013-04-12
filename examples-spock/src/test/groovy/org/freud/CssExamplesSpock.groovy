@@ -22,33 +22,33 @@ class CssExamplesSpock extends Specification {
 
     def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters'() {
     expect:
-        analyse(analysed) { (it.type != CLASS && it.type != ID) || !it.selectorString.matches(".*[A-Z].*") }
+        analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)))
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)), {it.type == CLASS || it.type == ID})
     }
 
     @FailsWith(ConditionNotSatisfiedError)
     def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters - failing test'() {
     expect:
-        analyse(analysed) { (it.type != CLASS && it.type != ID) || !it.selectorString.matches(".*[A-Z].*") }
+        analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text], String)))
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text], String)), {it.type == CLASS || it.type == ID})
     }
 
 
     def 'cssDisplayDeclarationIsAlwaysNone'() {
     expect:
-        analyse(analysed) { it.key != 'display' || it.value == 'none' }
+        analyse(analysed) { it.value == 'none' }
     where:
-        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text], String)))
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text], String)), { it.key == 'display'})
     }
 
     @FailsWith(ConditionNotSatisfiedError)
     def 'cssDisplayDeclarationIsAlwaysNone - failing test'() {
     expect:
-        analyse(analysed) { it.key != 'display' || it.value == 'none' }
+        analyse(analysed) { it.value == 'none' }
     where:
-        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text], String)))
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text], String)), { it.key == 'display'})
     }
 
     /**
@@ -56,11 +56,9 @@ class CssExamplesSpock extends Specification {
      */
     def 'doNotQualifyIdRuleWithTagOrClassName'() {
     expect:
-        analyse(analysed) { CssSelector selector ->
-            selector.type != ID || selector.combinator != DESCENDANT
-        }
+        analyse(analysed) { CssSelector selector -> selector.combinator != DESCENDANT }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)))
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)), { it.type == ID })
     }
 
     @FailsWith(ConditionNotSatisfiedError) // slightly different iteration because test requires to fail on EVERY analysed object
@@ -88,7 +86,7 @@ class CssExamplesSpock extends Specification {
             return firstTagIndex == -1 || firstClassIndex == -1 || firstClassIndex < firstTagIndex
         }
     where:
-        analysed << forEach(cssRulesOf([new URL(root, 'file.css').text], String))
+        analysed << cssRulesOf([new URL(root, 'file.css').text], String)
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -103,7 +101,7 @@ class CssExamplesSpock extends Specification {
             return firstTagIndex == -1 || firstClassIndex == -1 || firstClassIndex < firstTagIndex
         }
     where:
-        analysed << forEach(cssRulesOf([new URL(root, 'doNotQualifyClassRuleWithTagName.css').text], String))
+        analysed << cssRulesOf([new URL(root, 'doNotQualifyClassRuleWithTagName.css').text], String)
     }
 
     /**
@@ -115,7 +113,7 @@ class CssExamplesSpock extends Specification {
             rule.cssSelectors.size() <= 1
         }
     where:
-        analysed << forEach(cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst.css').text], String))
+        analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst.css').text], String)
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -125,6 +123,6 @@ class CssExamplesSpock extends Specification {
             rule.cssSelectors.size() <= 1
         }
     where:
-        analysed << forEach(cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst_failing.css').text], String))
+        analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst_failing.css').text], String)
     }
 }

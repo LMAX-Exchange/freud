@@ -29,39 +29,39 @@ class Freud {
         return curriedAssertion.call();
     }
 
-    static <A> Iterable<A> forEach(Iterable<A> analysedObjects, Closure<Boolean> filter = { false }) {
+    static <A> Iterable<A> forEach(Iterable<A> analysedObjects, Closure<Boolean> filter = { true }) {
         new FilteredAnalysedObjects<A>(analysedObjects, filter as Filter)
     }
 
-    static FreudSource<File> filesIn(File root, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<File> filesIn(File root, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<File>(new Files(root, true, toFilenameFilter(filenameFilter)), File)
     }
 
-    static FreudSource<File> filesIn(String path, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<File> filesIn(String path, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<File>(new Files(path, true, toFilenameFilter(filenameFilter)), File)
     }
 
-    static FreudSource<File> filesIn(Collection filesOrPaths, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<File> filesIn(Collection filesOrPaths, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<File>(new Files(filesOrPaths, true, toFilenameFilter(filenameFilter)), File)
     }
 
-    static FreudSource<File> filesIn(Collection filesOrPaths, boolean recursive, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<File> filesIn(Collection filesOrPaths, boolean recursive, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<File>(new Files(filesOrPaths, recursive, toFilenameFilter(filenameFilter)), File)
     }
 
-    static FreudSource<String> classNamesIn(File root, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<String> classNamesIn(File root, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<String>(new ClassNames(root, true, toFilenameFilter(filenameFilter)), String)
     }
 
-    static FreudSource<String> classNamesIn(String path, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<String> classNamesIn(String path, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<String>(new ClassNames(path, true, toFilenameFilter(filenameFilter)), String)
     }
 
-    static FreudSource<String> classNamesIn(Collection filesOrPaths, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<String> classNamesIn(Collection filesOrPaths, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<String>(new ClassNames(filesOrPaths, true, toFilenameFilter(filenameFilter)), String)
     }
 
-    static FreudSource<String> classNamesIn(Collection filesOrPaths, boolean recursive, Closure<Boolean> filenameFilter = { false }) {
+    static FreudSource<String> classNamesIn(Collection filesOrPaths, boolean recursive, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<String>(new ClassNames(filesOrPaths, recursive, toFilenameFilter(filenameFilter)), String)
     }
 
@@ -69,11 +69,11 @@ class Freud {
 
         switch (suppliedClosure.maximumNumberOfParameters) {
             case 0:
-                return { parentFile, name -> !suppliedClosure.call() } as FilenameFilter
+                return { parentFile, name -> suppliedClosure.call() } as FilenameFilter
             case 1:
-                return { parentFile, name -> !suppliedClosure.call(name) } as FilenameFilter
+                return { parentFile, name -> suppliedClosure.call(name) } as FilenameFilter
             case 2:
-                return { parentFile, name -> !suppliedClosure.call(parentFile, name) } as FilenameFilter
+                return { parentFile, name -> suppliedClosure.call(parentFile, name) } as FilenameFilter
             default:
                 throw new IllegalArgumentException('Filter has too many parameters')
         }

@@ -1,7 +1,6 @@
 package org.freud.analysed.classbytecode;
 
-public interface ClassByteCodeAnnotation
-{
+public interface ClassByteCodeAnnotation {
 
     int getParameterIndex();
 

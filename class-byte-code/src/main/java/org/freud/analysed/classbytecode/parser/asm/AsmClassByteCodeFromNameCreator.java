@@ -3,12 +3,18 @@ package org.freud.analysed.classbytecode.parser.asm;
 import org.freud.analysed.classbytecode.ClassByteCode;
 import org.freud.core.Creator;
 
-public final class AsmClassByteCodeFromNameCreator implements Creator<String,ClassByteCode> {
+import static java.lang.ClassLoader.getSystemClassLoader;
+
+public final class AsmClassByteCodeFromNameCreator implements Creator<String, ClassByteCode> {
+
+    private final ClassLoader classLoader;
 
     public AsmClassByteCodeFromNameCreator() {
+        this(getSystemClassLoader());
     }
 
     public AsmClassByteCodeFromNameCreator(final ClassLoader classLoader) {
+        this.classLoader = classLoader;
     }
 
     @Override

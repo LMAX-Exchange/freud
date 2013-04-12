@@ -7,7 +7,6 @@ import spock.lang.Specification
 import static org.freud.analysed.text.TextDsl.textLineWithin
 import static org.freud.analysed.text.TextDsl.textOf
 import static org.freud.groovy.Freud.analyse
-import static org.freud.groovy.Freud.forEach
 
 class TextExamplesSpock extends Specification {
 
@@ -17,7 +16,7 @@ class TextExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.line.length() < 80 }
     where:
-        analysed << forEach(textLineWithin(textOf([new URL(root, 'textFile').text], String)))
+        analysed << textLineWithin(textOf([new URL(root, 'textFile').text], String))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -25,6 +24,6 @@ class TextExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.line.length() < 80 }
     where:
-        analysed << forEach(textLineWithin(textOf([new URL(root, 'textFileWithLongLine').text], String)))
+        analysed << textLineWithin(textOf([new URL(root, 'textFileWithLongLine').text], String))
     }
 }

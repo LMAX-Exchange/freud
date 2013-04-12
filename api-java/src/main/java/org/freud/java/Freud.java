@@ -25,7 +25,7 @@ public final class Freud {
     }
 
     public static <A> Iterable<A> forEach(Iterable<A> analysedObjects, Matcher<A> matcher) {
-        return new FilteredAnalysedObjects<A>(analysedObjects, new ToFilter<A>(matcher));
+        return new FilteredAnalysedObjects<A>(analysedObjects, new ToAcceptFilter<A>(matcher));
     }
 
     public static FreudSource<File> filesIn(String... paths) {
@@ -60,17 +60,17 @@ public final class Freud {
         return new FreudSource<File>(new Files(asList(files), false, filter), File.class);
     }
 
-    private static final class ToFilter<A> implements Filter<A> {
+    private static final class ToAcceptFilter<A> implements Filter<A> {
 
         private final Matcher<A> matcher;
 
-        private ToFilter(final Matcher<A> matcher) {
+        private ToAcceptFilter(final Matcher<A> matcher) {
             this.matcher = matcher;
         }
 
         @Override
-        public boolean filter(final A analysedObject) {
-            return !matcher.matches(analysedObject);
+        public boolean accept(final A analysedObject) {
+            return matcher.matches(analysedObject);
         }
     }
 

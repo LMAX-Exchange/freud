@@ -29,7 +29,7 @@ class FreudSpec extends Specification {
     given:
         Iterator iterator = new AnalysedObjects({ "Z$it" } as Creator, new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
                 new FilteredAnalysedObjects(
-                        new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))
+                        new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { !it.contains('3')} as Filter))
         ).iterator()
 
     expect:
@@ -43,7 +43,7 @@ class FreudSpec extends Specification {
     given:
         Iterator iterator = new AnalysedObjects({ "Z$it" } as Creator, new SubTypeAnalysedObjects({ ["X$it", "Y$it"] } as Creator,
                 new FilteredAnalysedObjects(
-                        new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { it.contains('3')} as Filter))
+                        new AnalysedObjects({ "_$it" } as Creator, ['1', '2', '3']), { !it.contains('3')} as Filter))
         ).iterator()
 
     when:

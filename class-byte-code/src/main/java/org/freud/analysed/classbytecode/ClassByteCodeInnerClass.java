@@ -1,7 +1,6 @@
 package org.freud.analysed.classbytecode;
 
-public interface ClassByteCodeInnerClass extends ClassByteCode
-{
+public interface ClassByteCodeInnerClass extends ClassByteCode {
     boolean isStatic();
 
     boolean isAnonymous();

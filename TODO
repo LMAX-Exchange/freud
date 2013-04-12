@@ -1,2 +1,6 @@
-- analyse: label in spock?
+- filter conditions in the where clause
+- analyse:, for-each: labels in spock?
 - find way to combine/link types - classfile + class object + java source etc.
+- more common assertions turned into DSL methods
+- classOf..or any other DSL method of ....(Iterable<T> iterable, Class<T> type) - infer type from Iterable first element.
+- logging? really???
