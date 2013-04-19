@@ -51,8 +51,4 @@ class FreudSpec extends Specification {
     then:
         thrown IllegalArgumentException
     }
-
-    def 'creates a FreudSource of files'() {
-        // TODO
-    }
 }

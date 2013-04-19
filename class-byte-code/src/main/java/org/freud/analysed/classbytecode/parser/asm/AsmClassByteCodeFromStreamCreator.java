@@ -1,17 +1,48 @@
 package org.freud.analysed.classbytecode.parser.asm;
 
+import org.freud.analysed.classbytecode.ClassByteCode;
+import org.freud.core.Creator;
+import org.freud.core.util.IoUtil;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.Attribute;
+import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
 
-final class AsmClassByteCodeFactory implements ClassVisitor {
-    private final AsmClassByteCodeGetter classByteCodeGetter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedHashMap;
+
+final class AsmClassByteCodeFromStreamCreator implements ClassVisitor, Creator<InputStream, ClassByteCode> {
+
+    private final LinkedHashMap<String, AsmClassByteCode> classByNameCache;
     private AsmClassByteCode currentClassByteCode;
 
-    public AsmClassByteCodeFactory(final AsmClassByteCodeGetter classByteCodeGetter) {
-        this.classByteCodeGetter = classByteCodeGetter;
+    public AsmClassByteCodeFromStreamCreator() {
+        classByNameCache = new LinkedHashMap<String, AsmClassByteCode>();
+    }
+
+    @Override
+    public ClassByteCode create(final InputStream source) {
+        try {
+            return parseClassInternal(source);
+        }
+        catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    private ClassByteCode parseClassInternal(final InputStream source) throws IOException {
+        try {
+            final ClassReader reader = new ClassReader(source);
+            currentClassByteCode = null;
+            reader.accept(this, 0);
+            return addToCacheAndReturn(currentClassByteCode);
+        }
+        finally {
+            IoUtil.safeClose(source);
+        }
     }
 
     @Override
@@ -47,7 +78,7 @@ final class AsmClassByteCodeFactory implements ClassVisitor {
     public void visitInnerClass(final String name, final String outerName, final String innerName, final int access) {
         final String currentClassName = currentClassByteCode.getName();
         if (name.startsWith(currentClassName) && name.length() > currentClassName.length()) {
-            final AsmClassByteCode enclosingClassByteCode = classByteCodeGetter.getClassByteCode(name, currentClassByteCode);
+            final AsmClassByteCode enclosingClassByteCode = getClassByteCode(name, currentClassByteCode);
             currentClassByteCode.addInnerClass(enclosingClassByteCode, innerName, access);
 
         }
@@ -67,11 +98,22 @@ final class AsmClassByteCodeFactory implements ClassVisitor {
     public void visitEnd() {
     }
 
-    public AsmClassByteCode getClassByteCode() {
-        return currentClassByteCode;
+    private AsmClassByteCode getClassByteCode(final String name, final AsmClassByteCode classByteCode) {
+        AsmClassByteCode asmClassByteCode;
+        try {
+            asmClassByteCode = classByNameCache.get(name);
+            if (asmClassByteCode == null) {
+                asmClassByteCode = (AsmClassByteCode) parseClassInternal(null);// TODO inner class
+            }
+        }
+        catch (IOException e) {
+            throw new IllegalArgumentException("Failed to find class byte code " + name, e);
+        }
+        return asmClassByteCode;
     }
 
-    public void clear() {
-        currentClassByteCode = null;
+    private AsmClassByteCode addToCacheAndReturn(final AsmClassByteCode classByteCode) {
+        classByNameCache.put(classByteCode.getName(), classByteCode);
+        return classByteCode;
     }
 }

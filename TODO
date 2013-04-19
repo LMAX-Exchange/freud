@@ -4,3 +4,4 @@
 - more common assertions turned into DSL methods
 - classOf..or any other DSL method of ....(Iterable<T> iterable, Class<T> type) - infer type from Iterable first element.
 - logging? really???
+- Junit examples

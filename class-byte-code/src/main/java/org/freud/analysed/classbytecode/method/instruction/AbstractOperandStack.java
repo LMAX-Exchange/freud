@@ -4,12 +4,12 @@ public abstract class AbstractOperandStack implements OperandStack {
     public static final OperandStack EMPTY_STACK = new AbstractOperandStack(null, null) {
         @Override
         protected String getTypeForCurrentOperandStackItem() {
-            throw new IllegalStateException("cannot pop an empty stack");
+            return null;
         }
 
         @Override
         public OperandStack next() {
-            throw new IllegalStateException("cannot pop an empty stack");
+            return null;
         }
 
         @Override
