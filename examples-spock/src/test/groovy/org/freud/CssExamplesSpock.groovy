@@ -24,7 +24,7 @@ class CssExamplesSpock extends Specification {
     expect:
         analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)), {it.type == CLASS || it.type == ID})
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text])), {it.type == CLASS || it.type == ID})
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -32,7 +32,7 @@ class CssExamplesSpock extends Specification {
     expect:
         analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text], String)), {it.type == CLASS || it.type == ID})
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text])), {it.type == CLASS || it.type == ID})
     }
 
 
@@ -40,7 +40,7 @@ class CssExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.value == 'none' }
     where:
-        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text], String)), { it.key == 'display'})
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text])), { it.key == 'display'})
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -48,7 +48,7 @@ class CssExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.value == 'none' }
     where:
-        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text], String)), { it.key == 'display'})
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text])), { it.key == 'display'})
     }
 
     /**
@@ -58,7 +58,7 @@ class CssExamplesSpock extends Specification {
     expect:
         analyse(analysed) { CssSelector selector -> selector.combinator != DESCENDANT }
     where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text], String)), { it.type == ID })
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text])), { it.type == ID })
     }
 
     @FailsWith(ConditionNotSatisfiedError) // slightly different iteration because test requires to fail on EVERY analysed object
@@ -70,7 +70,7 @@ class CssExamplesSpock extends Specification {
             }
         }
     where:
-        analysed << forEach(cssRulesOf([new URL(root, 'doNotQualifyIdRuleWithTagOrClassName.css').text], String))
+        analysed << forEach(cssRulesOf([new URL(root, 'doNotQualifyIdRuleWithTagOrClassName.css').text]))
     }
 
     /**
@@ -86,7 +86,7 @@ class CssExamplesSpock extends Specification {
             return firstTagIndex == -1 || firstClassIndex == -1 || firstClassIndex < firstTagIndex
         }
     where:
-        analysed << cssRulesOf([new URL(root, 'file.css').text], String)
+        analysed << cssRulesOf([new URL(root, 'file.css').text])
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -101,7 +101,7 @@ class CssExamplesSpock extends Specification {
             return firstTagIndex == -1 || firstClassIndex == -1 || firstClassIndex < firstTagIndex
         }
     where:
-        analysed << cssRulesOf([new URL(root, 'doNotQualifyClassRuleWithTagName.css').text], String)
+        analysed << cssRulesOf([new URL(root, 'doNotQualifyClassRuleWithTagName.css').text])
     }
 
     /**
@@ -113,7 +113,7 @@ class CssExamplesSpock extends Specification {
             rule.cssSelectors.size() <= 1
         }
     where:
-        analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst.css').text], String)
+        analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst.css').text])
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -123,6 +123,6 @@ class CssExamplesSpock extends Specification {
             rule.cssSelectors.size() <= 1
         }
     where:
-        analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst_failing.css').text], String)
+        analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst_failing.css').text])
     }
 }

@@ -14,12 +14,21 @@ public final class ClassThatUsesBigDecimal {
         return bigDecimal.equals(another);
     }
 
-    public String explicitToString() {
+    public String ourRuleAboutConvertingBigDecimalToAString() {
         return bigDecimal.toPlainString();
     }
 
-    public void implicitToString() {
+
+    public String explicitToString() {
+        return bigDecimal.toString();
+    }
+
+    public void implicitToStringInPrintStream() {
         System.out.println(bigDecimal);
+    }
+
+    public void implicitToStringInStringBuilder() {
+        System.out.println("my big decimal: " + bigDecimal);
     }
 
 }

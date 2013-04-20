@@ -6,6 +6,8 @@ import org.freud.core.iterator.SubTypeAnalysedObjects;
 
 import java.io.File;
 
+import static org.freud.core.FreudSource.typeOf;
+
 public final class TextDsl {
 
     private TextDsl() {
@@ -13,7 +15,8 @@ public final class TextDsl {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> Iterable<Text> textOf(Iterable<T> iterable, Class<T> type) {
+    public static <T> Iterable<Text> textOf(Iterable<T> iterable) {
+        Class type = typeOf(iterable);
         return textOf(new FreudSource(iterable, type));
     }
 

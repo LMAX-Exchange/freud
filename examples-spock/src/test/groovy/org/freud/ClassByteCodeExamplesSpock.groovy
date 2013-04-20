@@ -1,22 +1,49 @@
 package org.freud
 
+import org.spockframework.runtime.ConditionNotSatisfiedError
+import spock.lang.FailsWith
 import spock.lang.Specification
+import spock.lang.Unroll
+
+import static org.freud.analysed.classbytecode.ClassByteCodeDsl.classOf
+import static org.freud.analysed.classbytecode.ClassByteCodeDsl.hasMethodInvocation
+import static org.freud.analysed.classbytecode.ClassByteCodeDsl.methodInvokedWithParams
+import static org.freud.analysed.classbytecode.ClassByteCodeDsl.methodsWithin
+import static org.freud.groovy.Freud.analyse
+import static org.freud.groovy.Freud.forEach
 
 class ClassByteCodeExamplesSpock extends Specification {
 
-//    def 'do not use BigDecimal.equals'() {
-//    expect:
-//        analyse(analysed) { hasDeclaredMethod(it, 'equals', Object) &&  hasDeclaredMethod(it, 'hashCode') ||
-//                (!hasDeclaredMethod(it, 'equals', Object) &&  !hasDeclaredMethod(it, 'hashCode'))
-//        }
-//    where:
-//        analysed << methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal']))
-
-//        return Freud.iterateOver(ClassFileMethod.class).
-//                assertThat(no(hasMethodInvocation(BigDecimal.class, "equals", Object.class))).within(iterator);
-//    }
-/*
+    @Unroll('#analysed.name')
     def 'do not use BigDecimal.toString()'() {
+    expect:
+        analyse(analysed) {
+            !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
+                    !methodInvokedWithParams(analysed, StringBuilder, 'append', BigDecimal) &&
+                    !methodInvokedWithParams(analysed, PrintStream, 'print', BigDecimal) &&
+                    !methodInvokedWithParams(analysed, PrintStream, 'println', BigDecimal)
+        }
+    where:
+        analysed << forEach(methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal'])),
+                            { !it.name.contains('ToString') })
+    }
+
+    @Unroll('#analysed.name')
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'do not use BigDecimal.toString() - Failing test'() {
+    expect:
+        analyse(analysed) {
+            !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
+                    !methodInvokedWithParams(analysed, StringBuilder, 'append', BigDecimal) &&
+                    !methodInvokedWithParams(analysed, PrintStream, 'print', BigDecimal) &&
+                    !methodInvokedWithParams(analysed, PrintStream, 'println', BigDecimal)
+        }
+    where:
+        analysed << forEach(methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal'])),
+                            { it.name.contains('ToString') })
+    }
+/*
+    def 'do not use BigDecimal.equals()'() {
         return Freud.iterateOver(ClassFileMethod.class).
                 assertThat(no(hasMethodInvocation(BigDecimal.class, "toString")).
                         and(no(methodInvokedWithParams(StringBuilder.class, "append", a(BigDecimal.class))))).

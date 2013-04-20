@@ -16,7 +16,7 @@ class TextExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.line.length() < 80 }
     where:
-        analysed << textLineWithin(textOf([new URL(root, 'textFile').text], String))
+        analysed << textLineWithin(textOf([new URL(root, 'textFile').text]))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -24,6 +24,6 @@ class TextExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.line.length() < 80 }
     where:
-        analysed << textLineWithin(textOf([new URL(root, 'textFileWithLongLine').text], String))
+        analysed << textLineWithin(textOf([new URL(root, 'textFileWithLongLine').text]))
     }
 }

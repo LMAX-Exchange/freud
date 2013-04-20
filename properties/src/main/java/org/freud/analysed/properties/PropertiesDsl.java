@@ -7,6 +7,8 @@ import org.freud.core.iterator.SubTypeAnalysedObjects;
 import java.io.File;
 import java.util.Properties;
 
+import static org.freud.core.FreudSource.typeOf;
+
 public final class PropertiesDsl {
 
     private PropertiesDsl() {
@@ -14,7 +16,8 @@ public final class PropertiesDsl {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> Iterable<Property> propertyOf(Iterable<T> iterable, Class<T> type) {
+    public static <T> Iterable<Property> propertyOf(Iterable<T> iterable) {
+        Class type = typeOf(iterable);
         return propertyOf(new FreudSource(iterable, type));
     }
 

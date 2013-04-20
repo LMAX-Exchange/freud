@@ -16,7 +16,7 @@ class PropertiesExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.value.number }
     where:
-        analysed << forEach(propertyOf([new URL(root, 'ok.properties').text], String), { it.key.contains('min') || it.key.contains('max') })
+        analysed << forEach(propertyOf([new URL(root, 'ok.properties').text]), { it.key.contains('min') || it.key.contains('max') })
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -24,14 +24,14 @@ class PropertiesExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.value.number }
     where:
-        analysed << forEach(propertyOf([new URL(root, 'badMinSize.properties').text], String), { it.key.contains('min') || it.key.contains('max') })
+        analysed << forEach(propertyOf([new URL(root, 'badMinSize.properties').text]), { it.key.contains('min') || it.key.contains('max') })
     }
 
     def 'properties file should not contain passwords'() {
     expect:
         analyse(analysed) { !it.key.contains('password') }
     where:
-        analysed << propertyOf([new URL(root, 'ok.properties').text], String)
+        analysed << propertyOf([new URL(root, 'ok.properties').text])
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -39,6 +39,6 @@ class PropertiesExamplesSpock extends Specification {
     expect:
         analyse(analysed) { !it.key.contains('password') }
     where:
-        analysed << propertyOf([new URL(root, 'containsPassword.properties').text], String)
+        analysed << propertyOf([new URL(root, 'containsPassword.properties').text])
     }
 }

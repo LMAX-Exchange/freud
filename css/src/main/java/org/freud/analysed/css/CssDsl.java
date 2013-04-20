@@ -10,6 +10,8 @@ import org.freud.core.iterator.SubTypeAnalysedObjects;
 
 import java.io.File;
 
+import static org.freud.core.FreudSource.typeOf;
+
 public final class CssDsl {
 
     private CssDsl() {
@@ -17,7 +19,8 @@ public final class CssDsl {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> Iterable<CssRule> cssRulesOf(Iterable<T> iterable, Class<T> type) {
+    public static <T> Iterable<CssRule> cssRulesOf(Iterable<T> iterable) {
+        Class type = typeOf(iterable);
         return cssRulesOf(new FreudSource(iterable, type));
     }
 

@@ -1,5 +1,7 @@
 package org.freud.core;
 
+import java.util.NoSuchElementException;
+
 public final class FreudSource<T> {
 
     private final Iterable<T> sources;
@@ -15,6 +17,17 @@ public final class FreudSource<T> {
     }
 
     public Class<T> getType() {
+        return type;
+    }
+
+    public static <T> Class typeOf(final Iterable<T> iterable) {
+        Class type;
+        try {
+            type = iterable.iterator().next().getClass();
+        }
+        catch (NoSuchElementException e) {
+            type = String.class; // empty array so any type will do
+        }
         return type;
     }
 }
