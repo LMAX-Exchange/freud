@@ -776,8 +776,12 @@ public enum Opcode {
     POP2 {
         @Override
         public OperandStack updateOperandStack(final ClassByteCodeMethod method, final Instruction instruction, final OperandStack stack) {
-            System.out.println("TODO");
-            return stack; // TODO
+            if (stack.getComputationalTypeCategory() == 2) {
+                return stack.next();
+            }
+            else {
+                return stack.next().next();
+            }
         }
     }, // -
     DUP {
@@ -1537,8 +1541,7 @@ public enum Opcode {
     GOTO_W {
         @Override
         public OperandStack updateOperandStack(final ClassByteCodeMethod method, final Instruction instruction, final OperandStack stack) {
-            System.out.println("TODO");
-            return stack; // TODO
+            return stack;
         }
     }, // -
     JSR_W {

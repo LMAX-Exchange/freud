@@ -260,6 +260,10 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
 
     public void visitJumpInsn(final int opcode, final org.objectweb.asm.Label asmLabel) {
         Label label = declareLabel(asmLabel);
+
+//        System.out.println(name + " " + OPCODES_ARRAY[opcode] + " " + asmLabel + " " + label);
+
+
         final Instruction instruction = new JumpInstruction(instructionList.size(), OPCODES_ARRAY[opcode], currentLineNumber, label);
         updateCurrentState(instruction);
     }
@@ -508,6 +512,9 @@ final class AsmMethod extends AsmElement implements MethodVisitor, ClassByteCode
 
     private void updateCurrentState(final Instruction instruction) {
         instructionList.add(instruction);
+
+//        System.out.println(name + " " + instruction + " "  + labelByAsmLabelMap);
+
         final Opcode opcode = instruction.getOpcode();
         ensureCurrentLocalsSize(instruction.getVarIndex());
         currentLocals = opcode.updateLocals(currentLocals, instruction);
