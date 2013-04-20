@@ -3,6 +3,7 @@ package org.freud.analysed.classbytecode;
 import org.freud.analysed.classbytecode.method.ClassByteCodeMethod;
 import org.freud.analysed.classbytecode.method.instruction.AbstractInstructionVisitor;
 import org.freud.analysed.classbytecode.method.instruction.Instruction;
+import org.freud.analysed.classbytecode.method.instruction.Opcode;
 import org.freud.analysed.classbytecode.method.instruction.OperandStack;
 import org.freud.analysed.classbytecode.parser.asm.AsmClassByteCodeFromFileCreator;
 import org.freud.analysed.classbytecode.parser.asm.AsmClassByteCodeFromNameCreator;
@@ -104,4 +105,24 @@ public final class ClassByteCodeDsl {
         });
         return found[0];
     }
+
+
+    public static boolean containsInstructions(final ClassByteCodeMethod analysed, final Opcode... opcodes) {
+
+        final Instruction[] found = new Instruction[1];
+        analysed.findInstruction(new AbstractInstructionVisitor() {
+            @Override
+            public void noArgInstruction(final Instruction instruction) {
+                for (int i = 0; i < opcodes.length; i++) {
+                    Opcode opcode = opcodes[i];
+                    if (instruction.getOpcode() == opcode) {
+                        found[0] = instruction;
+                        break;
+                    }
+                }
+            }
+        });
+        return found[0] != null;
+    }
+
 }

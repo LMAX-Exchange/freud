@@ -14,6 +14,11 @@ public final class ClassThatUsesBigDecimal {
         return bigDecimal.equals(another);
     }
 
+    public boolean ourRuleAboutHowToCompareBigDecimals(BigDecimal another) {
+        return bigDecimal.compareTo(another) == 0;
+    }
+
+
     public String ourRuleAboutConvertingBigDecimalToAString() {
         return bigDecimal.toPlainString();
     }
