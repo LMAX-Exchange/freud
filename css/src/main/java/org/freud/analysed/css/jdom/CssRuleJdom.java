@@ -5,6 +5,7 @@ import org.freud.analysed.css.parser.CssTokenType;
 import org.freud.analysed.css.rule.CssRule;
 import org.freud.analysed.css.rule.declaration.CssDeclaration;
 import org.freud.analysed.css.rule.selector.CssSelector;
+import org.freud.core.parser.JdomTreeAdaptor;
 import org.jdom.Element;
 
 import java.util.ArrayList;

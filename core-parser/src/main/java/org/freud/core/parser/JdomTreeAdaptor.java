@@ -1,10 +1,9 @@
-package org.freud.analysed.css.jdom;
+package org.freud.core.parser;
 
 import org.antlr.runtime.Token;
 import org.antlr.runtime.tree.CommonTree;
 import org.antlr.runtime.tree.CommonTreeAdaptor;
 import org.antlr.runtime.tree.Tree;
-import org.freud.core.parser.TokenType;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.output.XMLOutputter;
@@ -23,7 +22,6 @@ public final class JdomTreeAdaptor extends CommonTreeAdaptor {
     private TokenType[] tokenTypes;
 
     public JdomTreeAdaptor(final String rootElementName, final TokenType[] tokenTypes) {
-
         this.rootElement = new Element(rootElementName);
         this.tokenTypes = tokenTypes;
 

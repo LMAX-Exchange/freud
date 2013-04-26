@@ -8,6 +8,7 @@ import org.freud.analysed.css.parser.CssLexer;
 import org.freud.analysed.css.parser.CssParser;
 import org.freud.analysed.css.parser.CssTokenType;
 import org.freud.analysed.css.rule.CssRule;
+import org.freud.core.parser.JdomTreeAdaptor;
 import org.freud.core.parser.TokenType;
 import org.jdom.Document;
 import org.jdom.Element;

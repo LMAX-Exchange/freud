@@ -4,4 +4,4 @@
 - more common assertions turned into DSL methods
 - logging? really???
 - Junit examples
-- class byte code - branch logic messes up the operand stack tracking
+- class byte code - branch logic messes up the operand stack tracking, inner classes parsing
