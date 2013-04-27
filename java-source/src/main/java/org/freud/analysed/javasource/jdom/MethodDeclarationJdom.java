@@ -10,6 +10,7 @@ import org.freud.analysed.javasource.ParamDeclaration;
 import org.freud.analysed.javasource.parser.JavaSourceTokenType;
 import org.jdom.Element;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -17,10 +18,10 @@ final class MethodDeclarationJdom implements MethodDeclaration {
     private final Element methodDeclElement;
     private final String name;
     private CodeBlock methodCodeBlock;
-    private Annotation[] annotations;
+    private List<Annotation> annotations;
     private ClassDeclaration classDeclaration;
     private final String returnType;
-    private ParamDeclaration[] paramDeclarations;
+    private List<ParamDeclaration> paramDeclarations;
 
     public MethodDeclarationJdom(Element methodDeclElement, ClassDeclaration classDeclaration) {
         this.methodDeclElement = methodDeclElement;
@@ -54,20 +55,19 @@ final class MethodDeclarationJdom implements MethodDeclaration {
 
     @Override
     @SuppressWarnings("unchecked")
-    public ParamDeclaration[] getParametersDeclarations() {
+    public List<ParamDeclaration> getParametersDeclarations() {
         if (paramDeclarations == null) {
             final List<Element> paramListChildren =
                     methodDeclElement.getChild(JavaSourceTokenType.FORMAL_PARAM_LIST.getName()).getChildren();
-            paramDeclarations = new ParamDeclaration[paramListChildren.size()];
-            int i = 0;
+            paramDeclarations = new ArrayList<ParamDeclaration>(paramListChildren.size());
             for (Element paramDecl : paramListChildren) {
-                paramDeclarations[i++] = new ParamDeclarationJdom(paramDecl);
+                paramDeclarations.add(new ParamDeclarationJdom(paramDecl));
             }
         }
         return paramDeclarations;
     }
 
-    public Annotation[] getDeclaredAnnotations() {
+    public List<Annotation> getDeclaredAnnotations() {
         if (annotations == null) {
             annotations = JavaSourceJdom.parseAnnotations(methodDeclElement);
         }

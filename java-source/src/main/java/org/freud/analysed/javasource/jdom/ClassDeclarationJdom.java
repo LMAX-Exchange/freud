@@ -39,9 +39,9 @@ final class ClassDeclarationJdom implements ClassDeclaration {
         this.outerClassDeclaration = outerClassDeclaration;
     }
 
-    public String[] getDeclaredClassAnnotations() {
+    public List<String> getDeclaredClassAnnotations() {
         // TODO
-        return new String[0];
+        return null;
     }
 
     public DeclarationType getDeclarationType() {
@@ -53,7 +53,7 @@ final class ClassDeclarationJdom implements ClassDeclaration {
         return new String[0];
     }
 
-    public VarDeclaration[] getFieldDeclarations() {
+    public List<VarDeclaration> getFieldDeclarations() {
         // TODO
         return null;
     }

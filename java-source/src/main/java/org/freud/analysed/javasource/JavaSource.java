@@ -1,9 +1,11 @@
 package org.freud.analysed.javasource;
 
+import java.util.List;
+
 public interface JavaSource {
     PackageDeclaration getPackageDeclaration();
 
-    ImportDeclaration[] getImportDeclarations();
+    List<ImportDeclaration> getImportDeclarations();
 
     ClassDeclaration getClassDeclaration();
 //    InterfaceDeclaration getInterfaceDeclaration();

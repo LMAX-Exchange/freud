@@ -10,7 +10,7 @@ public interface ClassDeclaration {
         CLASS, INTERFACE, ENUM, ANNOTATION
     }
 
-    String[] getDeclaredClassAnnotations();
+    List<String> getDeclaredClassAnnotations();
 
     DeclarationType getDeclarationType();
 
@@ -26,7 +26,7 @@ public interface ClassDeclaration {
 
     Map<String, List<MethodDeclaration>> getMethodDeclarationListByNameMap();
 
-    VarDeclaration[] getFieldDeclarations();
+    List<VarDeclaration> getFieldDeclarations();
 
     Map<String, ClassDeclaration> getInnerClassDeclarationByNameMap();
 

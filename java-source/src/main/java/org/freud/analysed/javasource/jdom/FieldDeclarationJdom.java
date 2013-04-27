@@ -5,6 +5,7 @@ import org.freud.analysed.javasource.Annotation;
 import org.freud.analysed.javasource.VarDeclaration;
 
 import javax.xml.bind.Element;
+import java.util.List;
 
 final class FieldDeclarationJdom implements VarDeclaration {
     private final String type;
@@ -33,9 +34,9 @@ final class FieldDeclarationJdom implements VarDeclaration {
     }
 
     @Override
-    public Annotation[] getDeclaredAnnotations() {
+    public List<Annotation> getDeclaredAnnotations() {
 
         // TODO
-        return new Annotation[0];
+        return null;
     }
 }

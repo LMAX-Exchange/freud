@@ -13,11 +13,13 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.filter.ElementFilter;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import static java.util.Collections.emptyList;
 import static org.freud.analysed.javasource.jdom.JavaSourceJdomParser.JAVA_SOURCE_ROOT_ELEMENT_NAME;
 import static org.freud.core.parser.JdomTreeAdaptor.documentToString;
 
@@ -34,7 +36,7 @@ final class JavaSourceJdom implements JavaSource {
     private final Document root;
     private ClassDeclaration classDeclaration;
     private PackageDeclaration packageDeclaration;
-    private ImportDeclaration[] importDeclarations;
+    private List<ImportDeclaration> importDeclarations;
 
     public JavaSourceJdom(final Document root, final String fileName) {
         this.root = root;
@@ -53,7 +55,7 @@ final class JavaSourceJdom implements JavaSource {
     }
 
     @Override
-    public ImportDeclaration[] getImportDeclarations() {
+    public List<ImportDeclaration> getImportDeclarations() {
         return (importDeclarations == null) ? parseImportDeclaration() : importDeclarations;
     }
 
@@ -175,34 +177,32 @@ final class JavaSourceJdom implements JavaSource {
         return packageDeclaration;
     }
 
-    private ImportDeclaration[] parseImportDeclaration() {
+    private List<ImportDeclaration> parseImportDeclaration() {
         try {
             final JXPathContext context = JXPathContext.newContext(root);
             final List importNodes = context.selectNodes("/" + JAVA_SOURCE_ROOT_ELEMENT_NAME + "/" +
                     JavaSourceTokenType.IMPORT.name());
-            importDeclarations = new ImportDeclaration[importNodes.size()];
-            int i = 0;
+            importDeclarations = new ArrayList<ImportDeclaration>(importNodes.size());
             for (Object importNode : importNodes) {
-                importDeclarations[i++] = new ImportDeclarationJdom((Element) importNode);
+                importDeclarations.add(new ImportDeclarationJdom((Element) importNode));
             }
         }
         catch (JXPathException e) {
-            importDeclarations = new ImportDeclaration[0];
+            importDeclarations = emptyList();
         }
         return importDeclarations;
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public static Annotation[] parseAnnotations(final Element element) {
-        final Annotation[] annotations;
+    public static List<Annotation> parseAnnotations(final Element element) {
+        final List<Annotation> annotations;
         JXPathContext context = JXPathContext.newContext(element);
         List annotationList = context.selectNodes("/" + JavaSourceTokenType.MODIFIER_LIST.getName() +
                 "/" + JavaSourceTokenType.AT.getName());
-        annotations = new Annotation[annotationList.size()];
-        int i = 0;
+        annotations = new ArrayList<Annotation>(annotationList.size());
         for (Object annotationElement : annotationList) {
-            annotations[i++] = new AnnotationJdom((Element) annotationElement);
+            annotations.add(new AnnotationJdom((Element) annotationElement));
         }
         return annotations;
     }

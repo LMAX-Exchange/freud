@@ -5,6 +5,8 @@ import org.freud.analysed.javasource.ParamDeclaration;
 import org.freud.analysed.javasource.parser.JavaSourceTokenType;
 import org.jdom.Element;
 
+import java.util.List;
+
 
 final class ParamDeclarationJdom implements ParamDeclaration {
     private final Element paramDecl;
@@ -12,7 +14,7 @@ final class ParamDeclarationJdom implements ParamDeclaration {
     private final boolean finalVariable;
     private final boolean varArgs;
     private final String name;
-    private Annotation[] annotations;
+    private List<Annotation> annotations;
 
     public ParamDeclarationJdom(final Element paramDecl) {
         this.paramDecl = paramDecl;
@@ -44,7 +46,7 @@ final class ParamDeclarationJdom implements ParamDeclaration {
     }
 
     @Override
-    public Annotation[] getDeclaredAnnotations() {
+    public List<Annotation> getDeclaredAnnotations() {
         if (annotations == null) {
             annotations = JavaSourceJdom.parseAnnotations(paramDecl);
         }

@@ -1,6 +1,8 @@
 package org.freud.analysed.javasource;
 
 
+import java.util.List;
+
 public interface MethodDeclaration extends AnnotatedElementDeclaration {
     String getReturnType();
 
@@ -10,5 +12,5 @@ public interface MethodDeclaration extends AnnotatedElementDeclaration {
 
 //    long getModifierMask();
 
-    ParamDeclaration[] getParametersDeclarations();
+    List<ParamDeclaration> getParametersDeclarations();
 }

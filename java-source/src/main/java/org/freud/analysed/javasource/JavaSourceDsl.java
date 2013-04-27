@@ -53,8 +53,10 @@ public final class JavaSourceDsl {
         return new SubTypeAnalysedObjects<ClassDeclaration, VarDeclaration>(new ClassDeclarationToFieldDeclarationsCreator(), classDeclarations);
     }
 
+    // TODO - code blocks within classes (methods + static blocks) etc.
+
     public static Iterable<CodeBlock> codeBlocksWithin(Iterable<MethodDeclaration> methodDeclarations) {
-        return new SubTypeAnalysedObjects<MethodDeclaration, CodeBlock>(new MethodDeclarationToCodeBlocksCreator(), methodDeclarations);
+        return new AnalysedObjects<MethodDeclaration, CodeBlock>(new MethodDeclarationToCodeBlockCreator(), methodDeclarations);
     }
 
     public static Iterable<ParamDeclaration> paramDeclarationsOf(Iterable<MethodDeclaration> methodDeclarations) {

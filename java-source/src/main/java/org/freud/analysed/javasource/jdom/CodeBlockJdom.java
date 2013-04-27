@@ -57,8 +57,13 @@ final class CodeBlockJdom implements CodeBlock {
         return codeBlockType == Type.METHOD_IMPL;
     }
 
-    @SuppressWarnings("unchecked")
     public List<MethodCall> getMethodCallListByMethodName(String methodName) {
+        return getMethodCallByMethodNameMap().get(methodName);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public Map<String, List<MethodCall>> getMethodCallByMethodNameMap() {
         if (methodCallByMethodNameMap == null) {
             methodCallByMethodNameMap = new HashMap<String, List<MethodCall>>();
             JXPathContext context = JXPathContext.newContext(codeBlockElement);
@@ -74,7 +79,7 @@ final class CodeBlockJdom implements CodeBlock {
                 methodCallList.add(methodCall);
             }
         }
-        return methodCallByMethodNameMap.get(methodName);
+        return methodCallByMethodNameMap;
     }
 
     @SuppressWarnings("unchecked")
