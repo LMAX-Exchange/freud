@@ -3,7 +3,7 @@ package org.freud.core.iterator
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class MultiCollectionSpec extends Specification {
+class FlattenedCollectionSpec extends Specification {
 
     @Unroll
     def 'returns correct size #size for #collection'() {
