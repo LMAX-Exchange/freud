@@ -4,10 +4,10 @@ import org.freud.analysed.css.rule.CssRule
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static org.freud.analysed.css.jdom.CssTestUtil.cssDeclaration
-import static org.freud.analysed.css.jdom.CssTestUtil.cssRule
-import static org.freud.analysed.css.jdom.CssTestUtil.cssSelector
-import static org.freud.analysed.css.jdom.CssTestUtil.matchClosuresToList
+import static CssParsingFixture.cssDeclaration
+import static CssParsingFixture.cssRule
+import static CssParsingFixture.cssSelector
+import static CssParsingFixture.matchClosuresToList
 import static org.freud.analysed.css.rule.selector.CssSelector.Combinator.DESCENDANT
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID

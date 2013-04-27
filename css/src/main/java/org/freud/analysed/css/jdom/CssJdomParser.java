@@ -23,12 +23,8 @@ final class CssJdomParser {
     private static final String CSS_ROOT_ELEMENT_NAME = "CSS";
     private static final TokenType[] CSS_TOKEN_TYPES = CssTokenType.values();
 
-    private static Document parseCssToDocument(final Reader reader) throws RecognitionException, IOException {
-        CssParser parser = new CssParser(new CommonTokenStream(new CssLexer(new ANTLRReaderStream(reader))));
-        final JdomTreeAdaptor treeAdaptor = new JdomTreeAdaptor(CSS_ROOT_ELEMENT_NAME, CSS_TOKEN_TYPES);
-        parser.setTreeAdaptor(treeAdaptor);
-        parser.stylesheet();
-        return treeAdaptor.getDocument();
+    private CssJdomParser() {
+        // static utility
     }
 
     @SuppressWarnings("unchecked")
@@ -45,5 +41,13 @@ final class CssJdomParser {
             }
         }
         return cssRuleList;
+    }
+
+    private static Document parseCssToDocument(final Reader reader) throws RecognitionException, IOException {
+        CssParser parser = new CssParser(new CommonTokenStream(new CssLexer(new ANTLRReaderStream(reader))));
+        final JdomTreeAdaptor treeAdaptor = new JdomTreeAdaptor(CSS_ROOT_ELEMENT_NAME, CSS_TOKEN_TYPES);
+        parser.setTreeAdaptor(treeAdaptor);
+        parser.stylesheet();
+        return treeAdaptor.getDocument();
     }
 }
