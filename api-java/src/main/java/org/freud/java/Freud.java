@@ -32,12 +32,12 @@ public final class Freud {
         return new FreudSource<File>(new Files(asList(paths), true, null), File.class);
     }
 
-    public static FreudSource<File> nonRecursivelyFilesIn(String... paths) {
-        return new FreudSource<File>(new Files(asList(paths), false, null), File.class);
-    }
-
     public static FreudSource<File> filesIn(FilenameFilter filter, String... paths) {
         return new FreudSource<File>(new Files(asList(paths), true, filter), File.class);
+    }
+
+    public static FreudSource<File> nonRecursivelyFilesIn(String... paths) {
+        return new FreudSource<File>(new Files(asList(paths), false, null), File.class);
     }
 
     public static FreudSource<File> nonRecursivelyFilesIn(FilenameFilter filter, String... paths) {
