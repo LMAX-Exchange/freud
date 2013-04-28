@@ -7,7 +7,7 @@ import org.freud.analysed.javasource.VarDeclaration;
 import org.freud.analysed.javasource.parser.JavaSourceTokenType;
 import org.jdom.Element;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +62,7 @@ final class ClassDeclarationJdom implements ClassDeclaration {
     public Map<String, ClassDeclaration> getInnerClassDeclarationByNameMap() {
         if (innerClassDeclarationByNameMap == null) {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
-            innerClassDeclarationByNameMap = new HashMap<String, ClassDeclaration>();
+            innerClassDeclarationByNameMap = new LinkedHashMap<String, ClassDeclaration>();
             for (JavaSourceTokenType tokenType : POSSIBLE_CLASS_DECLARATION_TYPES) {
                 final String tokenName = tokenType.getName();
                 List<Element> innerClassElementList =
@@ -87,16 +87,15 @@ final class ClassDeclarationJdom implements ClassDeclaration {
     public Map<String, List<MethodDeclaration>> getMethodDeclarationListByNameMap() {
         if (methodDeclarationListByNameMap == null) {
             JXPathContext context = JXPathContext.newContext(classDeclElement);
-            methodDeclarationListByNameMap = new HashMap<String, List<MethodDeclaration>>();
-            getMethodDeclarationListByNameMap(context, FUNCTION_METHOD_DECL);
-            getMethodDeclarationListByNameMap(context, VOID_METHOD_DECL);
+            methodDeclarationListByNameMap = new LinkedHashMap<String, List<MethodDeclaration>>();
+            getMethodDeclarationListByNameMap(context);
         }
         return methodDeclarationListByNameMap;
     }
 
-    private void getMethodDeclarationListByNameMap(final JXPathContext context, final JavaSourceTokenType methodElementName) {
+    private void getMethodDeclarationListByNameMap(final JXPathContext context) {
         List<Element> methodDeclElementList =
-                context.selectNodes("//" + methodElementName.getName());
+                context.selectNodes("//" + FUNCTION_METHOD_DECL.getName() + "|//" + VOID_METHOD_DECL.getName());
         for (Element methodElement : methodDeclElementList) {
             MethodDeclaration methodDeclaration = new MethodDeclarationJdom(methodElement, this);
             final String name = methodDeclaration.getName();

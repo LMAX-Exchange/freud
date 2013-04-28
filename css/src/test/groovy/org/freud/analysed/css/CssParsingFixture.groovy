@@ -1,4 +1,4 @@
-package org.freud.analysed.css.jdom
+package org.freud.analysed.css
 
 import org.freud.analysed.css.rule.CssRule
 import org.freud.analysed.css.rule.declaration.CssDeclaration
@@ -13,22 +13,15 @@ import static org.freud.analysed.css.rule.selector.CssSelector.Type.CLASS
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.ID
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.TAG
 import static org.freud.analysed.css.rule.selector.CssSelector.Type.UNIVERSAL
+import static org.langera.spock.SpockExtension.matches
 
 class CssParsingFixture {
 
     static boolean exampleCssfileParsedBy(Closure<Iterable<CssRule>> parser) {
-        matchClosuresToList.call(EXPECTED_EXAMPLE_CSS_RULES, parser.call(EXAMPLE_CSS) as List)
+        matches(EXPECTED_EXAMPLE_CSS_RULES).call(parser.call(EXAMPLE_CSS) as List)
     }
 
-    private static Closure<Boolean> matchClosuresToList = {
-        List<Closure<Boolean>> closures, List list ->
-        int index = 0
-        return closures.size() == list.size() && closures.every { Closure<Boolean> closure ->
-            closure.call(list[index++])
-        }
-    }
-
-    private static final File EXAMPLE_CSS = new File(ClassLoader.getSystemResource('CssRulesJdomFromFileCreatorSpec/example.css').file)
+    private static final File EXAMPLE_CSS = new File(ClassLoader.getSystemResource('example.css').file)
 
     private static final List<Closure<Boolean>> EXPECTED_EXAMPLE_CSS_RULES = [cssRule([cssSelector(CLASS, 'class', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(TAG, 'table', [cssDeclaration('display', 'none')])]),
@@ -58,7 +51,7 @@ class CssParsingFixture {
 
     static Closure<Boolean> cssRule(List<Closure<Boolean>> selectorsConditions) {
         return { CssRule rule ->
-            matchClosuresToList.call(selectorsConditions, rule.cssSelectors)
+            matches(selectorsConditions).call(rule.cssSelectors)
         }
     }
 
@@ -73,7 +66,7 @@ class CssParsingFixture {
                                         List<Closure<Boolean>> declarationsConditions) {
         return { CssSelector selector ->
             selector.type == type && selector.selectorString == selectorString && selector.combinator == combinator &&
-                    matchClosuresToList.call(declarationsConditions, selector.cssRuleForSelector.cssDeclarations)
+                    matches(declarationsConditions).call(selector.cssRuleForSelector.cssDeclarations)
         }
     }
 

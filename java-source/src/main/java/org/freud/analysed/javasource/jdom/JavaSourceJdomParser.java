@@ -17,7 +17,16 @@ class JavaSourceJdomParser {
     static final JavaSourceTokenType[] JAVA_SOURCE_TOKEN_TYPES = JavaSourceTokenType.values();
     static final String JAVA_SOURCE_ROOT_ELEMENT_NAME = "JAVA_SOURCE";
 
-    Document parseJavaSourceToDocument(final Reader javaSourceReader) throws RecognitionException, IOException {
+    private JavaSourceJdomParser() {
+        // static utility
+    }
+
+    static JavaSourceJdom parseJavaSource(final Reader reader, final String identifier) throws RecognitionException, IOException {
+        Document root = parseJavaSourceToDocument(reader);
+        return new JavaSourceJdom(root, identifier);
+    }
+
+    private static Document parseJavaSourceToDocument(final Reader javaSourceReader) throws RecognitionException, IOException {
         JavaParser parser = new JavaParser(new CommonTokenStream(new JavaLexer(new ANTLRReaderStream(javaSourceReader))));
         final JdomTreeAdaptor treeAdaptor = new JdomTreeAdaptor(JAVA_SOURCE_ROOT_ELEMENT_NAME, JAVA_SOURCE_TOKEN_TYPES);
         parser.setTreeAdaptor(treeAdaptor);
