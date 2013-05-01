@@ -6,10 +6,12 @@ import org.freud.core.FreudSource;
 import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.Files;
 import org.freud.core.iterator.FilteredAnalysedObjects;
+import org.freud.core.iterator.SystemResources;
 import org.hamcrest.Matcher;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Collection;
 
 import static java.util.Arrays.asList;
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS;
@@ -35,6 +37,15 @@ public final class Freud {
     public static FreudSource<File> filesIn(FilenameFilter filter, String... paths) {
         return new FreudSource<File>(new Files(asList(paths), true, filter), File.class);
     }
+
+    public static FreudSource<File> resourcesOf(Collection<String> paths) {
+        return new FreudSource<File>(new SystemResources(paths), File.class);
+    }
+
+    public static FreudSource<File> resourcesOf(Collection<String> paths, ClassLoader classLoader) {
+        return new FreudSource<File>(new SystemResources(paths, classLoader), File.class);
+    }
+
 
     public static FreudSource<File> nonRecursivelyFilesIn(String... paths) {
         return new FreudSource<File>(new Files(asList(paths), false, null), File.class);

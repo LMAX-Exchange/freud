@@ -18,8 +18,8 @@ import static org.freud.groovy.Freud.forEach
 class ClassByteCodeExamplesSpock extends Specification {
 
 
-    @Unroll('#analysed.name')
-    def 'do not use BigDecimal.equals()'() {
+    @Unroll
+    def '#analysed.name do not use BigDecimal.equals()'() {
     expect:
         analyse(analysed) { !hasMethodInvocation(analysed, BigDecimal, 'equals', Object) }
     where:
@@ -27,9 +27,9 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { !it.name.contains('equals') })
     }
 
-    @Unroll('#analysed.name')
+    @Unroll
     @FailsWith(ConditionNotSatisfiedError)
-    def 'do not use BigDecimal.equals() - Failing test'() {
+    def '#analysed.name do not use BigDecimal.equals() - Failing test'() {
     expect:
         analyse(analysed) { !hasMethodInvocation(analysed, BigDecimal, 'equals', Object) }
     where:
@@ -37,8 +37,8 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { it.name.contains('equals') })
     }
 
-    @Unroll('#analysed.name')
-    def 'do not use BigDecimal.toString()'() {
+    @Unroll
+    def '#analysed.name do not use BigDecimal.toString()'() {
     expect:
         analyse(analysed) {
             !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
@@ -51,9 +51,9 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { !it.name.contains('ToString') })
     }
 
-    @Unroll('#analysed.name')
+    @Unroll
     @FailsWith(ConditionNotSatisfiedError)
-    def 'do not use BigDecimal.toString() - Failing test'() {
+    def '#analysed.namedo not use BigDecimal.toString() - Failing test'() {
     expect:
         analyse(analysed) {
             !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
@@ -66,8 +66,8 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { it.name.contains('ToString') })
     }
 
-    @Unroll('#analysed.name')
-    def 'do not throw any exceptions'() {
+    @Unroll
+    def '#analysed.name do not throw any exceptions'() {
     expect:
         analyse(analysed) { !containsInstructions(analysed, ATHROW) }
     where:
@@ -75,9 +75,9 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { !it.name.contains('Throws') })
     }
 
-    @Unroll('#analysed.name')
+    @Unroll
     @FailsWith(ConditionNotSatisfiedError)
-    def 'do not throw any exceptions - Failing test'() {
+    def '#analysed.name do not throw any exceptions - Failing test'() {
     expect:
         analyse(analysed) { !containsInstructions(analysed, ATHROW) }
     where:
@@ -85,8 +85,8 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { it.name.contains('Throws') })
     }
 
-    @Unroll('#analysed.name')
-    def 'methods should not have branch logic'() {
+    @Unroll
+    def '#analysed.name should not have branch logic'() {
     expect:
         analyse(analysed) {
             !containsInstructions(analysed, Opcode.IFEQ,
@@ -117,9 +117,9 @@ class ClassByteCodeExamplesSpock extends Specification {
                             { !it.name.contains('BranchLogic') })
     }
 
-    @Unroll('#analysed.name')
+    @Unroll
     @FailsWith(ConditionNotSatisfiedError)
-    def 'methods should not have branch logic - Failing test'() {
+    def '#analysed.name should not have branch logic - Failing test'() {
     expect:
         analyse(analysed) {
             !containsInstructions(analysed, Opcode.IFEQ,

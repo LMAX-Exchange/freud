@@ -10,7 +10,7 @@ import static java.lang.ClassLoader.getSystemClassLoader;
 
 public final class AsmClassByteCodeFromNameCreator implements Creator<String, ClassByteCode> {
 
-    private final AsmClassByteCodeFromStreamCreator fromStreamCreator;
+    private final AsmClassByteCodeFromStreamCreator fromFileCreator;
     private final ClassLoader classLoader;
 
     public AsmClassByteCodeFromNameCreator() {
@@ -19,14 +19,14 @@ public final class AsmClassByteCodeFromNameCreator implements Creator<String, Cl
 
     public AsmClassByteCodeFromNameCreator(final ClassLoader classLoader) {
         this.classLoader = classLoader;
-        this.fromStreamCreator = new AsmClassByteCodeFromStreamCreator();
+        this.fromFileCreator = new AsmClassByteCodeFromStreamCreator();
     }
 
     @Override
     public ClassByteCode create(final String source) {
         String fileName = toFileName(source);
         final InputStream inputStream = classLoader.getResourceAsStream(fileName);
-        return fromStreamCreator.create(inputStream);
+        return fromFileCreator.create(inputStream);
     }
 
     private String toFileName(final String className) {

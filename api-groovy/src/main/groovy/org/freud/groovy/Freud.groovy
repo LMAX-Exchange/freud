@@ -5,6 +5,7 @@ import org.freud.core.FreudSource
 import org.freud.core.iterator.ClassNames
 import org.freud.core.iterator.Files
 import org.freud.core.iterator.FilteredAnalysedObjects
+import org.freud.core.iterator.SystemResources
 
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS
 
@@ -47,6 +48,14 @@ class Freud {
 
     static FreudSource<File> filesIn(Collection filesOrPaths, boolean recursive, Closure<Boolean> filenameFilter = { true }) {
         new FreudSource<File>(new Files(filesOrPaths, recursive, toFilenameFilter(filenameFilter)), File)
+    }
+
+    static FreudSource<File> resourcesOf(Collection<String> paths) {
+        new FreudSource<File>(new SystemResources(paths), File)
+    }
+
+    static FreudSource<File> resourcesOf(Collection<String> paths, ClassLoader classLoader) {
+        new FreudSource<File>(new SystemResources(paths, classLoader), File)
     }
 
     static FreudSource<String> classNamesIn(File root, Closure<Boolean> filenameFilter = { true }) {

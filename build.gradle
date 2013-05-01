@@ -212,6 +212,7 @@ project(':examples-spock') {
         compile project(':css')
         compile project(':class-object')
         compile project(':class-byte-code')
+        compile project(':java-source')
     }
 }
 
@@ -225,5 +226,6 @@ project(':examples-junit') {
         compile project(':css')
         compile project(':class-object')
         compile project(':class-byte-code')
+        compile project(':java-source')
     }
 }
