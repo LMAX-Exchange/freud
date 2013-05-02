@@ -51,4 +51,15 @@ final class MethodCallJdom implements MethodCall {
     public String[] getInstanceReferences() {
         return instanceReferences;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("MethodCall ");
+        for (String reference : instanceReferences) {
+            sb.append(reference).append('.');
+        }
+        sb.append(methodName);
+
+        return sb.toString();
+    }
 }

@@ -8,6 +8,18 @@ import static java.beans.Introspector.getBeanInfo
 
 class SpockExtension {
 
+//    static {
+//        ExpandoMetaClass.enableGlobally()
+//
+//        Object.metaClass.has = { Map<String, Object> state ->
+//            def instance = delegate
+//            state.every { String key, Object value ->
+//                Object actual = instance.metaClass.getProperty(instance, key)
+//                return value == actual
+//            }
+//        }
+//    }
+
     private SpockExtension() {
         // static utility
     }

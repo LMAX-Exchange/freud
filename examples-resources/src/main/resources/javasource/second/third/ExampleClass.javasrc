@@ -1,4 +1,8 @@
 package javasource.second.third;
 
 public final class ExampleClass {
+
+    public int exampleMethod(String exampleStringArg) {
+        return exampleStringArg.length();
+    }
 }
