@@ -1,5 +1,6 @@
 package org.freud
 
+import org.freud.analysed.javasource.Annotation
 import org.spockframework.runtime.ConditionNotSatisfiedError
 import spock.lang.FailsWith
 import spock.lang.Specification
@@ -11,6 +12,7 @@ import static org.freud.analysed.javasource.JavaSourceDsl.methodCallsWithin
 import static org.freud.analysed.javasource.JavaSourceDsl.methodDeclarationsWithin
 import static org.freud.analysed.javasource.JavaSourceDsl.packageDeclarationsWithin
 import static org.freud.groovy.Freud.analyse
+import static org.freud.groovy.Freud.forEach
 import static org.freud.groovy.Freud.resourcesOf
 
 class JavaSourceExamplesSpock extends Specification {
@@ -66,19 +68,33 @@ class JavaSourceExamplesSpock extends Specification {
                 javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))))
     }
 
-/*
+    def 'code block limited to max 17 lines unless suppress annotation exists'() {
+    expect:
+        analyse(analysed) { it.numberOfLines <= 17 }
+    where:
+        analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
+                javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc',
+                        'javasource/ClassWithIgnoredLongMethod.javasrc'])))), {
+            !it.declaredAnnotations.find { Annotation annotation ->
+                println "${annotation.defaultParameter}";
+                annotation.name == 'SuppressWarning' &&
+                        annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'
+            }
+        }))
+    }
 
-  public static FreudAnalyser codeBlockSizeIsLimitedTo30Lines(final AnalysedObjectIterator<JavaSource> iterator)
-  {
-      return Freud.iterateOver(CodeBlock.class).
-              assertThat(codeBlockLines().lessThanOrEqualTo(30)).within(iterator);
-  }
-
-  public static FreudAnalyser codeBlockSizeIsLimitedToOneLineIfFreudNotSuppressed(final AnalysedObjectIterator<JavaSource> iterator)
-  {
-      return Freud.iterateOver(CodeBlock.class).
-              forEach(no(method(hasDeclaredAnnotation("SuppressWarnings", Matchers.containsString("\"freud:"))))).
-              assertThat(codeBlockLines().lessThanOrEqualTo(1)).within(iterator);
-  }
-*/
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'code block limited to max 17 lines unless suppress annotation exists - failing test'() {
+    expect:
+        analyse(analysed) { it.numberOfLines <= 17 }
+    where:
+        analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
+                javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))), {
+            !it.declaredAnnotations.find { Annotation annotation ->
+                println "${annotation.defaultParameter}";
+                annotation.name == 'SuppressWarning' &&
+                        annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'
+            }
+        }))
+    }
 }

@@ -76,4 +76,9 @@ final class AnnotationJdom implements Annotation {
     public Map<String, String> getParameterMap() {
         return parameterMap;
     }
+
+    @Override
+    public String toString() {
+        return  name + " default=" + defaultParameter + " " + parameterMap;
+    }
 }
