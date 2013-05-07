@@ -49,11 +49,6 @@ class JavaSourceExamplesSpock extends Specification {
     }
 
 /*
-  public static FreudAnalyser noSystemOutPrintInCode(final AnalysedObjectIterator<JavaSource> iterator)
-  {
-      return Freud.iterateOver(CodeBlock.class).
-              assertThat(no(hasMethodCall("System.out.print")).and(no(hasMethodCall("System.out.println")))).within(iterator);
-  }
 
   public static FreudAnalyser codeBlockSizeIsLimitedTo30Lines(final AnalysedObjectIterator<JavaSource> iterator)
   {
