@@ -60,7 +60,7 @@ class JavaSourceExamplesSpock extends Specification {
     @FailsWith(ConditionNotSatisfiedError)
     def 'code block limited to max 30 lines - failing test'() {
     expect:
-        analyse(analysed) { println it; it.numberOfLines; it.numberOfLines <= 30 }
+        analyse(analysed) { it.numberOfLines <= 30 }
     where:
         analysed << codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
                 javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))))
