@@ -48,6 +48,24 @@ class JavaSourceExamplesSpock extends Specification {
                 javaSourceOf(resourcesOf(['javasource/ClassWithSystemOutPrint.javasrc']))))))
     }
 
+    def 'code block limited to max 30 lines'() {
+    expect:
+        analyse(analysed) { it.numberOfLines <= 30 }
+    where:
+        analysed << codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
+                javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc',
+                                          'javasource/ClassWith30LineMethod.javasrc'])))))
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'code block limited to max 30 lines - failing test'() {
+    expect:
+        analyse(analysed) { println it; it.numberOfLines; it.numberOfLines <= 30 }
+    where:
+        analysed << codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
+                javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))))
+    }
+
 /*
 
   public static FreudAnalyser codeBlockSizeIsLimitedTo30Lines(final AnalysedObjectIterator<JavaSource> iterator)
