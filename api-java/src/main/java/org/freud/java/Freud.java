@@ -11,6 +11,7 @@ import org.hamcrest.Matcher;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.net.URL;
 import java.util.Collection;
 
 import static java.util.Arrays.asList;
@@ -38,12 +39,12 @@ public final class Freud {
         return new FreudSource<File>(new Files(asList(paths), true, filter), File.class);
     }
 
-    public static FreudSource<File> resourcesOf(Collection<String> paths) {
-        return new FreudSource<File>(new SystemResources(paths), File.class);
+    public static FreudSource<URL> resourcesOf(Collection<String> paths) {
+        return new FreudSource<URL>(new SystemResources(paths), URL.class);
     }
 
-    public static FreudSource<File> resourcesOf(Collection<String> paths, ClassLoader classLoader) {
-        return new FreudSource<File>(new SystemResources(paths, classLoader), File.class);
+    public static FreudSource<URL> resourcesOf(Collection<String> paths, ClassLoader classLoader) {
+        return new FreudSource<URL>(new SystemResources(paths, classLoader), URL.class);
     }
 
 

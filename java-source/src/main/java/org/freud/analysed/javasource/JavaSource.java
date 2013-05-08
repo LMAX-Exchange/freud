@@ -16,5 +16,5 @@ public interface JavaSource {
 
     String getSimpleClassName();
 
-    String getFileName();
+    String getResourceName();
 }

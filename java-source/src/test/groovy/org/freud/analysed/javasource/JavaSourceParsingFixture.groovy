@@ -1,17 +1,18 @@
 package org.freud.analysed.javasource
 
+import static java.lang.ClassLoader.getSystemResource
 import static org.langera.spock.SpockExtension.matches
 
 class JavaSourceParsingFixture {
 
-    static boolean exampleJavaSourceFileParsedBy(Closure<JavaSource> parser) {
+    static boolean exampleJavaSourceResourceParsedBy(Closure<JavaSource> parser) {
         matches(EXPECTED_EXAMPLE_JAVA_SOURCE).call(parser.call(EXAMPLE_JAVA_SOURCE))
     }
 
-    private static final File EXAMPLE_JAVA_SOURCE = new File(ClassLoader.getSystemResource('org/freud/example/ExampleJavaSourceClass.java').file)
+    private static final URL EXAMPLE_JAVA_SOURCE = getSystemResource('org/freud/example/ExampleJavaSourceClass.java')
 
     private static final Map<String, Object> EXPECTED_EXAMPLE_JAVA_SOURCE = [
-            fileName: 'ExampleJavaSourceClass.java',
+            resourceName: { it.startsWith('file:') && it.endsWith('ExampleJavaSourceClass.java') },
             simpleClassName: 'ExampleJavaSourceClass',
             fullClassName: 'org.freud.example.ExampleJavaSourceClass',
             packageDeclaration: packageDeclaration('org.freud.example'),

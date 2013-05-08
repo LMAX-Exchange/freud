@@ -31,4 +31,9 @@ final class ImportDeclarationJdom implements ImportDeclaration {
     public boolean isStaticDecalaration() {
         return staticImport;
     }
+
+    @Override
+    public String toString() {
+        return ((staticImport) ? "static " : "") +  getImportDeclarationPathAsString();
+    }
 }

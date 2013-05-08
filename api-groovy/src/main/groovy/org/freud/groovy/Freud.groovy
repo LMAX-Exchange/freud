@@ -50,12 +50,12 @@ class Freud {
         new FreudSource<File>(new Files(filesOrPaths, recursive, toFilenameFilter(filenameFilter)), File)
     }
 
-    static FreudSource<File> resourcesOf(Collection<String> paths) {
-        new FreudSource<File>(new SystemResources(paths), File)
+    static FreudSource<URL> resourcesOf(Collection<String> paths) {
+        new FreudSource<URL>(new SystemResources(paths), URL)
     }
 
-    static FreudSource<File> resourcesOf(Collection<String> paths, ClassLoader classLoader) {
-        new FreudSource<File>(new SystemResources(paths, classLoader), File)
+    static FreudSource<URL> resourcesOf(Collection<String> paths, ClassLoader classLoader) {
+        new FreudSource<URL>(new SystemResources(paths, classLoader), URL)
     }
 
     static FreudSource<String> classNamesIn(File root, Closure<Boolean> filenameFilter = { true }) {

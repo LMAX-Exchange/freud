@@ -32,15 +32,15 @@ final class JavaSourceJdom implements JavaSource {
             JavaSourceTokenType.AT,
     };
 
-    private final String fileName;
+    private final String resourceName;
     private final Document root;
     private ClassDeclaration classDeclaration;
     private PackageDeclaration packageDeclaration;
     private List<ImportDeclaration> importDeclarations;
 
-    public JavaSourceJdom(final Document root, final String fileName) {
+    public JavaSourceJdom(final Document root, final String resourceName) {
         this.root = root;
-        this.fileName = fileName;
+        this.resourceName = resourceName;
     }
 
     public Document getDocument() {
@@ -67,8 +67,8 @@ final class JavaSourceJdom implements JavaSource {
 /////////////////////////////////////////////////////////////////////////////////////
 
     @Override
-    public String getFileName() {
-        return fileName;
+    public String getResourceName() {
+        return resourceName;
     }
 
     @Override

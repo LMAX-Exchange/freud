@@ -76,7 +76,6 @@ class JavaSourceExamplesSpock extends Specification {
                 javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc',
                         'javasource/ClassWithIgnoredLongMethod.javasrc'])))), {
             !it.declaredAnnotations.find { Annotation annotation ->
-                println "${annotation.defaultParameter}";
                 annotation.name == 'SuppressWarning' &&
                         annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'
             }
@@ -91,7 +90,6 @@ class JavaSourceExamplesSpock extends Specification {
         analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
                 javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))), {
             !it.declaredAnnotations.find { Annotation annotation ->
-                println "${annotation.defaultParameter}";
                 annotation.name == 'SuppressWarning' &&
                         annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'
             }
