@@ -10,9 +10,8 @@ class JavaSourceJdomParserSpec extends Specification {
 
     def 'parses a file into a Java source'() {
     expect:
-        exampleJavaSourceResourceParsedBy
-                { URL url ->
-                    parseJavaSource(new InputStreamReader(url.openStream()), url.toExternalForm())
+        exampleJavaSourceResourceParsedBy { URL url ->
+            parseJavaSource(new InputStreamReader(url.openStream()), url.toExternalForm())
                 }
     }
 }

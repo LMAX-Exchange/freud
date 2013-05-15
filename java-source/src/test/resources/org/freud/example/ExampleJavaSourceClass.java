@@ -1,11 +1,7 @@
 package org.freud.example;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-
+import java.util.*;
 import static java.math.BigDecimal.ZERO;
 
 public final class ExampleJavaSourceClass {

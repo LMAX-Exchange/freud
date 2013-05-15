@@ -1,12 +1,15 @@
-package examples.org.freud
+package examples.org.freud;
 
-import org.freud.core.listener.AnalysisListener
-import org.hamcrest.Matcher
-import org.hamcrest.Matchers
-import org.hamcrest.StringDescription
-import org.junit.Assert
+import org.freud.core.listener.AnalysisListener;
+import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
+import org.hamcrest.StringDescription;
+import org.junit.Assert;
 
-class AnalysisListenerStub implements AnalysisListener {
+import java.util.Deque;
+import java.util.LinkedList;
+
+final class AnalysisListenerStub implements AnalysisListener {
 
     private Deque<Object> passed = new LinkedList<Object>();
     private Deque<Object> failed = new LinkedList<Object>();
@@ -14,27 +17,27 @@ class AnalysisListenerStub implements AnalysisListener {
     private Deque<Exception> unexpected = new LinkedList<Exception>();
 
     @Override
-    void passed(final Object analysedObject) {
-        passed.add(analysedObject)
+    public void passed(final Object analysedObject) {
+        passed.add(analysedObject);
     }
 
     @Override
-    void failed(final Object analysedObject, final String details) {
-        failed.add(analysedObject)
+    public void failed(final Object analysedObject, final String details) {
+        failed.add(analysedObject);
     }
 
     @Override
-    void filtered(final Object analysedObject, final String details) {
-        filtered.add(analysedObject)
+    public void filtered(final Object analysedObject, final String details) {
+        filtered.add(analysedObject);
     }
 
     @Override
-    void unexpected(final Object analysedObject, final Exception exception) {
-        unexpected.add(exception)
+    public void unexpected(final Object analysedObject, final Exception exception) {
+        unexpected.add(exception);
     }
 
     @Override
-    void done() {
+    public void done() {
     }
 
     public void assertPassed(int total) {
