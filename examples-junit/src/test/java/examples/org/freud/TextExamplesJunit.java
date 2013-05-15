@@ -11,7 +11,7 @@ import static java.util.Arrays.asList;
 import static org.freud.analysed.text.TextDsl.textLineWithin;
 import static org.freud.analysed.text.TextDsl.textOf;
 
-public final class TextExamplesJunitX {
+public final class TextExamplesJunit {
 
     private AnalysisListenerStub listener = new AnalysisListenerStub();
 
