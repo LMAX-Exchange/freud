@@ -7,6 +7,7 @@ import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.Files;
 import org.freud.core.iterator.FilteredAnalysedObjects;
 import org.freud.core.iterator.SystemResources;
+import org.freud.java.rule.FreudRuleBuilder;
 import org.hamcrest.Matcher;
 
 import java.io.File;
@@ -18,6 +19,11 @@ import static java.util.Arrays.asList;
 import static org.freud.core.iterator.AnalysedObjectBreadcrumbs.BREADCRUMBS;
 
 public final class Freud {
+
+
+    public static <T> FreudRuleBuilder<T> iterateOver(Class<T> type) {
+        return new FreudRuleBuilder<T>(type);
+    }
 
     public static <A> boolean analyse(A analysedObject, Matcher assertion) {
         return assertion.matches(analysedObject);

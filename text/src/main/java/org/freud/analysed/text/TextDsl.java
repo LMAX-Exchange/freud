@@ -5,6 +5,7 @@ import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.SubTypeAnalysedObjects;
 
 import java.io.File;
+import java.net.URL;
 
 import static org.freud.core.FreudSource.typeOf;
 
@@ -24,6 +25,9 @@ public final class TextDsl {
     public static Iterable<Text> textOf(FreudSource source) {
         if (File.class.equals(source.getType())) {
             return new AnalysedObjects<File, Text>(new TextFromFileCreator(), source.getSources());
+        }
+        if (URL.class.equals(source.getType())) {
+            return new AnalysedObjects<URL, Text>(new TextFromUrlCreator(), source.getSources());
         }
         if (String.class.equals(source.getType())) {
             return new AnalysedObjects<String, Text>(new TextFromStringCreator(), source.getSources());

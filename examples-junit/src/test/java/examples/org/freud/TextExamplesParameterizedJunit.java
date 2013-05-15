@@ -19,16 +19,16 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public final class TextExamplesJunit {
+public final class TextExamplesParameterizedJunit {
 
     private static File root = new File(ClassLoader.getSystemResource("TextExamples").getFile());
 
     private TextLine analysed;
     private File source;
 
-    public TextExamplesJunit(final TextLine analysed,
-                             @SuppressWarnings("unused") final Object parent,
-                             final File source) {
+    public TextExamplesParameterizedJunit(final TextLine analysed,
+                                          @SuppressWarnings("unused") final Object parent,
+                                          final File source) {
         this.analysed = analysed;
         this.source = source;
     }
