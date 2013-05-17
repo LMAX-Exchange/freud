@@ -6,7 +6,7 @@ import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
-import static examples.org.freud.matchers.TextLineDsl.lineLength;
+import static examples.org.freud.matchers.TextLineMatchers.lineLength;
 import static java.util.Arrays.asList;
 import static org.freud.analysed.text.TextDsl.textLineWithin;
 import static org.freud.analysed.text.TextDsl.textOf;

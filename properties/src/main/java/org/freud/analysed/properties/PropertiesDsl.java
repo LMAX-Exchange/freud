@@ -5,6 +5,7 @@ import org.freud.core.iterator.AnalysedObjects;
 import org.freud.core.iterator.SubTypeAnalysedObjects;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Properties;
 
 import static org.freud.core.FreudSource.typeOf;
@@ -30,6 +31,9 @@ public final class PropertiesDsl {
     public static Iterable<Properties> propertiesOf(FreudSource source) {
         if (File.class.equals(source.getType())) {
             return new AnalysedObjects<File, Properties>(new PropertiesFromFileCreator(), source.getSources());
+        }
+        if (URL.class.equals(source.getType())) {
+            return new AnalysedObjects<URL, Properties>(new PropertiesFromUrlCreator(), source.getSources());
         }
         if (String.class.equals(source.getType())) {
             return new AnalysedObjects<String, Properties>(new PropertiesFromStringCreator(), source.getSources());

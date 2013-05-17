@@ -6,9 +6,9 @@ import org.freud.java.matcher.IntOperatorMatcherBuilder;
 import org.freud.java.matcher.RegexMatcherAdapter;
 import org.freud.java.matcher.StringMatcherBuilder;
 
-public final class TextLineDsl
+public final class TextLineMatchers
 {
-    private TextLineDsl()
+    private TextLineMatchers()
     {
         // static utility
     }
