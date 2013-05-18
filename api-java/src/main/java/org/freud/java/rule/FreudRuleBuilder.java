@@ -27,7 +27,7 @@ import org.hamcrest.Matcher;
 import static org.freud.java.matcher.FreudDsl.trueMatcher;
 
 public class FreudRuleBuilder<T> implements FreudRule<T>,
-        FreudAssertionAndFilterBuilder<T>, FreudAnalyser {
+        FreudAssertionBuilder<T>, FreudAnalyser {
 
     private final Class<T> type;
     private Iterable<T> iterable;
@@ -38,12 +38,12 @@ public class FreudRuleBuilder<T> implements FreudRule<T>,
         this.type = type;
     }
 
-    public FreudAssertionAndFilterBuilder<T> forEach() {
+    public FreudAssertionBuilder<T> forEach() {
         filter = trueMatcher();
         return this;
     }
 
-    public FreudAssertionAndFilterBuilder<T> forEach(final Matcher<T> matcher) {
+    public FreudAssertionBuilder<T> forEach(final Matcher<T> matcher) {
         filter = matcher;
         return this;
     }
@@ -88,29 +88,6 @@ public class FreudRuleBuilder<T> implements FreudRule<T>,
     @Override
     public FreudAnalyser in(final Iterable<T> iterable) {
         this.iterable = iterable;
-        return this;
-    }
-
-    @Override
-    public <S> FreudAssertionAndFilterBuilder<T> of(final Matcher<S> superTypeMatcher, final Class<S> superType) {
-        FreudExtendedMatcher<T> superTypeFilterWrapper = new FreudExtendedMatcher<T>() {
-            @Override
-            protected boolean matchesSafely(final T item) {
-return false;
-// TODO               S currentlyAnalysedSuperType = FreudRuntimeContext.getCurrentlyAnalysed(superType);
-//                return (currentlyAnalysedSuperType != null) &&
-//                        superTypeMatcher.matches(currentlyAnalysedSuperType);
-            }
-
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText(superType.getCanonicalName());
-                description.appendText(" Of (");
-                superTypeMatcher.describeTo(description);
-                description.appendText(")");
-            }
-        };
-        filter = superTypeFilterWrapper.and(filter);
         return this;
     }
 

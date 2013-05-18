@@ -29,6 +29,7 @@ import static org.freud.java.matcher.FreudDsl.no;
 public final class CssExamplesJunit {
 
     static URL root = ClassLoader.getSystemResource("CssExamples/");
+    private AnalysisListenerStub listener = new AnalysisListenerStub();
 
     /**
      * @see https://developer.mozilla.org/en/Writing_Efficient_CSS
@@ -38,7 +39,7 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssRule.class).
                 assertThat(no(containsSelector(TAG).and(
                         lastIndexOfSelector(TAG).lessThan(lastIndexOfSelector(ID))))).
-        in(cssRulesOf(asList(new URL(root, "file.css"))));
+        in(cssRulesOf(asList(new URL(root, "file.css")))).analyse(listener);
     }
 
     /**
@@ -49,7 +50,9 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssRule.class).
                 assertThat(no(containsSelector(CLASS).and(
                         lastIndexOfSelector(CLASS).lessThan(lastIndexOfSelector(ID))))).
-        in(cssRulesOf(asList(new URL(root, "file.css"))));
+        in(cssRulesOf(asList(new URL(root, "file.css")))).analyse(listener);
+
+        listener.assertNotFailed();
     }
 
     /**
@@ -58,7 +61,11 @@ public final class CssExamplesJunit {
     @Test
     public void descendantSelectorsAreTheWorst() throws Exception {
         Freud.iterateOver(CssRule.class).
-                assertThat(selectors(TAG).lessThanOrEqualTo(1)).in(cssRulesOf(asList(new URL(root, "file.css"))));
+                assertThat(selectors(TAG).lessThanOrEqualTo(1)).in(cssRulesOf(asList(new URL(root, "file.css")))).
+        analyse(listener);
+
+        listener.assertPassed(11);
+        listener.assertFailed(2);
     }
 
     @Test
@@ -66,7 +73,8 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssSelector.class).
                 forEach(classSelector().or(idSelector())).
                 assertThat(no(selector().contains("[A-Z]"))).
-        in(cssSelectorsWithin(cssRulesOf(asList(new URL(root, "file.css")))));
+        in(cssSelectorsWithin(cssRulesOf(asList(new URL(root, "file.css"))))).analyse(listener);
+        listener.assertNotFailed();
     }
 
     @Test
@@ -74,6 +82,9 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssDeclaration.class).
                 forEach(declarationKey().matches("display")).
                 assertThat(declarationValue().matches("none")).
-        in(cssDeclarationsWithin(cssRulesOf(asList(new URL(root, "file.css")))));
+        in(cssDeclarationsWithin(cssRulesOf(asList(new URL(root, "file.css"))))).analyse(listener);
+
+        listener.assertPassed(7);
+        listener.assertFailed(4);
     }
 }
