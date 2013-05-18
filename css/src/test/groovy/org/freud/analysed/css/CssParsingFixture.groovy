@@ -17,11 +17,16 @@ import static org.langera.spock.SpockExtension.matches
 
 class CssParsingFixture {
 
-    static boolean exampleCssfileParsedBy(Closure<Iterable<CssRule>> parser) {
-        matches(EXPECTED_EXAMPLE_CSS_RULES).call(parser.call(EXAMPLE_CSS) as List)
+    static boolean exampleCssFileParsedBy(Closure<Iterable<CssRule>> parser) {
+        matches(EXPECTED_EXAMPLE_CSS_RULES).call(parser.call(EXAMPLE_CSS_FILE) as List)
     }
 
-    private static final File EXAMPLE_CSS = new File(ClassLoader.getSystemResource('example.css').file)
+    static boolean exampleCssUrlParsedBy(Closure<Iterable<CssRule>> parser) {
+        matches(EXPECTED_EXAMPLE_CSS_RULES).call(parser.call(EXAMPLE_CSS_URL) as List)
+    }
+
+    static final URL EXAMPLE_CSS_URL = ClassLoader.getSystemResource('example.css')
+    static final File EXAMPLE_CSS_FILE = new File(EXAMPLE_CSS_URL.file)
 
     private static final List<Closure<Boolean>> EXPECTED_EXAMPLE_CSS_RULES = [cssRule([cssSelector(CLASS, 'class', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(TAG, 'table', [cssDeclaration('display', 'none')])]),

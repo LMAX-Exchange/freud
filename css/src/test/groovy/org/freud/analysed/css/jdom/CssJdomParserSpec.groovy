@@ -8,6 +8,6 @@ class CssJdomParserSpec extends Specification {
 
     def 'parses a file into CssRules'() {
     expect:
-        CssParsingFixture.exampleCssfileParsedBy { File file -> CssJdomParser.parseCssRules(new FileReader(file)) }
+        CssParsingFixture.exampleCssFileParsedBy { File file -> CssJdomParser.parseCssRules(new FileReader(file)) }
     }
 }

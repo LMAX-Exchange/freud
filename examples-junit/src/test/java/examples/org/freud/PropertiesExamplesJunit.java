@@ -11,7 +11,6 @@ import static examples.org.freud.matchers.PropertyMatchers.propertyKey;
 import static examples.org.freud.matchers.PropertyMatchers.propertyValue;
 import static java.util.Arrays.asList;
 import static org.freud.analysed.properties.PropertiesDsl.propertyOf;
-import static org.freud.analysed.text.TextDsl.textOf;
 
 public final class PropertiesExamplesJunit {
 

@@ -3,7 +3,7 @@ package org.freud.analysed.css.jdom
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static org.freud.analysed.css.CssParsingFixture.exampleCssfileParsedBy
+import static org.freud.analysed.css.CssParsingFixture.exampleCssFileParsedBy
 
 class CssRulesJdomFromFileCreatorSpec extends Specification {
 
@@ -12,6 +12,6 @@ class CssRulesJdomFromFileCreatorSpec extends Specification {
 
     def 'creates CssRules from a File'() {
     expect:
-        exampleCssfileParsedBy { File file -> creator.create(file) }
+        exampleCssFileParsedBy { File file -> creator.create(file) }
     }
 }

@@ -20,37 +20,6 @@ class CssExamplesSpock extends Specification {
 
     static URL root = ClassLoader.getSystemResource('CssExamples/')
 
-    def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters'() {
-    expect:
-        analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
-    where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text])), {it.type == CLASS || it.type == ID})
-    }
-
-    @FailsWith(ConditionNotSatisfiedError)
-    def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters - failing test'() {
-    expect:
-        analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
-    where:
-        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text])), {it.type == CLASS || it.type == ID})
-    }
-
-
-    def 'cssDisplayDeclarationIsAlwaysNone'() {
-    expect:
-        analyse(analysed) { it.value == 'none' }
-    where:
-        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text])), { it.key == 'display'})
-    }
-
-    @FailsWith(ConditionNotSatisfiedError)
-    def 'cssDisplayDeclarationIsAlwaysNone - failing test'() {
-    expect:
-        analyse(analysed) { it.value == 'none' }
-    where:
-        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text])), { it.key == 'display'})
-    }
-
     /**
      * see https://developer.mozilla.org/en/Writing_Efficient_CSS
      */
@@ -124,5 +93,36 @@ class CssExamplesSpock extends Specification {
         }
     where:
         analysed << cssRulesOf([new URL(root, 'descendantSelectorsAreTheWorst_failing.css').text])
+    }
+
+    def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters'() {
+    expect:
+        analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
+    where:
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'file.css').text])), {it.type == CLASS || it.type == ID})
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'classOrIdCssSelectorsNameMustNotContainUpperCaseCharacters - failing test'() {
+    expect:
+        analyse(analysed) { !it.selectorString.matches(".*[A-Z].*") }
+    where:
+        analysed << forEach(cssSelectorsWithin(cssRulesOf([new URL(root, 'classWithUpperCase.css').text])), {it.type == CLASS || it.type == ID})
+    }
+
+
+    def 'cssDisplayDeclarationIsAlwaysNone'() {
+    expect:
+        analyse(analysed) { it.value == 'none' }
+    where:
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayNone.css').text])), { it.key == 'display'})
+    }
+
+    @FailsWith(ConditionNotSatisfiedError)
+    def 'cssDisplayDeclarationIsAlwaysNone - failing test'() {
+    expect:
+        analyse(analysed) { it.value == 'none' }
+    where:
+        analysed << forEach(cssDeclarationsWithin(cssRulesOf([new URL(root, 'displayBlock.css').text])), { it.key == 'display'})
     }
 }
