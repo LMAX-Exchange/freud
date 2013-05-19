@@ -53,7 +53,7 @@ class ClassByteCodeExamplesSpock extends Specification {
 
     @Unroll
     @FailsWith(ConditionNotSatisfiedError)
-    def '#analysed.namedo not use BigDecimal.toString() - Failing test'() {
+    def '#analysed.name do not use BigDecimal.toString() - Failing test'() {
     expect:
         analyse(analysed) {
             !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
