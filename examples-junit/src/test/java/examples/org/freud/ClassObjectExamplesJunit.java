@@ -1,6 +1,8 @@
 package examples.org.freud;
 
 import org.freud.analysed.classobject.ClassObjectDsl;
+import org.freud.core.listener.AnalysisListener;
+import org.freud.core.listener.AssertionErrorAnalysisListener;
 import org.freud.java.Freud;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -24,7 +26,7 @@ import static org.freud.java.matcher.FreudDsl.no;
 
 public final class ClassObjectExamplesJunit {
 
-    private AnalysisListenerStub listener = new AnalysisListenerStub();
+    private AnalysisListener listener = new AssertionErrorAnalysisListener();
 
     @Test
     public void equalsAlwaysGoesTogetherWithHashCode() throws Exception {
@@ -33,8 +35,6 @@ public final class ClassObjectExamplesJunit {
                         or(no(hasDeclaredMethod("equals", Object.class)).and(no(hasDeclaredMethod("hashCode"))))).
                 in(classOf(asList("examples.classobject.ClassWithEqualsAndHashCode", "examples.classobject.EmptyClass")))
                 .analyse(listener);
-
-        listener.assertNotFailed();
     }
 
     @Test
@@ -47,8 +47,6 @@ public final class ClassObjectExamplesJunit {
                         "examples.classobject.ClassThatHasOtherRunWith",
                         "examples.classobject.ClassThatHasRunWithJMock",
                         "examples.classobject.EmptyClass"))).analyse(listener);
-
-        listener.assertNotFailed();
     }
 
     // + example of use of Custom hamcrest Matcher
@@ -58,8 +56,6 @@ public final class ClassObjectExamplesJunit {
         Freud.iterateOver(Class.class).
                 assertThat(no(subTypeOf(Comparator.class)).or(no(withFields()))).
                 in(classOf(asList("examples.classobject.StatelessComparator"))).analyse(listener);
-
-        listener.assertNotFailed();
     }
 
     private static Matcher<Class> withFields() {
