@@ -35,7 +35,7 @@ public final class ImportDeclarationJdom implements ImportDeclaration
     }
 
     @Override
-    public boolean isStaticDecalaration()
+    public boolean isStaticDeclaration()
     {
         return staticImport;
     }
