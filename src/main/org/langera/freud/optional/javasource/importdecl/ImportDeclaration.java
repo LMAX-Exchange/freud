@@ -24,5 +24,5 @@ public interface ImportDeclaration
 
     String getImportDeclarationPathAsString();
 
-    boolean isStaticDecalaration();
+    boolean isStaticDeclaration();
 }

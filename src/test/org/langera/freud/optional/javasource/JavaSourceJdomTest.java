@@ -158,7 +158,7 @@ public class JavaSourceJdomTest
         @Override
         protected boolean matchesSafely(final ImportDeclaration importDeclaration)
         {
-            return importDeclaration.isStaticDecalaration() == expectStaticImport &&
+            return importDeclaration.isStaticDeclaration() == expectStaticImport &&
                     expectedImportAsString.equals(importDeclaration.getImportDeclarationPathAsString());
         }
 

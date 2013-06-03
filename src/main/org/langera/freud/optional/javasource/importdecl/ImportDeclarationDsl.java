@@ -77,7 +77,7 @@ public final class ImportDeclarationDsl
             @Override
             protected boolean matchesSafely(final ImportDeclaration importDeclaration)
             {
-                return importDeclaration.isStaticDecalaration();
+                return importDeclaration.isStaticDeclaration();
             }
 
             @Override
