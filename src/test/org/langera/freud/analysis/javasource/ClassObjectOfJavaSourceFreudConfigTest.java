@@ -42,7 +42,8 @@ public final class ClassObjectOfJavaSourceFreudConfigTest
         Assert.assertThat(classAnalysedObjectIterator, collectionOf(
                                     DummyClass.class.getName(),
                                     DummyClass.class.getName() + "$InnerDummyClass",
-                                    DummyClass.class.getName() + "$InnerDummyClass$InnerInnerDummyClass"));
+                                    DummyClass.class.getName() + "$InnerDummyClass$InnerInnerDummyClass",
+                                    DummyClass.class.getName() + "$InnerDummyAnnotation"));
     }
 
     private Matcher<AnalysedObjectIterator<Class>> collectionOf(final String... classNames)

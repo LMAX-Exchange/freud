@@ -17,4 +17,6 @@ public final class DummyClass
             // dummy
         }
     }
+
+    private static @interface InnerDummyAnnotation {}
 }
