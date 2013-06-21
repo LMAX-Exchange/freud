@@ -21,7 +21,7 @@ class JavaSourceExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.packagePath.length >= 3 && it.packagePath.length <= 7 }
     where:
-        analysed << packageDeclarationsWithin(javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc'])))
+        analysed << packageDeclarationsWithin(javaSourceOf(resourcesOf(['JavaSourceExamples/second/third/ExampleClass.javasrc'])))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -30,7 +30,7 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { it.packagePath.length >= 3 && it.packagePath.length <= 7 }
     where:
         analysed << packageDeclarationsWithin(javaSourceOf(resourcesOf([
-                'javasource/second/third/fourth/fifth/sixth/seventh/eighth/ExampleClassWithPackageDepthOfEight.javasrc'])))
+                'JavaSourceExamples/second/third/fourth/fifth/sixth/seventh/eighth/ExampleClassWithPackageDepthOfEight.javasrc'])))
     }
 
     def 'no System.out.print(ln) in code'() {
@@ -38,7 +38,7 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { !(it.instanceReferences == ['System', 'out'] && it.methodName.startsWith('print')) }
     where:
         analysed << methodCallsWithin(codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
-                javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc']))))))
+                javaSourceOf(resourcesOf(['JavaSourceExamples/second/third/ExampleClass.javasrc']))))))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -47,7 +47,7 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { !(it.instanceReferences == ['System', 'out'] && it.methodName.startsWith('print')) }
     where:
         analysed << methodCallsWithin(codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
-                javaSourceOf(resourcesOf(['javasource/ClassWithSystemOutPrint.javasrc']))))))
+                javaSourceOf(resourcesOf(['JavaSourceExamples/ClassWithSystemOutPrint.javasrc']))))))
     }
 
     def 'code block limited to max 30 lines'() {
@@ -55,8 +55,8 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { it.numberOfLines <= 30 }
     where:
         analysed << codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
-                javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc',
-                                          'javasource/ClassWith30LineMethod.javasrc'])))))
+                javaSourceOf(resourcesOf(['JavaSourceExamples/second/third/ExampleClass.javasrc',
+                                          'JavaSourceExamples/ClassWith30LineMethod.javasrc'])))))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -65,7 +65,7 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { it.numberOfLines <= 30 }
     where:
         analysed << codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
-                javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))))
+                javaSourceOf(resourcesOf(['JavaSourceExamples/ClassWithLongMethod.javasrc'])))))
     }
 
     def 'code block limited to max 17 lines unless suppress annotation exists'() {
@@ -73,8 +73,8 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { it.numberOfLines <= 17 }
     where:
         analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
-                javaSourceOf(resourcesOf(['javasource/second/third/ExampleClass.javasrc',
-                        'javasource/ClassWithIgnoredLongMethod.javasrc'])))), {
+                javaSourceOf(resourcesOf(['JavaSourceExamples/second/third/ExampleClass.javasrc',
+                        'JavaSourceExamples/ClassWithIgnoredLongMethod.javasrc'])))), {
             !it.declaredAnnotations.find { Annotation annotation ->
                 annotation.name == 'SuppressWarning' &&
                         annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'
@@ -88,7 +88,7 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { it.numberOfLines <= 17 }
     where:
         analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
-                javaSourceOf(resourcesOf(['javasource/ClassWithLongMethod.javasrc'])))), {
+                javaSourceOf(resourcesOf(['JavaSourceExamples/ClassWithLongMethod.javasrc'])))), {
             !it.declaredAnnotations.find { Annotation annotation ->
                 annotation.name == 'SuppressWarning' &&
                         annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'

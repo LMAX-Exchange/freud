@@ -1,6 +1,6 @@
 package javasource;
 
-public final class ClassWithLongMethod {
+public final class ClassWithIgnoredLongMethod {
 
     @SuppressWarning("Ignore this Freud, I admit, this is rubbish code")
     public void methodLongerThan30Lines() {

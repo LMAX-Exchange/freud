@@ -9,14 +9,18 @@ import org.freud.core.iterator.SubTypeAnalysedObjects;
 import java.io.File;
 import java.net.URL;
 
+import static org.freud.core.FreudSource.typeOf;
+
 public final class JavaSourceDsl {
 
     private JavaSourceDsl() {
         // static utility
     }
 
-    public static Iterable<JavaSource> javaSourceOf(Iterable<File> iterable) {
-        return javaSourceOf(new FreudSource<File>(iterable, File.class));
+    @SuppressWarnings("unchecked")
+    public static <T> Iterable<JavaSource> javaSourceOf(Iterable<T> iterable) {
+        Class type = typeOf(iterable);
+        return javaSourceOf(new FreudSource(iterable, type));
     }
 
     @SuppressWarnings("unchecked")
