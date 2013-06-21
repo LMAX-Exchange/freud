@@ -1,0 +1,4 @@
+package javasource.second.third.fourth.fifth.sixth.seventh.eighth;
+
+public final class ExampleClassWithPackageDepthOfEight {
+}

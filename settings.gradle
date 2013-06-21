@@ -1,0 +1,2 @@
+include 'core', 'test-ext', 'core-parser', 'examples-resources', 'api-groovy', 'api-java', 'text', 'class-object', 'properties', 'css', 'class-byte-code', 'java-source', 'examples-spock', 'examples-junit'
+

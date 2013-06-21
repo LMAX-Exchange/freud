@@ -3,6 +3,11 @@ Freud
 
 A framework for writing static analysis tests.
 
+
+This branch is for ongoing work on Freud 2 -> where Freud will be further simlified and integrated with the latest developments in testing frameworks.
+A special emphasis is put on integrating with Spock.   
+
+
 Maintainer
 ==========
 

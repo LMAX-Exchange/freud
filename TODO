@@ -1,0 +1,6 @@
+- analyse:, for-each: labels in spock?
+- find way to combine/link types - class-byte-code + class object + java source etc.
+- more common assertions turned into DSL methods
+- logging? really???
+- Junit examples
+- class byte code - branch logic messes up the operand stack tracking, inner classes parsing

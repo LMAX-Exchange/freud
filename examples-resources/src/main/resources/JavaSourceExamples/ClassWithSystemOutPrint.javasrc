@@ -1,0 +1,13 @@
+package javasource;
+
+public final class ClassWithSystemOutPrint {
+
+    public void useOfSystemOut1() {
+        System.out.print("foo");
+    }
+
+    public void useOfSystemOut2() {
+        System.out.println("bar");
+    }
+
+}
