@@ -1,5 +1,6 @@
 package org.freud
 
+import org.freud.analysed.classbytecode.method.ClassByteCodeMethod
 import org.freud.analysed.classbytecode.method.instruction.Opcode
 import org.spockframework.runtime.ConditionNotSatisfiedError
 import spock.lang.FailsWith
@@ -21,7 +22,7 @@ class ClassByteCodeExamplesSpock extends Specification {
     @Unroll
     def '#analysed.name do not use BigDecimal.equals()'() {
     expect:
-        analyse(analysed) { !hasMethodInvocation(analysed, BigDecimal, 'equals', Object) }
+        analyse(analysed) { ClassByteCodeMethod method -> !hasMethodInvocation(method, BigDecimal, 'equals', Object) }
     where:
         analysed << forEach(methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal'])),
                             { !it.name.contains('equals') })
@@ -31,7 +32,7 @@ class ClassByteCodeExamplesSpock extends Specification {
     @FailsWith(ConditionNotSatisfiedError)
     def '#analysed.name do not use BigDecimal.equals() - Failing test'() {
     expect:
-        analyse(analysed) { !hasMethodInvocation(analysed, BigDecimal, 'equals', Object) }
+        analyse(analysed) { ClassByteCodeMethod method -> !hasMethodInvocation(method, BigDecimal, 'equals', Object) }
     where:
         analysed << forEach(methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal'])),
                             { it.name.contains('equals') })
@@ -40,11 +41,11 @@ class ClassByteCodeExamplesSpock extends Specification {
     @Unroll
     def '#analysed.name do not use BigDecimal.toString()'() {
     expect:
-        analyse(analysed) {
-            !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
-                    !methodInvokedWithParams(analysed, StringBuilder, 'append', BigDecimal) &&
-                    !methodInvokedWithParams(analysed, PrintStream, 'print', BigDecimal) &&
-                    !methodInvokedWithParams(analysed, PrintStream, 'println', BigDecimal)
+        analyse(analysed) { ClassByteCodeMethod method ->
+            !hasMethodInvocation(method, BigDecimal, 'toString') &&
+                    !methodInvokedWithParams(method, StringBuilder, 'append', BigDecimal) &&
+                    !methodInvokedWithParams(method, PrintStream, 'print', BigDecimal) &&
+                    !methodInvokedWithParams(method, PrintStream, 'println', BigDecimal)
         }
     where:
         analysed << forEach(methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal'])),
@@ -55,11 +56,11 @@ class ClassByteCodeExamplesSpock extends Specification {
     @FailsWith(ConditionNotSatisfiedError)
     def '#analysed.name do not use BigDecimal.toString() - Failing test'() {
     expect:
-        analyse(analysed) {
-            !hasMethodInvocation(analysed, BigDecimal, 'toString') &&
-                    !methodInvokedWithParams(analysed, StringBuilder, 'append', BigDecimal) &&
-                    !methodInvokedWithParams(analysed, PrintStream, 'print', BigDecimal) &&
-                    !methodInvokedWithParams(analysed, PrintStream, 'println', BigDecimal)
+        analyse(analysed) { ClassByteCodeMethod method ->
+            !hasMethodInvocation(method, BigDecimal, 'toString') &&
+                    !methodInvokedWithParams(method, StringBuilder, 'append', BigDecimal) &&
+                    !methodInvokedWithParams(method, PrintStream, 'print', BigDecimal) &&
+                    !methodInvokedWithParams(method, PrintStream, 'println', BigDecimal)
         }
     where:
         analysed << forEach(methodsWithin(classOf(['examples.classbytecode.ClassThatUsesBigDecimal'])),
@@ -69,7 +70,7 @@ class ClassByteCodeExamplesSpock extends Specification {
     @Unroll
     def '#analysed.name do not throw any exceptions'() {
     expect:
-        analyse(analysed) { !containsInstructions(analysed, ATHROW) }
+        analyse(analysed) { ClassByteCodeMethod method -> !containsInstructions(method, ATHROW) }
     where:
         analysed << forEach(methodsWithin(classOf(['examples.classbytecode.SomeClass'])),
                             { !it.name.contains('Throws') })
@@ -79,7 +80,7 @@ class ClassByteCodeExamplesSpock extends Specification {
     @FailsWith(ConditionNotSatisfiedError)
     def '#analysed.name do not throw any exceptions - Failing test'() {
     expect:
-        analyse(analysed) { !containsInstructions(analysed, ATHROW) }
+        analyse(analysed) { ClassByteCodeMethod method -> !containsInstructions(method, ATHROW) }
     where:
         analysed << forEach(methodsWithin(classOf(['examples.classbytecode.SomeClass'])),
                             { it.name.contains('Throws') })
@@ -88,8 +89,8 @@ class ClassByteCodeExamplesSpock extends Specification {
     @Unroll
     def '#analysed.name should not have branch logic'() {
     expect:
-        analyse(analysed) {
-            !containsInstructions(analysed, Opcode.IFEQ,
+        analyse(analysed) { ClassByteCodeMethod method ->
+            !containsInstructions(method, Opcode.IFEQ,
                                   Opcode.IFLT,
                                   Opcode.IFLE,
                                   Opcode.IFNE,
@@ -121,8 +122,8 @@ class ClassByteCodeExamplesSpock extends Specification {
     @FailsWith(ConditionNotSatisfiedError)
     def '#analysed.name should not have branch logic - Failing test'() {
     expect:
-        analyse(analysed) {
-            !containsInstructions(analysed, Opcode.IFEQ,
+        analyse(analysed) { ClassByteCodeMethod method ->
+            !containsInstructions(method, Opcode.IFEQ,
                                   Opcode.IFLT,
                                   Opcode.IFLE,
                                   Opcode.IFNE,
