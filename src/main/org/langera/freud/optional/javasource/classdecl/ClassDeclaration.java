@@ -30,7 +30,7 @@ public interface ClassDeclaration
 {
     public enum DeclarationType
     {
-        CLASS, INTERFACE, ENUM, ANNOTATION
+        CLASS, INTERFACE, ENUM, AT
     }
 
     String[] getDeclaredClassAnnotations();

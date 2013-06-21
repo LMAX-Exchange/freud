@@ -241,7 +241,7 @@ public final class JavaSourceJdom implements JavaSource
             case ENUM:
                 return ClassDeclaration.DeclarationType.ENUM;
             case AT:
-                return ClassDeclaration.DeclarationType.ANNOTATION;
+                return ClassDeclaration.DeclarationType.AT;
             default:
                 throw new IllegalStateException("internal. unsupported Class decl. token type [" + tokenType + "]");
         }
