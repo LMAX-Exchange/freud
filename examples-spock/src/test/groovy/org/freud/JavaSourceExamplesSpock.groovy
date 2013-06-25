@@ -1,3 +1,19 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
 package org.freud
 
 import org.freud.analysed.javasource.Annotation
@@ -30,7 +46,7 @@ class JavaSourceExamplesSpock extends Specification {
         analyse(analysed) { it.packagePath.length >= 3 && it.packagePath.length <= 7 }
     where:
         analysed << packageDeclarationsWithin(javaSourceOf(resourcesOf([
-                'JavaSourceExamples/second/third/fourth/fifth/sixth/seventh/eighth/ExampleClassWithPackageDepthOfEight.javasrc'])))
+                                                                               'JavaSourceExamples/second/third/fourth/fifth/sixth/seventh/eighth/ExampleClassWithPackageDepthOfEight.javasrc'])))
     }
 
     def 'no System.out.print(ln) in code'() {
@@ -56,7 +72,7 @@ class JavaSourceExamplesSpock extends Specification {
     where:
         analysed << codeBlocksWithin(methodDeclarationsWithin(classDeclarationsWithin(
                 javaSourceOf(resourcesOf(['JavaSourceExamples/second/third/ExampleClass.javasrc',
-                                          'JavaSourceExamples/ClassWith30LineMethod.javasrc'])))))
+                                                 'JavaSourceExamples/ClassWith30LineMethod.javasrc'])))))
     }
 
     @FailsWith(ConditionNotSatisfiedError)
@@ -72,9 +88,9 @@ class JavaSourceExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.numberOfLines <= 17 }
     where:
-        analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
+        analysed << codeBlocksWithin(forEach(                                                                methodDeclarationsWithin(classDeclarationsWithin(
                 javaSourceOf(resourcesOf(['JavaSourceExamples/second/third/ExampleClass.javasrc',
-                        'JavaSourceExamples/ClassWithIgnoredLongMethod.javasrc'])))), {
+                                                 'JavaSourceExamples/ClassWithIgnoredLongMethod.javasrc'])))), {
             !it.declaredAnnotations.find { Annotation annotation ->
                 annotation.name == 'SuppressWarning' &&
                         annotation.defaultParameter == '"Ignore this Freud, I admit, this is rubbish code"'
@@ -87,7 +103,7 @@ class JavaSourceExamplesSpock extends Specification {
     expect:
         analyse(analysed) { it.numberOfLines <= 17 }
     where:
-        analysed << codeBlocksWithin(forEach(methodDeclarationsWithin(classDeclarationsWithin(
+        analysed << codeBlocksWithin(forEach(                                                  methodDeclarationsWithin(classDeclarationsWithin(
                 javaSourceOf(resourcesOf(['JavaSourceExamples/ClassWithLongMethod.javasrc'])))), {
             !it.declaredAnnotations.find { Annotation annotation ->
                 annotation.name == 'SuppressWarning' &&

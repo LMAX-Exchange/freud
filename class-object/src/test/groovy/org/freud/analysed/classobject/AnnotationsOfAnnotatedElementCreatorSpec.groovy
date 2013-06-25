@@ -1,3 +1,19 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
 package org.freud.analysed.classobject
 
 import spock.lang.Specification
@@ -26,14 +42,14 @@ class AnnotationsOfAnnotatedElementCreatorSpec extends Specification {
     given:
         creator = new AnnotationsOfAnnotatedElementCreator()
     expect:
-        creator.create(InnerClass) as List == [ InnerClass.getAnnotation(Deprecated) ]
+        creator.create(InnerClass) as List == [InnerClass.getAnnotation(Deprecated)]
     }
 
     def 'generates annotations for method'() {
     given:
         creator = new AnnotationsOfAnnotatedElementCreator()
     expect:
-        creator.create(InnerClass.getDeclaredMethod('methodWithAnnotation')) as List == [ InnerClass.getAnnotation(Deprecated) ]
+        creator.create(InnerClass.getDeclaredMethod('methodWithAnnotation')) as List == [InnerClass.getAnnotation(Deprecated)]
     }
 
     def 'does not generate annotation which does not have Runtime retention for method'() {

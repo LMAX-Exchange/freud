@@ -1,3 +1,17 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.freud.analysed.javasource.parser;
 
 
@@ -379,8 +393,8 @@ public class JavaParser extends Parser {
                 compilationUnit1 = compilationUnit();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_compilationUnit.add(compilationUnit1.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_compilationUnit.add(compilationUnit1.getTree()); }
 
 
                 // AST REWRITE
@@ -477,8 +491,8 @@ public class JavaParser extends Parser {
                 annotationList2 = annotationList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, annotationList2.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, annotationList2.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:417:9: ( packageDeclaration )?
                 int alt1 = 2;
                 int LA1_0 = input.LA(1);
@@ -494,8 +508,8 @@ public class JavaParser extends Parser {
                         packageDeclaration3 = packageDeclaration();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, packageDeclaration3.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, packageDeclaration3.getTree()); }
 
                     }
                     break;
@@ -521,8 +535,8 @@ public class JavaParser extends Parser {
                             importDeclaration4 = importDeclaration();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, importDeclaration4.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, importDeclaration4.getTree()); }
 
                         }
                         break;
@@ -552,8 +566,8 @@ public class JavaParser extends Parser {
                             typeDecls5 = typeDecls();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, typeDecls5.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, typeDecls5.getTree()); }
 
                         }
                         break;
@@ -649,8 +663,8 @@ public class JavaParser extends Parser {
                     typeDeclaration6 = typeDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, typeDeclaration6.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, typeDeclaration6.getTree()); }
 
                 }
                 break;
@@ -660,7 +674,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     SEMI7 = (Token) match(input, SEMI, FOLLOW_SEMI_in_typeDecls4588);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
 
                 }
                 break;
@@ -726,7 +740,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 PACKAGE8 = (Token) match(input, PACKAGE, FOLLOW_PACKAGE_in_packageDeclaration4608);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     PACKAGE8_tree = (CommonTree) adaptor.create(PACKAGE8);
                     root_0 = (CommonTree) adaptor.becomeRoot(PACKAGE8_tree, root_0);
@@ -735,10 +749,10 @@ public class JavaParser extends Parser {
                 qualifiedIdentifier9 = qualifiedIdentifier();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, qualifiedIdentifier9.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, qualifiedIdentifier9.getTree()); }
                 SEMI10 = (Token) match(input, SEMI, FOLLOW_SEMI_in_packageDeclaration4613);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
 
             }
 
@@ -806,7 +820,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 IMPORT11 = (Token) match(input, IMPORT, FOLLOW_IMPORT_in_importDeclaration4633);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     IMPORT11_tree = (CommonTree) adaptor.create(IMPORT11);
                     root_0 = (CommonTree) adaptor.becomeRoot(IMPORT11_tree, root_0);
@@ -823,7 +837,7 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:0:0: STATIC
                     {
                         STATIC12 = (Token) match(input, STATIC, FOLLOW_STATIC_in_importDeclaration4636);
-                        if (state.failed) return retval;
+                        if (state.failed) { return retval; }
                         if (state.backtracking == 0) {
                             STATIC12_tree = (CommonTree) adaptor.create(STATIC12);
                             adaptor.addChild(root_0, STATIC12_tree);
@@ -838,8 +852,8 @@ public class JavaParser extends Parser {
                 qualifiedIdentifier13 = qualifiedIdentifier();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, qualifiedIdentifier13.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, qualifiedIdentifier13.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:432:45: ( DOTSTAR )?
                 int alt6 = 2;
                 int LA6_0 = input.LA(1);
@@ -852,7 +866,7 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:0:0: DOTSTAR
                     {
                         DOTSTAR14 = (Token) match(input, DOTSTAR, FOLLOW_DOTSTAR_in_importDeclaration4641);
-                        if (state.failed) return retval;
+                        if (state.failed) { return retval; }
                         if (state.backtracking == 0) {
                             DOTSTAR14_tree = (CommonTree) adaptor.create(DOTSTAR14);
                             adaptor.addChild(root_0, DOTSTAR14_tree);
@@ -864,7 +878,7 @@ public class JavaParser extends Parser {
                 }
 
                 SEMI15 = (Token) match(input, SEMI, FOLLOW_SEMI_in_importDeclaration4644);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
 
             }
 
@@ -934,7 +948,7 @@ public class JavaParser extends Parser {
                 modifierList16 = modifierList();
 
                 state._fsp--;
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:437:9: ( classTypeDeclaration[$modifierList.tree] | interfaceTypeDeclaration[$modifierList.tree] | enumTypeDeclaration[$modifierList.tree] | annotationTypeDeclaration[$modifierList.tree] )
                 int alt7 = 4;
                 switch (input.LA(1)) {
@@ -973,8 +987,8 @@ public class JavaParser extends Parser {
                         classTypeDeclaration17 = classTypeDeclaration((modifierList16 != null ? ((CommonTree) modifierList16.tree) : null));
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, classTypeDeclaration17.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, classTypeDeclaration17.getTree()); }
 
                     }
                     break;
@@ -985,8 +999,8 @@ public class JavaParser extends Parser {
                         interfaceTypeDeclaration18 = interfaceTypeDeclaration((modifierList16 != null ? ((CommonTree) modifierList16.tree) : null));
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, interfaceTypeDeclaration18.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, interfaceTypeDeclaration18.getTree()); }
 
                     }
                     break;
@@ -997,8 +1011,8 @@ public class JavaParser extends Parser {
                         enumTypeDeclaration19 = enumTypeDeclaration((modifierList16 != null ? ((CommonTree) modifierList16.tree) : null));
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, enumTypeDeclaration19.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, enumTypeDeclaration19.getTree()); }
 
                     }
                     break;
@@ -1009,8 +1023,10 @@ public class JavaParser extends Parser {
                         annotationTypeDeclaration20 = annotationTypeDeclaration((modifierList16 != null ? ((CommonTree) modifierList16.tree) : null));
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, annotationTypeDeclaration20.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            adaptor.addChild(root_0, annotationTypeDeclaration20.getTree());
+                        }
 
                     }
                     break;
@@ -1089,12 +1105,12 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:445:9: CLASS IDENT ( genericTypeParameterList )? ( classExtendsClause )? ( implementsClause )? classBody
             {
                 CLASS21 = (Token) match(input, CLASS, FOLLOW_CLASS_in_classTypeDeclaration4755);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_CLASS.add(CLASS21);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_CLASS.add(CLASS21); }
 
                 IDENT22 = (Token) match(input, IDENT, FOLLOW_IDENT_in_classTypeDeclaration4757);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IDENT.add(IDENT22);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IDENT.add(IDENT22); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:445:21: ( genericTypeParameterList )?
                 int alt8 = 2;
@@ -1111,9 +1127,10 @@ public class JavaParser extends Parser {
                         genericTypeParameterList23 = genericTypeParameterList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_genericTypeParameterList.add(genericTypeParameterList23.getTree());
+                        }
 
                     }
                     break;
@@ -1135,8 +1152,8 @@ public class JavaParser extends Parser {
                         classExtendsClause24 = classExtendsClause();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_classExtendsClause.add(classExtendsClause24.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_classExtendsClause.add(classExtendsClause24.getTree()); }
 
                     }
                     break;
@@ -1158,8 +1175,8 @@ public class JavaParser extends Parser {
                         implementsClause25 = implementsClause();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_implementsClause.add(implementsClause25.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_implementsClause.add(implementsClause25.getTree()); }
 
                     }
                     break;
@@ -1170,8 +1187,8 @@ public class JavaParser extends Parser {
                 classBody26 = classBody();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_classBody.add(classBody26.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_classBody.add(classBody26.getTree()); }
 
 
                 // AST REWRITE
@@ -1281,15 +1298,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:450:9: EXTENDS type
             {
                 EXTENDS27 = (Token) match(input, EXTENDS, FOLLOW_EXTENDS_in_classExtendsClause4817);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_EXTENDS.add(EXTENDS27);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_EXTENDS.add(EXTENDS27); }
 
                 pushFollow(FOLLOW_type_in_classExtendsClause4819);
                 type28 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_type.add(type28.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_type.add(type28.getTree()); }
 
 
                 // AST REWRITE
@@ -1379,15 +1396,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:455:9: EXTENDS typeList
             {
                 EXTENDS29 = (Token) match(input, EXTENDS, FOLLOW_EXTENDS_in_interfaceExtendsClause4856);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_EXTENDS.add(EXTENDS29);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_EXTENDS.add(EXTENDS29); }
 
                 pushFollow(FOLLOW_typeList_in_interfaceExtendsClause4858);
                 typeList30 = typeList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_typeList.add(typeList30.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_typeList.add(typeList30.getTree()); }
 
 
                 // AST REWRITE
@@ -1477,15 +1494,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:460:9: IMPLEMENTS typeList
             {
                 IMPLEMENTS31 = (Token) match(input, IMPLEMENTS, FOLLOW_IMPLEMENTS_in_implementsClause4895);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IMPLEMENTS.add(IMPLEMENTS31);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IMPLEMENTS.add(IMPLEMENTS31); }
 
                 pushFollow(FOLLOW_typeList_in_implementsClause4897);
                 typeList32 = typeList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_typeList.add(typeList32.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_typeList.add(typeList32.getTree()); }
 
 
                 // AST REWRITE
@@ -1583,15 +1600,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:465:9: LESS_THAN genericTypeParameter ( COMMA genericTypeParameter )* genericTypeListClosing
             {
                 LESS_THAN33 = (Token) match(input, LESS_THAN, FOLLOW_LESS_THAN_in_genericTypeParameterList4934);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LESS_THAN.add(LESS_THAN33);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LESS_THAN.add(LESS_THAN33); }
 
                 pushFollow(FOLLOW_genericTypeParameter_in_genericTypeParameterList4936);
                 genericTypeParameter34 = genericTypeParameter();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_genericTypeParameter.add(genericTypeParameter34.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_genericTypeParameter.add(genericTypeParameter34.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:465:40: ( COMMA genericTypeParameter )*
                 loop11:
                 do {
@@ -1608,16 +1625,17 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:465:41: COMMA genericTypeParameter
                         {
                             COMMA35 = (Token) match(input, COMMA, FOLLOW_COMMA_in_genericTypeParameterList4939);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COMMA.add(COMMA35);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COMMA.add(COMMA35); }
 
                             pushFollow(FOLLOW_genericTypeParameter_in_genericTypeParameterList4941);
                             genericTypeParameter36 = genericTypeParameter();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_genericTypeParameter.add(genericTypeParameter36.getTree());
+                            }
 
                         }
                         break;
@@ -1632,8 +1650,8 @@ public class JavaParser extends Parser {
                 genericTypeListClosing37 = genericTypeListClosing();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_genericTypeListClosing.add(genericTypeListClosing37.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_genericTypeListClosing.add(genericTypeListClosing37.getTree()); }
 
 
                 // AST REWRITE
@@ -1860,7 +1878,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     GREATER_THAN38 = (Token) match(input, GREATER_THAN, FOLLOW_GREATER_THAN_in_genericTypeListClosing5060);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         GREATER_THAN38_tree = (CommonTree) adaptor.create(GREATER_THAN38);
                         adaptor.addChild(root_0, GREATER_THAN38_tree);
@@ -1874,7 +1892,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     SHIFT_RIGHT39 = (Token) match(input, SHIFT_RIGHT, FOLLOW_SHIFT_RIGHT_in_genericTypeListClosing5070);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         SHIFT_RIGHT39_tree = (CommonTree) adaptor.create(SHIFT_RIGHT39);
                         adaptor.addChild(root_0, SHIFT_RIGHT39_tree);
@@ -1888,7 +1906,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     BIT_SHIFT_RIGHT40 = (Token) match(input, BIT_SHIFT_RIGHT, FOLLOW_BIT_SHIFT_RIGHT_in_genericTypeListClosing5080);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         BIT_SHIFT_RIGHT40_tree = (CommonTree) adaptor.create(BIT_SHIFT_RIGHT40);
                         adaptor.addChild(root_0, BIT_SHIFT_RIGHT40_tree);
@@ -1962,8 +1980,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:480:9: IDENT ( bound )?
             {
                 IDENT41 = (Token) match(input, IDENT, FOLLOW_IDENT_in_genericTypeParameter5108);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IDENT.add(IDENT41);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IDENT.add(IDENT41); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:480:15: ( bound )?
                 int alt13 = 2;
@@ -1995,8 +2013,8 @@ public class JavaParser extends Parser {
                         bound42 = bound();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_bound.add(bound42.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_bound.add(bound42.getTree()); }
 
                     }
                     break;
@@ -2101,15 +2119,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:485:9: EXTENDS type ( AND type )*
             {
                 EXTENDS43 = (Token) match(input, EXTENDS, FOLLOW_EXTENDS_in_bound5148);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_EXTENDS.add(EXTENDS43);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_EXTENDS.add(EXTENDS43); }
 
                 pushFollow(FOLLOW_type_in_bound5150);
                 type44 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_type.add(type44.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_type.add(type44.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:485:22: ( AND type )*
                 loop14:
                 do {
@@ -2126,15 +2144,15 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:485:23: AND type
                         {
                             AND45 = (Token) match(input, AND, FOLLOW_AND_in_bound5153);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_AND.add(AND45);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_AND.add(AND45); }
 
                             pushFollow(FOLLOW_type_in_bound5155);
                             type46 = type();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_type.add(type46.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_type.add(type46.getTree()); }
 
                         }
                         break;
@@ -2246,12 +2264,12 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:490:9: ENUM IDENT ( implementsClause )? enumBody
             {
                 ENUM47 = (Token) match(input, ENUM, FOLLOW_ENUM_in_enumTypeDeclaration5196);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_ENUM.add(ENUM47);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_ENUM.add(ENUM47); }
 
                 IDENT48 = (Token) match(input, IDENT, FOLLOW_IDENT_in_enumTypeDeclaration5198);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IDENT.add(IDENT48);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IDENT.add(IDENT48); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:490:20: ( implementsClause )?
                 int alt15 = 2;
@@ -2268,8 +2286,8 @@ public class JavaParser extends Parser {
                         implementsClause49 = implementsClause();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_implementsClause.add(implementsClause49.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_implementsClause.add(implementsClause49.getTree()); }
 
                     }
                     break;
@@ -2280,8 +2298,8 @@ public class JavaParser extends Parser {
                 enumBody50 = enumBody();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_enumBody.add(enumBody50.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_enumBody.add(enumBody50.getTree()); }
 
 
                 // AST REWRITE
@@ -2382,18 +2400,18 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:495:9: LCURLY enumScopeDeclarations RCURLY
             {
                 LCURLY51 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_enumBody5246);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY51);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY51); }
 
                 pushFollow(FOLLOW_enumScopeDeclarations_in_enumBody5248);
                 enumScopeDeclarations52 = enumScopeDeclarations();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_enumScopeDeclarations.add(enumScopeDeclarations52.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_enumScopeDeclarations.add(enumScopeDeclarations52.getTree()); }
                 RCURLY53 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_enumBody5250);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY53);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY53); }
 
 
                 // AST REWRITE
@@ -2500,8 +2518,8 @@ public class JavaParser extends Parser {
                         enumConstants54 = enumConstants();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, enumConstants54.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, enumConstants54.getTree()); }
 
                     }
                     break;
@@ -2520,7 +2538,7 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:500:25: COMMA
                     {
                         COMMA55 = (Token) match(input, COMMA, FOLLOW_COMMA_in_enumScopeDeclarations5291);
-                        if (state.failed) return retval;
+                        if (state.failed) { return retval; }
 
                     }
                     break;
@@ -2542,8 +2560,10 @@ public class JavaParser extends Parser {
                         enumClassScopeDeclarations56 = enumClassScopeDeclarations();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, enumClassScopeDeclarations56.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            adaptor.addChild(root_0, enumClassScopeDeclarations56.getTree());
+                        }
 
                     }
                     break;
@@ -2610,8 +2630,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:504:9: SEMI ( classScopeDeclarations )*
             {
                 SEMI57 = (Token) match(input, SEMI, FOLLOW_SEMI_in_enumClassScopeDeclarations5316);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_SEMI.add(SEMI57);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_SEMI.add(SEMI57); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:504:14: ( classScopeDeclarations )*
                 loop19:
@@ -2632,9 +2652,10 @@ public class JavaParser extends Parser {
                             classScopeDeclarations58 = classScopeDeclarations();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_classScopeDeclarations.add(classScopeDeclarations58.getTree());
+                            }
 
                         }
                         break;
@@ -2744,8 +2765,8 @@ public class JavaParser extends Parser {
                 enumConstant59 = enumConstant();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, enumConstant59.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, enumConstant59.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:509:22: ( COMMA enumConstant )*
                 loop20:
                 do {
@@ -2768,13 +2789,13 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:509:23: COMMA enumConstant
                         {
                             COMMA60 = (Token) match(input, COMMA, FOLLOW_COMMA_in_enumConstants5360);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             pushFollow(FOLLOW_enumConstant_in_enumConstants5363);
                             enumConstant61 = enumConstant();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, enumConstant61.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, enumConstant61.getTree()); }
 
                         }
                         break;
@@ -2853,10 +2874,10 @@ public class JavaParser extends Parser {
                 annotationList62 = annotationList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, annotationList62.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, annotationList62.getTree()); }
                 IDENT63 = (Token) match(input, IDENT, FOLLOW_IDENT_in_enumConstant5386);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     IDENT63_tree = (CommonTree) adaptor.create(IDENT63);
                     root_0 = (CommonTree) adaptor.becomeRoot(IDENT63_tree, root_0);
@@ -2876,8 +2897,8 @@ public class JavaParser extends Parser {
                         arguments64 = arguments();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, arguments64.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, arguments64.getTree()); }
 
                     }
                     break;
@@ -2899,8 +2920,8 @@ public class JavaParser extends Parser {
                         classBody65 = classBody();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, classBody65.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, classBody65.getTree()); }
 
                     }
                     break;
@@ -2976,12 +2997,12 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:517:9: INTERFACE IDENT ( genericTypeParameterList )? ( interfaceExtendsClause )? interfaceBody
             {
                 INTERFACE66 = (Token) match(input, INTERFACE, FOLLOW_INTERFACE_in_interfaceTypeDeclaration5413);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_INTERFACE.add(INTERFACE66);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_INTERFACE.add(INTERFACE66); }
 
                 IDENT67 = (Token) match(input, IDENT, FOLLOW_IDENT_in_interfaceTypeDeclaration5415);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IDENT.add(IDENT67);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IDENT.add(IDENT67); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:517:25: ( genericTypeParameterList )?
                 int alt23 = 2;
@@ -2998,9 +3019,10 @@ public class JavaParser extends Parser {
                         genericTypeParameterList68 = genericTypeParameterList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_genericTypeParameterList.add(genericTypeParameterList68.getTree());
+                        }
 
                     }
                     break;
@@ -3022,9 +3044,10 @@ public class JavaParser extends Parser {
                         interfaceExtendsClause69 = interfaceExtendsClause();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_interfaceExtendsClause.add(interfaceExtendsClause69.getTree());
+                        }
 
                     }
                     break;
@@ -3035,8 +3058,8 @@ public class JavaParser extends Parser {
                 interfaceBody70 = interfaceBody();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_interfaceBody.add(interfaceBody70.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_interfaceBody.add(interfaceBody70.getTree()); }
 
 
                 // AST REWRITE
@@ -3146,8 +3169,8 @@ public class JavaParser extends Parser {
                 type71 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, type71.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, type71.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:522:14: ( COMMA type )*
                 loop25:
                 do {
@@ -3164,13 +3187,13 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:522:15: COMMA type
                         {
                             COMMA72 = (Token) match(input, COMMA, FOLLOW_COMMA_in_typeList5472);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             pushFollow(FOLLOW_type_in_typeList5475);
                             type73 = type();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, type73.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, type73.getTree()); }
 
                         }
                         break;
@@ -3244,8 +3267,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:526:9: LCURLY ( classScopeDeclarations )* RCURLY
             {
                 LCURLY74 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_classBody5496);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY74);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY74); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:526:16: ( classScopeDeclarations )*
                 loop26:
@@ -3266,9 +3289,10 @@ public class JavaParser extends Parser {
                             classScopeDeclarations75 = classScopeDeclarations();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_classScopeDeclarations.add(classScopeDeclarations75.getTree());
+                            }
 
                         }
                         break;
@@ -3280,8 +3304,8 @@ public class JavaParser extends Parser {
                 while (true);
 
                 RCURLY76 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_classBody5501);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY76);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY76); }
 
 
                 // AST REWRITE
@@ -3379,8 +3403,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:531:9: LCURLY ( interfaceScopeDeclarations )* RCURLY
             {
                 LCURLY77 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_interfaceBody5539);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY77);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY77); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:531:16: ( interfaceScopeDeclarations )*
                 loop27:
@@ -3401,9 +3425,10 @@ public class JavaParser extends Parser {
                             interfaceScopeDeclarations78 = interfaceScopeDeclarations();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_interfaceScopeDeclarations.add(interfaceScopeDeclarations78.getTree());
+                            }
 
                         }
                         break;
@@ -3415,8 +3440,8 @@ public class JavaParser extends Parser {
                 while (true);
 
                 RCURLY79 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_interfaceBody5544);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY79);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY79); }
 
 
                 // AST REWRITE
@@ -3578,8 +3603,8 @@ public class JavaParser extends Parser {
                     block80 = block();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_block.add(block80.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_block.add(block80.getTree()); }
 
 
                     // AST REWRITE
@@ -3616,15 +3641,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:537:9: STATIC block
                 {
                     STATIC81 = (Token) match(input, STATIC, FOLLOW_STATIC_in_classScopeDeclarations5611);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_STATIC.add(STATIC81);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_STATIC.add(STATIC81); }
 
                     pushFollow(FOLLOW_block_in_classScopeDeclarations5613);
                     block82 = block();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_block.add(block82.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_block.add(block82.getTree()); }
 
 
                     // AST REWRITE
@@ -3664,8 +3689,8 @@ public class JavaParser extends Parser {
                     modifierList83 = modifierList();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_modifierList.add(modifierList83.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_modifierList.add(modifierList83.getTree()); }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:539:9: ( ( genericTypeParameterList )? ( type IDENT formalParameterList ( arrayDeclaratorList )? ( throwsClause )? ( block | SEMI ) -> ^( FUNCTION_METHOD_DECL modifierList ( genericTypeParameterList )? type IDENT formalParameterList ( arrayDeclaratorList )? ( throwsClause )? ( block )? ) | VOID IDENT formalParameterList ( throwsClause )? ( block | SEMI ) -> ^( VOID_METHOD_DECL modifierList ( genericTypeParameterList )? IDENT formalParameterList ( throwsClause )? ( block )? ) | ident= IDENT formalParameterList ( throwsClause )? block -> ^( CONSTRUCTOR_DECL[$ident, \"CONSTRUCTOR_DECL\"] modifierList ( genericTypeParameterList )? formalParameterList ( throwsClause )? block ) ) | type classFieldDeclaratorList SEMI -> ^( VAR_DECLARATION modifierList type classFieldDeclaratorList ) )
                     int alt36 = 2;
                     switch (input.LA(1)) {
@@ -3753,9 +3778,10 @@ public class JavaParser extends Parser {
                                     genericTypeParameterList84 = genericTypeParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_genericTypeParameterList.add(genericTypeParameterList84.getTree());
+                                    }
 
                                 }
                                 break;
@@ -3820,19 +3846,20 @@ public class JavaParser extends Parser {
                                     type85 = type();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_type.add(type85.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_type.add(type85.getTree()); }
                                     IDENT86 = (Token) match(input, IDENT, FOLLOW_IDENT_in_classScopeDeclarations5671);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_IDENT.add(IDENT86);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_IDENT.add(IDENT86); }
 
                                     pushFollow(FOLLOW_formalParameterList_in_classScopeDeclarations5673);
                                     formalParameterList87 = formalParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_formalParameterList.add(formalParameterList87.getTree());
+                                    }
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:540:48: ( arrayDeclaratorList )?
                                     int alt29 = 2;
                                     int LA29_0 = input.LA(1);
@@ -3848,9 +3875,10 @@ public class JavaParser extends Parser {
                                             arrayDeclaratorList88 = arrayDeclaratorList();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_arrayDeclaratorList.add(arrayDeclaratorList88.getTree());
+                                            }
 
                                         }
                                         break;
@@ -3872,9 +3900,10 @@ public class JavaParser extends Parser {
                                             throwsClause89 = throwsClause();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_throwsClause.add(throwsClause89.getTree());
+                                            }
 
                                         }
                                         break;
@@ -3909,8 +3938,8 @@ public class JavaParser extends Parser {
                                             block90 = block();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0) stream_block.add(block90.getTree());
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) { stream_block.add(block90.getTree()); }
 
                                         }
                                         break;
@@ -3918,8 +3947,8 @@ public class JavaParser extends Parser {
                                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:540:92: SEMI
                                         {
                                             SEMI91 = (Token) match(input, SEMI, FOLLOW_SEMI_in_classScopeDeclarations5686);
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0) stream_SEMI.add(SEMI91);
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) { stream_SEMI.add(SEMI91); }
 
 
                                         }
@@ -3989,20 +4018,21 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:17: VOID IDENT formalParameterList ( throwsClause )? ( block | SEMI )
                                 {
                                     VOID92 = (Token) match(input, VOID, FOLLOW_VOID_in_classScopeDeclarations5748);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_VOID.add(VOID92);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_VOID.add(VOID92); }
 
                                     IDENT93 = (Token) match(input, IDENT, FOLLOW_IDENT_in_classScopeDeclarations5750);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_IDENT.add(IDENT93);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_IDENT.add(IDENT93); }
 
                                     pushFollow(FOLLOW_formalParameterList_in_classScopeDeclarations5752);
                                     formalParameterList94 = formalParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_formalParameterList.add(formalParameterList94.getTree());
+                                    }
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:48: ( throwsClause )?
                                     int alt32 = 2;
                                     int LA32_0 = input.LA(1);
@@ -4018,9 +4048,10 @@ public class JavaParser extends Parser {
                                             throwsClause95 = throwsClause();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_throwsClause.add(throwsClause95.getTree());
+                                            }
 
                                         }
                                         break;
@@ -4055,8 +4086,8 @@ public class JavaParser extends Parser {
                                             block96 = block();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0) stream_block.add(block96.getTree());
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) { stream_block.add(block96.getTree()); }
 
                                         }
                                         break;
@@ -4064,8 +4095,8 @@ public class JavaParser extends Parser {
                                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:71: SEMI
                                         {
                                             SEMI97 = (Token) match(input, SEMI, FOLLOW_SEMI_in_classScopeDeclarations5762);
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0) stream_SEMI.add(SEMI97);
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) { stream_SEMI.add(SEMI97); }
 
 
                                         }
@@ -4128,16 +4159,17 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:544:17: ident= IDENT formalParameterList ( throwsClause )? block
                                 {
                                     ident = (Token) match(input, IDENT, FOLLOW_IDENT_in_classScopeDeclarations5821);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_IDENT.add(ident);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_IDENT.add(ident); }
 
                                     pushFollow(FOLLOW_formalParameterList_in_classScopeDeclarations5823);
                                     formalParameterList98 = formalParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_formalParameterList.add(formalParameterList98.getTree());
+                                    }
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:544:49: ( throwsClause )?
                                     int alt34 = 2;
                                     int LA34_0 = input.LA(1);
@@ -4153,9 +4185,10 @@ public class JavaParser extends Parser {
                                             throwsClause99 = throwsClause();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_throwsClause.add(throwsClause99.getTree());
+                                            }
 
                                         }
                                         break;
@@ -4166,8 +4199,8 @@ public class JavaParser extends Parser {
                                     block100 = block();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_block.add(block100.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_block.add(block100.getTree()); }
 
 
                                     // AST REWRITE
@@ -4227,18 +4260,19 @@ public class JavaParser extends Parser {
                             type101 = type();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_type.add(type101.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_type.add(type101.getTree()); }
                             pushFollow(FOLLOW_classFieldDeclaratorList_in_classScopeDeclarations5894);
                             classFieldDeclaratorList102 = classFieldDeclaratorList();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_classFieldDeclaratorList.add(classFieldDeclaratorList102.getTree());
+                            }
                             SEMI103 = (Token) match(input, SEMI, FOLLOW_SEMI_in_classScopeDeclarations5896);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI103);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI103); }
 
 
                             // AST REWRITE
@@ -4288,8 +4322,8 @@ public class JavaParser extends Parser {
                     typeDeclaration104 = typeDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, typeDeclaration104.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, typeDeclaration104.getTree()); }
 
                 }
                 break;
@@ -4299,7 +4333,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     SEMI105 = (Token) match(input, SEMI, FOLLOW_SEMI_in_classScopeDeclarations5951);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
 
                 }
                 break;
@@ -4409,8 +4443,8 @@ public class JavaParser extends Parser {
                     modifierList106 = modifierList();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_modifierList.add(modifierList106.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_modifierList.add(modifierList106.getTree()); }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:556:9: ( ( genericTypeParameterList )? ( type IDENT formalParameterList ( arrayDeclaratorList )? ( throwsClause )? SEMI -> ^( FUNCTION_METHOD_DECL modifierList ( genericTypeParameterList )? type IDENT formalParameterList ( arrayDeclaratorList )? ( throwsClause )? ) | VOID IDENT formalParameterList ( throwsClause )? SEMI -> ^( VOID_METHOD_DECL modifierList ( genericTypeParameterList )? IDENT formalParameterList ( throwsClause )? ) ) | type interfaceFieldDeclaratorList SEMI -> ^( VAR_DECLARATION modifierList type interfaceFieldDeclaratorList ) )
                     int alt43 = 2;
                     switch (input.LA(1)) {
@@ -4498,9 +4532,10 @@ public class JavaParser extends Parser {
                                     genericTypeParameterList107 = genericTypeParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_genericTypeParameterList.add(genericTypeParameterList107.getTree());
+                                    }
 
                                 }
                                 break;
@@ -4535,19 +4570,20 @@ public class JavaParser extends Parser {
                                     type108 = type();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_type.add(type108.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_type.add(type108.getTree()); }
                                     IDENT109 = (Token) match(input, IDENT, FOLLOW_IDENT_in_interfaceScopeDeclarations6006);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_IDENT.add(IDENT109);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_IDENT.add(IDENT109); }
 
                                     pushFollow(FOLLOW_formalParameterList_in_interfaceScopeDeclarations6008);
                                     formalParameterList110 = formalParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_formalParameterList.add(formalParameterList110.getTree());
+                                    }
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:557:48: ( arrayDeclaratorList )?
                                     int alt39 = 2;
                                     int LA39_0 = input.LA(1);
@@ -4563,9 +4599,10 @@ public class JavaParser extends Parser {
                                             arrayDeclaratorList111 = arrayDeclaratorList();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_arrayDeclaratorList.add(arrayDeclaratorList111.getTree());
+                                            }
 
                                         }
                                         break;
@@ -4587,9 +4624,10 @@ public class JavaParser extends Parser {
                                             throwsClause112 = throwsClause();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_throwsClause.add(throwsClause112.getTree());
+                                            }
 
                                         }
                                         break;
@@ -4597,8 +4635,8 @@ public class JavaParser extends Parser {
                                     }
 
                                     SEMI113 = (Token) match(input, SEMI, FOLLOW_SEMI_in_interfaceScopeDeclarations6016);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_SEMI.add(SEMI113);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_SEMI.add(SEMI113); }
 
 
                                     // AST REWRITE
@@ -4656,20 +4694,21 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:559:17: VOID IDENT formalParameterList ( throwsClause )? SEMI
                                 {
                                     VOID114 = (Token) match(input, VOID, FOLLOW_VOID_in_interfaceScopeDeclarations6074);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_VOID.add(VOID114);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_VOID.add(VOID114); }
 
                                     IDENT115 = (Token) match(input, IDENT, FOLLOW_IDENT_in_interfaceScopeDeclarations6076);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_IDENT.add(IDENT115);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_IDENT.add(IDENT115); }
 
                                     pushFollow(FOLLOW_formalParameterList_in_interfaceScopeDeclarations6078);
                                     formalParameterList116 = formalParameterList();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_formalParameterList.add(formalParameterList116.getTree());
+                                    }
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:559:48: ( throwsClause )?
                                     int alt41 = 2;
                                     int LA41_0 = input.LA(1);
@@ -4685,9 +4724,10 @@ public class JavaParser extends Parser {
                                             throwsClause117 = throwsClause();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0)
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
                                                 stream_throwsClause.add(throwsClause117.getTree());
+                                            }
 
                                         }
                                         break;
@@ -4695,8 +4735,8 @@ public class JavaParser extends Parser {
                                     }
 
                                     SEMI118 = (Token) match(input, SEMI, FOLLOW_SEMI_in_interfaceScopeDeclarations6083);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_SEMI.add(SEMI118);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_SEMI.add(SEMI118); }
 
 
                                     // AST REWRITE
@@ -4756,18 +4796,19 @@ public class JavaParser extends Parser {
                             type119 = type();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_type.add(type119.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_type.add(type119.getTree()); }
                             pushFollow(FOLLOW_interfaceFieldDeclaratorList_in_interfaceScopeDeclarations6148);
                             interfaceFieldDeclaratorList120 = interfaceFieldDeclaratorList();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_interfaceFieldDeclaratorList.add(interfaceFieldDeclaratorList120.getTree());
+                            }
                             SEMI121 = (Token) match(input, SEMI, FOLLOW_SEMI_in_interfaceScopeDeclarations6150);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI121);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI121); }
 
 
                             // AST REWRITE
@@ -4817,8 +4858,8 @@ public class JavaParser extends Parser {
                     typeDeclaration122 = typeDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, typeDeclaration122.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, typeDeclaration122.getTree()); }
 
                 }
                 break;
@@ -4828,7 +4869,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     SEMI123 = (Token) match(input, SEMI, FOLLOW_SEMI_in_interfaceScopeDeclarations6205);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
 
                 }
                 break;
@@ -4896,8 +4937,8 @@ public class JavaParser extends Parser {
                 classFieldDeclarator124 = classFieldDeclarator();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_classFieldDeclarator.add(classFieldDeclarator124.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_classFieldDeclarator.add(classFieldDeclarator124.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:570:30: ( COMMA classFieldDeclarator )*
                 loop45:
                 do {
@@ -4914,16 +4955,17 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:570:31: COMMA classFieldDeclarator
                         {
                             COMMA125 = (Token) match(input, COMMA, FOLLOW_COMMA_in_classFieldDeclaratorList6228);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COMMA.add(COMMA125);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COMMA.add(COMMA125); }
 
                             pushFollow(FOLLOW_classFieldDeclarator_in_classFieldDeclaratorList6230);
                             classFieldDeclarator126 = classFieldDeclarator();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_classFieldDeclarator.add(classFieldDeclarator126.getTree());
+                            }
 
                         }
                         break;
@@ -5035,8 +5077,8 @@ public class JavaParser extends Parser {
                 variableDeclaratorId127 = variableDeclaratorId();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_variableDeclaratorId.add(variableDeclaratorId127.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_variableDeclaratorId.add(variableDeclaratorId127.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:575:30: ( ASSIGN variableInitializer )?
                 int alt46 = 2;
                 int LA46_0 = input.LA(1);
@@ -5049,15 +5091,17 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:575:31: ASSIGN variableInitializer
                     {
                         ASSIGN128 = (Token) match(input, ASSIGN, FOLLOW_ASSIGN_in_classFieldDeclarator6272);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_ASSIGN.add(ASSIGN128);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_ASSIGN.add(ASSIGN128); }
 
                         pushFollow(FOLLOW_variableInitializer_in_classFieldDeclarator6274);
                         variableInitializer129 = variableInitializer();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_variableInitializer.add(variableInitializer129.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            stream_variableInitializer.add(variableInitializer129.getTree());
+                        }
 
                     }
                     break;
@@ -5163,8 +5207,10 @@ public class JavaParser extends Parser {
                 interfaceFieldDeclarator130 = interfaceFieldDeclarator();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_interfaceFieldDeclarator.add(interfaceFieldDeclarator130.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) {
+                    stream_interfaceFieldDeclarator.add(interfaceFieldDeclarator130.getTree());
+                }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:580:34: ( COMMA interfaceFieldDeclarator )*
                 loop47:
                 do {
@@ -5181,16 +5227,17 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:580:35: COMMA interfaceFieldDeclarator
                         {
                             COMMA131 = (Token) match(input, COMMA, FOLLOW_COMMA_in_interfaceFieldDeclaratorList6318);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COMMA.add(COMMA131);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COMMA.add(COMMA131); }
 
                             pushFollow(FOLLOW_interfaceFieldDeclarator_in_interfaceFieldDeclaratorList6320);
                             interfaceFieldDeclarator132 = interfaceFieldDeclarator();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_interfaceFieldDeclarator.add(interfaceFieldDeclarator132.getTree());
+                            }
 
                         }
                         break;
@@ -5302,18 +5349,18 @@ public class JavaParser extends Parser {
                 variableDeclaratorId133 = variableDeclaratorId();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_variableDeclaratorId.add(variableDeclaratorId133.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_variableDeclaratorId.add(variableDeclaratorId133.getTree()); }
                 ASSIGN134 = (Token) match(input, ASSIGN, FOLLOW_ASSIGN_in_interfaceFieldDeclarator6361);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_ASSIGN.add(ASSIGN134);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_ASSIGN.add(ASSIGN134); }
 
                 pushFollow(FOLLOW_variableInitializer_in_interfaceFieldDeclarator6363);
                 variableInitializer135 = variableInitializer();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_variableInitializer.add(variableInitializer135.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_variableInitializer.add(variableInitializer135.getTree()); }
 
 
                 // AST REWRITE
@@ -5405,7 +5452,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 IDENT136 = (Token) match(input, IDENT, FOLLOW_IDENT_in_variableDeclaratorId6401);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     IDENT136_tree = (CommonTree) adaptor.create(IDENT136);
                     root_0 = (CommonTree) adaptor.becomeRoot(IDENT136_tree, root_0);
@@ -5425,8 +5472,8 @@ public class JavaParser extends Parser {
                         arrayDeclaratorList137 = arrayDeclaratorList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, arrayDeclaratorList137.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, arrayDeclaratorList137.getTree()); }
 
                     }
                     break;
@@ -5517,8 +5564,8 @@ public class JavaParser extends Parser {
                     arrayInitializer138 = arrayInitializer();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, arrayInitializer138.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, arrayInitializer138.getTree()); }
 
                 }
                 break;
@@ -5531,8 +5578,8 @@ public class JavaParser extends Parser {
                     expression139 = expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, expression139.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, expression139.getTree()); }
 
                 }
                 break;
@@ -5596,12 +5643,12 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:599:9: LBRACK RBRACK
             {
                 LBRACK140 = (Token) match(input, LBRACK, FOLLOW_LBRACK_in_arrayDeclarator6453);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LBRACK.add(LBRACK140);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LBRACK.add(LBRACK140); }
 
                 RBRACK141 = (Token) match(input, RBRACK, FOLLOW_RBRACK_in_arrayDeclarator6455);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RBRACK.add(RBRACK141);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RBRACK.add(RBRACK141); }
 
 
                 // AST REWRITE
@@ -5711,14 +5758,14 @@ public class JavaParser extends Parser {
                             arrayDeclarator142 = arrayDeclarator();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_arrayDeclarator.add(arrayDeclarator142.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_arrayDeclarator.add(arrayDeclarator142.getTree()); }
 
                         }
                         break;
 
                         default:
-                            if (cnt50 >= 1) break loop50;
+                            if (cnt50 >= 1) { break loop50; }
                             if (state.backtracking > 0) {
                                 state.failed = true;
                                 return retval;
@@ -5836,8 +5883,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:609:9: LCURLY ( variableInitializer ( COMMA variableInitializer )* ( COMMA )? )? RCURLY
             {
                 LCURLY143 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_arrayInitializer6527);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY143);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY143); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:609:16: ( variableInitializer ( COMMA variableInitializer )* ( COMMA )? )?
                 int alt53 = 2;
@@ -5854,8 +5901,10 @@ public class JavaParser extends Parser {
                         variableInitializer144 = variableInitializer();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_variableInitializer.add(variableInitializer144.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            stream_variableInitializer.add(variableInitializer144.getTree());
+                        }
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:609:37: ( COMMA variableInitializer )*
                         loop51:
                         do {
@@ -5878,16 +5927,17 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:609:38: COMMA variableInitializer
                                 {
                                     COMMA145 = (Token) match(input, COMMA, FOLLOW_COMMA_in_arrayInitializer6533);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_COMMA.add(COMMA145);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_COMMA.add(COMMA145); }
 
                                     pushFollow(FOLLOW_variableInitializer_in_arrayInitializer6535);
                                     variableInitializer146 = variableInitializer();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_variableInitializer.add(variableInitializer146.getTree());
+                                    }
 
                                 }
                                 break;
@@ -5910,8 +5960,8 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:0:0: COMMA
                             {
                                 COMMA147 = (Token) match(input, COMMA, FOLLOW_COMMA_in_arrayInitializer6539);
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_COMMA.add(COMMA147);
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_COMMA.add(COMMA147); }
 
 
                             }
@@ -5926,8 +5976,8 @@ public class JavaParser extends Parser {
                 }
 
                 RCURLY148 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_arrayInitializer6544);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY148);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY148); }
 
 
                 // AST REWRITE
@@ -6022,15 +6072,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:614:9: THROWS qualifiedIdentList
             {
                 THROWS149 = (Token) match(input, THROWS, FOLLOW_THROWS_in_throwsClause6582);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_THROWS.add(THROWS149);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_THROWS.add(THROWS149); }
 
                 pushFollow(FOLLOW_qualifiedIdentList_in_throwsClause6584);
                 qualifiedIdentList150 = qualifiedIdentList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_qualifiedIdentList.add(qualifiedIdentList150.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_qualifiedIdentList.add(qualifiedIdentList150.getTree()); }
 
 
                 // AST REWRITE
@@ -6144,8 +6194,8 @@ public class JavaParser extends Parser {
                             modifier151 = modifier();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_modifier.add(modifier151.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_modifier.add(modifier151.getTree()); }
 
                         }
                         break;
@@ -6328,7 +6378,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     PUBLIC152 = (Token) match(input, PUBLIC, FOLLOW_PUBLIC_in_modifier6659);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         PUBLIC152_tree = (CommonTree) adaptor.create(PUBLIC152);
                         adaptor.addChild(root_0, PUBLIC152_tree);
@@ -6342,7 +6392,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     PROTECTED153 = (Token) match(input, PROTECTED, FOLLOW_PROTECTED_in_modifier6669);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         PROTECTED153_tree = (CommonTree) adaptor.create(PROTECTED153);
                         adaptor.addChild(root_0, PROTECTED153_tree);
@@ -6356,7 +6406,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     PRIVATE154 = (Token) match(input, PRIVATE, FOLLOW_PRIVATE_in_modifier6679);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         PRIVATE154_tree = (CommonTree) adaptor.create(PRIVATE154);
                         adaptor.addChild(root_0, PRIVATE154_tree);
@@ -6370,7 +6420,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     STATIC155 = (Token) match(input, STATIC, FOLLOW_STATIC_in_modifier6689);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         STATIC155_tree = (CommonTree) adaptor.create(STATIC155);
                         adaptor.addChild(root_0, STATIC155_tree);
@@ -6384,7 +6434,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     ABSTRACT156 = (Token) match(input, ABSTRACT, FOLLOW_ABSTRACT_in_modifier6699);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         ABSTRACT156_tree = (CommonTree) adaptor.create(ABSTRACT156);
                         adaptor.addChild(root_0, ABSTRACT156_tree);
@@ -6398,7 +6448,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     NATIVE157 = (Token) match(input, NATIVE, FOLLOW_NATIVE_in_modifier6709);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         NATIVE157_tree = (CommonTree) adaptor.create(NATIVE157);
                         adaptor.addChild(root_0, NATIVE157_tree);
@@ -6412,7 +6462,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     SYNCHRONIZED158 = (Token) match(input, SYNCHRONIZED, FOLLOW_SYNCHRONIZED_in_modifier6719);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         SYNCHRONIZED158_tree = (CommonTree) adaptor.create(SYNCHRONIZED158);
                         adaptor.addChild(root_0, SYNCHRONIZED158_tree);
@@ -6426,7 +6476,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     TRANSIENT159 = (Token) match(input, TRANSIENT, FOLLOW_TRANSIENT_in_modifier6729);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         TRANSIENT159_tree = (CommonTree) adaptor.create(TRANSIENT159);
                         adaptor.addChild(root_0, TRANSIENT159_tree);
@@ -6440,7 +6490,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     VOLATILE160 = (Token) match(input, VOLATILE, FOLLOW_VOLATILE_in_modifier6739);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         VOLATILE160_tree = (CommonTree) adaptor.create(VOLATILE160);
                         adaptor.addChild(root_0, VOLATILE160_tree);
@@ -6454,7 +6504,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     STRICTFP161 = (Token) match(input, STRICTFP, FOLLOW_STRICTFP_in_modifier6749);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         STRICTFP161_tree = (CommonTree) adaptor.create(STRICTFP161);
                         adaptor.addChild(root_0, STRICTFP161_tree);
@@ -6471,8 +6521,8 @@ public class JavaParser extends Parser {
                     localModifier162 = localModifier();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, localModifier162.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, localModifier162.getTree()); }
 
                 }
                 break;
@@ -6550,8 +6600,8 @@ public class JavaParser extends Parser {
                             localModifier163 = localModifier();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_localModifier.add(localModifier163.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_localModifier.add(localModifier163.getTree()); }
 
                         }
                         break;
@@ -6677,7 +6727,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     FINAL164 = (Token) match(input, FINAL, FOLLOW_FINAL_in_localModifier6815);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         FINAL164_tree = (CommonTree) adaptor.create(FINAL164);
                         adaptor.addChild(root_0, FINAL164_tree);
@@ -6694,8 +6744,8 @@ public class JavaParser extends Parser {
                     annotation165 = annotation();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, annotation165.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, annotation165.getTree()); }
 
                 }
                 break;
@@ -6782,8 +6832,8 @@ public class JavaParser extends Parser {
                     simpleType166 = simpleType();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, simpleType166.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, simpleType166.getTree()); }
 
                 }
                 break;
@@ -6796,8 +6846,8 @@ public class JavaParser extends Parser {
                     objectType167 = objectType();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, objectType167.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, objectType167.getTree()); }
 
                 }
                 break;
@@ -6863,8 +6913,8 @@ public class JavaParser extends Parser {
                 primitiveType168 = primitiveType();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_primitiveType.add(primitiveType168.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_primitiveType.add(primitiveType168.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:653:23: ( arrayDeclaratorList )?
                 int alt59 = 2;
                 int LA59_0 = input.LA(1);
@@ -6888,8 +6938,10 @@ public class JavaParser extends Parser {
                         arrayDeclaratorList169 = arrayDeclaratorList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_arrayDeclaratorList.add(arrayDeclaratorList169.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            stream_arrayDeclaratorList.add(arrayDeclaratorList169.getTree());
+                        }
 
                     }
                     break;
@@ -6993,8 +7045,8 @@ public class JavaParser extends Parser {
                 qualifiedTypeIdent170 = qualifiedTypeIdent();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_qualifiedTypeIdent.add(qualifiedTypeIdent170.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_qualifiedTypeIdent.add(qualifiedTypeIdent170.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:658:28: ( arrayDeclaratorList )?
                 int alt60 = 2;
                 int LA60_0 = input.LA(1);
@@ -7014,8 +7066,10 @@ public class JavaParser extends Parser {
                         arrayDeclaratorList171 = arrayDeclaratorList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_arrayDeclaratorList.add(arrayDeclaratorList171.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            stream_arrayDeclaratorList.add(arrayDeclaratorList171.getTree());
+                        }
 
                     }
                     break;
@@ -7119,9 +7173,10 @@ public class JavaParser extends Parser {
                 qualifiedTypeIdentSimplified172 = qualifiedTypeIdentSimplified();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0)
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) {
                     stream_qualifiedTypeIdentSimplified.add(qualifiedTypeIdentSimplified172.getTree());
+                }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:663:38: ( arrayDeclaratorList )?
                 int alt61 = 2;
                 int LA61_0 = input.LA(1);
@@ -7137,8 +7192,10 @@ public class JavaParser extends Parser {
                         arrayDeclaratorList173 = arrayDeclaratorList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_arrayDeclaratorList.add(arrayDeclaratorList173.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            stream_arrayDeclaratorList.add(arrayDeclaratorList173.getTree());
+                        }
 
                     }
                     break;
@@ -7244,8 +7301,8 @@ public class JavaParser extends Parser {
                 typeIdent174 = typeIdent();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_typeIdent.add(typeIdent174.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_typeIdent.add(typeIdent174.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:668:19: ( DOT typeIdent )*
                 loop62:
                 do {
@@ -7268,15 +7325,15 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:668:20: DOT typeIdent
                         {
                             DOT175 = (Token) match(input, DOT, FOLLOW_DOT_in_qualifiedTypeIdent7004);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_DOT.add(DOT175);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_DOT.add(DOT175); }
 
                             pushFollow(FOLLOW_typeIdent_in_qualifiedTypeIdent7006);
                             typeIdent176 = typeIdent();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_typeIdent.add(typeIdent176.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_typeIdent.add(typeIdent176.getTree()); }
 
                         }
                         break;
@@ -7387,8 +7444,8 @@ public class JavaParser extends Parser {
                 typeIdentSimplified177 = typeIdentSimplified();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_typeIdentSimplified.add(typeIdentSimplified177.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_typeIdentSimplified.add(typeIdentSimplified177.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:673:29: ( DOT typeIdentSimplified )*
                 loop63:
                 do {
@@ -7405,16 +7462,17 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:673:30: DOT typeIdentSimplified
                         {
                             DOT178 = (Token) match(input, DOT, FOLLOW_DOT_in_qualifiedTypeIdentSimplified7048);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_DOT.add(DOT178);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_DOT.add(DOT178); }
 
                             pushFollow(FOLLOW_typeIdentSimplified_in_qualifiedTypeIdentSimplified7050);
                             typeIdentSimplified179 = typeIdentSimplified();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_typeIdentSimplified.add(typeIdentSimplified179.getTree());
+                            }
 
                         }
                         break;
@@ -7521,7 +7579,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 IDENT180 = (Token) match(input, IDENT, FOLLOW_IDENT_in_typeIdent7089);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     IDENT180_tree = (CommonTree) adaptor.create(IDENT180);
                     root_0 = (CommonTree) adaptor.becomeRoot(IDENT180_tree, root_0);
@@ -7541,8 +7599,8 @@ public class JavaParser extends Parser {
                         genericTypeArgumentList181 = genericTypeArgumentList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, genericTypeArgumentList181.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, genericTypeArgumentList181.getTree()); }
 
                     }
                     break;
@@ -7610,7 +7668,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 IDENT182 = (Token) match(input, IDENT, FOLLOW_IDENT_in_typeIdentSimplified7112);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     IDENT182_tree = (CommonTree) adaptor.create(IDENT182);
                     root_0 = (CommonTree) adaptor.becomeRoot(IDENT182_tree, root_0);
@@ -7630,9 +7688,10 @@ public class JavaParser extends Parser {
                         genericTypeArgumentListSimplified183 = genericTypeArgumentListSimplified();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             adaptor.addChild(root_0, genericTypeArgumentListSimplified183.getTree());
+                        }
 
                     }
                     break;
@@ -7700,7 +7759,7 @@ public class JavaParser extends Parser {
                 set184 = (Token) input.LT(1);
                 if (input.LA(1) == BOOLEAN || input.LA(1) == BYTE || input.LA(1) == CHAR || input.LA(1) == DOUBLE || input.LA(1) == FLOAT || (input.LA(1) >= INT && input.LA(1) <= LONG) || input.LA(1) == SHORT) {
                     input.consume();
-                    if (state.backtracking == 0) adaptor.addChild(root_0, (CommonTree) adaptor.create(set184));
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, (CommonTree) adaptor.create(set184)); }
                     state.errorRecovery = false;
                     state.failed = false;
                 }
@@ -7781,15 +7840,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:697:9: LESS_THAN genericTypeArgument ( COMMA genericTypeArgument )* genericTypeListClosing
             {
                 LESS_THAN185 = (Token) match(input, LESS_THAN, FOLLOW_LESS_THAN_in_genericTypeArgumentList7224);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LESS_THAN.add(LESS_THAN185);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LESS_THAN.add(LESS_THAN185); }
 
                 pushFollow(FOLLOW_genericTypeArgument_in_genericTypeArgumentList7226);
                 genericTypeArgument186 = genericTypeArgument();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_genericTypeArgument.add(genericTypeArgument186.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_genericTypeArgument.add(genericTypeArgument186.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:697:39: ( COMMA genericTypeArgument )*
                 loop66:
                 do {
@@ -7812,16 +7871,17 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:697:40: COMMA genericTypeArgument
                         {
                             COMMA187 = (Token) match(input, COMMA, FOLLOW_COMMA_in_genericTypeArgumentList7229);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COMMA.add(COMMA187);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COMMA.add(COMMA187); }
 
                             pushFollow(FOLLOW_genericTypeArgument_in_genericTypeArgumentList7231);
                             genericTypeArgument188 = genericTypeArgument();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_genericTypeArgument.add(genericTypeArgument188.getTree());
+                            }
 
                         }
                         break;
@@ -7836,8 +7896,8 @@ public class JavaParser extends Parser {
                 genericTypeListClosing189 = genericTypeListClosing();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_genericTypeListClosing.add(genericTypeListClosing189.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_genericTypeListClosing.add(genericTypeListClosing189.getTree()); }
 
 
                 // AST REWRITE
@@ -7962,8 +8022,8 @@ public class JavaParser extends Parser {
                     type190 = type();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, type190.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, type190.getTree()); }
 
                 }
                 break;
@@ -7971,8 +8031,8 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:703:9: QUESTION ( genericWildcardBoundType )?
                 {
                     QUESTION191 = (Token) match(input, QUESTION, FOLLOW_QUESTION_in_genericTypeArgument7283);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_QUESTION.add(QUESTION191);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_QUESTION.add(QUESTION191); }
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:703:18: ( genericWildcardBoundType )?
                     int alt67 = 2;
@@ -8011,9 +8071,10 @@ public class JavaParser extends Parser {
                             genericWildcardBoundType192 = genericWildcardBoundType();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_genericWildcardBoundType.add(genericWildcardBoundType192.getTree());
+                            }
 
                         }
                         break;
@@ -8119,8 +8180,9 @@ public class JavaParser extends Parser {
                 set193 = (Token) input.LT(1);
                 if (input.LA(1) == EXTENDS || input.LA(1) == SUPER) {
                     input.consume();
-                    if (state.backtracking == 0)
+                    if (state.backtracking == 0) {
                         root_0 = (CommonTree) adaptor.becomeRoot((CommonTree) adaptor.create(set193), root_0);
+                    }
                     state.errorRecovery = false;
                     state.failed = false;
                 }
@@ -8137,8 +8199,8 @@ public class JavaParser extends Parser {
                 type194 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, type194.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, type194.getTree()); }
 
             }
 
@@ -8207,16 +8269,17 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:712:9: LESS_THAN genericTypeArgumentSimplified ( COMMA genericTypeArgumentSimplified )* genericTypeListClosing
             {
                 LESS_THAN195 = (Token) match(input, LESS_THAN, FOLLOW_LESS_THAN_in_genericTypeArgumentListSimplified7351);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LESS_THAN.add(LESS_THAN195);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LESS_THAN.add(LESS_THAN195); }
 
                 pushFollow(FOLLOW_genericTypeArgumentSimplified_in_genericTypeArgumentListSimplified7353);
                 genericTypeArgumentSimplified196 = genericTypeArgumentSimplified();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0)
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) {
                     stream_genericTypeArgumentSimplified.add(genericTypeArgumentSimplified196.getTree());
+                }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:712:49: ( COMMA genericTypeArgumentSimplified )*
                 loop69:
                 do {
@@ -8233,16 +8296,17 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:712:50: COMMA genericTypeArgumentSimplified
                         {
                             COMMA197 = (Token) match(input, COMMA, FOLLOW_COMMA_in_genericTypeArgumentListSimplified7356);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COMMA.add(COMMA197);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COMMA.add(COMMA197); }
 
                             pushFollow(FOLLOW_genericTypeArgumentSimplified_in_genericTypeArgumentListSimplified7358);
                             genericTypeArgumentSimplified198 = genericTypeArgumentSimplified();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_genericTypeArgumentSimplified.add(genericTypeArgumentSimplified198.getTree());
+                            }
 
                         }
                         break;
@@ -8257,8 +8321,8 @@ public class JavaParser extends Parser {
                 genericTypeListClosing199 = genericTypeListClosing();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_genericTypeListClosing.add(genericTypeListClosing199.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_genericTypeListClosing.add(genericTypeListClosing199.getTree()); }
 
 
                 // AST REWRITE
@@ -8380,8 +8444,8 @@ public class JavaParser extends Parser {
                     type200 = type();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, type200.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, type200.getTree()); }
 
                 }
                 break;
@@ -8391,7 +8455,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     QUESTION201 = (Token) match(input, QUESTION, FOLLOW_QUESTION_in_genericTypeArgumentSimplified7410);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         QUESTION201_tree = (CommonTree) adaptor.create(QUESTION201);
                         adaptor.addChild(root_0, QUESTION201_tree);
@@ -8464,8 +8528,8 @@ public class JavaParser extends Parser {
                 qualifiedIdentifier202 = qualifiedIdentifier();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, qualifiedIdentifier202.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, qualifiedIdentifier202.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:722:29: ( COMMA qualifiedIdentifier )*
                 loop71:
                 do {
@@ -8482,13 +8546,13 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:722:30: COMMA qualifiedIdentifier
                         {
                             COMMA203 = (Token) match(input, COMMA, FOLLOW_COMMA_in_qualifiedIdentList7432);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             pushFollow(FOLLOW_qualifiedIdentifier_in_qualifiedIdentList7435);
                             qualifiedIdentifier204 = qualifiedIdentifier();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, qualifiedIdentifier204.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, qualifiedIdentifier204.getTree()); }
 
                         }
                         break;
@@ -8574,8 +8638,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:726:9: LPAREN ( formalParameterStandardDecl ( COMMA formalParameterStandardDecl )* ( COMMA formalParameterVarArgDecl )? -> ^( FORMAL_PARAM_LIST[$LPAREN, \"FORMAL_PARAM_LIST\"] ( formalParameterStandardDecl )+ ( formalParameterVarArgDecl )? ) | formalParameterVarArgDecl -> ^( FORMAL_PARAM_LIST[$LPAREN, \"FORMAL_PARAM_LIST\"] formalParameterVarArgDecl ) | -> ^( FORMAL_PARAM_LIST[$LPAREN, \"FORMAL_PARAM_LIST\"] ) ) RPAREN
             {
                 LPAREN205 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_formalParameterList7456);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LPAREN.add(LPAREN205);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LPAREN.add(LPAREN205); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:727:9: ( formalParameterStandardDecl ( COMMA formalParameterStandardDecl )* ( COMMA formalParameterVarArgDecl )? -> ^( FORMAL_PARAM_LIST[$LPAREN, \"FORMAL_PARAM_LIST\"] ( formalParameterStandardDecl )+ ( formalParameterVarArgDecl )? ) | formalParameterVarArgDecl -> ^( FORMAL_PARAM_LIST[$LPAREN, \"FORMAL_PARAM_LIST\"] formalParameterVarArgDecl ) | -> ^( FORMAL_PARAM_LIST[$LPAREN, \"FORMAL_PARAM_LIST\"] ) )
                 int alt74 = 3;
@@ -8694,9 +8758,10 @@ public class JavaParser extends Parser {
                         formalParameterStandardDecl206 = formalParameterStandardDecl();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_formalParameterStandardDecl.add(formalParameterStandardDecl206.getTree());
+                        }
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:41: ( COMMA formalParameterStandardDecl )*
                         loop72:
                         do {
@@ -8719,16 +8784,17 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:42: COMMA formalParameterStandardDecl
                                 {
                                     COMMA207 = (Token) match(input, COMMA, FOLLOW_COMMA_in_formalParameterList7486);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_COMMA.add(COMMA207);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_COMMA.add(COMMA207); }
 
                                     pushFollow(FOLLOW_formalParameterStandardDecl_in_formalParameterList7488);
                                     formalParameterStandardDecl208 = formalParameterStandardDecl();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_formalParameterStandardDecl.add(formalParameterStandardDecl208.getTree());
+                                    }
 
                                 }
                                 break;
@@ -8751,16 +8817,17 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:79: COMMA formalParameterVarArgDecl
                             {
                                 COMMA209 = (Token) match(input, COMMA, FOLLOW_COMMA_in_formalParameterList7493);
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_COMMA.add(COMMA209);
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_COMMA.add(COMMA209); }
 
                                 pushFollow(FOLLOW_formalParameterVarArgDecl_in_formalParameterList7495);
                                 formalParameterVarArgDecl210 = formalParameterVarArgDecl();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0)
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
                                     stream_formalParameterVarArgDecl.add(formalParameterVarArgDecl210.getTree());
+                                }
 
                             }
                             break;
@@ -8818,9 +8885,10 @@ public class JavaParser extends Parser {
                         formalParameterVarArgDecl211 = formalParameterVarArgDecl();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_formalParameterVarArgDecl.add(formalParameterVarArgDecl211.getTree());
+                        }
 
 
                         // AST REWRITE
@@ -8889,8 +8957,8 @@ public class JavaParser extends Parser {
                 }
 
                 RPAREN212 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_formalParameterList7625);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RPAREN.add(RPAREN212);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RPAREN.add(RPAREN212); }
 
 
             }
@@ -8958,20 +9026,20 @@ public class JavaParser extends Parser {
                 localModifierList213 = localModifierList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_localModifierList.add(localModifierList213.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_localModifierList.add(localModifierList213.getTree()); }
                 pushFollow(FOLLOW_type_in_formalParameterStandardDecl7646);
                 type214 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_type.add(type214.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_type.add(type214.getTree()); }
                 pushFollow(FOLLOW_variableDeclaratorId_in_formalParameterStandardDecl7648);
                 variableDeclaratorId215 = variableDeclaratorId();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_variableDeclaratorId.add(variableDeclaratorId215.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_variableDeclaratorId.add(variableDeclaratorId215.getTree()); }
 
 
                 // AST REWRITE
@@ -9072,24 +9140,24 @@ public class JavaParser extends Parser {
                 localModifierList216 = localModifierList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_localModifierList.add(localModifierList216.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_localModifierList.add(localModifierList216.getTree()); }
                 pushFollow(FOLLOW_type_in_formalParameterVarArgDecl7690);
                 type217 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_type.add(type217.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_type.add(type217.getTree()); }
                 ELLIPSIS218 = (Token) match(input, ELLIPSIS, FOLLOW_ELLIPSIS_in_formalParameterVarArgDecl7692);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_ELLIPSIS.add(ELLIPSIS218);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_ELLIPSIS.add(ELLIPSIS218); }
 
                 pushFollow(FOLLOW_variableDeclaratorId_in_formalParameterVarArgDecl7694);
                 variableDeclaratorId219 = variableDeclaratorId();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_variableDeclaratorId.add(variableDeclaratorId219.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_variableDeclaratorId.add(variableDeclaratorId219.getTree()); }
 
 
                 // AST REWRITE
@@ -9187,8 +9255,8 @@ public class JavaParser extends Parser {
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:750:13: IDENT
                 {
                     IDENT220 = (Token) match(input, IDENT, FOLLOW_IDENT_in_qualifiedIdentifier7738);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_IDENT.add(IDENT220);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_IDENT.add(IDENT220); }
 
 
                     // AST REWRITE
@@ -9241,12 +9309,12 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:752:13: DOT ident= IDENT
                         {
                             DOT221 = (Token) match(input, DOT, FOLLOW_DOT_in_qualifiedIdentifier7781);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_DOT.add(DOT221);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_DOT.add(DOT221); }
 
                             ident = (Token) match(input, IDENT, FOLLOW_IDENT_in_qualifiedIdentifier7785);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_IDENT.add(ident);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_IDENT.add(ident); }
 
 
                             // AST REWRITE
@@ -9375,8 +9443,8 @@ public class JavaParser extends Parser {
                             annotation222 = annotation();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_annotation.add(annotation222.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_annotation.add(annotation222.getTree()); }
 
                         }
                         break;
@@ -9483,7 +9551,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 AT223 = (Token) match(input, AT, FOLLOW_AT_in_annotation7872);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     AT223_tree = (CommonTree) adaptor.create(AT223);
                     root_0 = (CommonTree) adaptor.becomeRoot(AT223_tree, root_0);
@@ -9492,8 +9560,8 @@ public class JavaParser extends Parser {
                 qualifiedIdentifier224 = qualifiedIdentifier();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, qualifiedIdentifier224.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, qualifiedIdentifier224.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:764:33: ( annotationInit )?
                 int alt77 = 2;
                 int LA77_0 = input.LA(1);
@@ -9509,8 +9577,8 @@ public class JavaParser extends Parser {
                         annotationInit225 = annotationInit();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, annotationInit225.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, annotationInit225.getTree()); }
 
                     }
                     break;
@@ -9580,18 +9648,18 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:768:9: LPAREN annotationInitializers RPAREN
             {
                 LPAREN226 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_annotationInit7897);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LPAREN.add(LPAREN226);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LPAREN.add(LPAREN226); }
 
                 pushFollow(FOLLOW_annotationInitializers_in_annotationInit7899);
                 annotationInitializers227 = annotationInitializers();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_annotationInitializers.add(annotationInitializers227.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_annotationInitializers.add(annotationInitializers227.getTree()); }
                 RPAREN228 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_annotationInit7901);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RPAREN.add(RPAREN228);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RPAREN.add(RPAREN228); }
 
 
                 // AST REWRITE
@@ -9727,8 +9795,10 @@ public class JavaParser extends Parser {
                     annotationInitializer229 = annotationInitializer();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_annotationInitializer.add(annotationInitializer229.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
+                        stream_annotationInitializer.add(annotationInitializer229.getTree());
+                    }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:773:31: ( COMMA annotationInitializer )*
                     loop78:
                     do {
@@ -9745,16 +9815,17 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:773:32: COMMA annotationInitializer
                             {
                                 COMMA230 = (Token) match(input, COMMA, FOLLOW_COMMA_in_annotationInitializers7941);
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_COMMA.add(COMMA230);
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_COMMA.add(COMMA230); }
 
                                 pushFollow(FOLLOW_annotationInitializer_in_annotationInitializers7943);
                                 annotationInitializer231 = annotationInitializer();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0)
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
                                     stream_annotationInitializer.add(annotationInitializer231.getTree());
+                                }
 
                             }
                             break;
@@ -9810,8 +9881,10 @@ public class JavaParser extends Parser {
                     annotationElementValue232 = annotationElementValue();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_annotationElementValue.add(annotationElementValue232.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
+                        stream_annotationElementValue.add(annotationElementValue232.getTree());
+                    }
 
 
                     // AST REWRITE
@@ -9906,19 +9979,19 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 IDENT233 = (Token) match(input, IDENT, FOLLOW_IDENT_in_annotationInitializer8010);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     IDENT233_tree = (CommonTree) adaptor.create(IDENT233);
                     root_0 = (CommonTree) adaptor.becomeRoot(IDENT233_tree, root_0);
                 }
                 ASSIGN234 = (Token) match(input, ASSIGN, FOLLOW_ASSIGN_in_annotationInitializer8013);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 pushFollow(FOLLOW_annotationElementValue_in_annotationInitializer8016);
                 annotationElementValue235 = annotationElementValue();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, annotationElementValue235.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, annotationElementValue235.getTree()); }
 
             }
 
@@ -10040,9 +10113,10 @@ public class JavaParser extends Parser {
                     annotationElementValueExpression236 = annotationElementValueExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         adaptor.addChild(root_0, annotationElementValueExpression236.getTree());
+                    }
 
                 }
                 break;
@@ -10055,8 +10129,8 @@ public class JavaParser extends Parser {
                     annotation237 = annotation();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, annotation237.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, annotation237.getTree()); }
 
                 }
                 break;
@@ -10069,9 +10143,10 @@ public class JavaParser extends Parser {
                     annotationElementValueArrayInitializer238 = annotationElementValueArrayInitializer();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         adaptor.addChild(root_0, annotationElementValueArrayInitializer238.getTree());
+                    }
 
                 }
                 break;
@@ -10134,8 +10209,8 @@ public class JavaParser extends Parser {
                 conditionalExpression239 = conditionalExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_conditionalExpression.add(conditionalExpression239.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_conditionalExpression.add(conditionalExpression239.getTree()); }
 
 
                 // AST REWRITE
@@ -10235,8 +10310,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:795:9: LCURLY ( annotationElementValue ( COMMA annotationElementValue )* )? ( COMMA )? RCURLY
             {
                 LCURLY240 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_annotationElementValueArrayInitializer8110);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY240);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY240); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:795:16: ( annotationElementValue ( COMMA annotationElementValue )* )?
                 int alt82 = 2;
@@ -10253,9 +10328,10 @@ public class JavaParser extends Parser {
                         annotationElementValue241 = annotationElementValue();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_annotationElementValue.add(annotationElementValue241.getTree());
+                        }
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:795:40: ( COMMA annotationElementValue )*
                         loop81:
                         do {
@@ -10278,16 +10354,17 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:795:41: COMMA annotationElementValue
                                 {
                                     COMMA242 = (Token) match(input, COMMA, FOLLOW_COMMA_in_annotationElementValueArrayInitializer8116);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_COMMA.add(COMMA242);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_COMMA.add(COMMA242); }
 
                                     pushFollow(FOLLOW_annotationElementValue_in_annotationElementValueArrayInitializer8118);
                                     annotationElementValue243 = annotationElementValue();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_annotationElementValue.add(annotationElementValue243.getTree());
+                                    }
 
                                 }
                                 break;
@@ -10316,8 +10393,8 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:795:75: COMMA
                     {
                         COMMA244 = (Token) match(input, COMMA, FOLLOW_COMMA_in_annotationElementValueArrayInitializer8125);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_COMMA.add(COMMA244);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_COMMA.add(COMMA244); }
 
 
                     }
@@ -10326,8 +10403,8 @@ public class JavaParser extends Parser {
                 }
 
                 RCURLY245 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_annotationElementValueArrayInitializer8129);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY245);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY245); }
 
 
                 // AST REWRITE
@@ -10428,23 +10505,23 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:800:9: AT INTERFACE IDENT annotationBody
             {
                 AT246 = (Token) match(input, AT, FOLLOW_AT_in_annotationTypeDeclaration8168);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_AT.add(AT246);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_AT.add(AT246); }
 
                 INTERFACE247 = (Token) match(input, INTERFACE, FOLLOW_INTERFACE_in_annotationTypeDeclaration8170);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_INTERFACE.add(INTERFACE247);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_INTERFACE.add(INTERFACE247); }
 
                 IDENT248 = (Token) match(input, IDENT, FOLLOW_IDENT_in_annotationTypeDeclaration8172);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IDENT.add(IDENT248);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IDENT.add(IDENT248); }
 
                 pushFollow(FOLLOW_annotationBody_in_annotationTypeDeclaration8174);
                 annotationBody249 = annotationBody();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_annotationBody.add(annotationBody249.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_annotationBody.add(annotationBody249.getTree()); }
 
 
                 // AST REWRITE
@@ -10539,8 +10616,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:805:9: LCURLY ( annotationScopeDeclarations )* RCURLY
             {
                 LCURLY250 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_annotationBody8213);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY250);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY250); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:805:16: ( annotationScopeDeclarations )*
                 loop84:
@@ -10561,9 +10638,10 @@ public class JavaParser extends Parser {
                             annotationScopeDeclarations251 = annotationScopeDeclarations();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_annotationScopeDeclarations.add(annotationScopeDeclarations251.getTree());
+                            }
 
                         }
                         break;
@@ -10575,8 +10653,8 @@ public class JavaParser extends Parser {
                 while (true);
 
                 RCURLY252 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_annotationBody8218);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY252);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY252); }
 
 
                 // AST REWRITE
@@ -10700,14 +10778,14 @@ public class JavaParser extends Parser {
                     modifierList253 = modifierList();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_modifierList.add(modifierList253.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_modifierList.add(modifierList253.getTree()); }
                     pushFollow(FOLLOW_type_in_annotationScopeDeclarations8258);
                     type254 = type();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_type.add(type254.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_type.add(type254.getTree()); }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:811:9: ( IDENT LPAREN RPAREN ( annotationDefaultValue )? SEMI -> ^( ANNOTATION_METHOD_DECL modifierList type IDENT ( annotationDefaultValue )? ) | classFieldDeclaratorList SEMI -> ^( VAR_DECLARATION modifierList type classFieldDeclaratorList ) )
                     int alt86 = 2;
                     int LA86_0 = input.LA(1);
@@ -10747,16 +10825,16 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:811:13: IDENT LPAREN RPAREN ( annotationDefaultValue )? SEMI
                         {
                             IDENT255 = (Token) match(input, IDENT, FOLLOW_IDENT_in_annotationScopeDeclarations8272);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_IDENT.add(IDENT255);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_IDENT.add(IDENT255); }
 
                             LPAREN256 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_annotationScopeDeclarations8274);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_LPAREN.add(LPAREN256);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_LPAREN.add(LPAREN256); }
 
                             RPAREN257 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_annotationScopeDeclarations8276);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_RPAREN.add(RPAREN257);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_RPAREN.add(RPAREN257); }
 
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:811:33: ( annotationDefaultValue )?
                             int alt85 = 2;
@@ -10773,9 +10851,10 @@ public class JavaParser extends Parser {
                                     annotationDefaultValue258 = annotationDefaultValue();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_annotationDefaultValue.add(annotationDefaultValue258.getTree());
+                                    }
 
                                 }
                                 break;
@@ -10783,8 +10862,8 @@ public class JavaParser extends Parser {
                             }
 
                             SEMI259 = (Token) match(input, SEMI, FOLLOW_SEMI_in_annotationScopeDeclarations8281);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI259);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI259); }
 
 
                             // AST REWRITE
@@ -10832,12 +10911,13 @@ public class JavaParser extends Parser {
                             classFieldDeclaratorList260 = classFieldDeclaratorList();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 stream_classFieldDeclaratorList.add(classFieldDeclaratorList260.getTree());
+                            }
                             SEMI261 = (Token) match(input, SEMI, FOLLOW_SEMI_in_annotationScopeDeclarations8325);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI261);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI261); }
 
 
                             // AST REWRITE
@@ -10887,8 +10967,8 @@ public class JavaParser extends Parser {
                     typeDeclaration262 = typeDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, typeDeclaration262.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, typeDeclaration262.getTree()); }
 
                 }
                 break;
@@ -10952,7 +11032,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 DEFAULT263 = (Token) match(input, DEFAULT, FOLLOW_DEFAULT_in_annotationDefaultValue8389);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     DEFAULT263_tree = (CommonTree) adaptor.create(DEFAULT263);
                     root_0 = (CommonTree) adaptor.becomeRoot(DEFAULT263_tree, root_0);
@@ -10961,8 +11041,8 @@ public class JavaParser extends Parser {
                 annotationElementValue264 = annotationElementValue();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, annotationElementValue264.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, annotationElementValue264.getTree()); }
 
             }
 
@@ -11026,8 +11106,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:826:9: LCURLY ( blockStatement )* RCURLY
             {
                 LCURLY265 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_block8413);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LCURLY.add(LCURLY265);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LCURLY.add(LCURLY265); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:826:16: ( blockStatement )*
                 loop88:
@@ -11048,8 +11128,8 @@ public class JavaParser extends Parser {
                             blockStatement266 = blockStatement();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_blockStatement.add(blockStatement266.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_blockStatement.add(blockStatement266.getTree()); }
 
                         }
                         break;
@@ -11061,8 +11141,8 @@ public class JavaParser extends Parser {
                 while (true);
 
                 RCURLY267 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_block8418);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RCURLY.add(RCURLY267);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RCURLY.add(RCURLY267); }
 
 
                 // AST REWRITE
@@ -11169,10 +11249,10 @@ public class JavaParser extends Parser {
                     localVariableDeclaration268 = localVariableDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, localVariableDeclaration268.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, localVariableDeclaration268.getTree()); }
                     SEMI269 = (Token) match(input, SEMI, FOLLOW_SEMI_in_blockStatement8458);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
 
                 }
                 break;
@@ -11185,8 +11265,8 @@ public class JavaParser extends Parser {
                     typeDeclaration270 = typeDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, typeDeclaration270.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, typeDeclaration270.getTree()); }
 
                 }
                 break;
@@ -11199,8 +11279,8 @@ public class JavaParser extends Parser {
                     statement271 = statement();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, statement271.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, statement271.getTree()); }
 
                 }
                 break;
@@ -11269,20 +11349,22 @@ public class JavaParser extends Parser {
                 localModifierList272 = localModifierList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_localModifierList.add(localModifierList272.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_localModifierList.add(localModifierList272.getTree()); }
                 pushFollow(FOLLOW_type_in_localVariableDeclaration8500);
                 type273 = type();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_type.add(type273.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_type.add(type273.getTree()); }
                 pushFollow(FOLLOW_classFieldDeclaratorList_in_localVariableDeclaration8502);
                 classFieldDeclaratorList274 = classFieldDeclaratorList();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_classFieldDeclaratorList.add(classFieldDeclaratorList274.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) {
+                    stream_classFieldDeclaratorList.add(classFieldDeclaratorList274.getTree());
+                }
 
 
                 // AST REWRITE
@@ -11543,8 +11625,8 @@ public class JavaParser extends Parser {
                     block275 = block();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, block275.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, block275.getTree()); }
 
                 }
                 break;
@@ -11552,15 +11634,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:844:9: ASSERT expr1= expression ( COLON expr2= expression SEMI -> ^( ASSERT $expr1 $expr2) | SEMI -> ^( ASSERT $expr1) )
                 {
                     ASSERT276 = (Token) match(input, ASSERT, FOLLOW_ASSERT_in_statement8553);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_ASSERT.add(ASSERT276);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_ASSERT.add(ASSERT276); }
 
                     pushFollow(FOLLOW_expression_in_statement8557);
                     expr1 = expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_expression.add(expr1.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_expression.add(expr1.getTree()); }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:845:9: ( COLON expr2= expression SEMI -> ^( ASSERT $expr1 $expr2) | SEMI -> ^( ASSERT $expr1) )
                     int alt90 = 2;
                     int LA90_0 = input.LA(1);
@@ -11586,18 +11668,18 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:845:13: COLON expr2= expression SEMI
                         {
                             COLON277 = (Token) match(input, COLON, FOLLOW_COLON_in_statement8571);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COLON.add(COLON277);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COLON.add(COLON277); }
 
                             pushFollow(FOLLOW_expression_in_statement8575);
                             expr2 = expression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_expression.add(expr2.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_expression.add(expr2.getTree()); }
                             SEMI278 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement8577);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI278);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI278); }
 
 
                             // AST REWRITE
@@ -11637,8 +11719,8 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:846:13: SEMI
                         {
                             SEMI279 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement8640);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI279);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI279); }
 
 
                             // AST REWRITE
@@ -11682,22 +11764,23 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:848:9: IF parenthesizedExpression ifStat= statement ( ELSE elseStat= statement -> ^( IF parenthesizedExpression $ifStat $elseStat) | -> ^( IF parenthesizedExpression $ifStat) )
                 {
                     IF280 = (Token) match(input, IF, FOLLOW_IF_in_statement8729);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_IF.add(IF280);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_IF.add(IF280); }
 
                     pushFollow(FOLLOW_parenthesizedExpression_in_statement8731);
                     parenthesizedExpression281 = parenthesizedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_parenthesizedExpression.add(parenthesizedExpression281.getTree());
+                    }
                     pushFollow(FOLLOW_statement_in_statement8735);
                     ifStat = statement();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_statement.add(ifStat.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_statement.add(ifStat.getTree()); }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:849:9: ( ELSE elseStat= statement -> ^( IF parenthesizedExpression $ifStat $elseStat) | -> ^( IF parenthesizedExpression $ifStat) )
                     int alt91 = 2;
                     int LA91_0 = input.LA(1);
@@ -11740,15 +11823,15 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:849:13: ELSE elseStat= statement
                         {
                             ELSE282 = (Token) match(input, ELSE, FOLLOW_ELSE_in_statement8749);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_ELSE.add(ELSE282);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_ELSE.add(ELSE282); }
 
                             pushFollow(FOLLOW_statement_in_statement8753);
                             elseStat = statement();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_statement.add(elseStat.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_statement.add(elseStat.getTree()); }
 
 
                             // AST REWRITE
@@ -11831,12 +11914,12 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:852:9: FOR LPAREN ( forInit SEMI forCondition SEMI forUpdater RPAREN statement -> ^( FOR forInit forCondition forUpdater statement ) | localModifierList type IDENT COLON expression RPAREN statement -> ^( FOR_EACH[$FOR, \"FOR_EACH\"] localModifierList type IDENT expression statement ) )
                 {
                     FOR283 = (Token) match(input, FOR, FOLLOW_FOR_in_statement8916);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_FOR.add(FOR283);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_FOR.add(FOR283); }
 
                     LPAREN284 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_statement8918);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_LPAREN.add(LPAREN284);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_LPAREN.add(LPAREN284); }
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:853:9: ( forInit SEMI forCondition SEMI forUpdater RPAREN statement -> ^( FOR forInit forCondition forUpdater statement ) | localModifierList type IDENT COLON expression RPAREN statement -> ^( FOR_EACH[$FOR, \"FOR_EACH\"] localModifierList type IDENT expression statement ) )
                     int alt92 = 2;
@@ -11849,38 +11932,38 @@ public class JavaParser extends Parser {
                             forInit285 = forInit();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_forInit.add(forInit285.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_forInit.add(forInit285.getTree()); }
                             SEMI286 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement8934);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI286);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI286); }
 
                             pushFollow(FOLLOW_forCondition_in_statement8936);
                             forCondition287 = forCondition();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_forCondition.add(forCondition287.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_forCondition.add(forCondition287.getTree()); }
                             SEMI288 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement8938);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SEMI.add(SEMI288);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SEMI.add(SEMI288); }
 
                             pushFollow(FOLLOW_forUpdater_in_statement8940);
                             forUpdater289 = forUpdater();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_forUpdater.add(forUpdater289.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_forUpdater.add(forUpdater289.getTree()); }
                             RPAREN290 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_statement8942);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_RPAREN.add(RPAREN290);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_RPAREN.add(RPAREN290); }
 
                             pushFollow(FOLLOW_statement_in_statement8944);
                             statement291 = statement();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_statement.add(statement291.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_statement.add(statement291.getTree()); }
 
 
                             // AST REWRITE
@@ -11923,38 +12006,40 @@ public class JavaParser extends Parser {
                             localModifierList292 = localModifierList();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_localModifierList.add(localModifierList292.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
+                                stream_localModifierList.add(localModifierList292.getTree());
+                            }
                             pushFollow(FOLLOW_type_in_statement8980);
                             type293 = type();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_type.add(type293.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_type.add(type293.getTree()); }
                             IDENT294 = (Token) match(input, IDENT, FOLLOW_IDENT_in_statement8982);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_IDENT.add(IDENT294);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_IDENT.add(IDENT294); }
 
                             COLON295 = (Token) match(input, COLON, FOLLOW_COLON_in_statement8984);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_COLON.add(COLON295);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_COLON.add(COLON295); }
 
                             pushFollow(FOLLOW_expression_in_statement8986);
                             expression296 = expression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_expression.add(expression296.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_expression.add(expression296.getTree()); }
                             RPAREN297 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_statement8988);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_RPAREN.add(RPAREN297);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_RPAREN.add(RPAREN297); }
 
                             pushFollow(FOLLOW_statement_in_statement8990);
                             statement298 = statement();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_statement.add(statement298.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_statement.add(statement298.getTree()); }
 
 
                             // AST REWRITE
@@ -12001,22 +12086,23 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:857:9: WHILE parenthesizedExpression statement
                 {
                     WHILE299 = (Token) match(input, WHILE, FOLLOW_WHILE_in_statement9104);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_WHILE.add(WHILE299);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_WHILE.add(WHILE299); }
 
                     pushFollow(FOLLOW_parenthesizedExpression_in_statement9106);
                     parenthesizedExpression300 = parenthesizedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_parenthesizedExpression.add(parenthesizedExpression300.getTree());
+                    }
                     pushFollow(FOLLOW_statement_in_statement9108);
                     statement301 = statement();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_statement.add(statement301.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_statement.add(statement301.getTree()); }
 
 
                     // AST REWRITE
@@ -12054,29 +12140,30 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:858:9: DO statement WHILE parenthesizedExpression SEMI
                 {
                     DO302 = (Token) match(input, DO, FOLLOW_DO_in_statement9157);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_DO.add(DO302);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_DO.add(DO302); }
 
                     pushFollow(FOLLOW_statement_in_statement9159);
                     statement303 = statement();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_statement.add(statement303.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_statement.add(statement303.getTree()); }
                     WHILE304 = (Token) match(input, WHILE, FOLLOW_WHILE_in_statement9161);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_WHILE.add(WHILE304);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_WHILE.add(WHILE304); }
 
                     pushFollow(FOLLOW_parenthesizedExpression_in_statement9163);
                     parenthesizedExpression305 = parenthesizedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_parenthesizedExpression.add(parenthesizedExpression305.getTree());
+                    }
                     SEMI306 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9165);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SEMI.add(SEMI306);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SEMI.add(SEMI306); }
 
 
                     // AST REWRITE
@@ -12114,15 +12201,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:859:9: TRY block ( catches ( finallyClause )? | finallyClause )
                 {
                     TRY307 = (Token) match(input, TRY, FOLLOW_TRY_in_statement9206);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_TRY.add(TRY307);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_TRY.add(TRY307); }
 
                     pushFollow(FOLLOW_block_in_statement9208);
                     block308 = block();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_block.add(block308.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_block.add(block308.getTree()); }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:859:19: ( catches ( finallyClause )? | finallyClause )
                     int alt94 = 2;
                     int LA94_0 = input.LA(1);
@@ -12151,8 +12238,8 @@ public class JavaParser extends Parser {
                             catches309 = catches();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_catches.add(catches309.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_catches.add(catches309.getTree()); }
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:859:28: ( finallyClause )?
                             int alt93 = 2;
                             int LA93_0 = input.LA(1);
@@ -12168,8 +12255,10 @@ public class JavaParser extends Parser {
                                     finallyClause310 = finallyClause();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_finallyClause.add(finallyClause310.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
+                                        stream_finallyClause.add(finallyClause310.getTree());
+                                    }
 
                                 }
                                 break;
@@ -12186,8 +12275,8 @@ public class JavaParser extends Parser {
                             finallyClause311 = finallyClause();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_finallyClause.add(finallyClause311.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_finallyClause.add(finallyClause311.getTree()); }
 
                         }
                         break;
@@ -12241,29 +12330,30 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:860:9: SWITCH parenthesizedExpression LCURLY switchBlockLabels RCURLY
                 {
                     SWITCH312 = (Token) match(input, SWITCH, FOLLOW_SWITCH_in_statement9261);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SWITCH.add(SWITCH312);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SWITCH.add(SWITCH312); }
 
                     pushFollow(FOLLOW_parenthesizedExpression_in_statement9263);
                     parenthesizedExpression313 = parenthesizedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_parenthesizedExpression.add(parenthesizedExpression313.getTree());
+                    }
                     LCURLY314 = (Token) match(input, LCURLY, FOLLOW_LCURLY_in_statement9265);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_LCURLY.add(LCURLY314);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_LCURLY.add(LCURLY314); }
 
                     pushFollow(FOLLOW_switchBlockLabels_in_statement9267);
                     switchBlockLabels315 = switchBlockLabels();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_switchBlockLabels.add(switchBlockLabels315.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_switchBlockLabels.add(switchBlockLabels315.getTree()); }
                     RCURLY316 = (Token) match(input, RCURLY, FOLLOW_RCURLY_in_statement9269);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_RCURLY.add(RCURLY316);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_RCURLY.add(RCURLY316); }
 
 
                     // AST REWRITE
@@ -12301,22 +12391,23 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:861:9: SYNCHRONIZED parenthesizedExpression block
                 {
                     SYNCHRONIZED317 = (Token) match(input, SYNCHRONIZED, FOLLOW_SYNCHRONIZED_in_statement9295);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SYNCHRONIZED.add(SYNCHRONIZED317);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SYNCHRONIZED.add(SYNCHRONIZED317); }
 
                     pushFollow(FOLLOW_parenthesizedExpression_in_statement9297);
                     parenthesizedExpression318 = parenthesizedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_parenthesizedExpression.add(parenthesizedExpression318.getTree());
+                    }
                     pushFollow(FOLLOW_block_in_statement9299);
                     block319 = block();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_block.add(block319.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_block.add(block319.getTree()); }
 
 
                     // AST REWRITE
@@ -12354,8 +12445,8 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:862:9: RETURN ( expression )? SEMI
                 {
                     RETURN320 = (Token) match(input, RETURN, FOLLOW_RETURN_in_statement9345);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_RETURN.add(RETURN320);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_RETURN.add(RETURN320); }
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:862:16: ( expression )?
                     int alt95 = 2;
@@ -12372,8 +12463,8 @@ public class JavaParser extends Parser {
                             expression321 = expression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_expression.add(expression321.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_expression.add(expression321.getTree()); }
 
                         }
                         break;
@@ -12381,8 +12472,8 @@ public class JavaParser extends Parser {
                     }
 
                     SEMI322 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9350);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SEMI.add(SEMI322);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SEMI.add(SEMI322); }
 
 
                     // AST REWRITE
@@ -12424,18 +12515,18 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:863:9: THROW expression SEMI
                 {
                     THROW323 = (Token) match(input, THROW, FOLLOW_THROW_in_statement9414);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_THROW.add(THROW323);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_THROW.add(THROW323); }
 
                     pushFollow(FOLLOW_expression_in_statement9416);
                     expression324 = expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_expression.add(expression324.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_expression.add(expression324.getTree()); }
                     SEMI325 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9418);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SEMI.add(SEMI325);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SEMI.add(SEMI325); }
 
 
                     // AST REWRITE
@@ -12472,8 +12563,8 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:864:9: BREAK ( IDENT )? SEMI
                 {
                     BREAK326 = (Token) match(input, BREAK, FOLLOW_BREAK_in_statement9483);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_BREAK.add(BREAK326);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_BREAK.add(BREAK326); }
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:864:15: ( IDENT )?
                     int alt96 = 2;
@@ -12487,8 +12578,8 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:0:0: IDENT
                         {
                             IDENT327 = (Token) match(input, IDENT, FOLLOW_IDENT_in_statement9485);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_IDENT.add(IDENT327);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_IDENT.add(IDENT327); }
 
 
                         }
@@ -12497,8 +12588,8 @@ public class JavaParser extends Parser {
                     }
 
                     SEMI328 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9488);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SEMI.add(SEMI328);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SEMI.add(SEMI328); }
 
 
                     // AST REWRITE
@@ -12540,8 +12631,8 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:865:9: CONTINUE ( IDENT )? SEMI
                 {
                     CONTINUE329 = (Token) match(input, CONTINUE, FOLLOW_CONTINUE_in_statement9558);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_CONTINUE.add(CONTINUE329);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_CONTINUE.add(CONTINUE329); }
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:865:18: ( IDENT )?
                     int alt97 = 2;
@@ -12555,8 +12646,8 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:0:0: IDENT
                         {
                             IDENT330 = (Token) match(input, IDENT, FOLLOW_IDENT_in_statement9560);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_IDENT.add(IDENT330);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_IDENT.add(IDENT330); }
 
 
                         }
@@ -12565,8 +12656,8 @@ public class JavaParser extends Parser {
                     }
 
                     SEMI331 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9563);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SEMI.add(SEMI331);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SEMI.add(SEMI331); }
 
 
                     // AST REWRITE
@@ -12608,19 +12699,19 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:866:9: IDENT COLON statement
                 {
                     IDENT332 = (Token) match(input, IDENT, FOLLOW_IDENT_in_statement9630);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_IDENT.add(IDENT332);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_IDENT.add(IDENT332); }
 
                     COLON333 = (Token) match(input, COLON, FOLLOW_COLON_in_statement9632);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_COLON.add(COLON333);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_COLON.add(COLON333); }
 
                     pushFollow(FOLLOW_statement_in_statement9634);
                     statement334 = statement();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_statement.add(statement334.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_statement.add(statement334.getTree()); }
 
 
                     // AST REWRITE
@@ -12663,10 +12754,10 @@ public class JavaParser extends Parser {
                     expression335 = expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, expression335.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, expression335.getTree()); }
                     SEMI336 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9703);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
 
                 }
                 break;
@@ -12676,7 +12767,7 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     SEMI337 = (Token) match(input, SEMI, FOLLOW_SEMI_in_statement9714);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     if (state.backtracking == 0) {
                         SEMI337_tree = (CommonTree) adaptor.create(SEMI337);
                         adaptor.addChild(root_0, SEMI337_tree);
@@ -12759,14 +12850,14 @@ public class JavaParser extends Parser {
                             catchClause338 = catchClause();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_catchClause.add(catchClause338.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_catchClause.add(catchClause338.getTree()); }
 
                         }
                         break;
 
                         default:
-                            if (cnt99 >= 1) break loop99;
+                            if (cnt99 >= 1) { break loop99; }
                             if (state.backtracking > 0) {
                                 state.failed = true;
                                 return retval;
@@ -12881,27 +12972,27 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 CATCH339 = (Token) match(input, CATCH, FOLLOW_CATCH_in_catchClause9772);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     CATCH339_tree = (CommonTree) adaptor.create(CATCH339);
                     root_0 = (CommonTree) adaptor.becomeRoot(CATCH339_tree, root_0);
                 }
                 LPAREN340 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_catchClause9775);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 pushFollow(FOLLOW_formalParameterStandardDecl_in_catchClause9778);
                 formalParameterStandardDecl341 = formalParameterStandardDecl();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, formalParameterStandardDecl341.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, formalParameterStandardDecl341.getTree()); }
                 RPAREN342 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_catchClause9780);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 pushFollow(FOLLOW_block_in_catchClause9783);
                 block343 = block();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, block343.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, block343.getTree()); }
 
             }
 
@@ -12962,15 +13053,15 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:881:9: FINALLY block
             {
                 FINALLY344 = (Token) match(input, FINALLY, FOLLOW_FINALLY_in_finallyClause9802);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_FINALLY.add(FINALLY344);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_FINALLY.add(FINALLY344); }
 
                 pushFollow(FOLLOW_block_in_finallyClause9804);
                 block345 = block();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_block.add(block345.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_block.add(block345.getTree()); }
 
 
                 // AST REWRITE
@@ -13057,8 +13148,8 @@ public class JavaParser extends Parser {
                 preCases = switchCaseLabels();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_switchCaseLabels.add(preCases.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_switchCaseLabels.add(preCases.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:886:35: ( switchDefaultLabel )?
                 int alt100 = 2;
                 int LA100_0 = input.LA(1);
@@ -13074,8 +13165,8 @@ public class JavaParser extends Parser {
                         switchDefaultLabel346 = switchDefaultLabel();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_switchDefaultLabel.add(switchDefaultLabel346.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_switchDefaultLabel.add(switchDefaultLabel346.getTree()); }
 
                     }
                     break;
@@ -13086,8 +13177,8 @@ public class JavaParser extends Parser {
                 postCases = switchCaseLabels();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_switchCaseLabels.add(postCases.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_switchCaseLabels.add(postCases.getTree()); }
 
 
                 // AST REWRITE
@@ -13218,8 +13309,8 @@ public class JavaParser extends Parser {
                             switchCaseLabel347 = switchCaseLabel();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, switchCaseLabel347.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, switchCaseLabel347.getTree()); }
 
                         }
                         break;
@@ -13295,7 +13386,7 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 CASE348 = (Token) match(input, CASE, FOLLOW_CASE_in_switchCaseLabel9910);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     CASE348_tree = (CommonTree) adaptor.create(CASE348);
                     root_0 = (CommonTree) adaptor.becomeRoot(CASE348_tree, root_0);
@@ -13304,10 +13395,10 @@ public class JavaParser extends Parser {
                 expression349 = expression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, expression349.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, expression349.getTree()); }
                 COLON350 = (Token) match(input, COLON, FOLLOW_COLON_in_switchCaseLabel9915);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:895:33: ( blockStatement )*
                 loop102:
                 do {
@@ -13327,8 +13418,8 @@ public class JavaParser extends Parser {
                             blockStatement351 = blockStatement();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, blockStatement351.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, blockStatement351.getTree()); }
 
                         }
                         break;
@@ -13402,13 +13493,13 @@ public class JavaParser extends Parser {
                 root_0 = (CommonTree) adaptor.nil();
 
                 DEFAULT352 = (Token) match(input, DEFAULT, FOLLOW_DEFAULT_in_switchDefaultLabel9938);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 if (state.backtracking == 0) {
                     DEFAULT352_tree = (CommonTree) adaptor.create(DEFAULT352);
                     root_0 = (CommonTree) adaptor.becomeRoot(DEFAULT352_tree, root_0);
                 }
                 COLON353 = (Token) match(input, COLON, FOLLOW_COLON_in_switchDefaultLabel9941);
-                if (state.failed) return retval;
+                if (state.failed) { return retval; }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:899:25: ( blockStatement )*
                 loop103:
                 do {
@@ -13428,8 +13519,8 @@ public class JavaParser extends Parser {
                             blockStatement354 = blockStatement();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, blockStatement354.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, blockStatement354.getTree()); }
 
                         }
                         break;
@@ -13507,9 +13598,10 @@ public class JavaParser extends Parser {
                     localVariableDeclaration355 = localVariableDeclaration();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_localVariableDeclaration.add(localVariableDeclaration355.getTree());
+                    }
 
 
                     // AST REWRITE
@@ -13549,8 +13641,8 @@ public class JavaParser extends Parser {
                     expressionList356 = expressionList();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_expressionList.add(expressionList356.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_expressionList.add(expressionList356.getTree()); }
 
 
                     // AST REWRITE
@@ -13685,8 +13777,8 @@ public class JavaParser extends Parser {
                         expression357 = expression();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_expression.add(expression357.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_expression.add(expression357.getTree()); }
 
                     }
                     break;
@@ -13797,8 +13889,8 @@ public class JavaParser extends Parser {
                         expressionList358 = expressionList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_expressionList.add(expressionList358.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_expressionList.add(expressionList358.getTree()); }
 
                     }
                     break;
@@ -13901,18 +13993,18 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:921:9: LPAREN expression RPAREN
             {
                 LPAREN359 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_parenthesizedExpression10148);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LPAREN.add(LPAREN359);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LPAREN.add(LPAREN359); }
 
                 pushFollow(FOLLOW_expression_in_parenthesizedExpression10150);
                 expression360 = expression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_expression.add(expression360.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_expression.add(expression360.getTree()); }
                 RPAREN361 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_parenthesizedExpression10152);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RPAREN.add(RPAREN361);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RPAREN.add(RPAREN361); }
 
 
                 // AST REWRITE
@@ -14008,8 +14100,8 @@ public class JavaParser extends Parser {
                 expression362 = expression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, expression362.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, expression362.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:926:20: ( COMMA expression )*
                 loop107:
                 do {
@@ -14026,13 +14118,13 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:926:21: COMMA expression
                         {
                             COMMA363 = (Token) match(input, COMMA, FOLLOW_COMMA_in_expressionList10192);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             pushFollow(FOLLOW_expression_in_expressionList10195);
                             expression364 = expression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, expression364.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, expression364.getTree()); }
 
                         }
                         break;
@@ -14103,8 +14195,8 @@ public class JavaParser extends Parser {
                 assignmentExpression365 = assignmentExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_assignmentExpression.add(assignmentExpression365.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_assignmentExpression.add(assignmentExpression365.getTree()); }
 
 
                 // AST REWRITE
@@ -14222,8 +14314,8 @@ public class JavaParser extends Parser {
                 conditionalExpression366 = conditionalExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, conditionalExpression366.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, conditionalExpression366.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:936:9: ( ( ASSIGN | PLUS_ASSIGN | MINUS_ASSIGN | STAR_ASSIGN | DIV_ASSIGN | AND_ASSIGN | OR_ASSIGN | XOR_ASSIGN | MOD_ASSIGN | SHIFT_LEFT_ASSIGN | SHIFT_RIGHT_ASSIGN | BIT_SHIFT_RIGHT_ASSIGN ) assignmentExpression )?
                 int alt109 = 2;
                 int LA109_0 = input.LA(1);
@@ -14302,7 +14394,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:936:17: ASSIGN
                             {
                                 ASSIGN367 = (Token) match(input, ASSIGN, FOLLOW_ASSIGN_in_assignmentExpression10270);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     ASSIGN367_tree = (CommonTree) adaptor.create(ASSIGN367);
                                     root_0 = (CommonTree) adaptor.becomeRoot(ASSIGN367_tree, root_0);
@@ -14314,7 +14406,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:937:17: PLUS_ASSIGN
                             {
                                 PLUS_ASSIGN368 = (Token) match(input, PLUS_ASSIGN, FOLLOW_PLUS_ASSIGN_in_assignmentExpression10289);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     PLUS_ASSIGN368_tree = (CommonTree) adaptor.create(PLUS_ASSIGN368);
                                     root_0 = (CommonTree) adaptor.becomeRoot(PLUS_ASSIGN368_tree, root_0);
@@ -14326,7 +14418,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:938:17: MINUS_ASSIGN
                             {
                                 MINUS_ASSIGN369 = (Token) match(input, MINUS_ASSIGN, FOLLOW_MINUS_ASSIGN_in_assignmentExpression10308);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     MINUS_ASSIGN369_tree = (CommonTree) adaptor.create(MINUS_ASSIGN369);
                                     root_0 = (CommonTree) adaptor.becomeRoot(MINUS_ASSIGN369_tree, root_0);
@@ -14338,7 +14430,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:939:17: STAR_ASSIGN
                             {
                                 STAR_ASSIGN370 = (Token) match(input, STAR_ASSIGN, FOLLOW_STAR_ASSIGN_in_assignmentExpression10327);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     STAR_ASSIGN370_tree = (CommonTree) adaptor.create(STAR_ASSIGN370);
                                     root_0 = (CommonTree) adaptor.becomeRoot(STAR_ASSIGN370_tree, root_0);
@@ -14350,7 +14442,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:940:17: DIV_ASSIGN
                             {
                                 DIV_ASSIGN371 = (Token) match(input, DIV_ASSIGN, FOLLOW_DIV_ASSIGN_in_assignmentExpression10346);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     DIV_ASSIGN371_tree = (CommonTree) adaptor.create(DIV_ASSIGN371);
                                     root_0 = (CommonTree) adaptor.becomeRoot(DIV_ASSIGN371_tree, root_0);
@@ -14362,7 +14454,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:941:17: AND_ASSIGN
                             {
                                 AND_ASSIGN372 = (Token) match(input, AND_ASSIGN, FOLLOW_AND_ASSIGN_in_assignmentExpression10365);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     AND_ASSIGN372_tree = (CommonTree) adaptor.create(AND_ASSIGN372);
                                     root_0 = (CommonTree) adaptor.becomeRoot(AND_ASSIGN372_tree, root_0);
@@ -14374,7 +14466,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:942:17: OR_ASSIGN
                             {
                                 OR_ASSIGN373 = (Token) match(input, OR_ASSIGN, FOLLOW_OR_ASSIGN_in_assignmentExpression10384);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     OR_ASSIGN373_tree = (CommonTree) adaptor.create(OR_ASSIGN373);
                                     root_0 = (CommonTree) adaptor.becomeRoot(OR_ASSIGN373_tree, root_0);
@@ -14386,7 +14478,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:943:17: XOR_ASSIGN
                             {
                                 XOR_ASSIGN374 = (Token) match(input, XOR_ASSIGN, FOLLOW_XOR_ASSIGN_in_assignmentExpression10403);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     XOR_ASSIGN374_tree = (CommonTree) adaptor.create(XOR_ASSIGN374);
                                     root_0 = (CommonTree) adaptor.becomeRoot(XOR_ASSIGN374_tree, root_0);
@@ -14398,7 +14490,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:944:17: MOD_ASSIGN
                             {
                                 MOD_ASSIGN375 = (Token) match(input, MOD_ASSIGN, FOLLOW_MOD_ASSIGN_in_assignmentExpression10422);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     MOD_ASSIGN375_tree = (CommonTree) adaptor.create(MOD_ASSIGN375);
                                     root_0 = (CommonTree) adaptor.becomeRoot(MOD_ASSIGN375_tree, root_0);
@@ -14410,7 +14502,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:945:17: SHIFT_LEFT_ASSIGN
                             {
                                 SHIFT_LEFT_ASSIGN376 = (Token) match(input, SHIFT_LEFT_ASSIGN, FOLLOW_SHIFT_LEFT_ASSIGN_in_assignmentExpression10441);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     SHIFT_LEFT_ASSIGN376_tree = (CommonTree) adaptor.create(SHIFT_LEFT_ASSIGN376);
                                     root_0 = (CommonTree) adaptor.becomeRoot(SHIFT_LEFT_ASSIGN376_tree, root_0);
@@ -14422,7 +14514,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:946:17: SHIFT_RIGHT_ASSIGN
                             {
                                 SHIFT_RIGHT_ASSIGN377 = (Token) match(input, SHIFT_RIGHT_ASSIGN, FOLLOW_SHIFT_RIGHT_ASSIGN_in_assignmentExpression10460);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     SHIFT_RIGHT_ASSIGN377_tree = (CommonTree) adaptor.create(SHIFT_RIGHT_ASSIGN377);
                                     root_0 = (CommonTree) adaptor.becomeRoot(SHIFT_RIGHT_ASSIGN377_tree, root_0);
@@ -14434,7 +14526,7 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:947:17: BIT_SHIFT_RIGHT_ASSIGN
                             {
                                 BIT_SHIFT_RIGHT_ASSIGN378 = (Token) match(input, BIT_SHIFT_RIGHT_ASSIGN, FOLLOW_BIT_SHIFT_RIGHT_ASSIGN_in_assignmentExpression10479);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 if (state.backtracking == 0) {
                                     BIT_SHIFT_RIGHT_ASSIGN378_tree = (CommonTree) adaptor.create(BIT_SHIFT_RIGHT_ASSIGN378);
                                     root_0 = (CommonTree) adaptor.becomeRoot(BIT_SHIFT_RIGHT_ASSIGN378_tree, root_0);
@@ -14449,8 +14541,8 @@ public class JavaParser extends Parser {
                         assignmentExpression379 = assignmentExpression();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, assignmentExpression379.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, assignmentExpression379.getTree()); }
 
                     }
                     break;
@@ -14527,8 +14619,8 @@ public class JavaParser extends Parser {
                 logicalOrExpression380 = logicalOrExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, logicalOrExpression380.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, logicalOrExpression380.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:953:29: ( QUESTION assignmentExpression COLON conditionalExpression )?
                 int alt110 = 2;
                 int LA110_0 = input.LA(1);
@@ -14541,7 +14633,7 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:953:30: QUESTION assignmentExpression COLON conditionalExpression
                     {
                         QUESTION381 = (Token) match(input, QUESTION, FOLLOW_QUESTION_in_conditionalExpression10524);
-                        if (state.failed) return retval;
+                        if (state.failed) { return retval; }
                         if (state.backtracking == 0) {
                             QUESTION381_tree = (CommonTree) adaptor.create(QUESTION381);
                             root_0 = (CommonTree) adaptor.becomeRoot(QUESTION381_tree, root_0);
@@ -14550,16 +14642,16 @@ public class JavaParser extends Parser {
                         assignmentExpression382 = assignmentExpression();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, assignmentExpression382.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, assignmentExpression382.getTree()); }
                         COLON383 = (Token) match(input, COLON, FOLLOW_COLON_in_conditionalExpression10529);
-                        if (state.failed) return retval;
+                        if (state.failed) { return retval; }
                         pushFollow(FOLLOW_conditionalExpression_in_conditionalExpression10532);
                         conditionalExpression384 = conditionalExpression();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, conditionalExpression384.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, conditionalExpression384.getTree()); }
 
                     }
                     break;
@@ -14632,8 +14724,8 @@ public class JavaParser extends Parser {
                 logicalAndExpression385 = logicalAndExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, logicalAndExpression385.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, logicalAndExpression385.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:957:30: ( LOGICAL_OR logicalAndExpression )*
                 loop111:
                 do {
@@ -14650,7 +14742,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:957:31: LOGICAL_OR logicalAndExpression
                         {
                             LOGICAL_OR386 = (Token) match(input, LOGICAL_OR, FOLLOW_LOGICAL_OR_in_logicalOrExpression10556);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             if (state.backtracking == 0) {
                                 LOGICAL_OR386_tree = (CommonTree) adaptor.create(LOGICAL_OR386);
                                 root_0 = (CommonTree) adaptor.becomeRoot(LOGICAL_OR386_tree, root_0);
@@ -14659,8 +14751,10 @@ public class JavaParser extends Parser {
                             logicalAndExpression387 = logicalAndExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, logicalAndExpression387.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
+                                adaptor.addChild(root_0, logicalAndExpression387.getTree());
+                            }
 
                         }
                         break;
@@ -14737,8 +14831,8 @@ public class JavaParser extends Parser {
                 inclusiveOrExpression388 = inclusiveOrExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, inclusiveOrExpression388.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, inclusiveOrExpression388.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:961:31: ( LOGICAL_AND inclusiveOrExpression )*
                 loop112:
                 do {
@@ -14755,7 +14849,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:961:32: LOGICAL_AND inclusiveOrExpression
                         {
                             LOGICAL_AND389 = (Token) match(input, LOGICAL_AND, FOLLOW_LOGICAL_AND_in_logicalAndExpression10583);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             if (state.backtracking == 0) {
                                 LOGICAL_AND389_tree = (CommonTree) adaptor.create(LOGICAL_AND389);
                                 root_0 = (CommonTree) adaptor.becomeRoot(LOGICAL_AND389_tree, root_0);
@@ -14764,8 +14858,10 @@ public class JavaParser extends Parser {
                             inclusiveOrExpression390 = inclusiveOrExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, inclusiveOrExpression390.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
+                                adaptor.addChild(root_0, inclusiveOrExpression390.getTree());
+                            }
 
                         }
                         break;
@@ -14842,8 +14938,8 @@ public class JavaParser extends Parser {
                 exclusiveOrExpression391 = exclusiveOrExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, exclusiveOrExpression391.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, exclusiveOrExpression391.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:965:31: ( OR exclusiveOrExpression )*
                 loop113:
                 do {
@@ -14860,7 +14956,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:965:32: OR exclusiveOrExpression
                         {
                             OR392 = (Token) match(input, OR, FOLLOW_OR_in_inclusiveOrExpression10610);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             if (state.backtracking == 0) {
                                 OR392_tree = (CommonTree) adaptor.create(OR392);
                                 root_0 = (CommonTree) adaptor.becomeRoot(OR392_tree, root_0);
@@ -14869,8 +14965,10 @@ public class JavaParser extends Parser {
                             exclusiveOrExpression393 = exclusiveOrExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, exclusiveOrExpression393.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
+                                adaptor.addChild(root_0, exclusiveOrExpression393.getTree());
+                            }
 
                         }
                         break;
@@ -14947,8 +15045,8 @@ public class JavaParser extends Parser {
                 andExpression394 = andExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, andExpression394.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, andExpression394.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:969:23: ( XOR andExpression )*
                 loop114:
                 do {
@@ -14965,7 +15063,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:969:24: XOR andExpression
                         {
                             XOR395 = (Token) match(input, XOR, FOLLOW_XOR_in_exclusiveOrExpression10637);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             if (state.backtracking == 0) {
                                 XOR395_tree = (CommonTree) adaptor.create(XOR395);
                                 root_0 = (CommonTree) adaptor.becomeRoot(XOR395_tree, root_0);
@@ -14974,8 +15072,8 @@ public class JavaParser extends Parser {
                             andExpression396 = andExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, andExpression396.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, andExpression396.getTree()); }
 
                         }
                         break;
@@ -15052,8 +15150,8 @@ public class JavaParser extends Parser {
                 equalityExpression397 = equalityExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, equalityExpression397.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, equalityExpression397.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:973:28: ( AND equalityExpression )*
                 loop115:
                 do {
@@ -15070,7 +15168,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:973:29: AND equalityExpression
                         {
                             AND398 = (Token) match(input, AND, FOLLOW_AND_in_andExpression10664);
-                            if (state.failed) return retval;
+                            if (state.failed) { return retval; }
                             if (state.backtracking == 0) {
                                 AND398_tree = (CommonTree) adaptor.create(AND398);
                                 root_0 = (CommonTree) adaptor.becomeRoot(AND398_tree, root_0);
@@ -15079,8 +15177,8 @@ public class JavaParser extends Parser {
                             equalityExpression399 = equalityExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, equalityExpression399.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, equalityExpression399.getTree()); }
 
                         }
                         break;
@@ -15159,8 +15257,8 @@ public class JavaParser extends Parser {
                 instanceOfExpression400 = instanceOfExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, instanceOfExpression400.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, instanceOfExpression400.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:978:9: ( ( EQUAL | NOT_EQUAL ) instanceOfExpression )*
                 loop117:
                 do {
@@ -15201,7 +15299,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:978:17: EQUAL
                                 {
                                     EQUAL401 = (Token) match(input, EQUAL, FOLLOW_EQUAL_in_equalityExpression10706);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         EQUAL401_tree = (CommonTree) adaptor.create(EQUAL401);
                                         root_0 = (CommonTree) adaptor.becomeRoot(EQUAL401_tree, root_0);
@@ -15213,7 +15311,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:979:17: NOT_EQUAL
                                 {
                                     NOT_EQUAL402 = (Token) match(input, NOT_EQUAL, FOLLOW_NOT_EQUAL_in_equalityExpression10725);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         NOT_EQUAL402_tree = (CommonTree) adaptor.create(NOT_EQUAL402);
                                         root_0 = (CommonTree) adaptor.becomeRoot(NOT_EQUAL402_tree, root_0);
@@ -15228,8 +15326,10 @@ public class JavaParser extends Parser {
                             instanceOfExpression403 = instanceOfExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, instanceOfExpression403.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
+                                adaptor.addChild(root_0, instanceOfExpression403.getTree());
+                            }
 
                         }
                         break;
@@ -15306,8 +15406,8 @@ public class JavaParser extends Parser {
                 relationalExpression404 = relationalExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, relationalExpression404.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, relationalExpression404.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:986:30: ( INSTANCEOF type )?
                 int alt118 = 2;
                 int LA118_0 = input.LA(1);
@@ -15320,7 +15420,7 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:986:31: INSTANCEOF type
                     {
                         INSTANCEOF405 = (Token) match(input, INSTANCEOF, FOLLOW_INSTANCEOF_in_instanceOfExpression10787);
-                        if (state.failed) return retval;
+                        if (state.failed) { return retval; }
                         if (state.backtracking == 0) {
                             INSTANCEOF405_tree = (CommonTree) adaptor.create(INSTANCEOF405);
                             root_0 = (CommonTree) adaptor.becomeRoot(INSTANCEOF405_tree, root_0);
@@ -15329,8 +15429,8 @@ public class JavaParser extends Parser {
                         type406 = type();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) adaptor.addChild(root_0, type406.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { adaptor.addChild(root_0, type406.getTree()); }
 
                     }
                     break;
@@ -15409,8 +15509,8 @@ public class JavaParser extends Parser {
                 shiftExpression407 = shiftExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, shiftExpression407.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, shiftExpression407.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:991:9: ( ( LESS_OR_EQUAL | GREATER_OR_EQUAL | LESS_THAN | GREATER_THAN ) shiftExpression )*
                 loop120:
                 do {
@@ -15461,7 +15561,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:991:17: LESS_OR_EQUAL
                                 {
                                     LESS_OR_EQUAL408 = (Token) match(input, LESS_OR_EQUAL, FOLLOW_LESS_OR_EQUAL_in_relationalExpression10829);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         LESS_OR_EQUAL408_tree = (CommonTree) adaptor.create(LESS_OR_EQUAL408);
                                         root_0 = (CommonTree) adaptor.becomeRoot(LESS_OR_EQUAL408_tree, root_0);
@@ -15473,7 +15573,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:992:17: GREATER_OR_EQUAL
                                 {
                                     GREATER_OR_EQUAL409 = (Token) match(input, GREATER_OR_EQUAL, FOLLOW_GREATER_OR_EQUAL_in_relationalExpression10848);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         GREATER_OR_EQUAL409_tree = (CommonTree) adaptor.create(GREATER_OR_EQUAL409);
                                         root_0 = (CommonTree) adaptor.becomeRoot(GREATER_OR_EQUAL409_tree, root_0);
@@ -15485,7 +15585,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:993:17: LESS_THAN
                                 {
                                     LESS_THAN410 = (Token) match(input, LESS_THAN, FOLLOW_LESS_THAN_in_relationalExpression10867);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         LESS_THAN410_tree = (CommonTree) adaptor.create(LESS_THAN410);
                                         root_0 = (CommonTree) adaptor.becomeRoot(LESS_THAN410_tree, root_0);
@@ -15497,7 +15597,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:994:17: GREATER_THAN
                                 {
                                     GREATER_THAN411 = (Token) match(input, GREATER_THAN, FOLLOW_GREATER_THAN_in_relationalExpression10886);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         GREATER_THAN411_tree = (CommonTree) adaptor.create(GREATER_THAN411);
                                         root_0 = (CommonTree) adaptor.becomeRoot(GREATER_THAN411_tree, root_0);
@@ -15512,8 +15612,8 @@ public class JavaParser extends Parser {
                             shiftExpression412 = shiftExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, shiftExpression412.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, shiftExpression412.getTree()); }
 
                         }
                         break;
@@ -15594,8 +15694,8 @@ public class JavaParser extends Parser {
                 additiveExpression413 = additiveExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, additiveExpression413.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, additiveExpression413.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1002:9: ( ( BIT_SHIFT_RIGHT | SHIFT_RIGHT | SHIFT_LEFT ) additiveExpression )*
                 loop122:
                 do {
@@ -15642,7 +15742,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1002:17: BIT_SHIFT_RIGHT
                                 {
                                     BIT_SHIFT_RIGHT414 = (Token) match(input, BIT_SHIFT_RIGHT, FOLLOW_BIT_SHIFT_RIGHT_in_shiftExpression10963);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         BIT_SHIFT_RIGHT414_tree = (CommonTree) adaptor.create(BIT_SHIFT_RIGHT414);
                                         root_0 = (CommonTree) adaptor.becomeRoot(BIT_SHIFT_RIGHT414_tree, root_0);
@@ -15654,7 +15754,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1003:17: SHIFT_RIGHT
                                 {
                                     SHIFT_RIGHT415 = (Token) match(input, SHIFT_RIGHT, FOLLOW_SHIFT_RIGHT_in_shiftExpression10982);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         SHIFT_RIGHT415_tree = (CommonTree) adaptor.create(SHIFT_RIGHT415);
                                         root_0 = (CommonTree) adaptor.becomeRoot(SHIFT_RIGHT415_tree, root_0);
@@ -15666,7 +15766,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1004:17: SHIFT_LEFT
                                 {
                                     SHIFT_LEFT416 = (Token) match(input, SHIFT_LEFT, FOLLOW_SHIFT_LEFT_in_shiftExpression11001);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         SHIFT_LEFT416_tree = (CommonTree) adaptor.create(SHIFT_LEFT416);
                                         root_0 = (CommonTree) adaptor.becomeRoot(SHIFT_LEFT416_tree, root_0);
@@ -15681,8 +15781,8 @@ public class JavaParser extends Parser {
                             additiveExpression417 = additiveExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, additiveExpression417.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, additiveExpression417.getTree()); }
 
                         }
                         break;
@@ -15761,8 +15861,8 @@ public class JavaParser extends Parser {
                 multiplicativeExpression418 = multiplicativeExpression();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, multiplicativeExpression418.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, multiplicativeExpression418.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1012:9: ( ( PLUS | MINUS ) multiplicativeExpression )*
                 loop124:
                 do {
@@ -15803,7 +15903,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1012:17: PLUS
                                 {
                                     PLUS419 = (Token) match(input, PLUS, FOLLOW_PLUS_in_additiveExpression11078);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         PLUS419_tree = (CommonTree) adaptor.create(PLUS419);
                                         root_0 = (CommonTree) adaptor.becomeRoot(PLUS419_tree, root_0);
@@ -15815,7 +15915,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1013:17: MINUS
                                 {
                                     MINUS420 = (Token) match(input, MINUS, FOLLOW_MINUS_in_additiveExpression11097);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         MINUS420_tree = (CommonTree) adaptor.create(MINUS420);
                                         root_0 = (CommonTree) adaptor.becomeRoot(MINUS420_tree, root_0);
@@ -15830,9 +15930,10 @@ public class JavaParser extends Parser {
                             multiplicativeExpression421 = multiplicativeExpression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0)
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) {
                                 adaptor.addChild(root_0, multiplicativeExpression421.getTree());
+                            }
 
                         }
                         break;
@@ -15913,8 +16014,8 @@ public class JavaParser extends Parser {
                 unaryExpressionAll422 = unaryExpressionAll();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) adaptor.addChild(root_0, unaryExpressionAll422.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { adaptor.addChild(root_0, unaryExpressionAll422.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1021:9: ( ( STAR | DIV | MOD ) unaryExpressionAll )*
                 loop126:
                 do {
@@ -15961,7 +16062,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1021:17: STAR
                                 {
                                     STAR423 = (Token) match(input, STAR, FOLLOW_STAR_in_multiplicativeExpression11174);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         STAR423_tree = (CommonTree) adaptor.create(STAR423);
                                         root_0 = (CommonTree) adaptor.becomeRoot(STAR423_tree, root_0);
@@ -15973,7 +16074,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1022:17: DIV
                                 {
                                     DIV424 = (Token) match(input, DIV, FOLLOW_DIV_in_multiplicativeExpression11193);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         DIV424_tree = (CommonTree) adaptor.create(DIV424);
                                         root_0 = (CommonTree) adaptor.becomeRoot(DIV424_tree, root_0);
@@ -15985,7 +16086,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1023:17: MOD
                                 {
                                     MOD425 = (Token) match(input, MOD, FOLLOW_MOD_in_multiplicativeExpression11212);
-                                    if (state.failed) return retval;
+                                    if (state.failed) { return retval; }
                                     if (state.backtracking == 0) {
                                         MOD425_tree = (CommonTree) adaptor.create(MOD425);
                                         root_0 = (CommonTree) adaptor.becomeRoot(MOD425_tree, root_0);
@@ -16000,8 +16101,8 @@ public class JavaParser extends Parser {
                             unaryExpressionAll426 = unaryExpressionAll();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, unaryExpressionAll426.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, unaryExpressionAll426.getTree()); }
 
                         }
                         break;
@@ -16150,15 +16251,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1030:9: PLUS unaryExpressionAll
                 {
                     PLUS427 = (Token) match(input, PLUS, FOLLOW_PLUS_in_unaryExpressionAll11271);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_PLUS.add(PLUS427);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_PLUS.add(PLUS427); }
 
                     pushFollow(FOLLOW_unaryExpressionAll_in_unaryExpressionAll11273);
                     unaryExpressionAll428 = unaryExpressionAll();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_unaryExpressionAll.add(unaryExpressionAll428.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_unaryExpressionAll.add(unaryExpressionAll428.getTree()); }
 
 
                     // AST REWRITE
@@ -16195,15 +16296,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1031:9: MINUS unaryExpressionAll
                 {
                     MINUS429 = (Token) match(input, MINUS, FOLLOW_MINUS_in_unaryExpressionAll11297);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_MINUS.add(MINUS429);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_MINUS.add(MINUS429); }
 
                     pushFollow(FOLLOW_unaryExpressionAll_in_unaryExpressionAll11299);
                     unaryExpressionAll430 = unaryExpressionAll();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_unaryExpressionAll.add(unaryExpressionAll430.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_unaryExpressionAll.add(unaryExpressionAll430.getTree()); }
 
 
                     // AST REWRITE
@@ -16240,15 +16341,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1032:9: INC postfixedExpression
                 {
                     INC431 = (Token) match(input, INC, FOLLOW_INC_in_unaryExpressionAll11322);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_INC.add(INC431);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_INC.add(INC431); }
 
                     pushFollow(FOLLOW_postfixedExpression_in_unaryExpressionAll11324);
                     postfixedExpression432 = postfixedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_postfixedExpression.add(postfixedExpression432.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_postfixedExpression.add(postfixedExpression432.getTree()); }
 
 
                     // AST REWRITE
@@ -16285,15 +16386,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1033:9: DEC postfixedExpression
                 {
                     DEC433 = (Token) match(input, DEC, FOLLOW_DEC_in_unaryExpressionAll11348);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_DEC.add(DEC433);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_DEC.add(DEC433); }
 
                     pushFollow(FOLLOW_postfixedExpression_in_unaryExpressionAll11350);
                     postfixedExpression434 = postfixedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_postfixedExpression.add(postfixedExpression434.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_postfixedExpression.add(postfixedExpression434.getTree()); }
 
 
                     // AST REWRITE
@@ -16335,8 +16436,8 @@ public class JavaParser extends Parser {
                     unaryExpressionRest435 = unaryExpressionRest();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, unaryExpressionRest435.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, unaryExpressionRest435.getTree()); }
 
                 }
                 break;
@@ -16431,15 +16532,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1038:9: NOT unaryExpressionAll
                 {
                     NOT436 = (Token) match(input, NOT, FOLLOW_NOT_in_unaryExpressionRest11393);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_NOT.add(NOT436);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_NOT.add(NOT436); }
 
                     pushFollow(FOLLOW_unaryExpressionAll_in_unaryExpressionRest11395);
                     unaryExpressionAll437 = unaryExpressionAll();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_unaryExpressionAll.add(unaryExpressionAll437.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_unaryExpressionAll.add(unaryExpressionAll437.getTree()); }
 
 
                     // AST REWRITE
@@ -16476,15 +16577,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1039:9: LOGICAL_NOT unaryExpressionAll
                 {
                     LOGICAL_NOT438 = (Token) match(input, LOGICAL_NOT, FOLLOW_LOGICAL_NOT_in_unaryExpressionRest11439);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_LOGICAL_NOT.add(LOGICAL_NOT438);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_LOGICAL_NOT.add(LOGICAL_NOT438); }
 
                     pushFollow(FOLLOW_unaryExpressionAll_in_unaryExpressionRest11441);
                     unaryExpressionAll439 = unaryExpressionAll();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_unaryExpressionAll.add(unaryExpressionAll439.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_unaryExpressionAll.add(unaryExpressionAll439.getTree()); }
 
 
                     // AST REWRITE
@@ -16521,25 +16622,25 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1040:9: LPAREN simpleType RPAREN unaryExpressionAll
                 {
                     LPAREN440 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_unaryExpressionRest11477);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_LPAREN.add(LPAREN440);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_LPAREN.add(LPAREN440); }
 
                     pushFollow(FOLLOW_simpleType_in_unaryExpressionRest11479);
                     simpleType441 = simpleType();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_simpleType.add(simpleType441.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_simpleType.add(simpleType441.getTree()); }
                     RPAREN442 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_unaryExpressionRest11481);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_RPAREN.add(RPAREN442);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_RPAREN.add(RPAREN442); }
 
                     pushFollow(FOLLOW_unaryExpressionAll_in_unaryExpressionRest11483);
                     unaryExpressionAll443 = unaryExpressionAll();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_unaryExpressionAll.add(unaryExpressionAll443.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_unaryExpressionAll.add(unaryExpressionAll443.getTree()); }
 
 
                     // AST REWRITE
@@ -16577,25 +16678,25 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1041:9: LPAREN objectType RPAREN unaryExpressionRest
                 {
                     LPAREN444 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_unaryExpressionRest11509);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_LPAREN.add(LPAREN444);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_LPAREN.add(LPAREN444); }
 
                     pushFollow(FOLLOW_objectType_in_unaryExpressionRest11511);
                     objectType445 = objectType();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_objectType.add(objectType445.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_objectType.add(objectType445.getTree()); }
                     RPAREN446 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_unaryExpressionRest11513);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_RPAREN.add(RPAREN446);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_RPAREN.add(RPAREN446); }
 
                     pushFollow(FOLLOW_unaryExpressionRest_in_unaryExpressionRest11515);
                     unaryExpressionRest447 = unaryExpressionRest();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_unaryExpressionRest.add(unaryExpressionRest447.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_unaryExpressionRest.add(unaryExpressionRest447.getTree()); }
 
 
                     // AST REWRITE
@@ -16638,8 +16739,8 @@ public class JavaParser extends Parser {
                     postfixedExpression448 = postfixedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, postfixedExpression448.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, postfixedExpression448.getTree()); }
 
                 }
                 break;
@@ -16751,8 +16852,8 @@ public class JavaParser extends Parser {
                     primaryExpression449 = primaryExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_primaryExpression.add(primaryExpression449.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_primaryExpression.add(primaryExpression449.getTree()); }
 
 
                     // AST REWRITE
@@ -16796,8 +16897,8 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1050:13: outerDot= DOT ( ( ( genericTypeArgumentListSimplified )? IDENT -> ^( DOT $postfixedExpression IDENT ) ) ( arguments -> ^( METHOD_CALL $postfixedExpression ( genericTypeArgumentListSimplified )? arguments ) )? | THIS -> ^( DOT $postfixedExpression THIS ) | Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] $postfixedExpression arguments ) | ( SUPER innerDot= DOT IDENT -> ^( $innerDot ^( $outerDot $postfixedExpression SUPER ) IDENT ) ) ( arguments -> ^( METHOD_CALL $postfixedExpression arguments ) )? | innerNewExpression -> ^( DOT $postfixedExpression innerNewExpression ) )
                         {
                             outerDot = (Token) match(input, DOT, FOLLOW_DOT_in_postfixedExpression11634);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_DOT.add(outerDot);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_DOT.add(outerDot); }
 
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1051:13: ( ( ( genericTypeArgumentListSimplified )? IDENT -> ^( DOT $postfixedExpression IDENT ) ) ( arguments -> ^( METHOD_CALL $postfixedExpression ( genericTypeArgumentListSimplified )? arguments ) )? | THIS -> ^( DOT $postfixedExpression THIS ) | Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] $postfixedExpression arguments ) | ( SUPER innerDot= DOT IDENT -> ^( $innerDot ^( $outerDot $postfixedExpression SUPER ) IDENT ) ) ( arguments -> ^( METHOD_CALL $postfixedExpression arguments ) )? | innerNewExpression -> ^( DOT $postfixedExpression innerNewExpression ) )
                             int alt132 = 5;
@@ -16869,9 +16970,10 @@ public class JavaParser extends Parser {
                                                 genericTypeArgumentListSimplified450 = genericTypeArgumentListSimplified();
 
                                                 state._fsp--;
-                                                if (state.failed) return retval;
-                                                if (state.backtracking == 0)
+                                                if (state.failed) { return retval; }
+                                                if (state.backtracking == 0) {
                                                     stream_genericTypeArgumentListSimplified.add(genericTypeArgumentListSimplified450.getTree());
+                                                }
 
                                             }
                                             break;
@@ -16879,8 +16981,8 @@ public class JavaParser extends Parser {
                                         }
 
                                         IDENT451 = (Token) match(input, IDENT, FOLLOW_IDENT_in_postfixedExpression11738);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_IDENT.add(IDENT451);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_IDENT.add(IDENT451); }
 
 
                                         // AST REWRITE
@@ -16929,8 +17031,10 @@ public class JavaParser extends Parser {
                                             arguments452 = arguments();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0) stream_arguments.add(arguments452.getTree());
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
+                                                stream_arguments.add(arguments452.getTree());
+                                            }
 
 
                                             // AST REWRITE
@@ -16980,8 +17084,8 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1057:17: THIS
                                 {
                                     THIS453 = (Token) match(input, THIS, FOLLOW_THIS_in_postfixedExpression11890);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_THIS.add(THIS453);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_THIS.add(THIS453); }
 
 
                                     // AST REWRITE
@@ -17019,15 +17123,15 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1058:17: Super= SUPER arguments
                                 {
                                     Super = (Token) match(input, SUPER, FOLLOW_SUPER_in_postfixedExpression11953);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_SUPER.add(Super);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_SUPER.add(Super); }
 
                                     pushFollow(FOLLOW_arguments_in_postfixedExpression11955);
                                     arguments454 = arguments();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_arguments.add(arguments454.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_arguments.add(arguments454.getTree()); }
 
 
                                     // AST REWRITE
@@ -17068,16 +17172,16 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1059:21: SUPER innerDot= DOT IDENT
                                     {
                                         SUPER455 = (Token) match(input, SUPER, FOLLOW_SUPER_in_postfixedExpression12008);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_SUPER.add(SUPER455);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_SUPER.add(SUPER455); }
 
                                         innerDot = (Token) match(input, DOT, FOLLOW_DOT_in_postfixedExpression12012);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_DOT.add(innerDot);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_DOT.add(innerDot); }
 
                                         IDENT456 = (Token) match(input, IDENT, FOLLOW_IDENT_in_postfixedExpression12014);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_IDENT.add(IDENT456);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_IDENT.add(IDENT456); }
 
 
                                         // AST REWRITE
@@ -17137,8 +17241,10 @@ public class JavaParser extends Parser {
                                             arguments457 = arguments();
 
                                             state._fsp--;
-                                            if (state.failed) return retval;
-                                            if (state.backtracking == 0) stream_arguments.add(arguments457.getTree());
+                                            if (state.failed) { return retval; }
+                                            if (state.backtracking == 0) {
+                                                stream_arguments.add(arguments457.getTree());
+                                            }
 
 
                                             // AST REWRITE
@@ -17185,9 +17291,10 @@ public class JavaParser extends Parser {
                                     innerNewExpression458 = innerNewExpression();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_innerNewExpression.add(innerNewExpression458.getTree());
+                                    }
 
 
                                     // AST REWRITE
@@ -17231,18 +17338,18 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1065:13: LBRACK expression RBRACK
                         {
                             LBRACK459 = (Token) match(input, LBRACK, FOLLOW_LBRACK_in_postfixedExpression12209);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_LBRACK.add(LBRACK459);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_LBRACK.add(LBRACK459); }
 
                             pushFollow(FOLLOW_expression_in_postfixedExpression12211);
                             expression460 = expression();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_expression.add(expression460.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_expression.add(expression460.getTree()); }
                             RBRACK461 = (Token) match(input, RBRACK, FOLLOW_RBRACK_in_postfixedExpression12213);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_RBRACK.add(RBRACK461);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_RBRACK.add(RBRACK461); }
 
 
                             // AST REWRITE
@@ -17298,8 +17405,8 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1068:13: INC
                     {
                         INC462 = (Token) match(input, INC, FOLLOW_INC_in_postfixedExpression12274);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_INC.add(INC462);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_INC.add(INC462); }
 
 
                         // AST REWRITE
@@ -17336,8 +17443,8 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1069:13: DEC
                     {
                         DEC463 = (Token) match(input, DEC, FOLLOW_DEC_in_postfixedExpression12298);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_DEC.add(DEC463);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_DEC.add(DEC463); }
 
 
                         // AST REWRITE
@@ -17504,8 +17611,8 @@ public class JavaParser extends Parser {
                     parenthesizedExpression464 = parenthesizedExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, parenthesizedExpression464.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, parenthesizedExpression464.getTree()); }
 
                 }
                 break;
@@ -17518,8 +17625,8 @@ public class JavaParser extends Parser {
                     literal465 = literal();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, literal465.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, literal465.getTree()); }
 
                 }
                 break;
@@ -17532,8 +17639,8 @@ public class JavaParser extends Parser {
                     newExpression466 = newExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, newExpression466.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, newExpression466.getTree()); }
 
                 }
                 break;
@@ -17546,8 +17653,8 @@ public class JavaParser extends Parser {
                     qualifiedIdentExpression467 = qualifiedIdentExpression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, qualifiedIdentExpression467.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, qualifiedIdentExpression467.getTree()); }
 
                 }
                 break;
@@ -17558,9 +17665,10 @@ public class JavaParser extends Parser {
                     genericTypeArgumentListSimplified468 = genericTypeArgumentListSimplified();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0)
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) {
                         stream_genericTypeArgumentListSimplified.add(genericTypeArgumentListSimplified468.getTree());
+                    }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1079:9: ( SUPER ( arguments -> ^( SUPER_CONSTRUCTOR_CALL[$SUPER, \"SUPER_CONSTRUCTOR_CALL\"] genericTypeArgumentListSimplified arguments ) | DOT IDENT arguments -> ^( METHOD_CALL ^( DOT SUPER IDENT ) genericTypeArgumentListSimplified arguments ) ) | IDENT arguments -> ^( METHOD_CALL IDENT genericTypeArgumentListSimplified arguments ) | THIS arguments -> ^( THIS_CONSTRUCTOR_CALL[$THIS, \"THIS_CONSTRUCTOR_CALL\"] genericTypeArgumentListSimplified arguments ) )
                     int alt136 = 3;
                     switch (input.LA(1)) {
@@ -17592,8 +17700,8 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1079:13: SUPER ( arguments -> ^( SUPER_CONSTRUCTOR_CALL[$SUPER, \"SUPER_CONSTRUCTOR_CALL\"] genericTypeArgumentListSimplified arguments ) | DOT IDENT arguments -> ^( METHOD_CALL ^( DOT SUPER IDENT ) genericTypeArgumentListSimplified arguments ) )
                         {
                             SUPER469 = (Token) match(input, SUPER, FOLLOW_SUPER_in_primaryExpression12392);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_SUPER.add(SUPER469);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_SUPER.add(SUPER469); }
 
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1080:13: ( arguments -> ^( SUPER_CONSTRUCTOR_CALL[$SUPER, \"SUPER_CONSTRUCTOR_CALL\"] genericTypeArgumentListSimplified arguments ) | DOT IDENT arguments -> ^( METHOD_CALL ^( DOT SUPER IDENT ) genericTypeArgumentListSimplified arguments ) )
                             int alt135 = 2;
@@ -17623,8 +17731,8 @@ public class JavaParser extends Parser {
                                     arguments470 = arguments();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_arguments.add(arguments470.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_arguments.add(arguments470.getTree()); }
 
 
                                     // AST REWRITE
@@ -17662,19 +17770,19 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1081:17: DOT IDENT arguments
                                 {
                                     DOT471 = (Token) match(input, DOT, FOLLOW_DOT_in_primaryExpression12470);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_DOT.add(DOT471);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_DOT.add(DOT471); }
 
                                     IDENT472 = (Token) match(input, IDENT, FOLLOW_IDENT_in_primaryExpression12472);
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_IDENT.add(IDENT472);
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_IDENT.add(IDENT472); }
 
                                     pushFollow(FOLLOW_arguments_in_primaryExpression12474);
                                     arguments473 = arguments();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0) stream_arguments.add(arguments473.getTree());
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) { stream_arguments.add(arguments473.getTree()); }
 
 
                                     // AST REWRITE
@@ -17728,15 +17836,15 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1083:13: IDENT arguments
                         {
                             IDENT474 = (Token) match(input, IDENT, FOLLOW_IDENT_in_primaryExpression12541);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_IDENT.add(IDENT474);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_IDENT.add(IDENT474); }
 
                             pushFollow(FOLLOW_arguments_in_primaryExpression12543);
                             arguments475 = arguments();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_arguments.add(arguments475.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_arguments.add(arguments475.getTree()); }
 
 
                             // AST REWRITE
@@ -17775,15 +17883,15 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1084:13: THIS arguments
                         {
                             THIS476 = (Token) match(input, THIS, FOLLOW_THIS_in_primaryExpression12598);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_THIS.add(THIS476);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_THIS.add(THIS476); }
 
                             pushFollow(FOLLOW_arguments_in_primaryExpression12600);
                             arguments477 = arguments();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_arguments.add(arguments477.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_arguments.add(arguments477.getTree()); }
 
 
                             // AST REWRITE
@@ -17830,8 +17938,8 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1086:13: THIS
                     {
                         THIS478 = (Token) match(input, THIS, FOLLOW_THIS_in_primaryExpression12665);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_THIS.add(THIS478);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_THIS.add(THIS478); }
 
 
                         // AST REWRITE
@@ -17871,8 +17979,8 @@ public class JavaParser extends Parser {
                             arguments479 = arguments();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_arguments.add(arguments479.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_arguments.add(arguments479.getTree()); }
 
 
                             // AST REWRITE
@@ -17915,15 +18023,15 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1090:9: SUPER arguments
                 {
                     SUPER480 = (Token) match(input, SUPER, FOLLOW_SUPER_in_primaryExpression12798);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_SUPER.add(SUPER480);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_SUPER.add(SUPER480); }
 
                     pushFollow(FOLLOW_arguments_in_primaryExpression12800);
                     arguments481 = arguments();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_arguments.add(arguments481.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_arguments.add(arguments481.getTree()); }
 
 
                     // AST REWRITE
@@ -17963,16 +18071,16 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1091:13: SUPER DOT IDENT
                     {
                         SUPER482 = (Token) match(input, SUPER, FOLLOW_SUPER_in_primaryExpression12856);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_SUPER.add(SUPER482);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_SUPER.add(SUPER482); }
 
                         DOT483 = (Token) match(input, DOT, FOLLOW_DOT_in_primaryExpression12858);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_DOT.add(DOT483);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_DOT.add(DOT483); }
 
                         IDENT484 = (Token) match(input, IDENT, FOLLOW_IDENT_in_primaryExpression12860);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_IDENT.add(IDENT484);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_IDENT.add(IDENT484); }
 
 
                     }
@@ -18005,8 +18113,8 @@ public class JavaParser extends Parser {
                             arguments485 = arguments();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_arguments.add(arguments485.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_arguments.add(arguments485.getTree()); }
 
 
                             // AST REWRITE
@@ -18100,8 +18208,8 @@ public class JavaParser extends Parser {
                         primitiveType486 = primitiveType();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_primitiveType.add(primitiveType486.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_primitiveType.add(primitiveType486.getTree()); }
 
 
                         // AST REWRITE
@@ -18145,8 +18253,10 @@ public class JavaParser extends Parser {
                                 arrayDeclarator487 = arrayDeclarator();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_arrayDeclarator.add(arrayDeclarator487.getTree());
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
+                                    stream_arrayDeclarator.add(arrayDeclarator487.getTree());
+                                }
 
 
                                 // AST REWRITE
@@ -18187,12 +18297,12 @@ public class JavaParser extends Parser {
                     while (true);
 
                     DOT488 = (Token) match(input, DOT, FOLLOW_DOT_in_primaryExpression13144);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_DOT.add(DOT488);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_DOT.add(DOT488); }
 
                     CLASS489 = (Token) match(input, CLASS, FOLLOW_CLASS_in_primaryExpression13146);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_CLASS.add(CLASS489);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_CLASS.add(CLASS489); }
 
 
                     // AST REWRITE
@@ -18230,16 +18340,16 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1101:9: VOID DOT CLASS
                 {
                     VOID490 = (Token) match(input, VOID, FOLLOW_VOID_in_primaryExpression13206);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_VOID.add(VOID490);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_VOID.add(VOID490); }
 
                     DOT491 = (Token) match(input, DOT, FOLLOW_DOT_in_primaryExpression13208);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_DOT.add(DOT491);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_DOT.add(DOT491); }
 
                     CLASS492 = (Token) match(input, CLASS, FOLLOW_CLASS_in_primaryExpression13210);
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_CLASS.add(CLASS492);
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_CLASS.add(CLASS492); }
 
 
                     // AST REWRITE
@@ -18380,8 +18490,8 @@ public class JavaParser extends Parser {
                     qualifiedIdentifier493 = qualifiedIdentifier();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) stream_qualifiedIdentifier.add(qualifiedIdentifier493.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { stream_qualifiedIdentifier.add(qualifiedIdentifier493.getTree()); }
 
 
                     // AST REWRITE
@@ -18433,9 +18543,10 @@ public class JavaParser extends Parser {
                                     arrayDeclarator494 = arrayDeclarator();
 
                                     state._fsp--;
-                                    if (state.failed) return retval;
-                                    if (state.backtracking == 0)
+                                    if (state.failed) { return retval; }
+                                    if (state.backtracking == 0) {
                                         stream_arrayDeclarator.add(arrayDeclarator494.getTree());
+                                    }
 
 
                                     // AST REWRITE
@@ -18470,7 +18581,7 @@ public class JavaParser extends Parser {
                                 break;
 
                                 default:
-                                    if (cnt141 >= 1) break loop141;
+                                    if (cnt141 >= 1) { break loop141; }
                                     if (state.backtracking > 0) {
                                         state.failed = true;
                                         return retval;
@@ -18487,12 +18598,12 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1111:17: DOT CLASS
                         {
                             DOT495 = (Token) match(input, DOT, FOLLOW_DOT_in_qualifiedIdentExpression13423);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_DOT.add(DOT495);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_DOT.add(DOT495); }
 
                             CLASS496 = (Token) match(input, CLASS, FOLLOW_CLASS_in_qualifiedIdentExpression13425);
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) stream_CLASS.add(CLASS496);
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { stream_CLASS.add(CLASS496); }
 
 
                             // AST REWRITE
@@ -18536,8 +18647,8 @@ public class JavaParser extends Parser {
                         arguments497 = arguments();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_arguments.add(arguments497.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_arguments.add(arguments497.getTree()); }
 
 
                         // AST REWRITE
@@ -18575,8 +18686,8 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1114:13: outerDot= DOT ( CLASS -> ^( DOT qualifiedIdentifier CLASS ) | genericTypeArgumentListSimplified (Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] qualifiedIdentifier genericTypeArgumentListSimplified arguments ) | SUPER innerDot= DOT IDENT arguments -> ^( METHOD_CALL ^( $innerDot ^( $outerDot qualifiedIdentifier SUPER ) IDENT ) genericTypeArgumentListSimplified arguments ) | IDENT arguments -> ^( METHOD_CALL ^( DOT qualifiedIdentifier IDENT ) genericTypeArgumentListSimplified arguments ) ) | THIS -> ^( DOT qualifiedIdentifier THIS ) | Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] qualifiedIdentifier arguments ) | innerNewExpression -> ^( DOT qualifiedIdentifier innerNewExpression ) )
                     {
                         outerDot = (Token) match(input, DOT, FOLLOW_DOT_in_qualifiedIdentExpression13556);
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_DOT.add(outerDot);
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_DOT.add(outerDot); }
 
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1115:13: ( CLASS -> ^( DOT qualifiedIdentifier CLASS ) | genericTypeArgumentListSimplified (Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] qualifiedIdentifier genericTypeArgumentListSimplified arguments ) | SUPER innerDot= DOT IDENT arguments -> ^( METHOD_CALL ^( $innerDot ^( $outerDot qualifiedIdentifier SUPER ) IDENT ) genericTypeArgumentListSimplified arguments ) | IDENT arguments -> ^( METHOD_CALL ^( DOT qualifiedIdentifier IDENT ) genericTypeArgumentListSimplified arguments ) ) | THIS -> ^( DOT qualifiedIdentifier THIS ) | Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] qualifiedIdentifier arguments ) | innerNewExpression -> ^( DOT qualifiedIdentifier innerNewExpression ) )
                         int alt143 = 5;
@@ -18617,8 +18728,8 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1115:17: CLASS
                             {
                                 CLASS498 = (Token) match(input, CLASS, FOLLOW_CLASS_in_qualifiedIdentExpression13574);
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_CLASS.add(CLASS498);
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_CLASS.add(CLASS498); }
 
 
                                 // AST REWRITE
@@ -18659,9 +18770,10 @@ public class JavaParser extends Parser {
                                 genericTypeArgumentListSimplified499 = genericTypeArgumentListSimplified();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0)
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
                                     stream_genericTypeArgumentListSimplified.add(genericTypeArgumentListSimplified499.getTree());
+                                }
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1117:17: (Super= SUPER arguments -> ^( SUPER_CONSTRUCTOR_CALL[$Super, \"SUPER_CONSTRUCTOR_CALL\"] qualifiedIdentifier genericTypeArgumentListSimplified arguments ) | SUPER innerDot= DOT IDENT arguments -> ^( METHOD_CALL ^( $innerDot ^( $outerDot qualifiedIdentifier SUPER ) IDENT ) genericTypeArgumentListSimplified arguments ) | IDENT arguments -> ^( METHOD_CALL ^( DOT qualifiedIdentifier IDENT ) genericTypeArgumentListSimplified arguments ) )
                                 int alt142 = 3;
                                 int LA142_0 = input.LA(1);
@@ -18704,15 +18816,15 @@ public class JavaParser extends Parser {
                                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1117:21: Super= SUPER arguments
                                     {
                                         Super = (Token) match(input, SUPER, FOLLOW_SUPER_in_qualifiedIdentExpression13661);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_SUPER.add(Super);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_SUPER.add(Super); }
 
                                         pushFollow(FOLLOW_arguments_in_qualifiedIdentExpression13663);
                                         arguments500 = arguments();
 
                                         state._fsp--;
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_arguments.add(arguments500.getTree());
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_arguments.add(arguments500.getTree()); }
 
 
                                         // AST REWRITE
@@ -18751,23 +18863,23 @@ public class JavaParser extends Parser {
                                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1118:21: SUPER innerDot= DOT IDENT arguments
                                     {
                                         SUPER501 = (Token) match(input, SUPER, FOLLOW_SUPER_in_qualifiedIdentExpression13713);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_SUPER.add(SUPER501);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_SUPER.add(SUPER501); }
 
                                         innerDot = (Token) match(input, DOT, FOLLOW_DOT_in_qualifiedIdentExpression13717);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_DOT.add(innerDot);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_DOT.add(innerDot); }
 
                                         IDENT502 = (Token) match(input, IDENT, FOLLOW_IDENT_in_qualifiedIdentExpression13719);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_IDENT.add(IDENT502);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_IDENT.add(IDENT502); }
 
                                         pushFollow(FOLLOW_arguments_in_qualifiedIdentExpression13721);
                                         arguments503 = arguments();
 
                                         state._fsp--;
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_arguments.add(arguments503.getTree());
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_arguments.add(arguments503.getTree()); }
 
 
                                         // AST REWRITE
@@ -18826,15 +18938,15 @@ public class JavaParser extends Parser {
                                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1119:21: IDENT arguments
                                     {
                                         IDENT504 = (Token) match(input, IDENT, FOLLOW_IDENT_in_qualifiedIdentExpression13771);
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_IDENT.add(IDENT504);
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_IDENT.add(IDENT504); }
 
                                         pushFollow(FOLLOW_arguments_in_qualifiedIdentExpression13773);
                                         arguments505 = arguments();
 
                                         state._fsp--;
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_arguments.add(arguments505.getTree());
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_arguments.add(arguments505.getTree()); }
 
 
                                         // AST REWRITE
@@ -18888,8 +19000,8 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1121:17: THIS
                             {
                                 THIS506 = (Token) match(input, THIS, FOLLOW_THIS_in_qualifiedIdentExpression13848);
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_THIS.add(THIS506);
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_THIS.add(THIS506); }
 
 
                                 // AST REWRITE
@@ -18927,15 +19039,15 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1122:17: Super= SUPER arguments
                             {
                                 Super = (Token) match(input, SUPER, FOLLOW_SUPER_in_qualifiedIdentExpression13914);
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_SUPER.add(Super);
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_SUPER.add(Super); }
 
                                 pushFollow(FOLLOW_arguments_in_qualifiedIdentExpression13916);
                                 arguments507 = arguments();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_arguments.add(arguments507.getTree());
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_arguments.add(arguments507.getTree()); }
 
 
                                 // AST REWRITE
@@ -18976,9 +19088,10 @@ public class JavaParser extends Parser {
                                 innerNewExpression508 = innerNewExpression();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0)
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
                                     stream_innerNewExpression.add(innerNewExpression508.getTree());
+                                }
 
 
                                 // AST REWRITE
@@ -19098,8 +19211,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1129:9: NEW ( primitiveType newArrayConstruction -> ^( STATIC_ARRAY_CREATOR[$NEW, \"STATIC_ARRAY_CREATOR\"] primitiveType newArrayConstruction ) | ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified ( newArrayConstruction -> ^( STATIC_ARRAY_CREATOR[$NEW, \"STATIC_ARRAY_CREATOR\"] ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified newArrayConstruction ) | arguments ( classBody )? -> ^( CLASS_CONSTRUCTOR_CALL[$NEW, \"STATIC_ARRAY_CREATOR\"] ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified arguments ( classBody )? ) ) )
             {
                 NEW509 = (Token) match(input, NEW, FOLLOW_NEW_in_newExpression14040);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_NEW.add(NEW509);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_NEW.add(NEW509); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1130:9: ( primitiveType newArrayConstruction -> ^( STATIC_ARRAY_CREATOR[$NEW, \"STATIC_ARRAY_CREATOR\"] primitiveType newArrayConstruction ) | ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified ( newArrayConstruction -> ^( STATIC_ARRAY_CREATOR[$NEW, \"STATIC_ARRAY_CREATOR\"] ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified newArrayConstruction ) | arguments ( classBody )? -> ^( CLASS_CONSTRUCTOR_CALL[$NEW, \"STATIC_ARRAY_CREATOR\"] ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified arguments ( classBody )? ) ) )
                 int alt148 = 2;
@@ -19129,14 +19242,16 @@ public class JavaParser extends Parser {
                         primitiveType510 = primitiveType();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_primitiveType.add(primitiveType510.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_primitiveType.add(primitiveType510.getTree()); }
                         pushFollow(FOLLOW_newArrayConstruction_in_newExpression14056);
                         newArrayConstruction511 = newArrayConstruction();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_newArrayConstruction.add(newArrayConstruction511.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
+                            stream_newArrayConstruction.add(newArrayConstruction511.getTree());
+                        }
 
 
                         // AST REWRITE
@@ -19188,9 +19303,10 @@ public class JavaParser extends Parser {
                                 genericTypeArgumentListSimplified512 = genericTypeArgumentListSimplified();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0)
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
                                     stream_genericTypeArgumentListSimplified.add(genericTypeArgumentListSimplified512.getTree());
+                                }
 
                             }
                             break;
@@ -19201,9 +19317,10 @@ public class JavaParser extends Parser {
                         qualifiedTypeIdentSimplified513 = qualifiedTypeIdentSimplified();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_qualifiedTypeIdentSimplified.add(qualifiedTypeIdentSimplified513.getTree());
+                        }
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1133:13: ( newArrayConstruction -> ^( STATIC_ARRAY_CREATOR[$NEW, \"STATIC_ARRAY_CREATOR\"] ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified newArrayConstruction ) | arguments ( classBody )? -> ^( CLASS_CONSTRUCTOR_CALL[$NEW, \"STATIC_ARRAY_CREATOR\"] ( genericTypeArgumentListSimplified )? qualifiedTypeIdentSimplified arguments ( classBody )? ) )
                         int alt147 = 2;
                         int LA147_0 = input.LA(1);
@@ -19232,9 +19349,10 @@ public class JavaParser extends Parser {
                                 newArrayConstruction514 = newArrayConstruction();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0)
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) {
                                     stream_newArrayConstruction.add(newArrayConstruction514.getTree());
+                                }
 
 
                                 // AST REWRITE
@@ -19281,8 +19399,8 @@ public class JavaParser extends Parser {
                                 arguments515 = arguments();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) stream_arguments.add(arguments515.getTree());
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { stream_arguments.add(arguments515.getTree()); }
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1135:27: ( classBody )?
                                 int alt146 = 2;
                                 int LA146_0 = input.LA(1);
@@ -19298,8 +19416,8 @@ public class JavaParser extends Parser {
                                         classBody516 = classBody();
 
                                         state._fsp--;
-                                        if (state.failed) return retval;
-                                        if (state.backtracking == 0) stream_classBody.add(classBody516.getTree());
+                                        if (state.failed) { return retval; }
+                                        if (state.backtracking == 0) { stream_classBody.add(classBody516.getTree()); }
 
                                     }
                                     break;
@@ -19428,8 +19546,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1142:9: NEW ( genericTypeArgumentListSimplified )? IDENT arguments ( classBody )?
             {
                 NEW517 = (Token) match(input, NEW, FOLLOW_NEW_in_innerNewExpression14283);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_NEW.add(NEW517);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_NEW.add(NEW517); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1142:13: ( genericTypeArgumentListSimplified )?
                 int alt149 = 2;
@@ -19446,9 +19564,10 @@ public class JavaParser extends Parser {
                         genericTypeArgumentListSimplified518 = genericTypeArgumentListSimplified();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0)
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) {
                             stream_genericTypeArgumentListSimplified.add(genericTypeArgumentListSimplified518.getTree());
+                        }
 
                     }
                     break;
@@ -19456,15 +19575,15 @@ public class JavaParser extends Parser {
                 }
 
                 IDENT519 = (Token) match(input, IDENT, FOLLOW_IDENT_in_innerNewExpression14288);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_IDENT.add(IDENT519);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_IDENT.add(IDENT519); }
 
                 pushFollow(FOLLOW_arguments_in_innerNewExpression14290);
                 arguments520 = arguments();
 
                 state._fsp--;
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_arguments.add(arguments520.getTree());
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_arguments.add(arguments520.getTree()); }
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1142:64: ( classBody )?
                 int alt150 = 2;
                 int LA150_0 = input.LA(1);
@@ -19480,8 +19599,8 @@ public class JavaParser extends Parser {
                         classBody521 = classBody();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_classBody.add(classBody521.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_classBody.add(classBody521.getTree()); }
 
                     }
                     break;
@@ -19642,14 +19761,14 @@ public class JavaParser extends Parser {
                     arrayDeclaratorList522 = arrayDeclaratorList();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, arrayDeclaratorList522.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, arrayDeclaratorList522.getTree()); }
                     pushFollow(FOLLOW_arrayInitializer_in_newArrayConstruction14340);
                     arrayInitializer523 = arrayInitializer();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, arrayInitializer523.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, arrayInitializer523.getTree()); }
 
                 }
                 break;
@@ -19659,15 +19778,15 @@ public class JavaParser extends Parser {
                     root_0 = (CommonTree) adaptor.nil();
 
                     LBRACK524 = (Token) match(input, LBRACK, FOLLOW_LBRACK_in_newArrayConstruction14350);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     pushFollow(FOLLOW_expression_in_newArrayConstruction14353);
                     expression525 = expression();
 
                     state._fsp--;
-                    if (state.failed) return retval;
-                    if (state.backtracking == 0) adaptor.addChild(root_0, expression525.getTree());
+                    if (state.failed) { return retval; }
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, expression525.getTree()); }
                     RBRACK526 = (Token) match(input, RBRACK, FOLLOW_RBRACK_in_newArrayConstruction14355);
-                    if (state.failed) return retval;
+                    if (state.failed) { return retval; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1148:36: ( LBRACK expression RBRACK )*
                     loop151:
                     do {
@@ -19678,15 +19797,15 @@ public class JavaParser extends Parser {
                                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1148:37: LBRACK expression RBRACK
                             {
                                 LBRACK527 = (Token) match(input, LBRACK, FOLLOW_LBRACK_in_newArrayConstruction14359);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
                                 pushFollow(FOLLOW_expression_in_newArrayConstruction14362);
                                 expression528 = expression();
 
                                 state._fsp--;
-                                if (state.failed) return retval;
-                                if (state.backtracking == 0) adaptor.addChild(root_0, expression528.getTree());
+                                if (state.failed) { return retval; }
+                                if (state.backtracking == 0) { adaptor.addChild(root_0, expression528.getTree()); }
                                 RBRACK529 = (Token) match(input, RBRACK, FOLLOW_RBRACK_in_newArrayConstruction14364);
-                                if (state.failed) return retval;
+                                if (state.failed) { return retval; }
 
                             }
                             break;
@@ -19716,8 +19835,8 @@ public class JavaParser extends Parser {
                             arrayDeclaratorList530 = arrayDeclaratorList();
 
                             state._fsp--;
-                            if (state.failed) return retval;
-                            if (state.backtracking == 0) adaptor.addChild(root_0, arrayDeclaratorList530.getTree());
+                            if (state.failed) { return retval; }
+                            if (state.backtracking == 0) { adaptor.addChild(root_0, arrayDeclaratorList530.getTree()); }
 
                         }
                         break;
@@ -19789,8 +19908,8 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1152:9: LPAREN ( expressionList )? RPAREN
             {
                 LPAREN531 = (Token) match(input, LPAREN, FOLLOW_LPAREN_in_arguments14389);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_LPAREN.add(LPAREN531);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_LPAREN.add(LPAREN531); }
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1152:16: ( expressionList )?
                 int alt154 = 2;
@@ -19807,8 +19926,8 @@ public class JavaParser extends Parser {
                         expressionList532 = expressionList();
 
                         state._fsp--;
-                        if (state.failed) return retval;
-                        if (state.backtracking == 0) stream_expressionList.add(expressionList532.getTree());
+                        if (state.failed) { return retval; }
+                        if (state.backtracking == 0) { stream_expressionList.add(expressionList532.getTree()); }
 
                     }
                     break;
@@ -19816,8 +19935,8 @@ public class JavaParser extends Parser {
                 }
 
                 RPAREN533 = (Token) match(input, RPAREN, FOLLOW_RPAREN_in_arguments14394);
-                if (state.failed) return retval;
-                if (state.backtracking == 0) stream_RPAREN.add(RPAREN533);
+                if (state.failed) { return retval; }
+                if (state.backtracking == 0) { stream_RPAREN.add(RPAREN533); }
 
 
                 // AST REWRITE
@@ -19913,7 +20032,7 @@ public class JavaParser extends Parser {
                 set534 = (Token) input.LT(1);
                 if (input.LA(1) == FALSE || input.LA(1) == NULL || input.LA(1) == TRUE || (input.LA(1) >= HEX_LITERAL && input.LA(1) <= STRING_LITERAL)) {
                     input.consume();
-                    if (state.backtracking == 0) adaptor.addChild(root_0, (CommonTree) adaptor.create(set534));
+                    if (state.backtracking == 0) { adaptor.addChild(root_0, (CommonTree) adaptor.create(set534)); }
                     state.errorRecovery = false;
                     state.failed = false;
                 }
@@ -19959,7 +20078,7 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:473:9: GREATER_THAN
         {
             match(input, GREATER_THAN, FOLLOW_GREATER_THAN_in_synpred14_Java5060);
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -19972,7 +20091,7 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:474:9: SHIFT_RIGHT
         {
             match(input, SHIFT_RIGHT, FOLLOW_SHIFT_RIGHT_in_synpred15_Java5070);
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -19985,7 +20104,7 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:475:9: BIT_SHIFT_RIGHT
         {
             match(input, BIT_SHIFT_RIGHT, FOLLOW_BIT_SHIFT_RIGHT_in_synpred16_Java5080);
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -20001,7 +20120,7 @@ public class JavaParser extends Parser {
             bound();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -20014,12 +20133,12 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:537:9: STATIC block
         {
             match(input, STATIC, FOLLOW_STATIC_in_synpred33_Java5611);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_block_in_synpred33_Java5613);
             block();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -20048,7 +20167,7 @@ public class JavaParser extends Parser {
                     genericTypeParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -20113,14 +20232,14 @@ public class JavaParser extends Parser {
                     type();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, IDENT, FOLLOW_IDENT_in_synpred43_Java5671);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_formalParameterList_in_synpred43_Java5673);
                     formalParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:540:48: ( arrayDeclaratorList )?
                     int alt161 = 2;
                     int LA161_0 = input.LA(1);
@@ -20136,7 +20255,7 @@ public class JavaParser extends Parser {
                             arrayDeclaratorList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20158,7 +20277,7 @@ public class JavaParser extends Parser {
                             throwsClause();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20193,7 +20312,7 @@ public class JavaParser extends Parser {
                             block();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20201,7 +20320,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:540:92: SEMI
                         {
                             match(input, SEMI, FOLLOW_SEMI_in_synpred43_Java5686);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20215,14 +20334,14 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:17: VOID IDENT formalParameterList ( throwsClause )? ( block | SEMI )
                 {
                     match(input, VOID, FOLLOW_VOID_in_synpred43_Java5748);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, IDENT, FOLLOW_IDENT_in_synpred43_Java5750);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_formalParameterList_in_synpred43_Java5752);
                     formalParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:48: ( throwsClause )?
                     int alt164 = 2;
                     int LA164_0 = input.LA(1);
@@ -20238,7 +20357,7 @@ public class JavaParser extends Parser {
                             throwsClause();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20273,7 +20392,7 @@ public class JavaParser extends Parser {
                             block();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20281,7 +20400,7 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:71: SEMI
                         {
                             match(input, SEMI, FOLLOW_SEMI_in_synpred43_Java5762);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20295,12 +20414,12 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:544:17: ident= IDENT formalParameterList ( throwsClause )? block
                 {
                     ident = (Token) match(input, IDENT, FOLLOW_IDENT_in_synpred43_Java5821);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_formalParameterList_in_synpred43_Java5823);
                     formalParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:544:49: ( throwsClause )?
                     int alt166 = 2;
                     int LA166_0 = input.LA(1);
@@ -20316,7 +20435,7 @@ public class JavaParser extends Parser {
                             throwsClause();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20327,7 +20446,7 @@ public class JavaParser extends Parser {
                     block();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -20351,7 +20470,7 @@ public class JavaParser extends Parser {
             modifierList();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:539:9: ( ( genericTypeParameterList )? ( type IDENT formalParameterList ( arrayDeclaratorList )? ( throwsClause )? ( block | SEMI ) | VOID IDENT formalParameterList ( throwsClause )? ( block | SEMI ) | ident= IDENT formalParameterList ( throwsClause )? block ) | type classFieldDeclaratorList SEMI )
             int alt176 = 2;
             switch (input.LA(1)) {
@@ -20439,7 +20558,7 @@ public class JavaParser extends Parser {
                             genericTypeParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20504,14 +20623,14 @@ public class JavaParser extends Parser {
                             type();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             match(input, IDENT, FOLLOW_IDENT_in_synpred44_Java5671);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_formalParameterList_in_synpred44_Java5673);
                             formalParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:540:48: ( arrayDeclaratorList )?
                             int alt169 = 2;
                             int LA169_0 = input.LA(1);
@@ -20527,7 +20646,7 @@ public class JavaParser extends Parser {
                                     arrayDeclaratorList();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20549,7 +20668,7 @@ public class JavaParser extends Parser {
                                     throwsClause();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20584,7 +20703,7 @@ public class JavaParser extends Parser {
                                     block();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20592,7 +20711,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:540:92: SEMI
                                 {
                                     match(input, SEMI, FOLLOW_SEMI_in_synpred44_Java5686);
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20606,14 +20725,14 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:17: VOID IDENT formalParameterList ( throwsClause )? ( block | SEMI )
                         {
                             match(input, VOID, FOLLOW_VOID_in_synpred44_Java5748);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             match(input, IDENT, FOLLOW_IDENT_in_synpred44_Java5750);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_formalParameterList_in_synpred44_Java5752);
                             formalParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:48: ( throwsClause )?
                             int alt172 = 2;
                             int LA172_0 = input.LA(1);
@@ -20629,7 +20748,7 @@ public class JavaParser extends Parser {
                                     throwsClause();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20664,7 +20783,7 @@ public class JavaParser extends Parser {
                                     block();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20672,7 +20791,7 @@ public class JavaParser extends Parser {
                                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:542:71: SEMI
                                 {
                                     match(input, SEMI, FOLLOW_SEMI_in_synpred44_Java5762);
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20686,12 +20805,12 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:544:17: ident= IDENT formalParameterList ( throwsClause )? block
                         {
                             ident = (Token) match(input, IDENT, FOLLOW_IDENT_in_synpred44_Java5821);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_formalParameterList_in_synpred44_Java5823);
                             formalParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:544:49: ( throwsClause )?
                             int alt174 = 2;
                             int LA174_0 = input.LA(1);
@@ -20707,7 +20826,7 @@ public class JavaParser extends Parser {
                                     throwsClause();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -20718,7 +20837,7 @@ public class JavaParser extends Parser {
                             block();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20735,14 +20854,14 @@ public class JavaParser extends Parser {
                     type();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_classFieldDeclaratorList_in_synpred44_Java5894);
                     classFieldDeclaratorList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, SEMI, FOLLOW_SEMI_in_synpred44_Java5896);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -20764,7 +20883,7 @@ public class JavaParser extends Parser {
             typeDeclaration();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -20791,7 +20910,7 @@ public class JavaParser extends Parser {
                     genericTypeParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -20826,14 +20945,14 @@ public class JavaParser extends Parser {
                     type();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, IDENT, FOLLOW_IDENT_in_synpred51_Java6006);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_formalParameterList_in_synpred51_Java6008);
                     formalParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:557:48: ( arrayDeclaratorList )?
                     int alt180 = 2;
                     int LA180_0 = input.LA(1);
@@ -20849,7 +20968,7 @@ public class JavaParser extends Parser {
                             arrayDeclaratorList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20871,7 +20990,7 @@ public class JavaParser extends Parser {
                             throwsClause();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20879,7 +20998,7 @@ public class JavaParser extends Parser {
                     }
 
                     match(input, SEMI, FOLLOW_SEMI_in_synpred51_Java6016);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -20887,14 +21006,14 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:559:17: VOID IDENT formalParameterList ( throwsClause )? SEMI
                 {
                     match(input, VOID, FOLLOW_VOID_in_synpred51_Java6074);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, IDENT, FOLLOW_IDENT_in_synpred51_Java6076);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_formalParameterList_in_synpred51_Java6078);
                     formalParameterList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:559:48: ( throwsClause )?
                     int alt182 = 2;
                     int LA182_0 = input.LA(1);
@@ -20910,7 +21029,7 @@ public class JavaParser extends Parser {
                             throwsClause();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -20918,7 +21037,7 @@ public class JavaParser extends Parser {
                     }
 
                     match(input, SEMI, FOLLOW_SEMI_in_synpred51_Java6083);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -20940,7 +21059,7 @@ public class JavaParser extends Parser {
             modifierList();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:556:9: ( ( genericTypeParameterList )? ( type IDENT formalParameterList ( arrayDeclaratorList )? ( throwsClause )? SEMI | VOID IDENT formalParameterList ( throwsClause )? SEMI ) | type interfaceFieldDeclaratorList SEMI )
             int alt189 = 2;
             switch (input.LA(1)) {
@@ -21028,7 +21147,7 @@ public class JavaParser extends Parser {
                             genericTypeParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21063,14 +21182,14 @@ public class JavaParser extends Parser {
                             type();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             match(input, IDENT, FOLLOW_IDENT_in_synpred52_Java6006);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_formalParameterList_in_synpred52_Java6008);
                             formalParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:557:48: ( arrayDeclaratorList )?
                             int alt185 = 2;
                             int LA185_0 = input.LA(1);
@@ -21086,7 +21205,7 @@ public class JavaParser extends Parser {
                                     arrayDeclaratorList();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -21108,7 +21227,7 @@ public class JavaParser extends Parser {
                                     throwsClause();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -21116,7 +21235,7 @@ public class JavaParser extends Parser {
                             }
 
                             match(input, SEMI, FOLLOW_SEMI_in_synpred52_Java6016);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21124,14 +21243,14 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:559:17: VOID IDENT formalParameterList ( throwsClause )? SEMI
                         {
                             match(input, VOID, FOLLOW_VOID_in_synpred52_Java6074);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             match(input, IDENT, FOLLOW_IDENT_in_synpred52_Java6076);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_formalParameterList_in_synpred52_Java6078);
                             formalParameterList();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:559:48: ( throwsClause )?
                             int alt187 = 2;
                             int LA187_0 = input.LA(1);
@@ -21147,7 +21266,7 @@ public class JavaParser extends Parser {
                                     throwsClause();
 
                                     state._fsp--;
-                                    if (state.failed) return;
+                                    if (state.failed) { return; }
 
                                 }
                                 break;
@@ -21155,7 +21274,7 @@ public class JavaParser extends Parser {
                             }
 
                             match(input, SEMI, FOLLOW_SEMI_in_synpred52_Java6083);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21172,14 +21291,14 @@ public class JavaParser extends Parser {
                     type();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_interfaceFieldDeclaratorList_in_synpred52_Java6148);
                     interfaceFieldDeclaratorList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, SEMI, FOLLOW_SEMI_in_synpred52_Java6150);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21201,7 +21320,7 @@ public class JavaParser extends Parser {
             typeDeclaration();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21217,7 +21336,7 @@ public class JavaParser extends Parser {
             arrayDeclarator();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21233,7 +21352,7 @@ public class JavaParser extends Parser {
             arrayDeclaratorList();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21249,7 +21368,7 @@ public class JavaParser extends Parser {
             arrayDeclaratorList();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21262,12 +21381,12 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:668:20: DOT typeIdent
         {
             match(input, DOT, FOLLOW_DOT_in_synpred80_Java7004);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_typeIdent_in_synpred80_Java7006);
             typeIdent();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21280,12 +21399,12 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:697:40: COMMA genericTypeArgument
         {
             match(input, COMMA, FOLLOW_COMMA_in_synpred91_Java7229);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_genericTypeArgument_in_synpred91_Java7231);
             genericTypeArgument();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21301,7 +21420,7 @@ public class JavaParser extends Parser {
             genericWildcardBoundType();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21314,12 +21433,12 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:42: COMMA formalParameterStandardDecl
         {
             match(input, COMMA, FOLLOW_COMMA_in_synpred98_Java7486);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_formalParameterStandardDecl_in_synpred98_Java7488);
             formalParameterStandardDecl();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21335,7 +21454,7 @@ public class JavaParser extends Parser {
             formalParameterStandardDecl();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:41: ( COMMA formalParameterStandardDecl )*
             loop192:
             do {
@@ -21358,12 +21477,12 @@ public class JavaParser extends Parser {
                         // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:42: COMMA formalParameterStandardDecl
                     {
                         match(input, COMMA, FOLLOW_COMMA_in_synpred100_Java7486);
-                        if (state.failed) return;
+                        if (state.failed) { return; }
                         pushFollow(FOLLOW_formalParameterStandardDecl_in_synpred100_Java7488);
                         formalParameterStandardDecl();
 
                         state._fsp--;
-                        if (state.failed) return;
+                        if (state.failed) { return; }
 
                     }
                     break;
@@ -21386,12 +21505,12 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:728:79: COMMA formalParameterVarArgDecl
                 {
                     match(input, COMMA, FOLLOW_COMMA_in_synpred100_Java7493);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_formalParameterVarArgDecl_in_synpred100_Java7495);
                     formalParameterVarArgDecl();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21413,7 +21532,7 @@ public class JavaParser extends Parser {
             formalParameterVarArgDecl();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21428,9 +21547,9 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:752:13: DOT ident= IDENT
         {
             match(input, DOT, FOLLOW_DOT_in_synpred102_Java7781);
-            if (state.failed) return;
+            if (state.failed) { return; }
             ident = (Token) match(input, IDENT, FOLLOW_IDENT_in_synpred102_Java7785);
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21446,7 +21565,7 @@ public class JavaParser extends Parser {
             annotation();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21462,12 +21581,12 @@ public class JavaParser extends Parser {
             modifierList();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_type_in_synpred115_Java8258);
             type();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:811:9: ( IDENT LPAREN RPAREN ( annotationDefaultValue )? SEMI | classFieldDeclaratorList SEMI )
             int alt198 = 2;
             int LA198_0 = input.LA(1);
@@ -21507,11 +21626,11 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:811:13: IDENT LPAREN RPAREN ( annotationDefaultValue )? SEMI
                 {
                     match(input, IDENT, FOLLOW_IDENT_in_synpred115_Java8272);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, LPAREN, FOLLOW_LPAREN_in_synpred115_Java8274);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, RPAREN, FOLLOW_RPAREN_in_synpred115_Java8276);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:811:33: ( annotationDefaultValue )?
                     int alt197 = 2;
                     int LA197_0 = input.LA(1);
@@ -21527,7 +21646,7 @@ public class JavaParser extends Parser {
                             annotationDefaultValue();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21535,7 +21654,7 @@ public class JavaParser extends Parser {
                     }
 
                     match(input, SEMI, FOLLOW_SEMI_in_synpred115_Java8281);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21546,9 +21665,9 @@ public class JavaParser extends Parser {
                     classFieldDeclaratorList();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     match(input, SEMI, FOLLOW_SEMI_in_synpred115_Java8325);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21570,9 +21689,9 @@ public class JavaParser extends Parser {
             localVariableDeclaration();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, SEMI, FOLLOW_SEMI_in_synpred117_Java8458);
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21588,7 +21707,7 @@ public class JavaParser extends Parser {
             typeDeclaration();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21604,12 +21723,12 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:849:13: ELSE elseStat= statement
         {
             match(input, ELSE, FOLLOW_ELSE_in_synpred122_Java8749);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_statement_in_synpred122_Java8753);
             elseStat = statement();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21625,28 +21744,28 @@ public class JavaParser extends Parser {
             forInit();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, SEMI, FOLLOW_SEMI_in_synpred124_Java8934);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_forCondition_in_synpred124_Java8936);
             forCondition();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, SEMI, FOLLOW_SEMI_in_synpred124_Java8938);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_forUpdater_in_synpred124_Java8940);
             forUpdater();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, RPAREN, FOLLOW_RPAREN_in_synpred124_Java8942);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_statement_in_synpred124_Java8944);
             statement();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21662,7 +21781,7 @@ public class JavaParser extends Parser {
             switchCaseLabel();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21678,7 +21797,7 @@ public class JavaParser extends Parser {
             localVariableDeclaration();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21694,7 +21813,7 @@ public class JavaParser extends Parser {
             expressionList();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21707,19 +21826,19 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1040:9: LPAREN simpleType RPAREN unaryExpressionAll
         {
             match(input, LPAREN, FOLLOW_LPAREN_in_synpred191_Java11477);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_simpleType_in_synpred191_Java11479);
             simpleType();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, RPAREN, FOLLOW_RPAREN_in_synpred191_Java11481);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_unaryExpressionAll_in_synpred191_Java11483);
             unaryExpressionAll();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21732,19 +21851,19 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1041:9: LPAREN objectType RPAREN unaryExpressionRest
         {
             match(input, LPAREN, FOLLOW_LPAREN_in_synpred192_Java11509);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_objectType_in_synpred192_Java11511);
             objectType();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, RPAREN, FOLLOW_RPAREN_in_synpred192_Java11513);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_unaryExpressionRest_in_synpred192_Java11515);
             unaryExpressionRest();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -21776,13 +21895,13 @@ public class JavaParser extends Parser {
                         arrayDeclarator();
 
                         state._fsp--;
-                        if (state.failed) return;
+                        if (state.failed) { return; }
 
                     }
                     break;
 
                     default:
-                        if (cnt221 >= 1) break loop221;
+                        if (cnt221 >= 1) { break loop221; }
                         if (state.backtracking > 0) {
                             state.failed = true;
                             return;
@@ -21799,9 +21918,9 @@ public class JavaParser extends Parser {
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1111:17: DOT CLASS
             {
                 match(input, DOT, FOLLOW_DOT_in_synpred220_Java13423);
-                if (state.failed) return;
+                if (state.failed) { return; }
                 match(input, CLASS, FOLLOW_CLASS_in_synpred220_Java13425);
-                if (state.failed) return;
+                if (state.failed) { return; }
 
             }
 
@@ -21821,7 +21940,7 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1114:13: outerDot= DOT ( CLASS | genericTypeArgumentListSimplified (Super= SUPER arguments | SUPER innerDot= DOT IDENT arguments | IDENT arguments ) | THIS | Super= SUPER arguments | innerNewExpression )
         {
             outerDot = (Token) match(input, DOT, FOLLOW_DOT_in_synpred228_Java13556);
-            if (state.failed) return;
+            if (state.failed) { return; }
             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1115:13: ( CLASS | genericTypeArgumentListSimplified (Super= SUPER arguments | SUPER innerDot= DOT IDENT arguments | IDENT arguments ) | THIS | Super= SUPER arguments | innerNewExpression )
             int alt224 = 5;
             switch (input.LA(1)) {
@@ -21861,7 +21980,7 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1115:17: CLASS
                 {
                     match(input, CLASS, FOLLOW_CLASS_in_synpred228_Java13574);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21872,7 +21991,7 @@ public class JavaParser extends Parser {
                     genericTypeArgumentListSimplified();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1117:17: (Super= SUPER arguments | SUPER innerDot= DOT IDENT arguments | IDENT arguments )
                     int alt223 = 3;
                     int LA223_0 = input.LA(1);
@@ -21915,12 +22034,12 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1117:21: Super= SUPER arguments
                         {
                             Super = (Token) match(input, SUPER, FOLLOW_SUPER_in_synpred228_Java13661);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_arguments_in_synpred228_Java13663);
                             arguments();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21928,16 +22047,16 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1118:21: SUPER innerDot= DOT IDENT arguments
                         {
                             match(input, SUPER, FOLLOW_SUPER_in_synpred228_Java13713);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             innerDot = (Token) match(input, DOT, FOLLOW_DOT_in_synpred228_Java13717);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             match(input, IDENT, FOLLOW_IDENT_in_synpred228_Java13719);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_arguments_in_synpred228_Java13721);
                             arguments();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21945,12 +22064,12 @@ public class JavaParser extends Parser {
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1119:21: IDENT arguments
                         {
                             match(input, IDENT, FOLLOW_IDENT_in_synpred228_Java13771);
-                            if (state.failed) return;
+                            if (state.failed) { return; }
                             pushFollow(FOLLOW_arguments_in_synpred228_Java13773);
                             arguments();
 
                             state._fsp--;
-                            if (state.failed) return;
+                            if (state.failed) { return; }
 
                         }
                         break;
@@ -21964,7 +22083,7 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1121:17: THIS
                 {
                     match(input, THIS, FOLLOW_THIS_in_synpred228_Java13848);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21972,12 +22091,12 @@ public class JavaParser extends Parser {
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1122:17: Super= SUPER arguments
                 {
                     Super = (Token) match(input, SUPER, FOLLOW_SUPER_in_synpred228_Java13914);
-                    if (state.failed) return;
+                    if (state.failed) { return; }
                     pushFollow(FOLLOW_arguments_in_synpred228_Java13916);
                     arguments();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -21988,7 +22107,7 @@ public class JavaParser extends Parser {
                     innerNewExpression();
 
                     state._fsp--;
-                    if (state.failed) return;
+                    if (state.failed) { return; }
 
                 }
                 break;
@@ -22007,14 +22126,14 @@ public class JavaParser extends Parser {
         // /home/langera/dev/freud/trunk/src/grammar/Java.g:1148:37: LBRACK expression RBRACK
         {
             match(input, LBRACK, FOLLOW_LBRACK_in_synpred236_Java14359);
-            if (state.failed) return;
+            if (state.failed) { return; }
             pushFollow(FOLLOW_expression_in_synpred236_Java14362);
             expression();
 
             state._fsp--;
-            if (state.failed) return;
+            if (state.failed) { return; }
             match(input, RBRACK, FOLLOW_RBRACK_in_synpred236_Java14364);
-            if (state.failed) return;
+            if (state.failed) { return; }
 
         }
     }
@@ -22696,7 +22815,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_2);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA37_3 = input.LA(1);
@@ -22715,7 +22834,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 2:
                     int LA37_4 = input.LA(1);
@@ -22734,7 +22853,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_4);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 3:
                     int LA37_5 = input.LA(1);
@@ -22753,7 +22872,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_5);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 4:
                     int LA37_6 = input.LA(1);
@@ -22772,7 +22891,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_6);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 5:
                     int LA37_7 = input.LA(1);
@@ -22791,7 +22910,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_7);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 6:
                     int LA37_8 = input.LA(1);
@@ -22810,7 +22929,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_8);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 7:
                     int LA37_9 = input.LA(1);
@@ -22829,7 +22948,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_9);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 8:
                     int LA37_10 = input.LA(1);
@@ -22848,7 +22967,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_10);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 9:
                     int LA37_11 = input.LA(1);
@@ -22867,7 +22986,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_11);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 10:
                     int LA37_12 = input.LA(1);
@@ -22886,7 +23005,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_12);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 11:
                     int LA37_13 = input.LA(1);
@@ -22905,7 +23024,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index37_13);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -23015,7 +23134,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_1);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA44_2 = input.LA(1);
@@ -23034,7 +23153,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_2);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 2:
                     int LA44_3 = input.LA(1);
@@ -23053,7 +23172,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 3:
                     int LA44_4 = input.LA(1);
@@ -23072,7 +23191,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_4);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 4:
                     int LA44_5 = input.LA(1);
@@ -23091,7 +23210,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_5);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 5:
                     int LA44_6 = input.LA(1);
@@ -23110,7 +23229,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_6);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 6:
                     int LA44_7 = input.LA(1);
@@ -23129,7 +23248,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_7);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 7:
                     int LA44_8 = input.LA(1);
@@ -23148,7 +23267,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_8);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 8:
                     int LA44_9 = input.LA(1);
@@ -23167,7 +23286,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_9);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 9:
                     int LA44_10 = input.LA(1);
@@ -23186,7 +23305,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_10);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 10:
                     int LA44_11 = input.LA(1);
@@ -23205,7 +23324,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_11);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 11:
                     int LA44_12 = input.LA(1);
@@ -23224,7 +23343,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index44_12);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -23329,7 +23448,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_1);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA87_2 = input.LA(1);
@@ -23348,7 +23467,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_2);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 2:
                     int LA87_3 = input.LA(1);
@@ -23367,7 +23486,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 3:
                     int LA87_4 = input.LA(1);
@@ -23386,7 +23505,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_4);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 4:
                     int LA87_5 = input.LA(1);
@@ -23405,7 +23524,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_5);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 5:
                     int LA87_6 = input.LA(1);
@@ -23424,7 +23543,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_6);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 6:
                     int LA87_7 = input.LA(1);
@@ -23443,7 +23562,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_7);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 7:
                     int LA87_8 = input.LA(1);
@@ -23462,7 +23581,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_8);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 8:
                     int LA87_9 = input.LA(1);
@@ -23481,7 +23600,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_9);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 9:
                     int LA87_10 = input.LA(1);
@@ -23500,7 +23619,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_10);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 10:
                     int LA87_11 = input.LA(1);
@@ -23519,7 +23638,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_11);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 11:
                     int LA87_12 = input.LA(1);
@@ -23538,7 +23657,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index87_12);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -23672,7 +23791,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index89_1);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA89_2 = input.LA(1);
@@ -23691,7 +23810,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index89_2);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 2:
                     int LA89_3 = input.LA(1);
@@ -23710,7 +23829,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index89_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 3:
                     int LA89_4 = input.LA(1);
@@ -23729,7 +23848,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index89_4);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 4:
                     int LA89_11 = input.LA(1);
@@ -23748,7 +23867,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index89_11);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -23931,7 +24050,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index92_1);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA92_2 = input.LA(1);
@@ -23950,7 +24069,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index92_2);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 2:
                     int LA92_3 = input.LA(1);
@@ -23969,7 +24088,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index92_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 3:
                     int LA92_4 = input.LA(1);
@@ -23988,7 +24107,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index92_4);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -24095,7 +24214,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index104_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA104_4 = input.LA(1);
@@ -24114,7 +24233,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index104_4);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -24219,7 +24338,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index128_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -24417,7 +24536,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index144_1);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA144_3 = input.LA(1);
@@ -24436,7 +24555,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index144_3);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {
@@ -24567,7 +24686,7 @@ public class JavaParser extends Parser {
 
 
                     input.seek(index151_1);
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             if (state.backtracking > 0) {

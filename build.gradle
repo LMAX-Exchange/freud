@@ -1,7 +1,39 @@
-apply plugin: "idea"
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-task clean << {
-    delete 'classes', 'out'
+
+
+apply plugin: "idea"
+apply plugin: "maven"
+
+task clean(overwrite: true) << {
+    delete 'classes', 'out', "$buildDir", 'pom.xml'
+}
+
+task writeNewPom << {
+    pom {
+        project {
+            inceptionYear '2013'
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }.writeTo("$buildDir/pom.xml")
 }
 
 subprojects {
@@ -46,9 +78,10 @@ project(':core') {
     }
 
     idea.module.iml {
-        whenMerged { project -> project.dependencies.add(
-                        new org.gradle.plugins.ide.idea.model.ModuleLibrary(
-                                [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
+        whenMerged { project ->
+            project.dependencies.add(
+                    new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+                            [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
         }
     }
 }
@@ -87,11 +120,12 @@ project(':text') {
     }
 
     idea.module.iml {
-        whenMerged { project -> project.dependencies.add(
-                new org.gradle.plugins.ide.idea.model.ModuleLibrary(
-                    [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
+        whenMerged { project ->
+            project.dependencies.add(
+                    new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+                            [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
         }
-    }	
+    }
 }
 
 project(':class-byte-code') {
@@ -116,9 +150,10 @@ project(':properties') {
     }
 
     idea.module.iml {
-        whenMerged { project -> project.dependencies.add(
-                new org.gradle.plugins.ide.idea.model.ModuleLibrary(
-                        [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
+        whenMerged { project ->
+            project.dependencies.add(
+                    new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+                            [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
         }
     }
 }
@@ -135,9 +170,10 @@ project(':css') {
     }
 
     idea.module.iml {
-        whenMerged { project -> project.dependencies.add(
-                new org.gradle.plugins.ide.idea.model.ModuleLibrary(
-                        [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
+        whenMerged { project ->
+            project.dependencies.add(
+                    new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+                            [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
         }
     }
 }
@@ -155,9 +191,10 @@ project(':java-source') {
     }
 
     idea.module.iml {
-        whenMerged { project -> project.dependencies.add(
-                new org.gradle.plugins.ide.idea.model.ModuleLibrary(
-                        [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
+        whenMerged { project ->
+            project.dependencies.add(
+                    new org.gradle.plugins.ide.idea.model.ModuleLibrary(
+                            [new org.gradle.plugins.ide.idea.model.Path('file://$MODULE_DIR$/src/test/resources')], [], [], [], 'TEST'))
         }
     }
 }

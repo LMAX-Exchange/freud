@@ -1,3 +1,19 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+
 package org.freud.analysed.css
 
 import org.freud.analysed.css.rule.CssRule
@@ -33,23 +49,23 @@ class CssParsingFixture {
             cssRule([cssSelector(TAG, 'tr', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(TAG, 'td', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(TAG, 'table', [cssDeclaration('display', 'none')]),
-                    cssSelector(TAG, DESCENDANT, 'tr', [cssDeclaration('display', 'none')]),
-                    cssSelector(TAG, DESCENDANT, 'td', [cssDeclaration('display', 'none')])]),
+                            cssSelector(TAG, DESCENDANT, 'tr', [cssDeclaration('display', 'none')]),
+                            cssSelector(TAG, DESCENDANT, 'td', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(TAG, 'a', [cssDeclaration('display', 'none'), cssDeclaration('color', 'red')]),
-                    cssSelector(ID, ADJACENT_SIBLING, 'my-link-id', [cssDeclaration('display', 'none'), cssDeclaration('color', 'red')]),
-                    cssSelector(ID, CHILD, 'myOtherLinkId', [cssDeclaration('display', 'none'), cssDeclaration('color', 'red')])]),
+                            cssSelector(ID, ADJACENT_SIBLING, 'my-link-id', [cssDeclaration('display', 'none'), cssDeclaration('color', 'red')]),
+                            cssSelector(ID, CHILD, 'myOtherLinkId', [cssDeclaration('display', 'none'), cssDeclaration('color', 'red')])]),
             cssRule([cssSelector(TAG, 'a', [cssDeclaration('color', 'FFF')]),
-                    cssSelector(CssSelector.Type.PSEUDO, PSEUDO, 'hover', [cssDeclaration('color', 'FFF')])]),
+                            cssSelector(CssSelector.Type.PSEUDO, PSEUDO, 'hover', [cssDeclaration('color', 'FFF')])]),
             cssRule([cssSelector(TAG, 'a', [cssDeclaration('display', 'none')]),
-                    cssSelector(TAG, CHILD, 'b', [cssDeclaration('display', 'none')]),
-                    cssSelector(TAG, CHILD, 'c', [cssDeclaration('display', 'none')])]),
+                            cssSelector(TAG, CHILD, 'b', [cssDeclaration('display', 'none')]),
+                            cssSelector(TAG, CHILD, 'c', [cssDeclaration('display', 'none')])]),
             cssRule([cssSelector(UNIVERSAL, null, [cssDeclaration('display', 'block')])]),
             cssRule([cssSelector(TAG, 'tag', [cssDeclaration('display', 'block')]),
-                    cssSelector(CLASS, DESCENDANT, 'class', [cssDeclaration('display', 'block')])]),
+                            cssSelector(CLASS, DESCENDANT, 'class', [cssDeclaration('display', 'block')])]),
             cssRule([cssSelector(TAG, 'a', [cssDeclaration('display', 'block')]),
-                    cssSelector(CssSelector.Type.ATTRIB, ATTRIB, 'href', [cssDeclaration('display', 'block')])]),
+                            cssSelector(CssSelector.Type.ATTRIB, ATTRIB, 'href', [cssDeclaration('display', 'block')])]),
             cssRule([cssSelector(TAG, 'a', [cssDeclaration('display', 'block')]),
-                    cssSelector(CssSelector.Type.ATTRIB, ATTRIB, 'href="foo.html"', [cssDeclaration('display', 'block')])]),
+                            cssSelector(CssSelector.Type.ATTRIB, ATTRIB, 'href="foo.html"', [cssDeclaration('display', 'block')])]),
             cssRule([cssSelector(CLASS, 'tfx-btn-add', [cssDeclaration('background-image', 'url ( \'../images/drop-add.gif\' ) !important')])])]
 
 

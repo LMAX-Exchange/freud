@@ -1,3 +1,17 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package examples.org.freud;
 
 import org.freud.analysed.css.rule.CssRule;
@@ -39,7 +53,7 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssRule.class).
                 assertThat(no(containsSelector(TAG).and(
                         lastIndexOfSelector(TAG).lessThan(lastIndexOfSelector(ID))))).
-        in(cssRulesOf(asList(new URL(root, "file.css")))).analyse(listener);
+                in(cssRulesOf(asList(new URL(root, "file.css")))).analyse(listener);
     }
 
     /**
@@ -50,7 +64,7 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssRule.class).
                 assertThat(no(containsSelector(CLASS).and(
                         lastIndexOfSelector(CLASS).lessThan(lastIndexOfSelector(ID))))).
-        in(cssRulesOf(asList(new URL(root, "file.css")))).analyse(listener);
+                in(cssRulesOf(asList(new URL(root, "file.css")))).analyse(listener);
 
         listener.assertNotFailed();
     }
@@ -62,7 +76,7 @@ public final class CssExamplesJunit {
     public void descendantSelectorsAreTheWorst() throws Exception {
         Freud.iterateOver(CssRule.class).
                 assertThat(selectors(TAG).lessThanOrEqualTo(1)).in(cssRulesOf(asList(new URL(root, "file.css")))).
-        analyse(listener);
+                analyse(listener);
 
         listener.assertPassed(11);
         listener.assertFailed(2);
@@ -73,7 +87,7 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssSelector.class).
                 forEach(classSelector().or(idSelector())).
                 assertThat(no(selector().contains("[A-Z]"))).
-        in(cssSelectorsWithin(cssRulesOf(asList(new URL(root, "file.css"))))).analyse(listener);
+                in(cssSelectorsWithin(cssRulesOf(asList(new URL(root, "file.css"))))).analyse(listener);
         listener.assertNotFailed();
     }
 
@@ -82,7 +96,7 @@ public final class CssExamplesJunit {
         Freud.iterateOver(CssDeclaration.class).
                 forEach(declarationKey().matches("display")).
                 assertThat(declarationValue().matches("none")).
-        in(cssDeclarationsWithin(cssRulesOf(asList(new URL(root, "file.css"))))).analyse(listener);
+                in(cssDeclarationsWithin(cssRulesOf(asList(new URL(root, "file.css"))))).analyse(listener);
 
         listener.assertPassed(7);
         listener.assertFailed(4);

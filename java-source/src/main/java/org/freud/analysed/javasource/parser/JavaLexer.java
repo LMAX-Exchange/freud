@@ -1,3 +1,17 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.freud.analysed.javasource.parser;
 
 
@@ -2365,13 +2379,14 @@ public class JavaLexer extends Lexer {
                         break;
 
                         default:
-                            if (cnt1 >= 1) break loop1;
+                            if (cnt1 >= 1) { break loop1; }
                             EarlyExitException eee =
                                     new EarlyExitException(1, input);
                             throw eee;
                     }
                     cnt1++;
-                } while (true);
+                }
+                while (true);
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1170:40: ( INTEGER_TYPE_SUFFIX )?
                 int alt2 = 2;
@@ -2461,7 +2476,8 @@ public class JavaLexer extends Lexer {
                                 default:
                                     break loop3;
                             }
-                        } while (true);
+                        }
+                        while (true);
 
 
                     }
@@ -2529,13 +2545,14 @@ public class JavaLexer extends Lexer {
                         break;
 
                         default:
-                            if (cnt6 >= 1) break loop6;
+                            if (cnt6 >= 1) { break loop6; }
                             EarlyExitException eee =
                                     new EarlyExitException(6, input);
                             throw eee;
                     }
                     cnt6++;
-                } while (true);
+                }
+                while (true);
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1174:33: ( INTEGER_TYPE_SUFFIX )?
                 int alt7 = 2;
@@ -2663,13 +2680,14 @@ public class JavaLexer extends Lexer {
                             break;
 
                             default:
-                                if (cnt8 >= 1) break loop8;
+                                if (cnt8 >= 1) { break loop8; }
                                 EarlyExitException eee =
                                         new EarlyExitException(8, input);
                                 throw eee;
                         }
                         cnt8++;
-                    } while (true);
+                    }
+                    while (true);
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1184:9: ( DOT ( '0' .. '9' )* ( EXPONENT )? ( FLOAT_TYPE_SUFFIX )? | EXPONENT ( FLOAT_TYPE_SUFFIX )? | FLOAT_TYPE_SUFFIX )
                     int alt13 = 3;
@@ -2725,7 +2743,8 @@ public class JavaLexer extends Lexer {
                                     default:
                                         break loop9;
                                 }
-                            } while (true);
+                            }
+                            while (true);
 
                             // /home/langera/dev/freud/trunk/src/grammar/Java.g:1185:29: ( EXPONENT )?
                             int alt10 = 2;
@@ -2830,13 +2849,14 @@ public class JavaLexer extends Lexer {
                             break;
 
                             default:
-                                if (cnt14 >= 1) break loop14;
+                                if (cnt14 >= 1) { break loop14; }
                                 EarlyExitException eee =
                                         new EarlyExitException(14, input);
                                 throw eee;
                         }
                         cnt14++;
-                    } while (true);
+                    }
+                    while (true);
 
                     // /home/langera/dev/freud/trunk/src/grammar/Java.g:1189:25: ( EXPONENT )?
                     int alt15 = 2;
@@ -2952,13 +2972,14 @@ public class JavaLexer extends Lexer {
                         break;
 
                         default:
-                            if (cnt19 >= 1) break loop19;
+                            if (cnt19 >= 1) { break loop19; }
                             EarlyExitException eee =
                                     new EarlyExitException(19, input);
                             throw eee;
                     }
                     cnt19++;
-                } while (true);
+                }
+                while (true);
 
 
             }
@@ -3109,7 +3130,8 @@ public class JavaLexer extends Lexer {
                         default:
                             break loop21;
                     }
-                } while (true);
+                }
+                while (true);
 
                 match('\"');
 
@@ -3387,7 +3409,8 @@ public class JavaLexer extends Lexer {
                         default:
                             break loop24;
                     }
-                } while (true);
+                }
+                while (true);
 
 
             }
@@ -3582,7 +3605,8 @@ public class JavaLexer extends Lexer {
                                 default:
                                     break loop25;
                             }
-                        } while (true);
+                        }
+                        while (true);
 
                         match("*/");
 
@@ -3664,7 +3688,8 @@ public class JavaLexer extends Lexer {
                         default:
                             break loop27;
                     }
-                } while (true);
+                }
+                while (true);
 
                 match("*/");
 
@@ -3729,7 +3754,8 @@ public class JavaLexer extends Lexer {
                         default:
                             break loop28;
                     }
-                } while (true);
+                }
+                while (true);
 
                 // /home/langera/dev/freud/trunk/src/grammar/Java.g:1287:26: ( '\\r' )?
                 int alt29 = 2;
@@ -5244,7 +5270,7 @@ public class JavaLexer extends Lexer {
                         s = 183;
                     }
 
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 1:
                     int LA30_182 = input.LA(1);
@@ -5254,9 +5280,9 @@ public class JavaLexer extends Lexer {
                         s = 183;
                     }
 
-                    else s = 128;
+                    else { s = 128; }
 
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
                 case 2:
                     int LA30_59 = input.LA(1);
@@ -5270,7 +5296,7 @@ public class JavaLexer extends Lexer {
                         s = 129;
                     }
 
-                    if (s >= 0) return s;
+                    if (s >= 0) { return s; }
                     break;
             }
             NoViableAltException nvae =

@@ -1,3 +1,17 @@
+/*
+ * Copyright 2013 LMAX Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package org.freud.analysed.javasource.jdom;
 
 import org.apache.commons.jxpath.JXPathContext;
@@ -102,7 +116,7 @@ final class JavaSourceJdom implements JavaSource {
 
         boolean endsWithDotStar = (element.getChild(JavaSourceTokenType.DOTSTAR.getName()) != null);
         final String[] packagePath = new String[(endsWithDotStar) ? packagePathElementSortedSet.size() + 1 :
-                packagePathElementSortedSet.size()];
+                                                packagePathElementSortedSet.size()];
         int i = 0;
         for (Element pathElement : packagePathElementSortedSet) {
             packagePath[i++] = pathElement.getTextTrim();
@@ -167,8 +181,8 @@ final class JavaSourceJdom implements JavaSource {
         try {
             JXPathContext context = JXPathContext.newContext(root);
             packageDeclaration = new PackageDeclarationJdom((Element)
-                    context.selectSingleNode("/" + JAVA_SOURCE_ROOT_ELEMENT_NAME + "/" +
-                            JavaSourceTokenType.PACKAGE.name()));
+                                                                    context.selectSingleNode("/" + JAVA_SOURCE_ROOT_ELEMENT_NAME + "/" +
+                                                                                                     JavaSourceTokenType.PACKAGE.name()));
         }
         catch (JXPathException e) {
             packageDeclaration = new PackageDeclarationJdom();
@@ -181,7 +195,7 @@ final class JavaSourceJdom implements JavaSource {
         try {
             final JXPathContext context = JXPathContext.newContext(root);
             final List importNodes = context.selectNodes("/" + JAVA_SOURCE_ROOT_ELEMENT_NAME + "/" +
-                    JavaSourceTokenType.IMPORT.name());
+                                                                 JavaSourceTokenType.IMPORT.name());
             importDeclarations = new ArrayList<ImportDeclaration>(importNodes.size());
             for (Object importNode : importNodes) {
                 importDeclarations.add(new ImportDeclarationJdom((Element) importNode));
@@ -199,7 +213,7 @@ final class JavaSourceJdom implements JavaSource {
         final List<Annotation> annotations;
         JXPathContext context = JXPathContext.newContext(element);
         List annotationList = context.selectNodes("/" + JavaSourceTokenType.MODIFIER_LIST.getName() +
-                "/" + JavaSourceTokenType.AT.getName());
+                                                          "/" + JavaSourceTokenType.AT.getName());
         annotations = new ArrayList<Annotation>(annotationList.size());
         for (Object annotationElement : annotationList) {
             annotations.add(new AnnotationJdom((Element) annotationElement));
