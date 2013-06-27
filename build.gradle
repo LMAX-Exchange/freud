@@ -15,30 +15,43 @@
 
 
 apply plugin: "idea"
-apply plugin: "maven"
 
 task clean(overwrite: true) << {
-    delete 'classes', 'out', "$buildDir", 'pom.xml'
-}
-
-task writeNewPom << {
-    pom {
-        project {
-            inceptionYear '2013'
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
-                }
-            }
-        }
-    }.writeTo("$buildDir/pom.xml")
+    delete 'classes', 'out', "$buildDir"
 }
 
 subprojects {
     apply plugin: "groovy"
     apply plugin: "idea"
+    apply plugin: "maven"
+
+
+    task writeNewPom << {
+        pom {
+            project {
+                inceptionYear '2013'
+                scm {
+                    url = 'scm:git@github.com:LMAX-Exchange/freud.git'
+                    connection = 'scm:git@github.com:LMAX-Exchange/freud.git'
+                }
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'langera'
+                        name = 'Amir Langer'
+                        email = 'langera@gmail.com'
+                    }
+                }
+            }
+        }.writeTo("$buildDir/pom.xml")
+    }
+
 
     repositories {
         mavenCentral()
