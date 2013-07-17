@@ -72,6 +72,36 @@ idea.project.ipr {
     }
 }
 
+def nonTransitive(Project... dependencies) {
+    def deps = dependencies.collect { project.dependencies.create(it) }
+    project.configure(deps, { transitive = false })
+}
+
+project(':freud-all') {
+    dependencies {
+        compile nonTransitive(
+            project(':test-ext'),
+            project(':core'),
+            project(':core-parser'),
+            project(':text'),
+            project(':class-byte-code'),
+            project(':properties'),
+            project(':css'),
+            project(':java-source'),
+            project(':class-object'),
+            project(':api-groovy'),
+            project(':api-java'),
+            project(':examples-junit'),
+            project(':examples-spock'),
+            project(':examples-resources')
+        )
+    }
+
+    jar {
+        from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it)	} }
+    }
+}
+
 project(':test-ext') {
     dependencies {
         groovy "org.codehaus.groovy:groovy-all:2.+"
