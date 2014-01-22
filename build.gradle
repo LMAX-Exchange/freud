@@ -4,7 +4,7 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/limavencentrcenses/LICENSE-2.0
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -104,7 +104,7 @@ project(':freud-all') {
 
 project(':test-ext') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -113,7 +113,7 @@ project(':test-ext') {
 
 project(':core') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -131,7 +131,7 @@ project(':core') {
 
 project(':core-parser') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -145,16 +145,16 @@ project(':core-parser') {
 
 project(':examples-resources') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
-        compile "junit:junit:4.+"
-        compile 'org.jmock:jmock:2.+'
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
+        compile "junit:junit:4.11"
+        compile 'org.jmock:jmock:2.6.0'
         compile 'org.jmock:jmock-junit4:2.+'
     }
 }
 
 project(':text') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -173,7 +173,7 @@ project(':text') {
 
 project(':class-byte-code') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         compile 'asm:asm-all:3.3.1'
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
@@ -184,7 +184,7 @@ project(':class-byte-code') {
 
 project(':properties') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -203,7 +203,7 @@ project(':properties') {
 
 project(':css') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -224,7 +224,7 @@ project(':css') {
 
 project(':java-source') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -244,7 +244,7 @@ project(':java-source') {
 
 project(':class-object') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -254,7 +254,7 @@ project(':class-object') {
 
 project(':api-groovy') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -265,9 +265,9 @@ project(':api-groovy') {
 
 project(':api-java') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         compile "org.hamcrest:hamcrest-core:1.+"
-        testCompile "junit:junit:4.+"
+        testCompile "junit:junit:4.11"
         testCompile "org.spockframework:spock-core:0.7-groovy-2.0"
         testCompile 'cglib:cglib-nodep:2.2'
         testCompile 'org.objenesis:objenesis:1.2'
@@ -277,12 +277,12 @@ project(':api-java') {
 
 project(':examples-spock') {
     dependencies {
-        groovy "org.codehaus.groovy:groovy-all:2.+"
+        groovy "org.codehaus.groovy:groovy-all:2.2.1"
         compile "org.spockframework:spock-core:0.7-groovy-2.0"
         compile 'cglib:cglib-nodep:2.2'
         compile 'org.objenesis:objenesis:1.2'
-        compile "junit:junit:4.+"
-        compile 'org.jmock:jmock:2.+'
+        compile "junit:junit:4.11"
+        compile 'org.jmock:jmock:2.6.0'
         compile 'org.jmock:jmock-junit4:2.+'
         compile project(':examples-resources')
         compile project(':api-groovy')
@@ -297,7 +297,7 @@ project(':examples-spock') {
 
 project(':examples-junit') {
     dependencies {
-        compile "junit:junit:4.+"
+        compile "junit:junit:4.11"
         compile project(':examples-resources')
         compile project(':api-java')
         compile project(':text')
