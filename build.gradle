@@ -16,6 +16,10 @@
 
 apply plugin: "idea"
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.12'
+}
+
 task clean(overwrite: true) << {
     delete 'classes', 'out', "$buildDir"
 }
